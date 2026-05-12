@@ -1,0 +1,59 @@
+/* ─── Hero float animations ────────────────────────────────── */
+@keyframes heroFloat {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-8px); }
+}
+
+@keyframes heroFloatSlow {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-5px); }
+}
+
+/* ─── Clients marquee animations ───────────────────────────── */
+@keyframes clients-scroll-left {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes clients-scroll-right {
+  0%   { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+.carousel-track {
+  animation: clients-scroll-left 38s linear infinite;
+  will-change: transform;
+}
+.carousel-track:hover {
+  animation-play-state: paused;
+}
+
+.carousel-track-reverse {
+  animation: clients-scroll-right 42s linear infinite;
+  will-change: transform;
+}
+.carousel-track-reverse:hover {
+  animation-play-state: paused;
+}
+
+/* ─── Header nav link hover underline ──────────────────────── */
+.nav-link-hover {
+  position: relative;
+}
+.nav-link-hover::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: #1A3D2B;
+  transform: scaleX(0);
+  transition: transform 200ms ease;
+}
+.nav-link-hover:hover::after {
+  transform: scaleX(1);
+}
+.nav-link-hover:hover {
+  color: #1A3D2B !important;
+}

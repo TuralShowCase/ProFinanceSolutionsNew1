@@ -1,0 +1,9 @@
+export const BG       = "#F4F8F5";
+export const PRIMARY  = "#1A3D2B";
+export const PRIMARY_MID = "#2D6A4F";
+export const PRIMARY_LIGHT = "#52B788";
+export const TEXT_DARK = "#0F1117";
+export const TEXT_MUTED = "#4B5563";
+export const SECTION_PADDING_DESKTOP = "120px 40px";
+export const SECTION_PADDING_TABLET  = "80px 24px";
+export const SECTION_PADDING_MOBILE  = "64px 20px";
