@@ -18,8 +18,8 @@ export function useBreakpoint(): Breakpoint {
       return "desktop";
     };
 
-    const mqlMobile = window.matchMedia("(max-width: 767px)");
-    const mqlTablet = window.matchMedia("(min-width: 768px) and (max-width: 1023px)");
+    const mqlMobile = window.matchMedia("(max-width: 768px)");
+    const mqlTablet = window.matchMedia("(min-width: 769px) and (max-width: 1024px)");
 
     const onChange = () => setBp(getBreakpoint());
 

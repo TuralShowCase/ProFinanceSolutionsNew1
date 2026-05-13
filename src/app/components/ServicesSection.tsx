@@ -108,6 +108,7 @@ export function ServicesSection() {
             marginTop: 20, position: "relative",
             paddingTop: 110,
           }}>
+            {/* Figure on the LEFT */}
             <img
               src="/CtaSitting.png"
               alt=""
@@ -115,40 +116,47 @@ export function ServicesSection() {
               style={{
                 position: "absolute",
                 top: -3,
-                right: 12,
+                left: 12,
                 height: 220,
                 width: "auto",
-                filter: "drop-shadow(-8px 0 20px rgba(0,0,0,0.22))",
+                filter: "drop-shadow(8px 0 20px rgba(0,0,0,0.22))",
                 pointerEvents: "none",
                 zIndex: 2,
               }}
             />
-            {/* Green card — figure's feet rest on its top edge */}
+            {/* Green card */}
             <div style={{
               backgroundColor: "#1A3D2B", borderRadius: 16,
-              padding: "22px 24px 24px 24px",
-              position: "relative", zIndex: 1,
+              overflow: "hidden", position: "relative", zIndex: 1,
             }}>
-              <p style={{
-                fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 700,
-                fontSize: 18, color: "#FFFFFF", margin: "0 0 8px", letterSpacing: "-0.02em",
-              }}>
-                Hansı xidmət sizə lazımdır?
-              </p>
-              <p style={{ fontSize: 13, color: "rgba(255,255,255,0.5)", margin: "0 0 18px", lineHeight: 1.6 }}>
-                Pulsuz ilkin məsləhət üçün bu gün bizimlə əlaqə saxlayın.
-              </p>
-              <a
-                href="#contact"
-                onClick={(e) => { e.preventDefault(); document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" }); }}
-                style={{
-                  display: "inline-flex", alignItems: "center", gap: 8,
-                  backgroundColor: "#FFFFFF", color: "#1A3D2B", fontWeight: 700, fontSize: 14,
-                  padding: "12px 20px", borderRadius: 8, textDecoration: "none",
-                }}
-              >
-                Əlaqə saxlayın <ArrowUpRight size={14} />
-              </a>
+              {/* Text — paddingLeft clears the figure on the left */}
+              <div style={{ padding: "22px 24px 16px 148px" }}>
+                <p style={{
+                  fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 700,
+                  fontSize: 17, color: "#FFFFFF", margin: "0 0 8px", letterSpacing: "-0.02em",
+                }}>
+                  Hansı xidmət sizə lazımdır?
+                </p>
+                <p style={{ fontSize: 13, color: "rgba(255,255,255,0.5)", margin: 0, lineHeight: 1.6 }}>
+                  Pulsuz ilkin məsləhət üçün bu gün bizimlə əlaqə saxlayın.
+                </p>
+              </div>
+
+              {/* Button — full card width, outside the left-padded text area */}
+              <div style={{ padding: "0 24px 24px 24px" }}>
+                <a
+                  href="#contact"
+                  onClick={(e) => { e.preventDefault(); document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" }); }}
+                  style={{
+                    display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
+                    backgroundColor: "#FFFFFF", color: "#1A3D2B", fontWeight: 700, fontSize: 14,
+                    padding: "13px 20px", borderRadius: 8, textDecoration: "none",
+                    width: "100%",
+                  }}
+                >
+                  Əlaqə saxlayın <ArrowUpRight size={14} />
+                </a>
+              </div>
             </div>
           </div>
         ) : (

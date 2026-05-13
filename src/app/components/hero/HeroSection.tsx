@@ -47,7 +47,7 @@ export function HeroSection() {
       id="hero"
       ref={heroRef}
       style={{
-        height: "100svh",
+        height: "100vh",
         minHeight: 500,
         backgroundColor: BG,
         display: "flex",

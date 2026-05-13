@@ -120,11 +120,13 @@ export function PillarsSection() {
       <div className="plr-strip" style={{ marginTop: 80 }}>
         <div
           className="plr-strip-anim"
-          style={{ opacity: 0, backgroundColor: "#111410", padding: stripPadding, overflow: "visible", position: "relative" }}
+          style={{
+            opacity: 0, backgroundColor: "#111410", padding: stripPadding,
+            overflow: "visible", position: "relative",
+          }}
         >
-          {/* Mobile handshake — absolute at top, pops ABOVE the dark strip
-              mixBlendMode:lighten makes the overflowing part (on white bg) invisible,
-              creating the 3D "out of the black box" effect */}
+          {/* Mobile handshake — image bottom aligns with the stats divider line (y=180)
+              top = -(height - stripPaddingTop) = -(260 - 180) = -80 */}
           {isMobile && (
             <img
               src="/handshake.png"
@@ -132,8 +134,8 @@ export function PillarsSection() {
               aria-hidden="true"
               style={{
                 position: "absolute",
-                top: -45,
-                left: "61%",
+                top: -80,
+                left: "50%",
                 transform: "translateX(-50%)",
                 height: 260,
                 width: "auto",
@@ -146,7 +148,12 @@ export function PillarsSection() {
             />
           )}
 
-          <div style={{ maxWidth: 1200, margin: "0 auto", display: "flex", alignItems: "stretch", flexDirection: isMobile ? "column" : "row" }}>
+          {/* Stats container — borderTop on mobile is the line where the image's bottom lands */}
+          <div style={{
+            maxWidth: 1200, margin: "0 auto",
+            display: "flex", alignItems: "stretch", flexDirection: isMobile ? "column" : "row",
+            borderTop: isMobile ? "1px solid rgba(255,255,255,0.08)" : "none",
+          }}>
 
             {/* Stats grid */}
             <div style={{
@@ -161,11 +168,11 @@ export function PillarsSection() {
                 { end: 100, suffix: "%", label: "Lisenziyalı mütəxəssislər", sub: "Beynəlxalq standartlara uyğun" },
               ].map((item, i) => (
                 <div key={i} style={{
-                  padding: isMobile ? "0 0 40px" : isTablet ? "0 24px 48px" : "0 40px 64px",
+                  padding: isMobile ? "0 0 40px" : isTablet ? "0 24px 64px" : "0 40px 80px",
                   borderRight: !isMobile && i < 2 ? "1px solid rgba(255,255,255,0.08)" : "none",
                   borderBottom: isMobile && i < 2 ? "1px solid rgba(255,255,255,0.08)" : "none",
                   paddingBottom: isMobile ? (i < 2 ? 32 : 48) : undefined,
-                  paddingTop: isMobile && i > 0 ? 32 : undefined,
+                  paddingTop: isMobile ? 32 : undefined,
                   display: "flex", flexDirection: "column", gap: 6,
                 }}>
                   <CounterStat
@@ -190,14 +197,16 @@ export function PillarsSection() {
             {/* Handshake image */}
             {isMobile ? null : (
               <div style={{
-                flexShrink: 0, width: isTablet ? 320 : 450,
+                flexShrink: 0, width: isTablet ? 320 : 400,
                 position: "relative", overflow: "visible",
                 borderLeft: "1px solid rgba(255,255,255,0.08)",
               }}>
                 <img src="/handshake.png" alt="Partnership" style={{
-                  position: "absolute", bottom: 0, left: "50%",
+                  position: "absolute",
+                  bottom: 0,
+                  left: "50%",
                   transform: "translateX(-50%)",
-                  height: isTablet ? 240 : 340,
+                  height: isTablet ? 270 : 320,
                   width: "auto", mixBlendMode: "lighten", opacity: 0.97, display: "block",
                 }} />
               </div>
@@ -228,42 +237,42 @@ function PillarRow({
           borderBottom: isLast ? "none" : "1px solid #EBEBEB",
         }}
       >
-        {/* Number + title row */}
-        <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 12 }}>
-          <span style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: 13, color: "#C4C9C0", letterSpacing: "0.06em", flexShrink: 0 }}>
-            {number}
-          </span>
-          <h3 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: "clamp(22px, 6vw, 28px)", color: "#111410", margin: 0, letterSpacing: "-0.03em", lineHeight: 1.1 }}>
-            {title}
-          </h3>
-        </div>
-        {/* Description */}
-        <p style={{ fontSize: 14, color: "#6B7280", lineHeight: 1.75, margin: "0 0 16px 0" }}>
-          {description}
-        </p>
-        {/* Tags + stat */}
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 12 }}>
-          <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
-            {tags.map((tag) => (
-              <span key={tag} style={{
-                display: "inline-flex", alignItems: "center", gap: 5,
-                fontSize: 11, fontWeight: 500, color: "#9CA3AF",
-                backgroundColor: "#F4F4F2", padding: "3px 10px", borderRadius: 999,
-              }}>
-                <CheckCircle2 size={9} strokeWidth={2.2} />{tag}
-              </span>
-            ))}
+        {/* Title row: number + title LEFT — stat RIGHT */}
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, marginBottom: 12 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 12, minWidth: 0 }}>
+            <span style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: 13, color: "#C4C9C0", letterSpacing: "0.06em", flexShrink: 0 }}>
+              {number}
+            </span>
+            <h3 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: "clamp(22px, 6vw, 28px)", color: "#111410", margin: 0, letterSpacing: "-0.03em", lineHeight: 1.1 }}>
+              {title}
+            </h3>
           </div>
           <div style={{ textAlign: "right", flexShrink: 0 }}>
             <CounterStat end={statEnd} suffix={statSuffix} duration={statEnd >= 100 ? 1.8 : 1.2}
               style={{
                 fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 800,
-                fontSize: "clamp(24px, 6vw, 32px)", color: "#111410",
+                fontSize: "clamp(22px, 5.5vw, 28px)", color: "#111410",
                 letterSpacing: "-0.04em", lineHeight: 1, display: "block",
               }}
             />
-            <div style={{ fontSize: 12, color: "#9CA3AF", fontWeight: 500, whiteSpace: "nowrap" }}>{statLabel}</div>
+            <div style={{ fontSize: 11, color: "#9CA3AF", fontWeight: 500, whiteSpace: "nowrap", marginTop: 2 }}>{statLabel}</div>
           </div>
+        </div>
+        {/* Description */}
+        <p style={{ fontSize: 14, color: "#6B7280", lineHeight: 1.75, margin: "0 0 14px 0" }}>
+          {description}
+        </p>
+        {/* Tags */}
+        <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+          {tags.map((tag) => (
+            <span key={tag} style={{
+              display: "inline-flex", alignItems: "center", gap: 5,
+              fontSize: 11, fontWeight: 500, color: "#9CA3AF",
+              backgroundColor: "#F4F4F2", padding: "3px 10px", borderRadius: 999,
+            }}>
+              <CheckCircle2 size={9} strokeWidth={2.2} />{tag}
+            </span>
+          ))}
         </div>
       </div>
     );

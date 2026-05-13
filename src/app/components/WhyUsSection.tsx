@@ -74,59 +74,57 @@ function WhyUsMobileAccordion() {
         padding: "64px 20px 56px",
         fontFamily: "'Inter', sans-serif",
         position: "relative",
-        overflow: "hidden",
+        /* No overflow:hidden — man is in flex flow, no clipping needed */
       }}
     >
-      {/* WhyUsHuman — absolute, top-right, behind text.
-          200px height → his feet land ~15px ABOVE the divider line, giving clean breathing room */}
-      <div style={{
-        position: "absolute",
-        top: -10,
-        right: 15,
-        zIndex: 0,
-        pointerEvents: "none",
-        height: 200,
-      }}>
-        <img
-          src="/WhyUsHuman.png"
-          alt=""
-          aria-hidden="true"
-          style={{
-            height: 200,
-            width: "auto",
-            objectFit: "contain",
-            filter: "drop-shadow(-3px 0 14px rgba(0,0,0,0.10))",
-            display: "block",
-            opacity: 0.9,
-          }}
-        />
-        {/* Fade bottom to white */}
-        <div style={{
-          position: "absolute", bottom: 0, left: 0, right: 0, height: "35%",
-          background: "linear-gradient(to top, rgba(255,255,255,1) 0%, rgba(255,255,255,0.4) 60%, transparent 100%)",
-          pointerEvents: "none",
-        }} />
+      {/* Header row — flex with alignItems:flex-end so man's feet ALWAYS land at
+          the bottom of the text block, perfectly meeting the divider on every device */}
+      <div style={{ display: "flex", alignItems: "flex-end", position: "relative", zIndex: 1 }}>
+
+        {/* Text column */}
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <p className="why-entrance" style={{
+            fontFamily: "'Inter', sans-serif", fontSize: 11, fontWeight: 600,
+            color: "#1A3D2B", letterSpacing: "0.18em", textTransform: "uppercase",
+            margin: "0 0 20px 0",
+          }}>
+            Niyə ProFinance?
+          </p>
+          <h2 className="why-entrance" style={{
+            fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 800,
+            fontSize: "clamp(26px, 7vw, 36px)", color: "#111410",
+            margin: "0 0 32px 0", letterSpacing: "-0.04em", lineHeight: 1.1,
+          }}>
+            Fərqi yaradan{" "}
+            <span style={{ color: "#1A3D2B" }}>beş</span> üstünlük
+          </h2>
+        </div>
+
+        {/* Man — flex-end means his bottom edge aligns with text bottom = divider level */}
+        <div style={{ flexShrink: 0, position: "relative", marginRight: -0, pointerEvents: "none" }}>
+          <img
+            src="/WhyUsHuman.png"
+            alt=""
+            aria-hidden="true"
+            style={{
+              height: 160,
+              width: "auto",
+              display: "block",
+              filter: "drop-shadow(-3px 0 14px rgba(0,0,0,0.10))",
+              opacity: 0.9,
+            }}
+          />
+          {/* Fade feet into white so it blends with the divider line */}
+          <div style={{
+            position: "absolute", bottom: 0, left: 0, right: 0, height: "22%",
+            background: "linear-gradient(to top, rgba(255,255,255,1), transparent)",
+            pointerEvents: "none",
+          }} />
+        </div>
       </div>
 
-      {/* Header text — paddingRight keeps text clear of the figure */}
-      <div style={{ position: "relative", zIndex: 1, paddingRight: 90 }}>
-        <p className="why-entrance" style={{
-          fontFamily: "'Inter', sans-serif", fontSize: 11, fontWeight: 600,
-          color: "#1A3D2B", letterSpacing: "0.18em", textTransform: "uppercase",
-          margin: "0 0 20px 0",
-        }}>
-          Niyə ProFinance?
-        </p>
-        <h2 className="why-entrance" style={{
-          fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 800,
-          fontSize: "clamp(26px, 7vw, 36px)", color: "#111410",
-          margin: "0 0 8px 0", letterSpacing: "-0.04em", lineHeight: 1.1,
-        }}>
-          Fərqi yaradan{" "}
-          <span style={{ color: "#1A3D2B" }}>beş</span> üstünlük
-        </h2>
-      </div>
-      <div className="why-entrance" style={{ height: 1, backgroundColor: "#EBEBEB", margin: "24px 0", position: "relative", zIndex: 1 }} />
+      {/* Divider — 0 top margin so man's feet land directly on this line */}
+      <div className="why-entrance" style={{ height: 1, backgroundColor: "#EBEBEB", margin: "0 0 24px", position: "relative", zIndex: 1 }} />
 
       {/* Accordion items — position relative so they sit above the figure */}
       <div style={{ position: "relative", zIndex: 1 }}>
