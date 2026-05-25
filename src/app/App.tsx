@@ -11,7 +11,9 @@ import { ServicesSection } from "./components/ServicesSection";
 import { WhyUsSection } from "./components/WhyUsSection";
 import { PartnerSection } from "./components/PartnerSection";
 import { ClientsSection } from "./components/ClientsSection";
+import { HomeFAQSection } from "./components/HomeFAQSection";
 import { Footer } from "./components/Footer";
+import { ContactModalProvider } from "./contexts/ContactModalContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -37,21 +39,23 @@ export default function App() {
   }, []);
 
   return (
-    <div
-      style={{
-        fontFamily: "'Inter', sans-serif",
-        backgroundColor: "#FFFFFF",
-        overflowX: "clip",
-      }}
-    >
-      <Header />
-      <HeroSection />
-      <PillarsSection />
-      <ServicesSection />
-      <WhyUsSection />
-      <PartnerSection />
-      <ClientsSection />
+    <ContactModalProvider>
+    {/* Outer wrapper uses footer's bg so it "shows through" as content scrolls away */}
+    <div style={{ backgroundColor: "#0F1117", overflowX: "clip" }}>
+      {/* Content sits above the footer background */}
+      <div style={{ position: "relative", zIndex: 1, fontFamily: "'Inter', sans-serif" }}>
+        <Header />
+        <HeroSection />
+        <PillarsSection />
+        <ServicesSection />
+        <WhyUsSection />
+        <PartnerSection />
+        <ClientsSection />
+        <HomeFAQSection />
+      </div>
+      {/* Footer — revealed as content scrolls away */}
       <Footer />
     </div>
+    </ContactModalProvider>
   );
 }

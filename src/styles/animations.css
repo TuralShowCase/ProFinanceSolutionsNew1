@@ -57,3 +57,14 @@
 .nav-link-hover:hover {
   color: #1A3D2B !important;
 }
+
+/* ─── WhatsApp floating button pulse ───────────────────────── */
+@keyframes wa-pulse {
+  0%   { box-shadow: 0 4px 20px rgba(37,211,102,0.35), 0 2px 8px rgba(0,0,0,0.12), 0 0 0 0   rgba(37,211,102,0.45); }
+  60%  { box-shadow: 0 4px 20px rgba(37,211,102,0.35), 0 2px 8px rgba(0,0,0,0.12), 0 0 0 14px rgba(37,211,102,0);    }
+  100% { box-shadow: 0 4px 20px rgba(37,211,102,0.35), 0 2px 8px rgba(0,0,0,0.12), 0 0 0 14px rgba(37,211,102,0);    }
+}
+
+.wa-idle {
+  animation: wa-pulse 2.8s ease-out infinite;
+}

@@ -8,18 +8,19 @@ import {
   Monitor, Users, GraduationCap, ShieldCheck, ArrowUpRight,
 } from "lucide-react";
 import { useBreakpoint } from "../../hooks/useBreakpoint";
+import { useContactModal } from "../contexts/ContactModalContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const services = [
-  { index: "01", name: "Uçotun Diaqnostikası və Bərpası", description: "Mühasibat uçotunun hərtərəfli yoxlanılması, mövcud xətaların müəyyən edilməsi və qeydiyyatın standartlara uyğunlaşdırılması.", Icon: ScanSearch },
-  { index: "02", name: "Mühasibat Konsaltinqi", description: "Maliyyə hesabatlarının hazırlanması, mühasibat siyasətinin qurulması və gündəlik uçot proseslərinin dəstəklənməsi.", Icon: Calculator },
-  { index: "03", name: "Vergi Konsaltinqi", description: "Vergi planlaması, bəyannamələrin hazırlanması, yoxlamalara hazırlıq və qanunvericiliyə tam uyğunluq.", Icon: FileText },
-  { index: "04", name: "Maliyyə və İdarəetmə Konsaltinqi", description: "Büdcə planlaması, maliyyə modelləşdirməsi, KPI sistemləri və korporativ maliyyə strategiyasının işlənib hazırlanması.", Icon: BarChart3 },
-  { index: "05", name: "Əməliyyat və Rəqəmsal Konsaltinq", description: "Biznes proseslərinin avtomatlaşdırılması, ERP tətbiqi, rəqəmsal iş axınlarının qurulması.", Icon: Monitor },
-  { index: "06", name: "HR və Kadrlar üzrə Konsaltinq", description: "Əmək münasibətlərinin tənzimlənməsi, əmək haqqı siyasəti, HR proseslərinin qurulması və işçi motivasiya sistemləri.", Icon: Users },
-  { index: "07", name: "Təlim və İnkişaf", description: "Mühasibat, vergi, maliyyə idarəçiliyi üzrə fərdi və qrup təlimləri, sertifikasiya proqramları.", Icon: GraduationCap },
-  { index: "08", name: "Auditor Xidmətləri", description: "Daxili və xarici audit, maliyyə hesabatlarının müstəqil yoxlanılması, risk qiymətləndirilməsi və IFRS hesabatı.", Icon: ShieldCheck },
+  { index: "01", slug: "ucotun-diaqnostikasi-ve-berpasi",       name: "Uçotun Diaqnostikası və Bərpası",    description: "Mühasibat uçotunun hərtərəfli yoxlanılması, mövcud xətaların müəyyən edilməsi və qeydiyyatın standartlara uyğunlaşdırılması.", Icon: ScanSearch },
+  { index: "02", slug: "muhasibat-konsaltinqi",                  name: "Mühasibat Konsaltinqi",               description: "Maliyyə hesabatlarının hazırlanması, mühasibat siyasətinin qurulması və gündəlik uçot proseslərinin dəstəklənməsi.", Icon: Calculator },
+  { index: "03", slug: "vergi-konsaltinqi",                      name: "Vergi Konsaltinqi",                   description: "Vergi planlaması, bəyannamələrin hazırlanması, yoxlamalara hazırlıq və qanunvericiliyə tam uyğunluq.", Icon: FileText },
+  { index: "04", slug: "maliyye-ve-idareetme-konsaltinqi",       name: "Maliyyə və İdarəetmə Konsaltinqi",   description: "Büdcə planlaması, maliyyə modelləşdirməsi, KPI sistemləri və korporativ maliyyə strategiyasının işlənib hazırlanması.", Icon: BarChart3 },
+  { index: "05", slug: "emeliyyat-ve-reqemsal-konsaltinq",       name: "Əməliyyat və Rəqəmsal Konsaltinq",  description: "Biznes proseslərinin avtomatlaşdırılması, ERP tətbiqi, rəqəmsal iş axınlarının qurulması.", Icon: Monitor },
+  { index: "06", slug: "hr-ve-kadrlar-konsaltinqi",              name: "HR və Kadrlar üzrə Konsaltinq",      description: "Əmək münasibətlərinin tənzimlənməsi, əmək haqqı siyasəti, HR proseslərinin qurulması və işçi motivasiya sistemləri.", Icon: Users },
+  { index: "07", slug: "telim-ve-inkisaf",                       name: "Təlim və İnkişaf",                   description: "Mühasibat, vergi, maliyyə idarəçiliyi üzrə fərdi və qrup təlimləri, sertifikasiya proqramları.", Icon: GraduationCap },
+  { index: "08", slug: "auditor-xidmetleri",                     name: "Auditor Xidmətləri",                 description: "Daxili və xarici audit, maliyyə hesabatlarının müstəqil yoxlanılması, risk qiymətləndirilməsi və IFRS hesabatı.", Icon: ShieldCheck },
 ];
 
 export function ServicesSection() {
@@ -27,6 +28,7 @@ export function ServicesSection() {
   const isMobile = bp === "mobile";
   const isTablet = bp === "tablet";
   const sectionRef = useRef<HTMLDivElement>(null);
+  const { openContact } = useContactModal();
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -36,7 +38,7 @@ export function ServicesSection() {
       });
       gsap.fromTo(".svc-card-anim", { opacity: 0, y: 40 }, {
         opacity: 1, y: 0, duration: 0.5, ease: "power3.out", stagger: 0.065,
-        scrollTrigger: { trigger: ".svc-grid", start: "top 80%" },
+        scrollTrigger: { trigger: ".svc-grid", start: "top 80%", once: true },
       });
     }, sectionRef);
     return () => ctx.revert();
@@ -77,15 +79,14 @@ export function ServicesSection() {
             <p style={{ fontSize: 15, color: "#6B7280", lineHeight: 1.7, margin: "0 0 22px 0" }}>
               8 ixtisaslaşmış istiqamət üzrə maliyyə, vergi, kadr və rəqəmsal ehtiyaclarınızı tam əhatə edirik.
             </p>
-            <a
-              href="#contact"
-              onClick={(e) => { e.preventDefault(); document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" }); }}
-              style={{ display: "inline-flex", alignItems: "center", gap: 6, color: "#1A3D2B", fontSize: 14, fontWeight: 500, textDecoration: "none", transition: "gap 200ms" }}
+            <button
+              onClick={openContact}
+              style={{ display: "inline-flex", alignItems: "center", gap: 6, color: "#1A3D2B", fontSize: 14, fontWeight: 500, textDecoration: "none", background: "none", border: "none", cursor: "pointer", transition: "gap 200ms", padding: 0, fontFamily: "'Inter', sans-serif" }}
               onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.gap = "10px")}
               onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.gap = "6px")}
             >
               Ətraflı məlumat <ArrowUpRight size={15} strokeWidth={2} />
-            </a>
+            </button>
           </div>
         </div>
 
@@ -105,7 +106,7 @@ export function ServicesSection() {
              figure is absolutely positioned in that space (top: 0),
              so man sits ON TOP of the card, not inside it */
           <div style={{
-            marginTop: 20, position: "relative",
+            marginTop: 20, position: "relative", zIndex: 2,
             paddingTop: 110,
           }}>
             {/* Figure on the LEFT */}
@@ -144,24 +145,23 @@ export function ServicesSection() {
 
               {/* Button — full card width, outside the left-padded text area */}
               <div style={{ padding: "0 24px 24px 24px" }}>
-                <a
-                  href="#contact"
-                  onClick={(e) => { e.preventDefault(); document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" }); }}
+                <button
+                  onClick={openContact}
                   style={{
                     display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
                     backgroundColor: "#FFFFFF", color: "#1A3D2B", fontWeight: 700, fontSize: 14,
-                    padding: "13px 20px", borderRadius: 8, textDecoration: "none",
-                    width: "100%",
+                    padding: "13px 20px", borderRadius: 8, border: "none", cursor: "pointer",
+                    width: "100%", fontFamily: "'Inter', sans-serif",
                   }}
                 >
                   Əlaqə saxlayın <ArrowUpRight size={14} />
-                </a>
+                </button>
               </div>
             </div>
           </div>
         ) : (
           /* Tablet / Desktop CTA — with CtaSitting image */
-          <div style={{ marginTop: 52, position: "relative", paddingTop: isTablet ? 140 : 190 }}>
+          <div style={{ marginTop: 52, position: "relative", zIndex: 2, paddingTop: isTablet ? 140 : 190 }}>
             <img src="/CtaSitting.png" alt="" aria-hidden="true" style={{
               position: "absolute", top: 2,
               left: isTablet ? 32 : 48,
@@ -183,20 +183,20 @@ export function ServicesSection() {
                   Pulsuz ilkin məsləhət üçün bu gün bizimlə əlaqə saxlayın.
                 </p>
               </div>
-              <a
-                href="#contact"
-                onClick={(e) => { e.preventDefault(); document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" }); }}
+              <button
+                onClick={openContact}
                 style={{
                   display: "inline-flex", alignItems: "center", gap: 8,
                   backgroundColor: "#FFFFFF", color: "#1A3D2B", fontWeight: 700, fontSize: 14,
-                  padding: "13px 28px", borderRadius: 8, textDecoration: "none",
+                  padding: "13px 28px", borderRadius: 8, border: "none", cursor: "pointer",
                   whiteSpace: "nowrap", flexShrink: 0, transition: "transform 200ms, background-color 200ms",
+                  fontFamily: "'Inter', sans-serif",
                 }}
                 onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = "#EFF7F2"; (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)"; }}
                 onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = "#FFFFFF"; (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; }}
               >
                 Əlaqə saxlayın <ArrowUpRight size={15} />
-              </a>
+              </button>
             </div>
           </div>
         )}
@@ -206,18 +206,20 @@ export function ServicesSection() {
 }
 
 /* ── CARD ── */
-function ServiceCard({ index, name, description, Icon }: { index: string; name: string; description: string; Icon: React.ElementType }) {
+function ServiceCard({ slug, name, description, Icon }: { slug: string; name: string; description: string; Icon: React.ElementType }) {
   const [hovered, setHovered] = useState(false);
 
   return (
-    <div
+    <a
+      href={`/services/${slug}`}
       className="svc-card-anim"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
+        textDecoration: "none",
         opacity: 0, position: "relative",
         backgroundColor: hovered ? "#FFFFFF" : "#EFEDE9",
-        borderRadius: 14, padding: "28px 24px 24px", cursor: "default",
+        borderRadius: 14, padding: "28px 24px 24px", cursor: "pointer",
         transition: "background-color 260ms, transform 260ms, box-shadow 260ms",
         transform: hovered ? "translateY(-10px) scale(1.018)" : "translateY(0) scale(1)",
         boxShadow: hovered
@@ -227,7 +229,6 @@ function ServiceCard({ index, name, description, Icon }: { index: string; name: 
       }}
     >
       <div style={{ position: "absolute", top: 0, left: 0, bottom: 0, width: 3, backgroundColor: hovered ? "#1A3D2B" : "transparent", borderRadius: "14px 0 0 14px", transition: "background-color 280ms" }} />
-      <span style={{ position: "absolute", top: 16, right: 20, fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: 30, color: hovered ? "rgba(26,61,43,0.07)" : "rgba(0,0,0,0.05)", letterSpacing: "-0.04em", lineHeight: 1, userSelect: "none", transition: "color 280ms", pointerEvents: "none" }}>{index}</span>
       <div style={{ width: 44, height: 44, borderRadius: 11, backgroundColor: hovered ? "#EBF4EE" : "rgba(26,61,43,0.08)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 18, flexShrink: 0, transition: "background-color 280ms" }}>
         <Icon size={20} color={hovered ? "#1A3D2B" : "#4A7A5C"} strokeWidth={1.7} />
       </div>
@@ -238,6 +239,6 @@ function ServiceCard({ index, name, description, Icon }: { index: string; name: 
           <ArrowUpRight size={13} color={hovered ? "#FFFFFF" : "#9CA3AF"} />
         </div>
       </div>
-    </div>
+    </a>
   );
 }

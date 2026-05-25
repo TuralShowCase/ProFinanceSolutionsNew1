@@ -124,6 +124,7 @@ export function HeroSlide2({
             <img
               src="/Slide2Human.png"
               alt="Vergi Mütəxəssisi"
+              fetchPriority="high"
               style={{
                 position: "absolute",
                 bottom: 55,

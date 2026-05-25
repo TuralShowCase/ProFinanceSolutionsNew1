@@ -106,6 +106,7 @@ function WhyUsMobileAccordion() {
             src="/WhyUsHuman.png"
             alt=""
             aria-hidden="true"
+            loading="lazy"
             style={{
               height: 160,
               width: "auto",
@@ -402,7 +403,7 @@ export function WhyUsSection() {
                 background: "radial-gradient(ellipse, rgba(0,0,0,0.13) 0%, transparent 72%)",
                 pointerEvents: "none", zIndex: 0,
               }} />
-              <img src="/WhyUsHuman.png" alt="" aria-hidden="true" style={{
+              <img src="/WhyUsHuman.png" alt="" aria-hidden="true" loading="lazy" style={{
                 height: humanHeight, width: "auto", objectFit: "contain", display: "block",
                 filter: "drop-shadow(-4px 0 18px rgba(0,0,0,0.13))",
                 position: "relative", zIndex: 1,

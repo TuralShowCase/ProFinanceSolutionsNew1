@@ -53,7 +53,7 @@ export function Slide1Graphic({ pw = 380, ph = 560, pr = 190, showBadges = true 
         transform: hovered ? "scale(1.045)" : "scale(1)",
         transition: tr,
       }}>
-        <img src="/ProFinanceGirl.png" alt="ProFinance Konsultant"
+        <img src="/ProFinanceGirl.png" alt="ProFinance Konsultant" fetchPriority="high"
           style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center", display: "block" }} />
         <div style={{
           position: "absolute", bottom: 0, left: 0, right: 0, height: 90,

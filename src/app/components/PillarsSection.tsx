@@ -132,6 +132,7 @@ export function PillarsSection() {
               src="/handshake.png"
               alt=""
               aria-hidden="true"
+              loading="lazy"
               style={{
                 position: "absolute",
                 top: -80,
@@ -201,7 +202,7 @@ export function PillarsSection() {
                 position: "relative", overflow: "visible",
                 borderLeft: "1px solid rgba(255,255,255,0.08)",
               }}>
-                <img src="/handshake.png" alt="Partnership" style={{
+                <img src="/handshake.png" alt="Partnership" loading="lazy" style={{
                   position: "absolute",
                   bottom: 0,
                   left: "50%",
