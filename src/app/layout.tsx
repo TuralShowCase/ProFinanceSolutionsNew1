@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import './globals.css';
 import { WhatsAppButton } from './components/WhatsAppButton';
 
@@ -174,6 +175,7 @@ export default function RootLayout({
       <body style={{ margin: 0, height: '100%' }}>
         {children}
         <WhatsAppButton />
+        <SpeedInsights />
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
           strategy="afterInteractive"
