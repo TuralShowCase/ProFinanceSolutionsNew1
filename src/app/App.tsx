@@ -22,7 +22,8 @@ export default function App() {
     const isMobile = window.innerWidth < 768;
     const lenis = new Lenis({
       autoRaf: false,
-      lerp: isMobile ? 0.15 : 0.08,
+      lerp: isMobile ? 0.15 : 0.065,
+      wheelMultiplier: isMobile ? 1 : 0.85,
       smoothWheel: true,
     });
 
@@ -40,22 +41,19 @@ export default function App() {
 
   return (
     <ContactModalProvider>
-    {/* Outer wrapper uses footer's bg so it "shows through" as content scrolls away */}
-    <div style={{ backgroundColor: "#0F1117", overflowX: "clip" }}>
-      {/* Content sits above the footer background */}
-      <div style={{ position: "relative", zIndex: 1, fontFamily: "'Inter', sans-serif" }}>
-        <Header />
-        <HeroSection />
-        <PillarsSection />
-        <ServicesSection />
-        <WhyUsSection />
-        <PartnerSection />
-        <ClientsSection />
-        <HomeFAQSection />
+      <div style={{ backgroundColor: "var(--page-bg)", overflowX: "clip" }}>
+        <div style={{ position: "relative", zIndex: 1, fontFamily: "var(--font-inter), 'Inter', sans-serif" }}>
+          <Header />
+          <HeroSection />
+          <PillarsSection />
+          <ServicesSection />
+          <WhyUsSection />
+          <PartnerSection />
+          <ClientsSection />
+          <HomeFAQSection />
+        </div>
+        <Footer />
       </div>
-      {/* Footer — revealed as content scrolls away */}
-      <Footer />
-    </div>
     </ContactModalProvider>
   );
 }

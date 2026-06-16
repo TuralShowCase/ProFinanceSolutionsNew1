@@ -1,6 +1,6 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
-@import '../styles/animations.css';
+@import './animations.css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -50,6 +50,138 @@
   --color-text-muted: #4B5563;
   --color-green-light: #52B788;
   --color-green-mid: #2D6A4F;
+
+  /* ============================================================
+     Semantic theme tokens (light) — single source of truth.
+     Components reference these via src/app/lib/brand.ts.
+     ============================================================ */
+  color-scheme: light;
+
+  /* Page surfaces */
+  --page-bg:        #F4F8F5;   /* primary section background  (BG)    */
+  --page-bg-alt:    #F5F4F1;   /* warm cream section bg        (CREAM) */
+  --surface:        #FFFFFF;   /* cards / panels                       */
+  --surface-2:      #EFEDE9;   /* secondary card / wells               */
+  --surface-3:      #EBF4EE;   /* green-tinted well (icon chips)       */
+  --surface-hover:  #FFFFFF;   /* card hover bg                        */
+
+  /* Inverted bands.
+     --invert : forest-green panels (CTA cards, WhyUs, service panels)
+     --ink    : near-black panels (footer, stats strip, timeline) */
+  --invert:         #1A3D2B;
+  --invert-2:       #14301F;
+  --ink:            #0F1117;
+  --ink-2:          #14181E;
+  --invert-text:    #FFFFFF;
+  --invert-text-muted: rgba(255,255,255,0.62);
+  --invert-border:  rgba(255,255,255,0.12);
+  --invert-surface: rgba(255,255,255,0.06);
+
+  /* Text */
+  --text:           #111410;
+  --text-strong:    #0F1117;
+  --text-soft:      #4B5563;
+  --text-muted:     #6B7280;
+  --text-faint:     #9CA3AF;
+
+  /* Borders / dividers */
+  --border:         #E2E0DC;
+  --border-2:       #E0DDD8;
+  --border-strong:  #D8D5D0;
+
+  /* Brand greens (semantic intent) */
+  --brand:          #1A3D2B;   /* accent text / icons / emphasis (DARK) */
+  --brand-solid:    #1A3D2B;   /* filled button bg (white text reads)   */
+  --brand-solid-hover: #2D6A4F;
+  --brand-hover:    #2D6A4F;   /* hover green                    (MID)  */
+  --brand-light:    #74C69D;   /* lighter green                  (LIGHT)*/
+  --accent-green:   #52B788;   /* bright accent                  (ACCENT)*/
+  --brand-tint:     rgba(26,61,43,0.07);
+  --brand-tint-2:   rgba(26,61,43,0.12);
+  --brand-ring:     rgba(26,61,43,0.30);
+
+  /* Partner (PLH) heading text on tinted panels */
+  --plh-text:       #092c3a;
+
+  /* Hero backgrounds (distinct from page-bg so each can be tuned per theme) */
+  --hero-bg:        #F4F8F5;   /* homepage hero                       */
+  --hero-bg-sub:    #F4F8F5;   /* About / Service subpage hero bands  */
+
+  /* "Light CTA on a dark panel" buttons (Services / About / Service CTA) */
+  --cta-bg:         #FFFFFF;
+  --cta-bg-hover:   #EAF3EC;
+  --cta-text:       #1A3D2B;
+
+  /* Shadows */
+  --shadow-card:        0 1px 3px rgba(0,0,0,0.05);
+  --shadow-card-hover:  0 24px 64px rgba(26,61,43,0.12), 0 6px 18px rgba(0,0,0,0.06);
+  --shadow-soft:        0 2px 12px rgba(0,0,0,0.05);
+}
+
+/* ============================================================
+   Forest Charcoal — dark theme overrides
+   ============================================================ */
+:root.dark {
+  color-scheme: dark;
+
+  --page-bg:        #0A0F0C;
+  --page-bg-alt:    #0C120E;
+  --surface:        #121A15;
+  --surface-2:      #1A241E;
+  --surface-3:      #16241C;
+  --surface-hover:  #18221C;
+
+  --invert:         #060A08;   /* bands recede below page level */
+  --invert-2:       #0B110D;
+  --ink:            #05080A;
+  --ink-2:          #0A0E12;
+  --invert-text:    #ECF1ED;
+  --invert-text-muted: rgba(236,241,237,0.58);
+  --invert-border:  rgba(255,255,255,0.08);
+  --invert-surface: rgba(255,255,255,0.05);
+
+  --text:           #ECF1ED;
+  --text-strong:    #F4F8F5;
+  --text-soft:      #AEB9B1;
+  --text-muted:     #9BA8A0;
+  --text-faint:     #6B776F;
+
+  --border:         #243029;
+  --border-2:       #202A24;
+  --border-strong:  #2E3A32;
+
+  --brand:          #74C69D;   /* bright green pops on dark */
+  --brand-solid:    #2D6A4F;   /* white text still reads    */
+  --brand-solid-hover: #40916C;
+  --brand-hover:    #40916C;
+  --brand-light:    #B7E4C7;
+  --accent-green:   #74C69D;
+  --brand-tint:     rgba(116,198,157,0.10);
+  --brand-tint-2:   rgba(116,198,157,0.20);
+  --brand-ring:     rgba(116,198,157,0.35);
+
+  --plh-text:       #CDE9EF;
+
+  /* Hero: homepage a touch lighter than page, subpages darker */
+  --hero-bg:        #101813;
+  --hero-bg-sub:    #05080A;
+
+  /* Light-CTA-on-dark becomes a bright green fill with near-black text */
+  --cta-bg:         #74C69D;
+  --cta-bg-hover:   #8AD3AB;
+  --cta-text:       #08130D;
+
+  --shadow-card:        0 1px 3px rgba(0,0,0,0.40);
+  --shadow-card-hover:  0 24px 64px rgba(0,0,0,0.55), 0 6px 18px rgba(0,0,0,0.40);
+  --shadow-soft:        0 2px 12px rgba(0,0,0,0.45);
+
+  /* keep shadcn tokens aligned with Forest Charcoal */
+  --background: #0A0F0C;
+  --foreground: #ECF1ED;
+  --card: #121A15;
+  --card-foreground: #ECF1ED;
+  --primary: #74C69D;
+  --border: #243029;
 }
 
 .dark {
@@ -128,6 +260,29 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+}
+
+/* ============================================================
+   Hero background — light pattern + scrim adapt to dark theme.
+   In dark mode only the pattern's light details show as faint
+   glints (screen blend), and the readability scrim flips dark.
+   ============================================================ */
+.hero-bg-pattern { transition: opacity 300ms ease; }
+:root.dark .hero-bg-pattern {
+  opacity: 0.12;
+  mix-blend-mode: screen;
+}
+/* Homepage hero scrim — lighter in dark so the hero reads brighter overall */
+:root.dark .hero-bg-scrim {
+  background: linear-gradient(100deg, rgba(8,12,10,0.70) 0%, rgba(8,12,10,0.42) 48%, rgba(8,12,10,0.16) 100%) !important;
+}
+
+/* Subpage (About / Service) hero overlays — flip light scrim + white fade to dark */
+:root.dark .subhero-scrim {
+  background: linear-gradient(135deg, rgba(4,6,8,0.93) 0%, rgba(4,6,8,0.76) 100%) !important;
+}
+:root.dark .subhero-fade {
+  background: linear-gradient(to top, var(--hero-bg-sub) 0%, transparent 100%) !important;
 }
 
 @layer base {

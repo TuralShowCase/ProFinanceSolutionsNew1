@@ -24,7 +24,7 @@ export function SlideDots({
             borderRadius: 2,
             backgroundColor: light
               ? (i === activeSlide ? "#FFFFFF" : "rgba(255,255,255,0.38)")
-              : (i === activeSlide ? "#1A3D2B" : "rgba(26,61,43,0.22)"),
+              : (i === activeSlide ? "var(--brand)" : "color-mix(in srgb, var(--brand) 22%, transparent)"),
             border: "none", padding: 0, cursor: "pointer",
             transition: "width 400ms ease, background-color 400ms ease",
           }}
@@ -32,7 +32,7 @@ export function SlideDots({
       ))}
       <span style={{
         fontSize: 11, marginLeft: 6, fontWeight: 500, letterSpacing: "0.04em",
-        color: light ? "rgba(255,255,255,0.45)" : "#9CA3AF",
+        color: light ? "rgba(255,255,255,0.45)" : "var(--text-faint)",
       }}>
         {String(activeSlide + 1).padStart(2, "0")} / {String(TOTAL_SLIDES).padStart(2, "0")}
       </span>

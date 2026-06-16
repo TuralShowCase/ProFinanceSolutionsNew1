@@ -55,7 +55,7 @@ export function WhatsAppButton() {
         transition:     "padding 320ms cubic-bezier(0.34,1.56,0.64,1), gap 320ms cubic-bezier(0.34,1.56,0.64,1), box-shadow 280ms ease",
         overflow:       "hidden",
         whiteSpace:     "nowrap",
-        fontFamily:     "'Inter', sans-serif",
+        fontFamily:     "var(--font-inter), 'Inter', sans-serif",
       }}
     >
       <WhatsAppIcon />

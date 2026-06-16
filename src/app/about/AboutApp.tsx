@@ -20,7 +20,8 @@ export default function AboutApp() {
     const isMobile = window.innerWidth < 768;
     const lenis = new Lenis({
       autoRaf: false,
-      lerp: isMobile ? 0.15 : 0.08,
+      lerp: isMobile ? 0.15 : 0.065,
+      wheelMultiplier: isMobile ? 1 : 0.85,
       smoothWheel: true,
     });
 
@@ -37,8 +38,8 @@ export default function AboutApp() {
 
   return (
     <ContactModalProvider>
-    <div style={{ backgroundColor: "#0F1117", overflowX: "clip" }}>
-      <div style={{ position: "relative", zIndex: 1, fontFamily: "'Inter', sans-serif", backgroundColor: "#FFFFFF" }}>
+    <div style={{ backgroundColor: "var(--page-bg)", overflowX: "clip" }}>
+      <div style={{ position: "relative", zIndex: 1, fontFamily: "var(--font-inter), 'Inter', sans-serif", backgroundColor: "#FFFFFF" }}>
         <Header />
         <AboutHero />
         <AboutMission />

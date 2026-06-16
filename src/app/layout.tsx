@@ -1,81 +1,37 @@
-import type { Metadata, Viewport } from 'next';
+import type { Viewport } from 'next';
+import { getLocale, getMessages } from 'next-intl/server';
+import { NextIntlClientProvider } from 'next-intl';
 import Script from 'next/script';
+import { Inter, Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
 import { WhatsAppButton } from './components/WhatsAppButton';
+import { ThemeProvider, themeNoFlashScript } from './contexts/ThemeContext';
 
-const GA_ID = 'G-33DDETT8MX';
+const inter = Inter({
+  subsets: ['latin'],
+  weight: ['400', '500', '600'],
+  variable: '--font-inter',
+  display: 'swap',
+});
 
-const SITE_URL = 'https://profinancesolutions.az';
+const plusJakarta = Plus_Jakarta_Sans({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700', '800'],
+  variable: '--font-plus-jakarta',
+  display: 'swap',
+});
 
-export const metadata: Metadata = {
-  metadataBase: new URL(SITE_URL),
-  applicationName: 'ProFinance Solutions',
-  title: {
-    default: 'ProFinance Solutions — Maliyyə Konsaltinqi Bakı, Azərbaycan',
-    template: '%s | ProFinance Solutions',
-  },
-  description:
-    'ProFinance Solutions — Bakıda maliyyə konsaltinqi, vergi planlaması, mühasibat və audit xidmətləri. 2019-dan 50+ korporasiyaya etibarlı maliyyə tərəfdaşı.',
-  keywords: [
-    'maliyyə konsaltinqi',
-    'vergi konsaltinqi',
-    'mühasibat konsaltinqi',
-    'audit xidmətləri',
-    'maliyyə məsləhəti',
-    'Bakı maliyyə şirkəti',
-    'Azərbaycan maliyyə konsultantı',
-    'ProFinance Solutions',
-    'IFRS hesabatı',
-    'vergi planlaması Azərbaycan',
-    'HR konsaltinq Bakı',
-  ],
-  authors: [{ name: 'ProFinance Solutions', url: SITE_URL }],
-  creator: 'ProFinance Solutions',
-  publisher: 'ProFinance Solutions',
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
-  },
-  openGraph: {
-    type: 'website',
-    siteName: 'ProFinance Solutions',
-    locale: 'az_AZ',
-    url: SITE_URL,
-    title: 'ProFinance Solutions — Maliyyə Konsaltinqi Bakı',
-    description:
-      'Bakıda maliyyə konsaltinqi, vergi planlaması, mühasibat və audit. 2019-dan etibarlı maliyyə tərəfdaşı.',
-    images: [
-      {
-        url: '/opengraph-image',
-        width: 1200,
-        height: 630,
-        alt: 'ProFinance Solutions — Maliyyə Konsaltinqi Bakı, Azərbaycan',
-        type: 'image/png',
-      },
-    ],
-  },
-  alternates: {
-    canonical: SITE_URL,
-  },
-  icons: {
-    icon: '/logo-icon.png',
-    apple: '/logo-icon.png',
-  },
-  category: 'finance',
-};
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID ?? 'G-33DDETT8MX';
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://profinancesolutions.az';
 
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
-  themeColor: '#1A3D2B',
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#1A3D2B' },
+    { media: '(prefers-color-scheme: dark)', color: '#0A0F0C' },
+  ],
 };
 
 const organizationSchema = {
@@ -84,100 +40,51 @@ const organizationSchema = {
   '@id': `${SITE_URL}/#organization`,
   name: 'ProFinance Solutions',
   url: SITE_URL,
-  logo: {
-    '@type': 'ImageObject',
-    url: `${SITE_URL}/logo-icon.png`,
-    width: 500,
-    height: 500,
-  },
-  description:
-    'Azərbaycanın aparıcı korporasiyaları üçün maliyyə konsaltinqi, vergi planlaması, mühasibat, audit və HR xidmətləri göstərən peşəkar şirkət.',
+  logo: { '@type': 'ImageObject', url: `${SITE_URL}/logo-icon.png`, width: 500, height: 500 },
+  description: 'Professional financial consulting, tax planning, accounting, audit and HR services for Azerbaijan\'s leading corporations.',
   foundingDate: '2019',
-  areaServed: {
-    '@type': 'Country',
-    name: 'Azerbaijan',
-    sameAs: 'https://www.wikidata.org/wiki/Q227',
-  },
-  address: {
-    '@type': 'PostalAddress',
-    streetAddress: 'Nizami küçəsi 95',
-    addressLocality: 'Bakı',
-    addressCountry: 'AZ',
-  },
+  areaServed: { '@type': 'Country', name: 'Azerbaijan', sameAs: 'https://www.wikidata.org/wiki/Q227' },
+  address: { '@type': 'PostalAddress', streetAddress: 'Nizami küçəsi 95', addressLocality: 'Bakı', addressCountry: 'AZ' },
   contactPoint: [
-    {
-      '@type': 'ContactPoint',
-      telephone: '+994-12-555-00-11',
-      contactType: 'customer service',
-      availableLanguage: ['Azerbaijani', 'Russian', 'English'],
-    },
-    {
-      '@type': 'ContactPoint',
-      telephone: '+994-50-555-00-11',
-      contactType: 'customer support',
-    },
+    { '@type': 'ContactPoint', telephone: '+994-12-555-00-11', contactType: 'customer service', availableLanguage: ['Azerbaijani', 'Russian', 'English'] },
   ],
   email: 'info@profinance.az',
   sameAs: [],
-  knowsAbout: [
-    'Financial Consulting',
-    'Tax Planning',
-    'Accounting',
-    'Audit Services',
-    'HR Consulting',
-    'Business Process Automation',
-    'IFRS Reporting',
-    'Management Consulting',
-  ],
 };
 
-const websiteSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'WebSite',
-  '@id': `${SITE_URL}/#website`,
-  url: SITE_URL,
-  name: 'ProFinance Solutions',
-  description: 'Bakıda maliyyə konsaltinqi xidmətləri',
-  publisher: { '@id': `${SITE_URL}/#organization` },
-  inLanguage: 'az',
-};
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const locale = await getLocale();
+  const messages = await getMessages();
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
   return (
-    <html lang="az">
+    <html lang={locale} className={`${inter.variable} ${plusJakarta.variable}`} suppressHydrationWarning>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <script dangerouslySetInnerHTML={{ __html: themeNoFlashScript }} />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <link rel="preload" href="/logo-icon.png" as="image" type="image/png" />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap"
-        />
+        <link rel="preload" href="/ChatGPT_Image_May_9__2026__05_25_40_PM.avif" as="image" type="image/avif" fetchPriority="high" />
         <meta name="geo.region" content="AZ-BA" />
         <meta name="geo.placename" content="Baku, Azerbaijan" />
         <meta name="geo.position" content="40.3777;49.843" />
         <meta name="ICBM" content="40.3777, 49.843" />
+        {/* hreflang — applied globally; per-page canonical/alternates override via metadata API */}
+        <link rel="alternate" hrefLang="az" href={SITE_URL} />
+        <link rel="alternate" hrefLang="en" href={`${SITE_URL}/en`} />
+        <link rel="alternate" hrefLang="ru" href={`${SITE_URL}/ru`} />
+        <link rel="alternate" hrefLang="x-default" href={SITE_URL} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
-        />
       </head>
       <body style={{ margin: 0, height: '100%' }}>
-        {children}
-        <WhatsAppButton />
-        <Script
-          src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-          strategy="afterInteractive"
-        />
+        <ThemeProvider>
+          <NextIntlClientProvider locale={locale} messages={messages}>
+            {children}
+          </NextIntlClientProvider>
+          <WhatsAppButton />
+        </ThemeProvider>
+        <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} strategy="afterInteractive" />
         <Script id="ga4-init" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];

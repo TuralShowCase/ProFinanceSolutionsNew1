@@ -1,0 +1,416 @@
+{
+  "nav": {
+    "home": "Əsas",
+    "about": "Haqqımızda",
+    "services": "Xidmətlər",
+    "clients": "Müştərilər",
+    "contact": "Əlaqə"
+  },
+  "header": {
+    "cta": "Müraciət et",
+    "open": "Aç",
+    "close": "Bağla",
+    "themeDark": "Qaranlıq rejimə keç",
+    "themeLight": "İşıqlı rejimə keç",
+    "partner": "Tərəfdaş",
+    "allPlhServices": "Bütün PLH xidmətləri",
+    "financeServices": "Maliyyə & Biznes Xidmətləri",
+    "legalServices": "Hüquqi Xidmətlər"
+  },
+  "footer": {
+    "tagline": "Azərbaycanın aparıcı korporasiyaları üçün etibarlı maliyyə tərəfdaşı",
+    "services": "Xidmətlər",
+    "company": "Şirkət",
+    "contact": "Əlaqə",
+    "about": "Haqqımızda",
+    "team": "Komandamız",
+    "values": "Dəyərlərimiz",
+    "partnership": "Tərəfdaşlıq",
+    "clients": "Müştərilər",
+    "legalPartner": "Hüquqi Tərəfdaş",
+    "address": "Bakı, Nizami küçəsi 95",
+    "copyright": "Bütün hüquqlar qorunur.",
+    "city": "Bakı, Azərbaycan",
+    "designedBy": "Designed by"
+  },
+  "hero": {
+    "slide1": {
+      "badge": "Maliyyə Konsaltinqi · Bakı, Azərbaycan",
+      "titlePart1": "Biznesiniz üçün",
+      "titlePart2": "etibarlı maliyyə tərəfdaşı",
+      "description": "Mühasibat uçotu, vergi planlaması, maliyyə audit və strateji konsaltinq xidmətləri — böyük korporasiyalar üçün."
+    },
+    "slide2": {
+      "badge": "Vergi Planlaması · Bakı, Azərbaycan",
+      "titlePart1": "Biznesinizin maliyyə",
+      "titlePart2": "uğurunu birlikdə qururuq",
+      "description": "Strateji planlaşdırma, vergi optimizasiyası və maliyyə modelləşdirməsi ilə biznesinizin dayanıqlı böyüməsini dəstəkləyirik."
+    },
+    "socialProof": "{count} korporativ müştəri",
+    "socialProofSuffix": "· Bakı, Azərbaycan",
+    "ctaServices": "Xidmətlər",
+    "ctaContact": "Bizimlə əlaqə",
+    "badgeRevenueTrend": "Gəlir Trendi",
+    "badgeGrowth": "↑ Artım",
+    "badgePeriod": "Son 6 ay · Aylıq",
+    "badgeLicensed": "Lisenziyalı",
+    "badgeExperience": "5+ il peşəkar"
+  },
+  "pillars": {
+    "sectionLabel": "Əsas Prinsiplər",
+    "heading": "Uğurun üç",
+    "headingAccent": "dayağı",
+    "subtext": "Hər qərarımızın arxasında üç əsas prinsip dayanır. Bunlar sizi irəliyə aparan metodologiyamızın nüvəsidir.",
+    "items": [
+      {
+        "number": "01",
+        "title": "Struktur",
+        "description": "Maliyyə proseslərinizə sistematik yanaşma — hər addım nəzarət altında, hər qərar əsaslandırılmış. Sistemin möhkəm olması, gələcəyinizin etibarlı olması deməkdir.",
+        "statLabel": "Şəffaf hesabat",
+        "tags": [
+          "Proseslər",
+          "Metodologiya",
+          "Sənədləşmə"
+        ]
+      },
+      {
+        "number": "02",
+        "title": "Nəzarət",
+        "description": "Davamlı monitorinq və hesabat sistemi ilə şəffaflıq hər mərhələdə, hər zaman təmin edilir. Rəqəmlər yalan danışmır — biz onları sizin üçün oxuyuruq.",
+        "statLabel": "Dəstək xidməti",
+        "tags": [
+          "Monitorinq",
+          "Hesabat",
+          "Şəffaflıq"
+        ]
+      },
+      {
+        "number": "03",
+        "title": "İnkişaf",
+        "description": "Strateji planlaşdırma ilə biznesinizin dayanıqlı böyüməsini dəstəkləyir, yeni perspektivlər açırıq. Bugünkü qərarlar sabahın nailiyyətidir.",
+        "statLabel": "Korporativ müştəri",
+        "tags": [
+          "Strategiya",
+          "Böyümə",
+          "Planlaşdırma"
+        ]
+      }
+    ],
+    "stats": [
+      {
+        "label": "İl təcrübə",
+        "sub": "Azərbaycan maliyyə bazarında"
+      },
+      {
+        "label": "Korporativ müştəri",
+        "sub": "Bakı və regionlar üzrə"
+      },
+      {
+        "label": "Lisenziyalı mütəxəssislər",
+        "sub": "Beynəlxalq standartlara uyğun"
+      }
+    ]
+  },
+  "services": {
+    "sectionLabel": "Xidmətlər",
+    "heading": "Biznesiniz üçün",
+    "headingAccent": "kompleks",
+    "headingSuffix": "maliyyə həlləri",
+    "subtext": "8 ixtisaslaşmış istiqamət üzrə maliyyə, vergi, kadr və rəqəmsal ehtiyaclarınızı tam əhatə edirik.",
+    "ctaLearnMore": "Ətraflı məlumat",
+    "ctaContact": "Əlaqə saxlayın",
+    "ctaQuestion": "Hansı xidmət sizə lazımdır?",
+    "ctaSubtext": "Pulsuz ilkin məsləhət üçün bu gün bizimlə əlaqə saxlayın.",
+    "viewDetails": "Ətraflı bax",
+    "featuredBadge1": "Ən çox seçilən",
+    "featuredBadge2": "Əsas xidmət",
+    "names": {
+      "ucotun-diaqnostikasi-ve-berpasi": "Uçotun Diaqnostikası",
+      "muhasibat-konsaltinqi": "Mühasibat Konsaltinqi",
+      "vergi-konsaltinqi": "Vergi Konsaltinqi",
+      "maliyye-ve-idareetme-konsaltinqi": "Maliyyə Konsaltinqi",
+      "emeliyyat-ve-reqemsal-konsaltinq": "Rəqəmsal Konsaltinq",
+      "hr-ve-kadrlar-konsaltinqi": "HR Konsaltinqi",
+      "telim-ve-inkisaf": "Təlim və İnkişaf",
+      "auditor-xidmetleri": "Auditor Xidmətləri"
+    },
+    "taglines": {
+      "ucotun-diaqnostikasi-ve-berpasi": "Maliyyə sağlamlığının ilk addımı",
+      "muhasibat-konsaltinqi": "Rəqəmlər arxasında etibarlı dəstək",
+      "vergi-konsaltinqi": "Qanuni optimizasiya, maksimum qənaət",
+      "maliyye-ve-idareetme-konsaltinqi": "Strategiyadan nəticəyə doğru",
+      "emeliyyat-ve-reqemsal-konsaltinq": "Biznesinizi rəqəmsallaşdırırıq",
+      "hr-ve-kadrlar-konsaltinqi": "İnsanı mərkəzə qoyuruq",
+      "telim-ve-inkisaf": "Bilik gücə çevrilir",
+      "auditor-xidmetleri": "Müstəqil baxış, dəqiq nəticə"
+    },
+    "bullets": {
+      "muhasibat-konsaltinqi": [
+        "Aylıq maliyyə hesabatlarının hazırlanması",
+        "Mühasibat siyasətinin qurulması",
+        "Xarici audit üçün tam hazırlıq"
+      ],
+      "vergi-konsaltinqi": [
+        "Vergi bəyannamələrinin hazırlanması",
+        "Qanuni vergi yükünün azaldılması",
+        "Vergi yoxlamalarına hazırlıq"
+      ]
+    }
+  },
+  "whyUs": {
+    "sectionLabel": "Niyə ProFinance?",
+    "heading": "Fərqi yaradan",
+    "headingAccent": "beş",
+    "headingSuffix": "üstünlük",
+    "scrollHint": "Aşağı diyirin",
+    "items": [
+      {
+        "title": "Ekspert Yanaşma",
+        "description": "Maliyyə sahəsinin dərin bilik və təcrübəsinə malik mütəxəssislərimiz hər layihəyə fərdi yanaşma ilə qiymətləndirirlər. Akademik bilik ilə real iş təcrübəsi bir arada.",
+        "detail": "Hər müştərimizə ən az 10+ illik sahə təcrübəsi olan mütəxəssis təyin olunur."
+      },
+      {
+        "title": "Sistematik Anlayış",
+        "description": "Biznesinizin struktur dinamikasını tam dərk edərək hərtərəfli maliyyə həlləri təklif edirik. Sistemin bütövlüyü bizim prioritetimizdir.",
+        "detail": "Hər layihə üçün fərdi diaqnostika aparılır, sonra sistem qurulur."
+      },
+      {
+        "title": "Praktik Həllər",
+        "description": "Nəzəriyyə ilə məhdudlaşmır, real iş mühitinə uyğun, tətbiqedilə bilən strategiyalar hazırlayırıq. Nəticə yönümlü yanaşma.",
+        "detail": "Ortalama 3 həftə ərzində ilk əməli nəticələr görülür."
+      },
+      {
+        "title": "Şəffaflıq və Məxfilik",
+        "description": "Müştəri məlumatlarını ən yüksək etik standartlara uyğun qoruyur, tam şəffaf hesabat təqdim edirik. Etibarlılıq bizim brendimizdir.",
+        "detail": "ISO 27001 standartlarına uyğun məlumat qoruma sistemi tətbiq edilir."
+      },
+      {
+        "title": "Dayanıqlı Böyümə",
+        "description": "Qısamüddətli nəticələrlə yanaşı, uzunmüddətli inkişaf strategiyasına fokuslanırıq. Sabahınız üçün bu gün düşünürük.",
+        "detail": "Müştərilərimizin 92%-i ilk ildən sonra xidmətdən davam edir."
+      }
+    ]
+  },
+  "partner": {
+    "firmName": "PLH Hüquq Bürosu",
+    "sectionLabel": "Tərəfdaşlıq",
+    "heading": "Hüquqi",
+    "headingAccent": "tərəfdaşımız",
+    "subtext": "Müştərilərimizə tam hüquqi dəstək üçün PLH Hüquq Bürosu ilə strateji tərəfdaşlıq qururuq.",
+    "description": "Mühasibat və maliyyə məsələlərinin hüquqi tərəflərini PLH Hüquq Bürosu ilə birlikdə həll edirik. Müqavilə hazırlanmasından korporativ strukturlaşdırmaya qədər tam dəstək.",
+    "visitSite": "plh.az saytına keç",
+    "tags": [
+      "Korporativ hüquq",
+      "Müqavilə hüququ",
+      "Hüquqi müdafiə",
+      "11+ xidmət"
+    ],
+    "stats": [
+      {
+        "label": "Hüquqi xidmət"
+      },
+      {
+        "label": "İl tərəfdaşlıq"
+      },
+      {
+        "label": "Məxfilik"
+      }
+    ],
+    "features": [
+      {
+        "title": "Ehtiyac Müəyyən Edilir",
+        "desc": "ProFinance maliyyə auditi zamanı hüquqi risk aşkar edildikdə PLH komandası avtomatik cəlb olunur."
+      },
+      {
+        "title": "Komandalar Birləşir",
+        "desc": "Maliyyə və hüquq mütəxəssisləri eyni masada — müştəri üçün tək koordinasiya nöqtəsi."
+      },
+      {
+        "title": "Tam Həll Paketi",
+        "desc": "Mühasibat, vergi, hüquqi sənədlər və audit — bütün proseslər koordinasiyalı şəkildə idarə olunur."
+      }
+    ]
+  },
+  "clients": {
+    "sectionLabel": "Müştərilərimiz",
+    "heading": "Etibarlı",
+    "headingAccent": "tərəfdaşlarımız",
+    "subtext": "Azərbaycanın aparıcı korporasiyaları bizə etibar edir.",
+    "stat1Label": "Korporativ müştəri",
+    "stat2Label": "İl tərəfdaşlıq",
+    "trustLine": "Bakı, Azərbaycanda fəaliyyət göstəririk"
+  },
+  "faq": {
+    "badge": "Suallar & Cavablar",
+    "heading": "Ən çox",
+    "headingAccent": "soruşulan",
+    "headingSuffix": "suallar",
+    "detailedAnswers": "ətraflı cavab",
+    "description": "Müştərilərimizin ən çox soruşduğu suallara cavab topladıq. Sualınız cavablanmırsa, bizimlə birbaşa əlaqə saxlayın.",
+    "cta": "Pulsuz məsləhət alın",
+    "items": [
+      {
+        "question": "ProFinance Solutions hansı şirkətlərə xidmət göstərir?",
+        "answer": "Kiçik sahibkarlardan iri holdinqlərə qədər hər ölçüdə şirkətə xidmət göstəririk. Startaplar, yerli bizneslər, xarici şirkət filialları, istehsal müəssisələri, ticarət şirkətləri — hər sahədən müştərimiz var. Bizim üçün vacib olan şirkətin ölçüsü deyil, maliyyə sağlamlığına olan ciddi yanaşmadır."
+      },
+      {
+        "question": "İlkin məsləhət niyə pulsuzdur?",
+        "answer": "Çünki biz ortaqlıq əsasında çalışırıq. İlkin görüşdə şirkətinizin vəziyyətini, ehtiyaclarını və məqsədlərini başa düşürük. Bu mərhələ bizə ən uyğun həll yolunu təklif etməyə, sizə isə heç bir öhdəlik almadan real dəyər qiymətləndirilməsi aparmağa imkan verir."
+      },
+      {
+        "question": "Azərbaycan qanunvericiliyinə tam uyğun xidmət göstərirsinizmi?",
+        "answer": "Bəli. Bütün xidmətlərimiz Azərbaycan Respublikasının Vergi Məcəlləsi, Əmək Məcəlləsi, MHBS standartları və digər aktual qanunvericiliyə tam uyğun aparılır. Qanunvericilikdəki dəyişikliklər daim izlənilir və müştərilərimiz vaxtında məlumatlandırılır."
+      },
+      {
+        "question": "Eyni anda bir neçə xidmətdən istifadə etmək mümkündürmü?",
+        "answer": "Bəli, bu hətta tövsiyə edilən yanaşmadır. Mühasibat, vergi, HR və maliyyə idarəçiliyi bir-biri ilə sıx bağlıdır. Kompleks xidmətlər daha ardıcıl, daha sürətli nəticə verir. Çox müştərimiz bir neçə xidməti eyni vaxtda alır."
+      },
+      {
+        "question": "Məlumatlarımın məxfiliyi necə qorunur?",
+        "answer": "Hər müştəri ilə məxfilik müqaviləsi (NDA) bağlanır. Şirkət məlumatlarınız yalnız layihəyə aid komanda üzvlərinə açıqdır, üçüncü tərəflərə ötürülmür. Bütün sənədlər şifrəli mühitdə saxlanılır."
+      },
+      {
+        "question": "Uzaqdan (remote) xidmət əlçatandır?",
+        "answer": "Bəli. Xidmətlərimizin böyük hissəsi onlayn olaraq tam şəkildə göstərilə bilər. Video görüşlər, buludda sənəd mübadiləsi və rəqəmsal kommunikasiya vasitəsilə Azərbaycanın istənilən şəhərindən, həmçinin xaricdən müştərilərimizlə əməkdaşlıq edirik."
+      },
+      {
+        "question": "Nəticə nə zaman görünür?",
+        "answer": "İlk nəticələr adətən 2–4 həftə ərzində görünür: uçot sistemindəki problemlər aşkar edilir, vergi riskləri müəyyənləşdirilir, proseslər sənədləşdirilir. Strateji nəticələr — büdcə intizamı, vergi qənaəti, HR effektivliyi — 3–6 ay daxilində əldə edilir."
+      }
+    ]
+  },
+  "about": {
+    "hero": {
+      "line1": "Biznesinizin",
+      "line2": "etibarlı",
+      "line3": "tərəfdaşı"
+    },
+    "mission": {
+      "sectionLabel": "Haqqımızda",
+      "heading": "Güvən üzərində",
+      "headingAccent": "qurulan",
+      "headingSuffix": "tərəfdaşlıq",
+      "subtext": "Maliyyə proseslərini proqnozlaşdırıla bilən, şəffaf və idarə olunan sistemə çeviririk.",
+      "leadParagraph": "Müasir dünyada biznesin uğuru yalnız ambisiyalardan deyil, həm də maliyyənin dəqiq və şəffaf idarə olunmasından asılıdır.",
+      "paragraph1": "ProFinance Solutions Bakıda fəaliyyət göstərən peşəkar maliyyə konsaltinq şirketidir. MHBS/IFRS standartları, ISA audit tələbləri, Azərbaycan Vergi Məcəlləsi və Əmək Məcəlləsinə tam uyğun şəkildə mühasibat, vergi, audit, HR, maliyyə idarəçiliyi, ERP tətbiqi xidmətlərini göstəririk.",
+      "paragraph2": "Komandamızın birgə 15+ il peşəkar təcrübəsi var. Topdan satış, tikinti, sənaye istehsalı, maliyyə sektoru, texnologiya, hüquqi xidmətlər, ictimai iaşə, layihələndirmə sahələrindən müştərilərə dəstək veririk. Hər müştəri ilə məxfilik müqaviləsi (NDA) imzalanır.",
+      "missionLabel": "Missiyamız",
+      "missionQuote": "\"Müştərilərimizin biznesi üçün etibarlı və strateji tərəfdaş olmaq, maliyyə proseslərində maksimum şəffaflığı təmin etmək.\"",
+      "missionSub": "Azərbaycan Vergi Məcəlləsi, MHBS/IFRS standartları, ISA audit tələblərinə tam uyğun şəkildə şirkətinizin maliyyə riskini minimuma endiririk. Topdan satış, tikinti, sənaye, maliyyə, texnologiya, hüquq, iaşə sektorlarından 13+ korporativ müştəriyə davamlı dəstək göstəririk."
+    },
+    "values": {
+      "sectionLabel": "Dəyərlərimiz",
+      "heading": "4 dəyər,",
+      "headingAccent": "1 standart",
+      "subtext": "Hər müştəri üçün eyni əsaslar üzərində işləyirik — kiçik sahibkardan iri korporasiyaya qədər.",
+      "items": [
+        {
+          "title": "Peşəkarlıq",
+          "description": "Hər bir qərar dərin analitik təhlil və illərin təcrübəsinə əsaslanır. Ən mürəkkəb maliyyə məsələlərində də dəqiq həllər təqdim edirik."
+        },
+        {
+          "title": "Şəffaflıq",
+          "description": "Fəaliyyətimizi tam açıqlıq və qanunvericiliyə tam uyğunluq prinsipləri ilə aparırıq. Hesabat sistemimizdən heç nə gizli deyil."
+        },
+        {
+          "title": "Etibarlılıq",
+          "description": "Müştərilər bizə biznesin ən vacib maliyyə proseslərini etibar edir. Biz bu etimadı hər zaman qoruyuruq."
+        },
+        {
+          "title": "Səmərəlilik",
+          "description": "Tövsiyələrimiz yalnız nəzəri deyil, real biznes nəticələrini təmin edən praktik həllərə yönəlibdir."
+        }
+      ]
+    },
+    "team": {
+      "sectionLabel": "Komandamız",
+      "heading": "Bir komanda,",
+      "headingAccent": "bir hədəf",
+      "subtext": "Sahənin ən yaxşı mütəxəssisləri bir çatı altında — sizin uğurunuz üçün.",
+      "description": "ProFinance Solutions komandası maliyyə, vergi, audit və mühasibatlıq sahələrinin mütəxəssislərindən ibarətdir. Birlikdə müştərilərə tam spektrli, etibarlı maliyyə dəstəyi təqdim edirik.",
+      "leadParagraph": "Maliyyə, vergi, audit və mühasibatlıq sahələrinin dərin biliciləri bir komanda olaraq fəaliyyət göstərir.",
+      "bodyParagraph": "ProFinance Solutions-da hər üzv öz ixtisas sahəsinin mütəxəssisidir. Lakin biz ayrı-ayrı deyil, birgə işləyirik — müştərinin problemini 360° baxış bucağından analiz edib ən optimal həlli birlikdə hazırlayırıq.",
+      "traits": [
+        {
+          "title": "Sertifikatlı mütəxəssislər",
+          "desc": "Komandamız MHBS/IFRS, ISA audit standartları, vergi uçotu və HR idarəetməsi sahələrindəki sertifikatlı peşəkarlardan ibarətdir — hər üzv öz sahəsinin dərin bilicisidir."
+        },
+        {
+          "title": "Birgə 15+ il təcrübə",
+          "desc": "Mühasibat, vergi, audit, HR və maliyyə idarəçiliyi sahələrindəki 15+ il birgə peşəkar təcrübə — hər üzvün ixtisas biliyini birləşdirən bütöv bir komanda."
+        },
+        {
+          "title": "Hər müştəriyə ayrıca yanaşma",
+          "desc": "Standart şablonlar deyil. Hər müştəri ilə məxfilik müqaviləsi (NDA) bağlanır; şirkətinizin unikal maliyyə məsələlərini dərin anlayaraq fərdi həllər hazırlanır."
+        }
+      ]
+    },
+    "cta": {
+      "heading": "Maliyyə hədəflərinizə",
+      "headingAccent": "birlikdə çataq",
+      "subtext": "Biznesinizin maliyyə sağlamlığı üçün ilk addımı bu gün atın. Pulsuz ilkin konsultasiya ilə hər şey başlayır.",
+      "primaryBtn": "Pulsuz konsultasiya",
+      "secondaryBtn": "Xidmətlərə bax"
+    }
+  },
+  "servicePage": {
+    "breadcrumbServices": "Xidmətlər",
+    "whatYouGet": "Nə əldə edirsiniz",
+    "freeConsultation": "Pulsuz konsultasiya",
+    "allServices": "Bütün xidmətlər",
+    "servicePackage": "Xidmət paketi",
+    "whatsIncluded": "Nə",
+    "whatsIncludedAccent": "daxildir?",
+    "packageSubtext": "Bu xidmətə daxil olan bütün komponentlər ətraflı şəkildə.",
+    "suitableFor": "Kimə uyğundur",
+    "doesThisServeYou": "Bu xidmət sizi əhatə edir?",
+    "stepByStep": "Addım-addım",
+    "howItWorks": "Prosesimiz",
+    "howItWorksAccent": "necə işləyir?",
+    "stepsSupport": "{count} addımda müştərilərə dəstək göstəririk.",
+    "faqBadge": "Suallar & Cavablar",
+    "faqHeading": "Tez-tez",
+    "faqHeadingAccent": "soruşulan",
+    "faqHeadingSuffix": "suallar",
+    "faqSubtext": "{serviceName} xidməti haqqında ən çox soruşulan suallara peşəkar cavab topladıq.",
+    "discoverLabel": "Kəşf edin",
+    "otherServices": "Digər",
+    "otherServicesAccent": "xidmətlər",
+    "allServicesLink": "Bütün xidmətlər",
+    "viewDetails": "Ətraflı bax",
+    "ctaReadyLabel": "Hazırsınız?",
+    "ctaHeading": "Bu xidmət haqqında",
+    "ctaHeadingAccent": "pulsuz məsləhət alın",
+    "ctaSubtext": "Ekspertlərimiz sizinlə əlaqə saxlayıb {serviceName} xidməti haqqında ətraflı məlumat verəcək.",
+    "ctaPrimary": "Pulsuz konsultasiya",
+    "ctaSecondary": "Bütün xidmətlər"
+  },
+  "meta": {
+    "homeTitle": "ProFinance Solutions — Bakıda Maliyyə Konsaltinqi",
+    "homeDescription": "ProFinance Solutions Azərbaycanın aparıcı korporasiyaları üçün maliyyə konsaltinqi, vergi planlaması, mühasibat uçotu, audit və HR xidmətləri göstərən Bakı şirkətidir. 2019-dan 50+ müştəri.",
+    "aboutTitle": "ProFinance Solutions Haqqında — Bakı Maliyyə Konsaltinqi",
+    "aboutDescription": "ProFinance Solutions — Bakıda maliyyə konsaltinq şirkəti. Mühasibat, vergi, audit, HR. 13+ korporativ müştəri, 8 xidmət sahəsində peşəkar dəstək.",
+    "defaultTitle": "ProFinance Solutions — Maliyyə Konsaltinqi Bakı, Azərbaycan",
+    "defaultDescription": "ProFinance Solutions — Bakıda maliyyə konsaltinqi, vergi planlaması, mühasibat və audit xidmətləri. 2019-dan 13+ korporasiyaya etibarlı maliyyə tərəfdaşı.",
+    "serviceTitle": "{serviceName} Bakıda | ProFinance Solutions",
+    "plhMenu": {
+      "contractLaw": "Müqavilə Hüququ",
+      "contractLawTagline": "Hüquqi cəhətdən etibarlı müqavilələr",
+      "corporateLaw": "Korporativ Hüquq",
+      "corporateLawTagline": "Şirkətin hüquqi strukturu və idarəetmə",
+      "businessLaw": "Biznes Hüququ",
+      "businessLawTagline": "Hər addımda hüquqi dəstək",
+      "intellectualProperty": "Əqli Mülkiyyət",
+      "intellectualPropertyTagline": "İdeyalarınızı qoruyun, dəyər yaradın"
+    }
+  },
+  "contact": {
+    "title": "Bizimlə əlaqə",
+    "socialLabel": "Sosial şəbəkələr",
+    "whatsappCta": "WhatsApp ilə yazın",
+    "labelPhone": "Telefon",
+    "labelWhatsapp": "WhatsApp",
+    "labelEmail": "E-poçt",
+    "labelAddress": "Ünvan"
+  }
+}

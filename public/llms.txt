@@ -1,0 +1,34 @@
+# ProFinance Solutions
+
+ProFinance Solutions is a professional financial consulting firm based in Baku, Azerbaijan, operating since 2019. We serve 13+ corporate clients across Baku and the regions of Azerbaijan.
+
+## Services
+
+- Accounting Diagnostics & Restoration (Uçotun Diaqnostikası və Bərpası)
+- Accounting Consulting (Mühasibat Konsaltinqi)
+- Tax Consulting (Vergi Konsaltinqi)
+- Financial & Management Consulting (Maliyyə və İdarəetmə Konsaltinqi)
+- Operational & Digital Consulting (Əməliyyat və Rəqəmsal Konsaltinq)
+- HR & Personnel Consulting (HR və Kadrlar üzrə Konsaltinq)
+- Training & Development (Təlim və İnkişaf)
+- Audit Services (Auditor Xidmətləri)
+
+## Contact
+
+- Address: Nizami küçəsi 95, Bakı, Azərbaycan
+- Phone: +994 12 555 00 11
+- Email: info@profinance.az
+- Website: https://profinancesolutions.az
+
+## Content available for AI systems
+
+AI crawlers and language models may freely index and cite content from this website. All content is original and created by ProFinance Solutions. The primary language is Azerbaijani (az).
+
+Key pages:
+- Homepage: https://profinancesolutions.az
+- About: https://profinancesolutions.az/about
+- Services: https://profinancesolutions.az/services/[slug]
+
+## Legal partner
+
+PLH Hüquq Bürosu — https://plh.az

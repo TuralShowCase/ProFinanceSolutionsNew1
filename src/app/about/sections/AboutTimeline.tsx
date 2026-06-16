@@ -13,35 +13,35 @@ const milestones = [
     title: "Şirkətin Təsisi",
     description: "ProFinance Solutions Bakıda fəaliyyətə başladı. İlk günümdən mühasibat və maliyyə konsaltinqi xidmətləri göstərildi.",
     tag: "Başlanğıc",
-    tagColor: "#52B788",
+    tagColor: "var(--accent-green)",
   },
   {
     year: "2020",
     title: "Korporativ Müştərilər",
     description: "Azərbaycanın aparıcı şirkətləri ilə uzunmüddətli müqavilələr imzalandı. İlk böyük korporativ layihələr uğurla başa çatdırıldı.",
     tag: "Böyümə",
-    tagColor: "#40916C",
+    tagColor: "var(--brand-hover)",
   },
   {
     year: "2021",
     title: "Xidmət Portfelinin Genişlənməsi",
     description: "Vergi konsaltinqi, HR xidmətləri və maliyyə modelləşdirmə portfelə əlavə edildi. Komanda genişləndi, yeni ixtisaslaşmış mütəxəssislər qoşuldu.",
     tag: "Genişlənmə",
-    tagColor: "#2D6A4F",
+    tagColor: "var(--brand-hover)",
   },
   {
     year: "2022",
     title: "PLH Hüquq Bürosu ilə Tərəfdaşlıq",
     description: "PLH Hüquq Bürosu ilə strateji tərəfdaşlıq quruldu. Müştərilərə maliyyə + hüquqi dəstəyin birləşdirilmiş paketi təqdim olundu.",
     tag: "Tərəfdaşlıq",
-    tagColor: "#74C69D",
+    tagColor: "var(--brand-light)",
   },
   {
     year: "2025",
     title: "Rəqəmsal Transformasiya",
     description: "ERP tətbiqi, biznes proseslərinin avtomatlaşdırılması və rəqəmsal iş axınlarının qurulması xidmətləri portfelə əlavə edildi.",
     tag: "İnnovasiya",
-    tagColor: "#52B788",
+    tagColor: "var(--accent-green)",
   },
 ];
 
@@ -80,9 +80,9 @@ export function AboutTimeline() {
     <section
       ref={sectionRef}
       style={{
-        backgroundColor: "#111410",
+        backgroundColor: "var(--ink)",
         padding: pad,
-        fontFamily: "'Inter', sans-serif",
+        fontFamily: "var(--font-inter), 'Inter', sans-serif",
         position: "relative",
         overflow: "hidden",
       }}
@@ -109,17 +109,17 @@ export function AboutTimeline() {
           }}>
             <div>
               <p style={{
-                fontSize: 11, fontWeight: 600, color: "#52B788",
+                fontSize: 11, fontWeight: 600, color: "var(--accent-green)",
                 letterSpacing: "0.18em", textTransform: "uppercase", margin: "0 0 16px",
               }}>Tarixçəmiz</p>
               <h2 style={{
-                fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 800,
+                fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 800,
                 fontSize: "clamp(30px, 3.8vw, 50px)",
                 color: "#FFFFFF", margin: 0,
                 letterSpacing: "-0.035em", lineHeight: 1.08,
               }}>
                 6 il ərzindəki{" "}
-                <span style={{ color: "#52B788" }}>yolumuz</span>
+                <span style={{ color: "var(--accent-green)" }}>yolumuz</span>
               </h2>
             </div>
             <p style={{ fontSize: 15, color: "rgba(255,255,255,0.45)", lineHeight: 1.7, margin: 0, maxWidth: 360 }}>
@@ -137,7 +137,7 @@ export function AboutTimeline() {
               position: "absolute",
               left: "50%", top: 28, bottom: 0,
               width: 1,
-              backgroundColor: "rgba(82,183,136,0.25)",
+              backgroundColor: "color-mix(in srgb, var(--accent-green) 25%, transparent)",
               transform: "translateX(-50%)",
               zIndex: 0,
             }} />
@@ -148,7 +148,7 @@ export function AboutTimeline() {
               position: "absolute",
               left: 15, top: 28, bottom: 0,
               width: 1,
-              backgroundColor: "rgba(82,183,136,0.25)",
+              backgroundColor: "color-mix(in srgb, var(--accent-green) 25%, transparent)",
             }} />
           )}
 
@@ -162,8 +162,8 @@ export function AboutTimeline() {
                   <div style={{ flexShrink: 0, marginTop: 6, position: "relative" }}>
                     <div style={{
                       width: 30, height: 30, borderRadius: "50%",
-                      backgroundColor: "#111410",
-                      border: "2px solid rgba(82,183,136,0.5)",
+                      backgroundColor: "var(--ink)",
+                      border: "2px solid color-mix(in srgb, var(--accent-green) 50%, transparent)",
                       display: "flex", alignItems: "center", justifyContent: "center",
                       zIndex: 1, position: "relative",
                     }}>
@@ -180,14 +180,14 @@ export function AboutTimeline() {
                       borderRadius: 999, padding: "3px 12px", marginBottom: 10,
                     }}>{m.tag}</span>
                     <div style={{
-                      fontFamily: "'Plus Jakarta Sans', sans-serif",
+                      fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif",
                       fontWeight: 900, fontSize: 36,
                       color: "rgba(255,255,255,0.08)",
                       letterSpacing: "-0.05em", lineHeight: 1,
                       marginBottom: 4, userSelect: "none",
                     }}>{m.year}</div>
                     <h3 style={{
-                      fontFamily: "'Plus Jakarta Sans', sans-serif",
+                      fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif",
                       fontWeight: 700, fontSize: 17,
                       color: "#FFFFFF", margin: "0 0 8px",
                       letterSpacing: "-0.02em",
@@ -225,7 +225,7 @@ export function AboutTimeline() {
                       borderRadius: 999, padding: "3px 12px", marginBottom: 12,
                     }}>{m.tag}</span>
                     <div style={{
-                      fontFamily: "'Plus Jakarta Sans', sans-serif",
+                      fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif",
                       fontWeight: 900,
                       fontSize: isTablet ? 52 : 72,
                       color: "rgba(255,255,255,0.06)",
@@ -233,7 +233,7 @@ export function AboutTimeline() {
                       marginBottom: -8, userSelect: "none",
                     }}>{m.year}</div>
                     <h3 style={{
-                      fontFamily: "'Plus Jakarta Sans', sans-serif",
+                      fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif",
                       fontWeight: 700,
                       fontSize: isTablet ? 18 : 22,
                       color: "#FFFFFF", margin: "0 0 10px",
@@ -253,8 +253,8 @@ export function AboutTimeline() {
                 }}>
                   <div style={{
                     width: 20, height: 20, borderRadius: "50%",
-                    backgroundColor: "#111410",
-                    border: "2px solid rgba(82,183,136,0.6)",
+                    backgroundColor: "var(--ink)",
+                    border: "2px solid color-mix(in srgb, var(--accent-green) 60%, transparent)",
                     display: "flex", alignItems: "center", justifyContent: "center",
                   }}>
                     <div style={{ width: 8, height: 8, borderRadius: "50%", backgroundColor: m.tagColor }} />

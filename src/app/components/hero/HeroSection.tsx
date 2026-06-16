@@ -6,7 +6,6 @@ import { HeroSlide1 } from "./HeroSlide1";
 import { HeroSlide2 } from "./HeroSlide2";
 
 const TOTAL_SLIDES = 2;
-const BG = "#F4F8F5";
 
 export function HeroSection() {
   const heroRef           = useRef<HTMLDivElement>(null);
@@ -18,8 +17,8 @@ export function HeroSection() {
     const ctx = gsap.context(() => {
       gsap.fromTo(
         slideContainerRef.current,
-        { opacity: 0, y: 22 },
-        { opacity: 1, y: 0, duration: 0.9, ease: "power2.out", delay: 0.15 }
+        { opacity: 0, y: 28, scale: 0.98 },
+        { opacity: 1, y: 0, scale: 1, duration: 1.1, ease: "expo.out", delay: 0.2 }
       );
     }, heroRef);
     return () => ctx.revert();
@@ -29,10 +28,10 @@ export function HeroSection() {
     if (isAnimRef.current || next === activeSlide) return;
     isAnimRef.current = true;
     gsap.timeline({ onComplete: () => { isAnimRef.current = false; } })
-      .to(slideContainerRef.current, { opacity: 0, duration: 0.55, ease: "sine.inOut" })
+      .to(slideContainerRef.current, { opacity: 0, y: -6, duration: 0.5, ease: "sine.inOut" })
       .call(() => setActiveSlide(next))
-      .set(slideContainerRef.current, { opacity: 0 })
-      .to(slideContainerRef.current, { opacity: 1, duration: 0.85, ease: "sine.inOut", delay: 0.03 });
+      .set(slideContainerRef.current, { opacity: 0, y: 10 })
+      .to(slideContainerRef.current, { opacity: 1, y: 0, duration: 0.9, ease: "expo.out", delay: 0.03 });
   }, [activeSlide]);
 
   useEffect(() => {
@@ -49,11 +48,11 @@ export function HeroSection() {
       style={{
         height: "100vh",
         minHeight: 500,
-        backgroundColor: BG,
+        backgroundColor: "var(--hero-bg)",
         display: "flex",
         flexDirection: "column",
         paddingTop: 72,
-        fontFamily: "'Inter', sans-serif",
+        fontFamily: "var(--font-inter), 'Inter', sans-serif",
         position: "relative",
         overflow: "hidden",
       }}

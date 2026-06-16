@@ -7,16 +7,16 @@ export default function NotFound() {
         alignItems: 'center',
         justifyContent: 'center',
         minHeight: '100vh',
-        fontFamily: "'Inter', sans-serif",
+        fontFamily: "var(--font-inter), 'Inter', sans-serif",
         gap: 16,
-        backgroundColor: '#ffffff',
+        backgroundColor: 'var(--page-bg)',
       }}
     >
       <div
         style={{
           fontSize: 11,
           fontWeight: 700,
-          color: '#1A3D2B',
+          color: 'var(--brand)',
           letterSpacing: '0.18em',
           textTransform: 'uppercase',
           marginBottom: 8,
@@ -29,22 +29,22 @@ export default function NotFound() {
           fontSize: 80,
           fontWeight: 800,
           margin: 0,
-          color: '#0F1117',
-          fontFamily: "'Plus Jakarta Sans', sans-serif",
+          color: 'var(--text-strong)',
+          fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif",
           letterSpacing: '-0.04em',
           lineHeight: 1,
         }}
       >
         404
       </h1>
-      <p style={{ fontSize: 16, color: '#6B7280', margin: 0 }}>
+      <p style={{ fontSize: 16, color: 'var(--text-muted)', margin: 0 }}>
         Səhifə tapılmadı
       </p>
       <a
         href="/"
         style={{
           marginTop: 8,
-          color: '#1A3D2B',
+          color: 'var(--brand)',
           fontWeight: 600,
           textDecoration: 'none',
           fontSize: 14,
@@ -52,7 +52,7 @@ export default function NotFound() {
           alignItems: 'center',
           gap: 6,
           padding: '10px 20px',
-          border: '1px solid rgba(26,61,43,0.13)',
+          border: '1px solid color-mix(in srgb, var(--brand) 13%, transparent)',
           borderRadius: 8,
           transition: 'all 200ms',
         }}

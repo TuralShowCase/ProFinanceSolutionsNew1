@@ -1,13 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import { DARK, mix } from "@/app/lib/brand";
 
 export interface FAQItem {
   question: string;
   answer: string;
 }
 
-const DARK = "#1A3D2B";
 
 function FAQCard({
   item,
@@ -24,11 +24,11 @@ function FAQCard({
 }) {
   const [hovered, setHovered] = useState(false);
 
-  const cardBg = isOpen ? "#ffffff" : hovered ? "#ffffff" : "#ffffff";
+  const cardBg = isOpen || hovered ? "var(--surface)" : "var(--surface-2)";
   const cardShadow = isOpen
-    ? "0 16px 48px rgba(26,61,43,0.11), 0 4px 16px rgba(26,61,43,0.07)"
+    ? "0 16px 48px color-mix(in srgb, var(--brand) 11%, transparent), 0 4px 16px color-mix(in srgb, var(--brand) 7%, transparent)"
     : hovered
-    ? "0 6px 24px rgba(26,61,43,0.07), 0 2px 8px rgba(0,0,0,0.04)"
+    ? "0 6px 24px color-mix(in srgb, var(--brand) 7%, transparent), 0 2px 8px rgba(0,0,0,0.04)"
     : "0 1px 4px rgba(0,0,0,0.05)";
 
   return (
@@ -39,17 +39,15 @@ function FAQCard({
       style={{
         backgroundColor: cardBg,
         borderRadius: 14,
-        border: `1px solid ${isOpen ? `${DARK}22` : hovered ? `${DARK}14` : "#EDECEA"}`,
+        border: `1px solid ${isOpen ? `${mix(DARK, 13)}` : hovered ? `${mix(DARK, 8)}` : "var(--border)"}`,
         boxShadow: cardShadow,
         overflow: "hidden",
         transition:
           "box-shadow 320ms ease, border-color 280ms ease, transform 280ms ease",
         transform: hovered && !isOpen ? "translateY(-2px)" : "translateY(0)",
-        /* Left accent bar */
         borderLeft: isOpen ? `3px solid ${DARK}` : `3px solid transparent`,
       }}
     >
-      {/* Question row */}
       <button
         onClick={onToggle}
         aria-expanded={isOpen}
@@ -64,18 +62,16 @@ function FAQCard({
           gap: 16,
           padding: isMobile ? "18px 20px 18px 20px" : "22px 24px 22px 24px",
           textAlign: "left",
-          fontFamily: "'Inter', sans-serif",
+          fontFamily: "var(--font-inter), 'Inter', sans-serif",
         }}
       >
-        {/* Number + question */}
         <div style={{ display: "flex", alignItems: "flex-start", gap: 14 }}>
-          {/* Number badge */}
           <div
             style={{
               minWidth: isMobile ? 26 : 30,
               height: isMobile ? 26 : 30,
               borderRadius: 7,
-              backgroundColor: isOpen ? DARK : `${DARK}0E`,
+              backgroundColor: isOpen ? DARK : `${mix(DARK, 5)}`,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -86,10 +82,10 @@ function FAQCard({
           >
             <span
               style={{
-                fontFamily: "'Plus Jakarta Sans', sans-serif",
+                fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif",
                 fontWeight: 800,
                 fontSize: 10,
-                color: isOpen ? "#ffffff" : `${DARK}80`,
+                color: isOpen ? "#ffffff" : `${mix(DARK, 50)}`,
                 letterSpacing: "0.06em",
                 transition: "color 280ms",
               }}
@@ -98,13 +94,12 @@ function FAQCard({
             </span>
           </div>
 
-          {/* Question text */}
           <span
             style={{
-              fontFamily: "'Plus Jakarta Sans', sans-serif",
+              fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif",
               fontWeight: 700,
               fontSize: isMobile ? 14 : 16,
-              color: isOpen ? DARK : "#111410",
+              color: isOpen ? DARK : "var(--text)",
               letterSpacing: "-0.022em",
               lineHeight: 1.42,
               transition: "color 280ms",
@@ -115,14 +110,13 @@ function FAQCard({
           </span>
         </div>
 
-        {/* Toggle — chevron style */}
         <div
           style={{
             width: isMobile ? 28 : 32,
             height: isMobile ? 28 : 32,
             borderRadius: "50%",
-            backgroundColor: isOpen ? DARK : hovered ? `${DARK}0E` : `${DARK}08`,
-            border: `1.5px solid ${isOpen ? DARK : hovered ? `${DARK}22` : "transparent"}`,
+            backgroundColor: isOpen ? DARK : hovered ? `${mix(DARK, 5)}` : `${mix(DARK, 3)}`,
+            border: `1.5px solid ${isOpen ? DARK : hovered ? `${mix(DARK, 13)}` : "transparent"}`,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -143,7 +137,7 @@ function FAQCard({
           >
             <path
               d="M5 1V9M1 5H9"
-              stroke={isOpen ? "#ffffff" : hovered ? DARK : "#9CA3AF"}
+              stroke={isOpen ? "#ffffff" : hovered ? DARK : "var(--text-faint)"}
               strokeWidth="1.7"
               strokeLinecap="round"
             />
@@ -151,7 +145,6 @@ function FAQCard({
         </div>
       </button>
 
-      {/* Answer — grid-template-rows trick for butter-smooth animation */}
       <div
         style={{
           display: "grid",
@@ -160,11 +153,10 @@ function FAQCard({
         }}
       >
         <div style={{ overflow: "hidden" }}>
-          {/* Thin separator inside the card */}
           <div
             style={{
               height: 1,
-              backgroundColor: `${DARK}0C`,
+              backgroundColor: `${mix(DARK, 5)}`,
               marginLeft: isMobile ? 20 : 24,
               marginRight: isMobile ? 20 : 24,
             }}
@@ -172,7 +164,7 @@ function FAQCard({
           <p
             style={{
               fontSize: isMobile ? 14 : 15,
-              color: "#6B7280",
+              color: "var(--text-muted)",
               lineHeight: 1.88,
               margin: 0,
               padding: isMobile
