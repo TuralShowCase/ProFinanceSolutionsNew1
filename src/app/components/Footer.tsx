@@ -59,7 +59,7 @@ export function Footer() {
         {/* Brand bar */}
         <div className="ftr-brand" style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "auto 1fr auto", alignItems: "center", gap: isMobile ? 20 : 32, paddingTop: isMobile ? 44 : 60, paddingBottom: isMobile ? 28 : 36, borderBottom: "1px solid rgba(255,255,255,0.07)" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-            <img src="/logo-icon.png" alt="ProFinance" style={{ width: 38, height: 38, objectFit: "contain", flexShrink: 0 }} />
+            <img src="/logo-icon.png" alt="ProFinance" loading="lazy" style={{ width: 38, height: 38, objectFit: "contain", flexShrink: 0 }} />
             <div>
               <div style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: 17, color: "#FFFFFF", letterSpacing: "-0.02em", lineHeight: 1.1 }}>ProFinance</div>
               <div style={{ fontSize: 10, color: "rgba(255,255,255,0.28)", letterSpacing: "0.1em", textTransform: "uppercase" }}>Solutions</div>
@@ -84,7 +84,7 @@ export function Footer() {
         <div className="ftr-partner" style={{ display: "flex", alignItems: "center", gap: isMobile ? 14 : 20, padding: isMobile ? "16px 0" : "20px 0", borderBottom: "1px solid rgba(255,255,255,0.07)", flexWrap: isMobile ? "wrap" : "nowrap" }}>
           <span style={{ fontSize: 10, fontWeight: 700, color: "rgba(255,255,255,0.25)", letterSpacing: "0.16em", textTransform: "uppercase", flexShrink: 0 }}>{t("footer.legalPartner")}</span>
           <div style={{ width: 1, height: 14, backgroundColor: "rgba(255,255,255,0.1)", flexShrink: 0 }} />
-          <img src="/PLHLogo.avif" alt="PLH" style={{ height: 28, width: "auto", objectFit: "contain", flexShrink: 0, opacity: 0.85 }} />
+          <img src="/PLHLogo.avif" alt="PLH" loading="lazy" style={{ height: 28, width: "auto", objectFit: "contain", flexShrink: 0, opacity: 0.85 }} />
           <span style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 600, fontSize: 13, color: "rgba(255,255,255,0.6)", flexShrink: 0 }}>{t("partner.firmName")}</span>
           <div style={{ flex: 1 }} />
           <a href="https://plh.az" target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 5, fontSize: 12, color: PLH_ACC, textDecoration: "none", fontWeight: 500, transition: "opacity 200ms", opacity: 0.75, flexShrink: 0 }}
@@ -158,7 +158,7 @@ export function Footer() {
               onMouseLeave={e => ((e.currentTarget as HTMLElement).style.opacity = "0.55")}
             >
               <span style={{ fontSize: 11, color: "rgba(255,255,255,0.5)", letterSpacing: "0.06em", fontWeight: 500, textTransform: "uppercase" }}>{t("footer.designedBy")}</span>
-              <img src="/Kronex.avif" alt="Kronex" style={{ height: 18, width: "auto", objectFit: "contain", flexShrink: 0, filter: "brightness(0) invert(1)" }} />
+              <img src="/Kronex.avif" alt="Kronex" loading="lazy" style={{ height: 18, width: "auto", objectFit: "contain", flexShrink: 0, filter: "brightness(0) invert(1)" }} />
             </a>
           </div>
         </div>

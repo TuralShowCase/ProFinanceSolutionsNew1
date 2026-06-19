@@ -12,7 +12,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'meta' });
-  const aboutPath = locale === 'ru' ? '/ru/o-nas' : `/en/about`;
+  const aboutPath = locale === 'az' ? '/about' : locale === 'ru' ? '/ru/o-nas' : '/en/about';
   const canonical = `${SITE_URL}${aboutPath}`;
   return {
     title: t('aboutTitle'),

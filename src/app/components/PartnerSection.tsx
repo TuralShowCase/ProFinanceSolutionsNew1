@@ -66,7 +66,7 @@ export function PartnerSection() {
         {/* Main card */}
         <div ref={wrapRef} style={{ position: "relative", marginBottom: 14, paddingTop: !isMobile && !isTablet ? 80 : 0 }}>
           {!isMobile && !isTablet && (
-            <img ref={humanRef} src="/PartnerHuman.avif" alt="" aria-hidden="true" style={{ position: "absolute", bottom: 0, right: 0, height: "110%", width: "auto", maxWidth: "46%", objectFit: "contain", objectPosition: "bottom right", zIndex: 2, pointerEvents: "none", userSelect: "none", filter: "drop-shadow(-12px 0 28px rgba(9,44,58,0.38))" }} />
+            <img ref={humanRef} src="/PartnerHuman.avif" alt="" aria-hidden="true" loading="lazy" style={{ position: "absolute", bottom: 0, right: 0, height: "110%", width: "auto", maxWidth: "46%", objectFit: "contain", objectPosition: "bottom right", zIndex: 2, pointerEvents: "none", userSelect: "none", filter: "drop-shadow(-12px 0 28px rgba(9,44,58,0.38))" }} />
           )}
 
           <div ref={cardRef} style={{ background: `linear-gradient(145deg, ${PLH_DARK} 0%, ${PLH_MID} 100%)`, borderRadius: 24, overflow: "hidden", position: "relative", opacity: 0 }}>
@@ -76,16 +76,16 @@ export function PartnerSection() {
               {(isMobile || isTablet) ? (
                 <div style={{ display: "flex", alignItems: "flex-end", marginBottom: 0 }}>
                   <div style={{ flex: 1, minWidth: 0, paddingBottom: 24 }}>
-                    <img src="/PLHLogo.avif" alt={t("firmName")} style={{ height: isMobile ? 96 : 116, width: "auto", objectFit: "contain", display: "block", marginBottom: 16 }} />
+                    <img src="/PLHLogo.avif" alt={t("firmName")} loading="lazy" style={{ height: isMobile ? 96 : 116, width: "auto", objectFit: "contain", display: "block", marginBottom: 16 }} />
                     <span style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: isMobile ? 17 : 20, color: "#ffffff", letterSpacing: "-0.025em", lineHeight: 1.15, display: "block", marginBottom: 10 }}>{t("firmName")}</span>
                   </div>
                   <div style={{ flexShrink: 0, position: "relative", marginRight: -4, pointerEvents: "none" }}>
-                    <img ref={humanRef} src="/PartnerHuman.avif" alt="" aria-hidden="true" style={{ height: isMobile ? 190 : 240, width: "auto", display: "block", filter: "drop-shadow(-6px 0 18px rgba(9,44,58,0.5))", userSelect: "none" }} />
+                    <img ref={humanRef} src="/PartnerHuman.avif" alt="" aria-hidden="true" loading="lazy" style={{ height: isMobile ? 190 : 240, width: "auto", display: "block", filter: "drop-shadow(-6px 0 18px rgba(9,44,58,0.5))", userSelect: "none" }} />
                   </div>
                 </div>
               ) : (
                 <div style={{ marginBottom: 28 }}>
-                  <img src="/PLHLogo.avif" alt={t("firmName")} style={{ height: 130, width: "auto", objectFit: "contain", display: "block", marginBottom: 20 }} />
+                  <img src="/PLHLogo.avif" alt={t("firmName")} loading="lazy" style={{ height: 130, width: "auto", objectFit: "contain", display: "block", marginBottom: 20 }} />
                   <span style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: 22, color: "#ffffff", letterSpacing: "-0.025em", lineHeight: 1.1, display: "block" }}>{t("firmName")}</span>
                 </div>
               )}

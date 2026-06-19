@@ -100,3 +100,12 @@ html {
 .wa-idle {
   animation: wa-pulse 2.8s ease-out infinite;
 }
+
+/* ─── Services "show more" chevron nudge ─────────────────────── */
+@keyframes svcChevronBounce {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(3px); }
+}
+.svc-more-chevron {
+  animation: svcChevronBounce 1.6s ease-in-out infinite;
+}

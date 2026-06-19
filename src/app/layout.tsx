@@ -1,4 +1,4 @@
-import type { Viewport } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { getLocale, getMessages } from 'next-intl/server';
 import { NextIntlClientProvider } from 'next-intl';
 import Script from 'next/script';
@@ -23,6 +23,10 @@ const plusJakarta = Plus_Jakarta_Sans({
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID ?? 'G-33DDETT8MX';
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://profinancesolutions.az';
+
+export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
+};
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -67,11 +71,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <meta name="geo.placename" content="Baku, Azerbaijan" />
         <meta name="geo.position" content="40.3777;49.843" />
         <meta name="ICBM" content="40.3777, 49.843" />
-        {/* hreflang — applied globally; per-page canonical/alternates override via metadata API */}
-        <link rel="alternate" hrefLang="az" href={SITE_URL} />
-        <link rel="alternate" hrefLang="en" href={`${SITE_URL}/en`} />
-        <link rel="alternate" hrefLang="ru" href={`${SITE_URL}/ru`} />
-        <link rel="alternate" hrefLang="x-default" href={SITE_URL} />
+        {/* hreflang is emitted per-page via the Metadata API (alternates.languages),
+            so each route advertises its own correct language alternates. Do not add a
+            global hreflang block here — it would conflict with the per-page tags. */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}

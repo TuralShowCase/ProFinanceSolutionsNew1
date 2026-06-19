@@ -122,6 +122,8 @@
     "ctaQuestion": "Hansı xidmət sizə lazımdır?",
     "ctaSubtext": "Pulsuz ilkin məsləhət üçün bu gün bizimlə əlaqə saxlayın.",
     "viewDetails": "Ətraflı bax",
+    "showMore": "Daha {count} xidmət göstər",
+    "showLess": "Daha az",
     "featuredBadge1": "Ən çox seçilən",
     "featuredBadge2": "Əsas xidmət",
     "names": {

@@ -155,26 +155,36 @@ export function ServicesSection() {
             marginTop: 4,
           }}
         >
-          <div style={{ flex: 1, height: 1, backgroundColor: handleHovered ? "var(--border-strong)" : "var(--border-strong)", transition: "background-color 280ms ease" }} />
+          <div style={{ flex: 1, height: 1, backgroundColor: "var(--border)", transition: "background-color 280ms ease" }} />
           <span style={{
-            display: "inline-flex", alignItems: "center", gap: 7,
-            backgroundColor: handleHovered ? "var(--border-strong)" : "var(--surface-2)",
-            color: handleHovered || expanded ? DARK : "var(--text-soft)",
-            fontSize: 12, fontWeight: 600,
+            display: "inline-flex", alignItems: "center", gap: 8,
+            backgroundColor: expanded
+              ? (handleHovered ? "var(--border-strong)" : "var(--surface-2)")
+              : BRAND_SOLID,
+            color: expanded
+              ? (handleHovered ? DARK : "var(--text-soft)")
+              : "#FFFFFF",
+            fontSize: expanded ? 12 : 13.5, fontWeight: 600,
             fontFamily: "'Inter', sans-serif",
-            letterSpacing: "0.03em",
-            padding: "6px 14px",
+            letterSpacing: "0.01em",
+            padding: expanded ? "6px 14px" : "11px 24px",
             borderRadius: 999,
-            transform: handleHovered ? "translateY(-1px)" : "translateY(0)",
-            transition: "color 280ms ease, background-color 280ms ease, transform 360ms cubic-bezier(0.34, 1.56, 0.64, 1)",
+            boxShadow: expanded
+              ? "none"
+              : (handleHovered
+                  ? "0 12px 28px color-mix(in srgb, var(--brand) 36%, transparent)"
+                  : "0 6px 18px color-mix(in srgb, var(--brand) 26%, transparent)"),
+            transform: handleHovered ? "translateY(-2px)" : "translateY(0)",
+            transition: "color 280ms ease, background-color 280ms ease, box-shadow 280ms ease, transform 360ms cubic-bezier(0.34, 1.56, 0.64, 1)",
             whiteSpace: "nowrap",
           }}>
-            {expanded ? "Daha az" : "Daha çox göstər"}
+            {expanded ? t("services.showLess") : t("services.showMore", { count: secondaryServices.length })}
             <ChevronDown
-              size={14}
+              size={15}
+              className={expanded || handleHovered ? undefined : "svc-more-chevron"}
               style={{
                 transition: "transform 500ms cubic-bezier(0.34, 1.56, 0.64, 1)",
-                transform: expanded ? "rotate(180deg)" : "rotate(0deg)",
+                transform: expanded ? "rotate(180deg)" : undefined,
               }}
             />
           </span>
@@ -221,7 +231,7 @@ export function ServicesSection() {
                   el.style.transform = "translateY(0)";
                 }}
               >
-                Daha az
+                {t("services.showLess")}
                 <ChevronDown size={14} style={{ transform: "rotate(180deg)" }} />
               </button>
             </div>
@@ -231,7 +241,7 @@ export function ServicesSection() {
         {/* Bottom CTA */}
         {isMobile ? (
           <div style={{ marginTop: 20, position: "relative", zIndex: 2, paddingTop: 110 }}>
-            <img src="/CtaSitting.avif" alt="" aria-hidden="true" style={{ position: "absolute", top: -3, left: 12, height: 220, width: "auto", filter: "drop-shadow(8px 0 20px rgba(0,0,0,0.22))", pointerEvents: "none", zIndex: 2 }} />
+            <img src="/CtaSitting.avif" alt="" aria-hidden="true" loading="lazy" style={{ position: "absolute", top: -3, left: 12, height: 220, width: "auto", filter: "drop-shadow(8px 0 20px rgba(0,0,0,0.22))", pointerEvents: "none", zIndex: 2 }} />
             <div style={{ backgroundColor: INVERT, borderRadius: 16, overflow: "hidden", position: "relative", zIndex: 1 }}>
               <div style={{ padding: "22px 24px 16px 148px" }}>
                 <p style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: 17, color: "#FFFFFF", margin: "0 0 8px", letterSpacing: "-0.02em" }}>{t("services.ctaQuestion")}</p>
@@ -246,7 +256,7 @@ export function ServicesSection() {
           </div>
         ) : (
           <div style={{ marginTop: 52, position: "relative", zIndex: 2, paddingTop: isTablet ? 140 : 190 }}>
-            <img src="/CtaSitting.avif" alt="" aria-hidden="true" style={{ position: "absolute", top: 2, left: isTablet ? 32 : 48, height: isTablet ? 280 : 360, width: "auto", zIndex: 10, pointerEvents: "none", display: "block", filter: "drop-shadow(8px 12px 24px rgba(0,0,0,0.22))" }} />
+            <img src="/CtaSitting.avif" alt="" aria-hidden="true" loading="lazy" style={{ position: "absolute", top: 2, left: isTablet ? 32 : 48, height: isTablet ? 280 : 360, width: "auto", zIndex: 10, pointerEvents: "none", display: "block", filter: "drop-shadow(8px 12px 24px rgba(0,0,0,0.22))" }} />
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 24, flexWrap: "wrap", padding: isTablet ? "28px 32px 28px 200px" : "36px 44px 36px 260px", backgroundColor: INVERT, borderRadius: 16, overflow: "hidden", position: "relative" }}>
               <div>
                 <p style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: 20, color: "#FFFFFF", margin: "0 0 6px", letterSpacing: "-0.02em" }}>{t("services.ctaQuestion")}</p>
@@ -421,7 +431,7 @@ function ServiceCard({ slug, name, description, Icon, href, hidden, img, imgSize
       style={{ textDecoration: "none", opacity: 0, position: "relative", backgroundColor: hovered ? "var(--surface)" : "var(--surface-2)", borderRadius: 14, padding: "26px 22px 40px", cursor: "pointer", transition: "background-color 380ms ease, transform 420ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 380ms ease", transform: hovered ? "translateY(-5px) scale(1.012)" : "translateY(0) scale(1)", boxShadow: hovered ? "0 16px 48px color-mix(in srgb, var(--brand) 11%, transparent), 0 4px 12px rgba(0,0,0,0.05)" : "0 1px 3px rgba(0,0,0,0.04)", display: "flex", flexDirection: "column", overflow: "hidden" }}
     >
       {img && (
-        <img src={img} alt="" aria-hidden="true" style={{ position: "absolute", right: -6, top: 26, transform: hovered ? "scale(1.04)" : "scale(1)", width: imgSize ?? "52%", height: "auto", objectFit: "contain", transition: "transform 500ms ease", pointerEvents: "none", userSelect: "none" }} />
+        <img src={img} alt="" aria-hidden="true" loading="lazy" style={{ position: "absolute", right: -6, top: 26, transform: hovered ? "scale(1.04)" : "scale(1)", width: imgSize ?? "52%", height: "auto", objectFit: "contain", transition: "transform 500ms ease", pointerEvents: "none", userSelect: "none" }} />
       )}
       <div style={{ position: "absolute", top: 0, left: 0, bottom: 0, width: 3, backgroundColor: hovered ? DARK : "transparent", borderRadius: "14px 0 0 14px", transition: "background-color 360ms ease" }} />
       {/* Arrow — always bottom-right of full card */}

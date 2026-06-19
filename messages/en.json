@@ -122,6 +122,8 @@
     "ctaQuestion": "Which service do you need?",
     "ctaSubtext": "Contact us today for a free initial consultation.",
     "viewDetails": "View details",
+    "showMore": "Show {count} more services",
+    "showLess": "Show less",
     "featuredBadge1": "Most popular",
     "featuredBadge2": "Core service",
     "names": {

@@ -31,7 +31,7 @@ function ClientCard({ name, img, isMobile }: { name: string; img: string; isMobi
     <div className="client-card-anim" onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}
       style={{ opacity: 0, backgroundColor: "var(--surface)", borderRadius: 14, border: `1px solid ${hovered ? "color-mix(in srgb, var(--brand) 22%, transparent)" : "var(--border)"}`, display: "flex", alignItems: "center", justifyContent: "center", padding: isMobile ? "18px 14px" : "24px 20px", height: isMobile ? 76 : 92, transition: "border-color 360ms ease, box-shadow 360ms ease, transform 400ms cubic-bezier(0.34, 1.56, 0.64, 1)", transform: hovered ? "translateY(-3px)" : "translateY(0)", boxShadow: hovered ? "0 10px 32px color-mix(in srgb, var(--brand) 9%, transparent), 0 2px 8px rgba(0,0,0,0.04)" : "0 1px 4px rgba(0,0,0,0.04)", cursor: "default", userSelect: "none" }}
     >
-      <img src={img} alt={name} style={{ maxWidth: "100%", maxHeight: isMobile ? 34 : 42, objectFit: "contain", display: "block", filter: hovered ? "none" : "grayscale(18%)", opacity: hovered ? 1 : 0.82, transition: "filter 360ms ease, opacity 360ms ease" }} />
+      <img src={img} alt={name} loading="lazy" style={{ maxWidth: "100%", maxHeight: isMobile ? 34 : 42, objectFit: "contain", display: "block", filter: hovered ? "none" : "grayscale(18%)", opacity: hovered ? 1 : 0.82, transition: "filter 360ms ease, opacity 360ms ease" }} />
     </div>
   );
 }
