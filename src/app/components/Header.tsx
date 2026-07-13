@@ -105,7 +105,7 @@ export function Header() {
     { labelKey: "nav.home",     href: locale === "az" ? "#hero"     : `/${locale}#hero`,     dropdown: false },
     { labelKey: "nav.about",    href: locale === "az" ? "/about"    : locale === "ru" ? `/${locale}/o-nas` : `/${locale}/about`, dropdown: false },
     { labelKey: "nav.services", href: locale === "az" ? "#services" : `/${locale}#services`, dropdown: true  },
-    { labelKey: "nav.clients",  href: locale === "az" ? "#clients"  : `/${locale}#clients`,  dropdown: false },
+    { labelKey: "nav.practiceArea", href: locale === "az" ? "#industries" : `/${locale}#industries`, dropdown: false },
     { labelKey: "nav.contact",  href: "#contact",                                            dropdown: false },
   ];
 

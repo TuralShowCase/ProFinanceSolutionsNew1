@@ -11,7 +11,7 @@ const CONTACT_HREFS = [
   { Icon: Phone,         value: "+994 51 505 05 05", href: "tel:+994515050505",                                     labelKey: "labelPhone"    },
   { Icon: MessageCircle, value: "+994 51 505 05 05", href: "https://wa.me/994515050505",                            labelKey: "labelWhatsapp" },
   { Icon: Mail,          value: "info@profinance.az", href: "mailto:info@profinance.az",                            labelKey: "labelEmail"    },
-  { Icon: MapPin,        value: "Bakı, Nizami küçəsi 95", href: "https://maps.google.com/?q=Nizami+street+95+Baku", labelKey: "labelAddress"  },
+  { Icon: MapPin,        value: "Bakı, Əhməd Rəcəbli-2 küçəsi", href: "https://maps.google.com/?q=Ahmad+Rajabli+2+Baku", labelKey: "labelAddress"  },
 ];
 
 const socials = [

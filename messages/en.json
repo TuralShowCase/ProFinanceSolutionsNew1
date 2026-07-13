@@ -3,7 +3,7 @@
     "home": "Home",
     "about": "About",
     "services": "Services",
-    "clients": "Clients",
+    "practiceArea": "Practice Areas",
     "contact": "Contact"
   },
   "header": {
@@ -28,7 +28,7 @@
     "partnership": "Partnership",
     "clients": "Clients",
     "legalPartner": "Legal Partner",
-    "address": "Baku, Nizami Street 95",
+    "address": "Baku, Ahmad Rajabli-2 Street",
     "copyright": "All rights reserved.",
     "city": "Baku, Azerbaijan",
     "designedBy": "Designed by"
