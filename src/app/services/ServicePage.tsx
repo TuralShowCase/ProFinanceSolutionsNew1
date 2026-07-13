@@ -13,7 +13,6 @@ import {
 import { useTranslations } from "next-intl";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
-import { FAQAccordion } from "../components/FAQAccordion";
 import { ContactModalProvider, useContactModal } from "../contexts/ContactModalContext";
 import { useBreakpoint } from "../../hooks/useBreakpoint";
 import { type ServiceData, localizedSlug } from "./servicesData";
@@ -167,18 +166,16 @@ function ServicePageInner({ service, allServices, locale }: { service: ServiceDa
       {/* Intro */}
       <section className="intro-section" style={{ backgroundColor: "var(--surface)", padding: isMobile ? "40px 20px 64px" : isTablet ? "52px 28px 72px" : "64px 48px 80px" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+          {/* T3 service description as the intro heading (tagline retired from this slot) */}
           <div className="intro-anim" style={{ marginBottom: isMobile ? 32 : 44, opacity: 0 }}>
-            <p className="service-tagline" style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: isMobile ? 20 : isTablet ? 24 : 28, color: DARK, margin: "0 0 20px", letterSpacing: "-0.025em", lineHeight: 1.35, maxWidth: 680 }}>{service.tagline}</p>
+            <p className="service-tagline" style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: isMobile ? 20 : isTablet ? 24 : 28, color: DARK, margin: "0 0 20px", letterSpacing: "-0.025em", lineHeight: 1.35, maxWidth: 800 }}>{service.overview}</p>
             <div style={{ height: 1, backgroundColor: "var(--border)" }} />
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isTablet ? "1fr" : "1fr 340px", gap: isMobile ? 36 : isTablet ? 40 : 72, alignItems: "start", marginBottom: isMobile ? 40 : 56 }}>
-            <div>
-              <p className="intro-anim service-overview" style={{ fontSize: isMobile ? 15 : 16, color: "var(--text-soft)", lineHeight: 1.9, margin: 0, opacity: 0 }}>{service.overview}</p>
-            </div>
             <div className="intro-anim" style={{ opacity: 0 }}>
-              <p style={{ fontSize: 11, fontWeight: 700, color: DARK, letterSpacing: "0.18em", textTransform: "uppercase", margin: "0 0 16px", opacity: 0.6 }}>{t("whatYouGet")}</p>
-              <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 28 }}>
+              <p style={{ fontSize: 11, fontWeight: 700, color: DARK, letterSpacing: "0.18em", textTransform: "uppercase", margin: "0 0 18px", opacity: 0.6 }}>{t("whatYouGet")}</p>
+              <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: isMobile ? 12 : "14px 32px" }}>
                 {service.highlights.map((h, i) => (
                   <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 12 }}>
                     <div style={{ width: 22, height: 22, borderRadius: "50%", flexShrink: 0, backgroundColor: `${mix(DARK, 7)}`, display: "flex", alignItems: "center", justifyContent: "center", marginTop: 1 }}>
@@ -188,12 +185,13 @@ function ServicePageInner({ service, allServices, locale }: { service: ServiceDa
                   </div>
                 ))}
               </div>
-              <div style={{ height: 1, backgroundColor: "var(--border)", marginBottom: 24 }} />
-              <button onClick={openContact} style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, backgroundColor: BRAND_SOLID, color: "#fff", fontWeight: 700, fontSize: 14, padding: "13px 24px", borderRadius: 9, marginBottom: 10, transition: "opacity 280ms ease, transform 380ms cubic-bezier(0.34, 1.56, 0.64, 1)", border: "none", cursor: "pointer", fontFamily: "var(--font-inter), 'Inter', sans-serif" }}
+            </div>
+            <div className="intro-anim" style={{ opacity: 0 }}>
+              <button onClick={openContact} style={{ display: "flex", width: "100%", alignItems: "center", justifyContent: "center", gap: 8, backgroundColor: BRAND_SOLID, color: "#fff", fontWeight: 700, fontSize: 14, padding: "13px 24px", borderRadius: 9, marginBottom: 10, transition: "opacity 280ms ease, transform 380ms cubic-bezier(0.34, 1.56, 0.64, 1)", border: "none", cursor: "pointer", fontFamily: "var(--font-inter), 'Inter', sans-serif" }}
                 onMouseEnter={e => { (e.currentTarget as HTMLElement).style.opacity = "0.88"; (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)"; }}
                 onMouseLeave={e => { (e.currentTarget as HTMLElement).style.opacity = "1"; (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; }}
               ><Phone size={14} strokeWidth={1.8} /> {t("freeConsultation")}</button>
-              <a href={homeBase} style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 6, backgroundColor: "transparent", color: DARK, fontWeight: 500, fontSize: 14, padding: "12px 24px", borderRadius: 9, textDecoration: "none", border: `1px solid ${mix(DARK, 13)}`, transition: "border-color 300ms ease, background-color 300ms ease" }}
+              <a href={homeBase} style={{ display: "flex", width: "100%", boxSizing: "border-box", alignItems: "center", justifyContent: "center", gap: 6, backgroundColor: "transparent", color: DARK, fontWeight: 500, fontSize: 14, padding: "12px 24px", borderRadius: 9, textDecoration: "none", border: `1px solid ${mix(DARK, 13)}`, transition: "border-color 300ms ease, background-color 300ms ease" }}
                 onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = `${mix(DARK, 31)}`; (e.currentTarget as HTMLElement).style.backgroundColor = `${mix(DARK, 2)}`; }}
                 onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = `${mix(DARK, 13)}`; (e.currentTarget as HTMLElement).style.backgroundColor = "transparent"; }}
               >{t("allServices")} <ArrowUpRight size={15} /></a>
@@ -215,7 +213,7 @@ function ServicePageInner({ service, allServices, locale }: { service: ServiceDa
             </div>
           </div>
           <div style={{ height: 1, backgroundColor: "var(--border)", marginBottom: isMobile ? 32 : 48 }} />
-          <div className="features-bento" style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isTablet ? "1fr 1fr" : "1fr 1fr 1fr", gap: 12, marginBottom: isMobile ? 44 : 64 }}>
+          <div className="features-bento" style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isTablet ? "1fr 1fr" : service.features.length === 4 ? "1fr 1fr" : "1fr 1fr 1fr", gap: 12, marginBottom: isMobile ? 44 : 64 }}>
             {service.features.map((f, i) => <FeatureCard key={i} title={f.title} description={f.description} isMobile={isMobile} />)}
           </div>
 
@@ -269,28 +267,6 @@ function ServicePageInner({ service, allServices, locale }: { service: ServiceDa
           </div>
         </div>
       </section>
-
-      {/* FAQ */}
-      {service.faqs && service.faqs.length > 0 && (
-        <section className="svc-faq-section" style={{ background: "linear-gradient(160deg, var(--page-bg) 0%, var(--page-bg-alt) 55%, var(--page-bg) 100%)", padding: isMobile ? "64px 20px 72px" : isTablet ? "80px 28px 88px" : "100px 48px 108px", position: "relative", overflow: "hidden" }}>
-          <div aria-hidden="true" style={{ position: "absolute", top: -80, right: -60, width: 340, height: 340, borderRadius: "50%", background: `radial-gradient(circle, ${mix(ACCENT, 9)} 0%, transparent 70%)`, pointerEvents: "none" }} />
-          <div style={{ maxWidth: 1200, margin: "0 auto", position: "relative", zIndex: 1 }}>
-            <div className="svc-faq-header" style={{ display: "flex", flexDirection: isMobile ? "column" : "row", alignItems: isMobile ? "flex-start" : "flex-end", justifyContent: "space-between", gap: isMobile ? 16 : 40, marginBottom: isMobile ? 32 : isTablet ? 44 : 52, flexWrap: "wrap" }}>
-              <div>
-                <div style={{ display: "inline-flex", alignItems: "center", gap: 6, backgroundColor: `${mix(DARK, 5)}`, border: `1px solid ${mix(DARK, 9)}`, borderRadius: 100, padding: "4px 12px 4px 9px", marginBottom: 16 }}>
-                  <div style={{ width: 6, height: 6, borderRadius: "50%", backgroundColor: ACCENT }} />
-                  <span style={{ fontFamily: "var(--font-inter), 'Inter', sans-serif", fontSize: 11, fontWeight: 600, color: DARK, letterSpacing: "0.14em", textTransform: "uppercase" }}>{t("faqBadge")}</span>
-                </div>
-                <h2 style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: isMobile ? 26 : isTablet ? 34 : "clamp(32px, 3.2vw, 46px)", color: "var(--text)", margin: 0, letterSpacing: "-0.044em", lineHeight: 1.06 }}>
-                  {t("faqHeading")}{" "}<span style={{ color: DARK }}>{t("faqHeadingAccent")}</span>{" "}{t("faqHeadingSuffix")}
-                </h2>
-              </div>
-              {!isMobile && <p style={{ fontSize: 15, color: "var(--text-faint)", lineHeight: 1.75, margin: 0, maxWidth: 360, fontFamily: "var(--font-inter), 'Inter', sans-serif" }}>{t("faqSubtext", { serviceName: service.name })}</p>}
-            </div>
-            <FAQAccordion items={service.faqs} isMobile={isMobile} />
-          </div>
-        </section>
-      )}
 
       {/* Related */}
       <section className="related-section" style={{ backgroundColor: CREAM, padding: isMobile ? "64px 20px 72px" : isTablet ? "80px 28px 88px" : "100px 48px 108px" }}>

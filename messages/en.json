@@ -18,7 +18,7 @@
     "legalServices": "Legal Services"
   },
   "footer": {
-    "tagline": "Trusted financial partner for Azerbaijan's leading corporations",
+    "tagline": "Your trusted partner in finance and business",
     "services": "Services",
     "company": "Company",
     "contact": "Contact",
@@ -35,88 +35,45 @@
   },
   "hero": {
     "slide1": {
-      "badge": "Financial Consulting · Baku, Azerbaijan",
-      "titlePart1": "A trusted financial",
-      "titlePart2": "partner for your business",
-      "description": "Accounting, tax planning, financial audit and strategic consulting services — for major corporations."
+      "services": "Professional accounting, tax, HR and audit services, digital solutions and training",
+      "note": "All services in one trusted team"
     },
     "slide2": {
-      "badge": "Tax Planning · Baku, Azerbaijan",
-      "titlePart1": "Building your business's",
-      "titlePart2": "financial success together",
-      "description": "Strategic planning, tax optimization and financial modeling to support your business's sustainable growth."
+      "services": "Strategic planning, tax optimization and financial management",
+      "note": "We take your business to the next stage"
     },
-    "socialProof": "{count} corporate clients",
-    "socialProofSuffix": "· Baku, Azerbaijan",
-    "ctaServices": "Services",
-    "ctaContact": "Contact Us",
-    "badgeRevenueTrend": "Revenue Trend",
-    "badgeGrowth": "↑ Growth",
-    "badgePeriod": "Last 6 months · Monthly",
-    "badgeLicensed": "Licensed",
-    "badgeExperience": "5+ years expert"
+    "ctaContact": "Get in Touch"
   },
   "pillars": {
-    "sectionLabel": "Core Principles",
-    "heading": "Three pillars of",
-    "headingAccent": "success",
-    "subtext": "Three core principles underpin every decision we make. They are the foundation of the methodology that drives you forward.",
+    "sectionLabel": "Brand philosophy",
+    "heading": "The three-leaf",
+    "headingAccent": "clover",
+    "subtext": "Our logo reflects the foundation of the company's philosophy.",
     "items": [
       {
-        "number": "01",
         "title": "Structure",
-        "description": "A systematic approach to your financial processes — every step monitored, every decision justified. A solid system means a secure future.",
-        "statLabel": "Transparent reporting",
-        "tags": [
-          "Processes",
-          "Methodology",
-          "Documentation"
-        ]
+        "description": "Clearly organised processes and a transparent accounting system."
       },
       {
-        "number": "02",
         "title": "Control",
-        "description": "Continuous monitoring and reporting systems ensure transparency at every stage, at all times. Numbers don't lie — we read them for you.",
-        "statLabel": "Support service",
-        "tags": [
-          "Monitoring",
-          "Reporting",
-          "Transparency"
-        ]
+        "description": "Accurate financial data and effective risk management."
       },
       {
-        "number": "03",
         "title": "Growth",
-        "description": "Strategic planning supports your business's sustainable expansion and opens new perspectives. Today's decisions are tomorrow's achievements.",
-        "statLabel": "Corporate clients",
-        "tags": [
-          "Strategy",
-          "Growth",
-          "Planning"
-        ]
-      }
-    ],
-    "stats": [
-      {
-        "label": "Years of experience",
-        "sub": "In the Azerbaijani financial market"
+        "description": "Sustainable business development and increased financial efficiency."
       },
       {
-        "label": "Corporate clients",
-        "sub": "Across Baku and the regions"
-      },
-      {
-        "label": "Licensed specialists",
-        "sub": "Compliant with international standards"
+        "title": "Green",
+        "description": "Symbolises transparency, honesty and long-term resilience."
       }
     ]
   },
   "services": {
     "sectionLabel": "Services",
-    "heading": "Comprehensive financial",
-    "headingAccent": "solutions",
+    "heading": "Complete professional",
+    "headingAccent": "services",
     "headingSuffix": "for your business",
-    "subtext": "We cover your financial, tax, HR and digital needs across 8 specialised areas.",
+    "subtext": "We support your business at every stage of its development — from setting up accounting to strategic financial management.",
     "ctaLearnMore": "Learn more",
     "ctaContact": "Contact us",
     "ctaQuestion": "Which service do you need?",
@@ -127,69 +84,63 @@
     "featuredBadge1": "Most popular",
     "featuredBadge2": "Core service",
     "names": {
-      "ucotun-diaqnostikasi-ve-berpasi": "Accounting Diagnostics",
+      "ucotun-diaqnostikasi-ve-berpasi": "Accounting Diagnostics and Restoration",
       "muhasibat-konsaltinqi": "Accounting Consulting",
       "vergi-konsaltinqi": "Tax Consulting",
-      "maliyye-ve-idareetme-konsaltinqi": "Financial Consulting",
-      "emeliyyat-ve-reqemsal-konsaltinq": "Digital Consulting",
-      "hr-ve-kadrlar-konsaltinqi": "HR Consulting",
-      "telim-ve-inkisaf": "Training & Development",
+      "maliyye-ve-idareetme-konsaltinqi": "Financial and Management Consulting",
+      "emeliyyat-ve-reqemsal-konsaltinq": "Operational and Digital Consulting",
+      "hr-ve-kadrlar-konsaltinqi": "HR and Personnel Consulting",
+      "telim-ve-inkisaf": "Training and Development",
       "auditor-xidmetleri": "Audit Services"
     },
     "taglines": {
-      "ucotun-diaqnostikasi-ve-berpasi": "The first step to financial health",
-      "muhasibat-konsaltinqi": "Reliable support behind the numbers",
-      "vergi-konsaltinqi": "Legal optimization, maximum savings",
-      "maliyye-ve-idareetme-konsaltinqi": "From strategy to results",
-      "emeliyyat-ve-reqemsal-konsaltinq": "We digitise your business",
-      "hr-ve-kadrlar-konsaltinqi": "People at the centre",
-      "telim-ve-inkisaf": "Knowledge becomes power",
-      "auditor-xidmetleri": "Independent review, precise results"
+      "ucotun-diaqnostikasi-ve-berpasi": "Professional support for the comprehensive review and restoration of your company's accounting and tax records.",
+      "muhasibat-konsaltinqi": "Full organisation and professional support of your company's accounting.",
+      "vergi-konsaltinqi": "Professional support on tax legislation matters.",
+      "maliyye-ve-idareetme-konsaltinqi": "Professional support for developing your company's financial management system.",
+      "emeliyyat-ve-reqemsal-konsaltinq": "Professional support in optimising processes and adopting modern technologies to increase business efficiency.",
+      "hr-ve-kadrlar-konsaltinqi": "Set-up and professional support of your company's HR system.",
+      "telim-ve-inkisaf": "Professional support in developing employees' skills and management competencies.",
+      "auditor-xidmetleri": "Professional support for the independent assessment of your company's financial and operational processes."
     },
     "bullets": {
       "muhasibat-konsaltinqi": [
-        "Monthly financial report preparation",
-        "Accounting policy development",
-        "Full readiness for external audit"
+        "Registration and accounting support for new companies",
+        "Set-up and implementation of the accounting system",
+        "Accounting outsourcing"
       ],
       "vergi-konsaltinqi": [
-        "Tax return preparation",
-        "Legal reduction of tax burden",
-        "Preparation for tax inspections"
+        "Development of tax strategy",
+        "Optimisation of the tax burden",
+        "Tax planning"
       ]
     }
   },
   "whyUs": {
     "sectionLabel": "Why ProFinance?",
-    "heading": "Five advantages that",
-    "headingAccent": "make the difference",
-    "headingSuffix": "",
+    "heading": "Why clients",
+    "headingAccent": "choose us",
     "scrollHint": "Scroll down",
     "items": [
       {
-        "title": "Expert Approach",
-        "description": "Our specialists bring deep knowledge and hands-on experience to every engagement, assessing each project with a tailored perspective. Academic insight combined with real-world practice.",
-        "detail": "Every client is assigned a specialist with at least 10+ years of field experience."
+        "title": "Expert financial approach",
+        "description": "Deep professional expertise and precise solutions."
       },
       {
-        "title": "Systematic Understanding",
-        "description": "We fully grasp the structural dynamics of your business and deliver comprehensive financial solutions. System integrity is our top priority.",
-        "detail": "Each project begins with a bespoke diagnostic, followed by system design."
+        "title": "A systemic view of business",
+        "description": "Analysis of all processes for sustainable results."
       },
       {
-        "title": "Practical Solutions",
-        "description": "We go beyond theory and develop actionable strategies suited to real business environments. A results-driven approach at every turn.",
-        "detail": "On average, the first tangible results are seen within 3 weeks."
+        "title": "Practical, workable solutions",
+        "description": "Focus on results, not theory."
       },
       {
-        "title": "Transparency & Confidentiality",
-        "description": "We protect client data to the highest ethical standards and provide fully transparent reporting. Trustworthiness is our brand.",
-        "detail": "A data protection system aligned with ISO 27001 standards is applied."
+        "title": "Transparency and confidentiality",
+        "description": "Open cooperation and protection of client data."
       },
       {
-        "title": "Sustainable Growth",
-        "description": "Alongside short-term results, we focus on long-term development strategies. We think about your tomorrow, today.",
-        "detail": "92% of our clients continue using the service after the first year."
+        "title": "Focus on sustainable development",
+        "description": "Strategies that ensure long-term growth."
       }
     ]
   },
@@ -204,19 +155,7 @@
     "tags": [
       "Corporate law",
       "Contract law",
-      "Legal defence",
-      "11+ services"
-    ],
-    "stats": [
-      {
-        "label": "Legal services"
-      },
-      {
-        "label": "Years of partnership"
-      },
-      {
-        "label": "Confidentiality"
-      }
+      "Legal defence"
     ],
     "features": [
       {
@@ -237,49 +176,7 @@
     "sectionLabel": "Our Clients",
     "heading": "Our trusted",
     "headingAccent": "partners",
-    "subtext": "Azerbaijan's leading corporations trust us.",
-    "stat1Label": "Corporate clients",
-    "stat2Label": "Years of partnership",
     "trustLine": "Operating in Baku, Azerbaijan"
-  },
-  "faq": {
-    "badge": "Questions & Answers",
-    "heading": "Most frequently",
-    "headingAccent": "asked",
-    "headingSuffix": "questions",
-    "detailedAnswers": "detailed answers",
-    "description": "We've compiled answers to the questions our clients ask most often. If your question isn't answered here, contact us directly.",
-    "cta": "Get a free consultation",
-    "items": [
-      {
-        "question": "What types of companies does ProFinance Solutions serve?",
-        "answer": "We serve companies of every size, from small entrepreneurs to large holding groups. Start-ups, local businesses, branches of foreign companies, manufacturing enterprises, trading companies — we have clients from every sector. What matters to us is not the size of the company, but a genuine commitment to financial health."
-      },
-      {
-        "question": "Why is the initial consultation free?",
-        "answer": "Because we work on a partnership basis. At the initial meeting, we learn about your company's situation, needs and objectives. This stage allows us to propose the most appropriate solution and gives you the opportunity to assess real value with no obligations whatsoever."
-      },
-      {
-        "question": "Do you provide services that are fully compliant with Azerbaijani legislation?",
-        "answer": "Yes. All our services are conducted in full compliance with the Tax Code of the Republic of Azerbaijan, the Labour Code, IFRS standards and other applicable legislation. Changes in legislation are continuously monitored and clients are notified in a timely manner."
-      },
-      {
-        "question": "Is it possible to use several services at the same time?",
-        "answer": "Yes, and this is actually the recommended approach. Accounting, tax, HR and financial management are closely interlinked. Combined services deliver more consistent and faster results. Many of our clients use several services simultaneously."
-      },
-      {
-        "question": "How is the confidentiality of my data protected?",
-        "answer": "A non-disclosure agreement (NDA) is signed with every client. Your company's data is accessible only to the project team members concerned and is never passed to third parties. All documents are stored in an encrypted environment."
-      },
-      {
-        "question": "Is remote service available?",
-        "answer": "Yes. The vast majority of our services can be delivered online in full. Through video meetings, cloud-based document sharing and digital communication channels, we collaborate with clients from any city in Azerbaijan and from abroad."
-      },
-      {
-        "question": "When will results become visible?",
-        "answer": "Initial results are typically seen within 2–4 weeks: issues in the accounting system are identified, tax risks are assessed, and processes are documented. Strategic outcomes — budget discipline, tax savings, HR effectiveness — are achieved within 3–6 months."
-      }
-    ]
   },
   "about": {
     "hero": {
@@ -289,16 +186,16 @@
     },
     "mission": {
       "sectionLabel": "About Us",
-      "heading": "A partnership built",
-      "headingAccent": "on trust",
-      "headingSuffix": "",
-      "subtext": "We transform financial processes into a system that is predictable, transparent and manageable.",
-      "leadParagraph": "In today's world, business success depends not only on ambition, but also on the precise and transparent management of finances.",
-      "paragraph1": "ProFinance Solutions is a professional financial consulting firm operating in Baku. We provide accounting, tax, audit, HR, financial management and ERP implementation services in full compliance with IFRS/GAAP standards, ISA audit requirements, the Azerbaijan Tax Code and the Labour Code.",
-      "paragraph2": "Our team has a combined professional experience of 15+ years. We support clients from wholesale trade, construction, industrial manufacturing, financial services, technology, legal services, hospitality and project management sectors. A non-disclosure agreement (NDA) is signed with every client.",
+      "heading": "Your trusted partner",
+      "headingAccent": "in finance",
+      "headingSuffix": "and business",
+      "subtext": "We don't just advise — we build a system in which financial processes become predictable, transparent and manageable.",
+      "leadParagraph": "In today's world, business success depends not only on ambition, but also on the ability to manage finances accurately and transparently.",
+      "paragraph1": "ProFinance Solutions acts as your strategic partner, helping companies grow, minimise risks and make well-founded financial decisions. Our experience covers all key areas of financial consulting: accounting, taxation, audit and financial management.",
+      "paragraph2": "Our goal is not only to protect your business from external risks, but also to open up new opportunities for growth and development. We build long-term partnerships with our clients based on trust, professionalism and a strategic approach. ProFinance Solutions is your guide in the world of financial success.",
       "missionLabel": "Our Mission",
-      "missionQuote": "\"To be a trusted and strategic partner for our clients' businesses, ensuring maximum transparency in all financial processes.\"",
-      "missionSub": "Operating in full compliance with the Azerbaijan Tax Code, IFRS standards and ISA audit requirements, we minimise your company's financial risk. We provide ongoing support to 13+ corporate clients across wholesale trade, construction, industry, finance, technology, law and hospitality sectors."
+      "missionQuote": "To be a reliable and strategic partner for our clients' businesses, to ensure maximum transparency of financial processes and, drawing on our professional experience in accounting, taxation, audit and financial management, to effectively protect companies from external risks.",
+      "missionSub": "We support the transparent and sustainable development of your business and minimise financial risks."
     },
     "values": {
       "sectionLabel": "Our Values",
@@ -308,19 +205,19 @@
       "items": [
         {
           "title": "Professionalism",
-          "description": "Every decision is grounded in deep analytical thinking and years of experience. We deliver precise solutions even for the most complex financial challenges."
+          "description": "Every decision is based on deep analysis and years of experience, delivering precise solutions even in the most complex financial matters."
         },
         {
           "title": "Transparency",
-          "description": "We conduct our work with complete openness and full compliance with the law. Nothing is hidden in our reporting system."
+          "description": "We operate with full openness and in strict compliance with applicable legislation."
         },
         {
           "title": "Reliability",
-          "description": "Clients entrust us with the most critical financial processes of their business. We uphold that trust at all times."
+          "description": "Clients entrust us with their most critical financial processes, and we safeguard that trust."
         },
         {
           "title": "Efficiency",
-          "description": "Our recommendations go beyond theory — they are practical solutions designed to deliver real business results."
+          "description": "Our recommendations are aimed not at theory but at practical solutions that deliver real business results."
         }
       ]
     },
@@ -335,7 +232,7 @@
       "traits": [
         {
           "title": "Certified professionals",
-          "desc": "Our team is composed of certified practitioners in IFRS, ISA audit standards, tax accounting and HR management — every member is a deep expert in their own discipline."
+          "desc": "Our team is composed of certified practitioners in accounting, audit, tax accounting and HR management — every member is a deep expert in their own discipline."
         },
         {
           "title": "15+ years combined experience",
@@ -348,9 +245,9 @@
       ]
     },
     "cta": {
-      "heading": "Let's reach your",
-      "headingAccent": "financial goals together",
-      "subtext": "Take the first step towards your business's financial health today. Everything starts with a free initial consultation.",
+      "heading": "Achieve success",
+      "headingAccent": "together with us",
+      "subtext": "Grow with confidence — we minimise the risks.",
       "primaryBtn": "Free consultation",
       "secondaryBtn": "View services"
     }
@@ -370,11 +267,6 @@
     "howItWorks": "How our",
     "howItWorksAccent": "process works",
     "stepsSupport": "We support clients across {count} steps.",
-    "faqBadge": "Questions & Answers",
-    "faqHeading": "Frequently",
-    "faqHeadingAccent": "asked",
-    "faqHeadingSuffix": "questions",
-    "faqSubtext": "We've compiled expert answers to the most frequently asked questions about {serviceName}.",
     "discoverLabel": "Explore",
     "otherServices": "Other",
     "otherServicesAccent": "services",
@@ -414,5 +306,22 @@
     "labelWhatsapp": "WhatsApp",
     "labelEmail": "Email",
     "labelAddress": "Address"
+  },
+  "industries": {
+    "sectionLabel": "Who we work with",
+    "heading": "Industries",
+    "headingAccent": "we serve",
+    "intro": "We work with companies across a wide range of industries and provide them with professional support.",
+    "link": "See our clients",
+    "items": [
+      "Wholesale and retail trade",
+      "Construction and renovation",
+      "Design and restoration works",
+      "Industrial manufacturing",
+      "Catering and HoReCa",
+      "Financial sector",
+      "IT and technology",
+      "Legal services"
+    ]
   }
 }

@@ -38,8 +38,8 @@ export function Footer() {
   const p = isMobile ? "0 20px" : isTablet ? "0 28px" : "0 48px";
 
   const contacts = [
-    { Icon: Phone,         text: "+994 12 555 00 11",      href: "tel:+994125550011" },
-    { Icon: MessageCircle, text: "+994 50 555 00 11",      href: "https://wa.me/994505550011" },
+    { Icon: Phone,         text: "+994 51 505 05 05",      href: "tel:+994515050505" },
+    { Icon: MessageCircle, text: "+994 51 505 05 05",      href: "https://wa.me/994515050505" },
     { Icon: Mail,          text: "info@profinance.az",     href: "mailto:info@profinance.az" },
     { Icon: MapPin,        text: t("footer.address"),      href: "https://maps.google.com/?q=Nizami+street+95+Baku+Azerbaijan" },
   ];

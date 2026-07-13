@@ -8,10 +8,10 @@ import { Header } from "./components/Header";
 import { HeroSection } from "./components/HeroSection";
 import { PillarsSection } from "./components/PillarsSection";
 import { ServicesSection } from "./components/ServicesSection";
+import { IndustriesSection } from "./components/IndustriesSection";
 import { WhyUsSection } from "./components/WhyUsSection";
 import { PartnerSection } from "./components/PartnerSection";
 import { ClientsSection } from "./components/ClientsSection";
-import { HomeFAQSection } from "./components/HomeFAQSection";
 import { Footer } from "./components/Footer";
 import { ContactModalProvider } from "./contexts/ContactModalContext";
 
@@ -47,10 +47,10 @@ export default function App() {
           <HeroSection />
           <PillarsSection />
           <ServicesSection />
+          <IndustriesSection />
           <WhyUsSection />
           <PartnerSection />
           <ClientsSection />
-          <HomeFAQSection />
         </div>
         <Footer />
       </div>

@@ -30,7 +30,6 @@ export function WhyUsSection() {
   const items = Array.from({ length: 5 }, (_, i) => ({
     title:       t(`items.${i}.title` as Parameters<typeof t>[0]),
     description: t(`items.${i}.description` as Parameters<typeof t>[0]),
-    detail:      t(`items.${i}.detail` as Parameters<typeof t>[0]),
     Icon:        ICONS[i],
   }));
 
@@ -86,7 +85,6 @@ export function WhyUsSection() {
               <p className="why-entrance" style={{ fontFamily: "var(--font-inter), 'Inter', sans-serif", fontSize: 11, fontWeight: 600, color: DARK, letterSpacing: "0.18em", textTransform: "uppercase", margin: "0 0 20px 0" }}>{t("sectionLabel")}</p>
               <h2 className="why-entrance" style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: "clamp(28px, 3vw, 44px)", color: "var(--text)", margin: 0, letterSpacing: "-0.04em", lineHeight: 1.08 }}>
                 {t("heading")}{" "}<span style={{ color: DARK }}>{t("headingAccent")}</span>
-                <br />{t("headingSuffix")}
               </h2>
               <div className="why-entrance" style={{ height: 1, backgroundColor: "var(--border)", margin: "32px 0 24px" }} />
               <div className="why-entrance" style={{ display: "flex", flexDirection: "column", gap: 2 }}>
@@ -135,10 +133,7 @@ export function WhyUsSection() {
             </div>
             <h3 style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: isTablet ? "clamp(24px, 3vw, 36px)" : "clamp(28px, 3.2vw, 46px)", color: "#FFFFFF", margin: "0 0 18px 0", letterSpacing: "-0.04em", lineHeight: 1.05 }}>{point.title}</h3>
             <div style={{ height: 1, backgroundColor: "rgba(255,255,255,0.12)", marginBottom: 22 }} />
-            <p style={{ fontFamily: "var(--font-inter), 'Inter', sans-serif", fontSize: 15, color: "rgba(255,255,255,0.62)", lineHeight: 1.82, margin: "0 0 28px 0" }}>{point.description}</p>
-            <div style={{ borderLeft: "3px solid color-mix(in srgb, var(--accent-green) 65%, transparent)", paddingLeft: 18, marginBottom: 44 }}>
-              <p style={{ fontFamily: "var(--font-inter), 'Inter', sans-serif", fontSize: 13, fontWeight: 500, color: "rgba(255,255,255,0.52)", lineHeight: 1.68, margin: 0 }}>{point.detail}</p>
-            </div>
+            <p style={{ fontFamily: "var(--font-inter), 'Inter', sans-serif", fontSize: 16, color: "rgba(255,255,255,0.72)", lineHeight: 1.82, margin: "0 0 44px 0" }}>{point.description}</p>
             <div style={{ display: "flex", gap: 6, alignItems: "center" }}>
               {items.map((_, i) => (
                 <div key={i} style={{ height: 3, width: i === activeIndex ? 28 : 8, borderRadius: 2, backgroundColor: i === activeIndex ? "var(--accent-green)" : i < activeIndex ? "color-mix(in srgb, var(--accent-green) 35%, transparent)" : "rgba(255,255,255,0.15)", transition: "width 400ms ease, background-color 400ms ease" }} />
@@ -151,7 +146,7 @@ export function WhyUsSection() {
   );
 }
 
-function WhyUsMobileAccordion({ items, t }: { items: { title: string; description: string; detail: string; Icon: React.ElementType }[]; t: ReturnType<typeof useTranslations<"whyUs">> }) {
+function WhyUsMobileAccordion({ items, t }: { items: { title: string; description: string; Icon: React.ElementType }[]; t: ReturnType<typeof useTranslations<"whyUs">> }) {
   const outerRef  = useRef<HTMLDivElement>(null);
   const [openIndex, setOpenIndex] = useState(0);
 
@@ -198,10 +193,7 @@ function WhyUsMobileAccordion({ items, t }: { items: { title: string; descriptio
               </button>
               <div style={{ maxHeight: isOpen ? 500 : 0, overflow: "hidden", transition: "max-height 480ms cubic-bezier(0.4, 0, 0.2, 1)" }}>
                 <div style={{ paddingBottom: 20, paddingLeft: 70 }}>
-                  <p style={{ fontSize: 14, color: "var(--text-muted)", lineHeight: 1.75, margin: "0 0 14px 0" }}>{point.description}</p>
-                  <div style={{ borderLeft: "3px solid color-mix(in srgb, var(--brand) 35%, transparent)", paddingLeft: 14 }}>
-                    <p style={{ fontSize: 12, color: "var(--text-faint)", lineHeight: 1.68, margin: 0 }}>{point.detail}</p>
-                  </div>
+                  <p style={{ fontSize: 14, color: "var(--text-muted)", lineHeight: 1.75, margin: 0 }}>{point.description}</p>
                 </div>
               </div>
             </div>

@@ -50,7 +50,7 @@ const organizationSchema = {
   areaServed: { '@type': 'Country', name: 'Azerbaijan', sameAs: 'https://www.wikidata.org/wiki/Q227' },
   address: { '@type': 'PostalAddress', streetAddress: 'Nizami küçəsi 95', addressLocality: 'Bakı', addressCountry: 'AZ' },
   contactPoint: [
-    { '@type': 'ContactPoint', telephone: '+994-12-555-00-11', contactType: 'customer service', availableLanguage: ['Azerbaijani', 'Russian', 'English'] },
+    { '@type': 'ContactPoint', telephone: '+994-51-505-05-05', contactType: 'customer service', availableLanguage: ['Azerbaijani', 'Russian', 'English'] },
   ],
   email: 'info@profinance.az',
   sameAs: [],

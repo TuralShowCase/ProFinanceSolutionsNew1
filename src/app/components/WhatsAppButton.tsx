@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from "react";
 
-const WA_NUMBER   = "994505550011";
+const WA_NUMBER   = "994515050505";
 const WA_TEXT     = encodeURIComponent("Salam! ProFinance Solutions haqqında məlumat almaq istəyirəm.");
-const DISPLAY_NUM = "+994 50 555 00 11";
+const DISPLAY_NUM = "+994 51 505 05 05";
 
 function WhatsAppIcon() {
   return (

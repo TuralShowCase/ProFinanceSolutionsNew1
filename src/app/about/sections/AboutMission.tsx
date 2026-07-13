@@ -58,13 +58,13 @@ export function AboutMission() {
     <section ref={sectionRef} style={{ backgroundColor: "var(--surface)", padding: sectionPad, fontFamily: "var(--font-inter), 'Inter', sans-serif" }}>
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
         <div className="msn-anim" style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 40, marginBottom: 52, flexWrap: "wrap" }}>
-          <div>
+          <div style={{ flex: "1 1 560px", minWidth: 0 }}>
             <p style={{ fontSize: 11, fontWeight: 600, color: DARK, letterSpacing: "0.18em", textTransform: "uppercase", margin: "0 0 16px" }}>{t("sectionLabel")}</p>
-            <h2 style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: isTablet ? 36 : "clamp(34px, 3.8vw, 52px)", color: "var(--text)", margin: 0, letterSpacing: "-0.038em", lineHeight: 1.08 }}>
+            <h2 style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: isTablet ? 36 : "clamp(34px, 3.8vw, 52px)", color: "var(--text)", margin: 0, letterSpacing: "-0.038em", lineHeight: 1.08, maxWidth: 720, textWrap: "balance" }}>
               {t("heading")} <span style={{ color: DARK }}>{t("headingAccent")}</span> {t("headingSuffix")}
             </h2>
           </div>
-          <p style={{ fontSize: 15, color: "var(--text-faint)", lineHeight: 1.72, margin: 0, maxWidth: 320 }}>{t("subtext")}</p>
+          <p style={{ fontSize: 15, color: "var(--text-muted)", lineHeight: 1.72, margin: 0, maxWidth: 320, flex: "0 1 320px" }}>{t("subtext")}</p>
         </div>
 
         <div style={{ height: 1, backgroundColor: "var(--border)", marginBottom: 52 }} />

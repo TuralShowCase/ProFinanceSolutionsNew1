@@ -18,7 +18,7 @@
     "legalServices": "Hüquqi Xidmətlər"
   },
   "footer": {
-    "tagline": "Azərbaycanın aparıcı korporasiyaları üçün etibarlı maliyyə tərəfdaşı",
+    "tagline": "Sizin maliyyə və biznesdə etibarlı tərəfdaşınız",
     "services": "Xidmətlər",
     "company": "Şirkət",
     "contact": "Əlaqə",
@@ -35,79 +35,36 @@
   },
   "hero": {
     "slide1": {
-      "badge": "Maliyyə Konsaltinqi · Bakı, Azərbaycan",
-      "titlePart1": "Biznesiniz üçün",
-      "titlePart2": "etibarlı maliyyə tərəfdaşı",
-      "description": "Mühasibat uçotu, vergi planlaması, maliyyə audit və strateji konsaltinq xidmətləri — böyük korporasiyalar üçün."
+      "services": "Peşəkar mühasibatlıq, vergi, kadr, audit xidmətləri, rəqəmsal həllər və təlimlər",
+      "note": "Bütün xidmətlər bir etibarlı komandada"
     },
     "slide2": {
-      "badge": "Vergi Planlaması · Bakı, Azərbaycan",
-      "titlePart1": "Biznesinizin maliyyə",
-      "titlePart2": "uğurunu birlikdə qururuq",
-      "description": "Strateji planlaşdırma, vergi optimizasiyası və maliyyə modelləşdirməsi ilə biznesinizin dayanıqlı böyüməsini dəstəkləyirik."
+      "services": "Strateji planlaşdırma, vergi optimizasiyası və maliyyə idarəçiliyi",
+      "note": "Biznesinizi növbəti mərhələyə çatdırırıq"
     },
-    "socialProof": "{count} korporativ müştəri",
-    "socialProofSuffix": "· Bakı, Azərbaycan",
-    "ctaServices": "Xidmətlər",
-    "ctaContact": "Bizimlə əlaqə",
-    "badgeRevenueTrend": "Gəlir Trendi",
-    "badgeGrowth": "↑ Artım",
-    "badgePeriod": "Son 6 ay · Aylıq",
-    "badgeLicensed": "Lisenziyalı",
-    "badgeExperience": "5+ il peşəkar"
+    "ctaContact": "Bizimlə əlaqə"
   },
   "pillars": {
-    "sectionLabel": "Əsas Prinsiplər",
-    "heading": "Uğurun üç",
-    "headingAccent": "dayağı",
-    "subtext": "Hər qərarımızın arxasında üç əsas prinsip dayanır. Bunlar sizi irəliyə aparan metodologiyamızın nüvəsidir.",
+    "sectionLabel": "Brend fəlsəfəsi",
+    "heading": "Üçyarpaqlı",
+    "headingAccent": "yonca",
+    "subtext": "Loqomuz şirkətin fəlsəfəsinin əsasını əks etdirir.",
     "items": [
       {
-        "number": "01",
         "title": "Struktur",
-        "description": "Maliyyə proseslərinizə sistematik yanaşma — hər addım nəzarət altında, hər qərar əsaslandırılmış. Sistemin möhkəm olması, gələcəyinizin etibarlı olması deməkdir.",
-        "statLabel": "Şəffaf hesabat",
-        "tags": [
-          "Proseslər",
-          "Metodologiya",
-          "Sənədləşmə"
-        ]
+        "description": "Dəqiq təşkil olunmuş proseslər və şəffaf uçot sistemi."
       },
       {
-        "number": "02",
         "title": "Nəzarət",
-        "description": "Davamlı monitorinq və hesabat sistemi ilə şəffaflıq hər mərhələdə, hər zaman təmin edilir. Rəqəmlər yalan danışmır — biz onları sizin üçün oxuyuruq.",
-        "statLabel": "Dəstək xidməti",
-        "tags": [
-          "Monitorinq",
-          "Hesabat",
-          "Şəffaflıq"
-        ]
+        "description": "Maliyyə məlumatlarının dəqiqliyi və risklərin effektiv idarə olunması."
       },
       {
-        "number": "03",
         "title": "İnkişaf",
-        "description": "Strateji planlaşdırma ilə biznesinizin dayanıqlı böyüməsini dəstəkləyir, yeni perspektivlər açırıq. Bugünkü qərarlar sabahın nailiyyətidir.",
-        "statLabel": "Korporativ müştəri",
-        "tags": [
-          "Strategiya",
-          "Böyümə",
-          "Planlaşdırma"
-        ]
-      }
-    ],
-    "stats": [
-      {
-        "label": "İl təcrübə",
-        "sub": "Azərbaycan maliyyə bazarında"
+        "description": "Biznesin davamlı inkişafı və maliyyə səmərəliliyinin artırılması."
       },
       {
-        "label": "Korporativ müştəri",
-        "sub": "Bakı və regionlar üzrə"
-      },
-      {
-        "label": "Lisenziyalı mütəxəssislər",
-        "sub": "Beynəlxalq standartlara uyğun"
+        "title": "Yaşıl rəng",
+        "description": "Şəffaflığı, dürüstlüyü və uzunmüddətli dayanıqlılığı simvolizə edir."
       }
     ]
   },
@@ -115,8 +72,8 @@
     "sectionLabel": "Xidmətlər",
     "heading": "Biznesiniz üçün",
     "headingAccent": "kompleks",
-    "headingSuffix": "maliyyə həlləri",
-    "subtext": "8 ixtisaslaşmış istiqamət üzrə maliyyə, vergi, kadr və rəqəmsal ehtiyaclarınızı tam əhatə edirik.",
+    "headingSuffix": "peşəkar xidmətlər",
+    "subtext": "Biznesinizin inkişafının bütün mərhələlərində peşəkar dəstək göstəririk — uçot sisteminin qurulmasından başlayaraq strateji maliyyə idarəetməsinədək.",
     "ctaLearnMore": "Ətraflı məlumat",
     "ctaContact": "Əlaqə saxlayın",
     "ctaQuestion": "Hansı xidmət sizə lazımdır?",
@@ -127,69 +84,63 @@
     "featuredBadge1": "Ən çox seçilən",
     "featuredBadge2": "Əsas xidmət",
     "names": {
-      "ucotun-diaqnostikasi-ve-berpasi": "Uçotun Diaqnostikası",
-      "muhasibat-konsaltinqi": "Mühasibat Konsaltinqi",
-      "vergi-konsaltinqi": "Vergi Konsaltinqi",
-      "maliyye-ve-idareetme-konsaltinqi": "Maliyyə Konsaltinqi",
-      "emeliyyat-ve-reqemsal-konsaltinq": "Rəqəmsal Konsaltinq",
-      "hr-ve-kadrlar-konsaltinqi": "HR Konsaltinqi",
-      "telim-ve-inkisaf": "Təlim və İnkişaf",
-      "auditor-xidmetleri": "Auditor Xidmətləri"
+      "ucotun-diaqnostikasi-ve-berpasi": "Uçotun diaqnostikası və bərpası",
+      "muhasibat-konsaltinqi": "Mühasibat konsaltinqi",
+      "vergi-konsaltinqi": "Vergi konsaltinqi",
+      "maliyye-ve-idareetme-konsaltinqi": "Maliyyə və idarəetmə konsaltinqi",
+      "emeliyyat-ve-reqemsal-konsaltinq": "Əməliyyat və rəqəmsal konsaltinq",
+      "hr-ve-kadrlar-konsaltinqi": "HR və kadr konsaltinqi",
+      "telim-ve-inkisaf": "Təlim və inkişaf",
+      "auditor-xidmetleri": "Auditor xidmətləri"
     },
     "taglines": {
-      "ucotun-diaqnostikasi-ve-berpasi": "Maliyyə sağlamlığının ilk addımı",
-      "muhasibat-konsaltinqi": "Rəqəmlər arxasında etibarlı dəstək",
-      "vergi-konsaltinqi": "Qanuni optimizasiya, maksimum qənaət",
-      "maliyye-ve-idareetme-konsaltinqi": "Strategiyadan nəticəyə doğru",
-      "emeliyyat-ve-reqemsal-konsaltinq": "Biznesinizi rəqəmsallaşdırırıq",
-      "hr-ve-kadrlar-konsaltinqi": "İnsanı mərkəzə qoyuruq",
-      "telim-ve-inkisaf": "Bilik gücə çevrilir",
-      "auditor-xidmetleri": "Müstəqil baxış, dəqiq nəticə"
+      "ucotun-diaqnostikasi-ve-berpasi": "Şirkətinizin mühasibat və vergi uçotunun kompleks yoxlanılması və bərpası üzrə peşəkar dəstək.",
+      "muhasibat-konsaltinqi": "Şirkətin mühasibat uçotunun tam təşkili və peşəkar müşayiəti.",
+      "vergi-konsaltinqi": "Vergi qanunvericiliyi üzrə şirkətinizə peşəkar dəstək.",
+      "maliyye-ve-idareetme-konsaltinqi": "Şirkətinizin maliyyə idarəetmə sisteminin inkişafı üçün peşəkar dəstək.",
+      "emeliyyat-ve-reqemsal-konsaltinq": "Biznesinizin səmərəliliyini artırmaq üçün proseslərin optimallaşdırılması və müasir texnologiyaların tətbiqi üzrə peşəkar dəstək.",
+      "hr-ve-kadrlar-konsaltinqi": "Şirkətinizin kadr sisteminin qurulması və peşəkar dəstəyi.",
+      "telim-ve-inkisaf": "Əməkdaşların bacarıqlarını və idarəetmə səriştəsini artırmaq üzrə peşəkar dəstək.",
+      "auditor-xidmetleri": "Şirkətinizin maliyyə və əməliyyat proseslərinin müstəqil qiymətləndirilməsi üzrə peşəkar dəstək."
     },
     "bullets": {
       "muhasibat-konsaltinqi": [
-        "Aylıq maliyyə hesabatlarının hazırlanması",
-        "Mühasibat siyasətinin qurulması",
-        "Xarici audit üçün tam hazırlıq"
+        "Yeni şirkətlərin qeydiyyatı və uçot üzrə dəstək",
+        "Mühasibat uçotu sisteminin qurulması və tətbiqi",
+        "Mühasibatlıq xidmətlərinin autsorsinqi"
       ],
       "vergi-konsaltinqi": [
-        "Vergi bəyannamələrinin hazırlanması",
-        "Qanuni vergi yükünün azaldılması",
-        "Vergi yoxlamalarına hazırlıq"
+        "Vergi strategiyasının hazırlanması",
+        "Vergi yükünün optimallaşdırılması",
+        "Vergi planlaşdırılması"
       ]
     }
   },
   "whyUs": {
     "sectionLabel": "Niyə ProFinance?",
-    "heading": "Fərqi yaradan",
-    "headingAccent": "beş",
-    "headingSuffix": "üstünlük",
+    "heading": "Niyə bizi",
+    "headingAccent": "seçirlər",
     "scrollHint": "Aşağı diyirin",
     "items": [
       {
-        "title": "Ekspert Yanaşma",
-        "description": "Maliyyə sahəsinin dərin bilik və təcrübəsinə malik mütəxəssislərimiz hər layihəyə fərdi yanaşma ilə qiymətləndirirlər. Akademik bilik ilə real iş təcrübəsi bir arada.",
-        "detail": "Hər müştərimizə ən az 10+ illik sahə təcrübəsi olan mütəxəssis təyin olunur."
+        "title": "Ekspert yanaşması",
+        "description": "Dərin peşəkar bilik və dəqiq həllər."
       },
       {
-        "title": "Sistematik Anlayış",
-        "description": "Biznesinizin struktur dinamikasını tam dərk edərək hərtərəfli maliyyə həlləri təklif edirik. Sistemin bütövlüyü bizim prioritetimizdir.",
-        "detail": "Hər layihə üçün fərdi diaqnostika aparılır, sonra sistem qurulur."
+        "title": "Biznesə sistemli baxış",
+        "description": "Davamlı nəticə üçün bütün proseslərin təhlili."
       },
       {
-        "title": "Praktik Həllər",
-        "description": "Nəzəriyyə ilə məhdudlaşmır, real iş mühitinə uyğun, tətbiqedilə bilən strategiyalar hazırlayırıq. Nəticə yönümlü yanaşma.",
-        "detail": "Ortalama 3 həftə ərzində ilk əməli nəticələr görülür."
+        "title": "Praktik və tətbiq oluna bilən həllər",
+        "description": "Nəzəriyyə deyil, real nəticəyə fokus."
       },
       {
-        "title": "Şəffaflıq və Məxfilik",
-        "description": "Müştəri məlumatlarını ən yüksək etik standartlara uyğun qoruyur, tam şəffaf hesabat təqdim edirik. Etibarlılıq bizim brendimizdir.",
-        "detail": "ISO 27001 standartlarına uyğun məlumat qoruma sistemi tətbiq edilir."
+        "title": "Şəffaflıq və məxfilik",
+        "description": "Açıq əməkdaşlıq və məlumatların qorunması."
       },
       {
-        "title": "Dayanıqlı Böyümə",
-        "description": "Qısamüddətli nəticələrlə yanaşı, uzunmüddətli inkişaf strategiyasına fokuslanırıq. Sabahınız üçün bu gün düşünürük.",
-        "detail": "Müştərilərimizin 92%-i ilk ildən sonra xidmətdən davam edir."
+        "title": "Davamlı inkişafa fokus",
+        "description": "Uzunmüddətli böyüməni təmin edən strategiyalar."
       }
     ]
   },
@@ -204,19 +155,7 @@
     "tags": [
       "Korporativ hüquq",
       "Müqavilə hüququ",
-      "Hüquqi müdafiə",
-      "11+ xidmət"
-    ],
-    "stats": [
-      {
-        "label": "Hüquqi xidmət"
-      },
-      {
-        "label": "İl tərəfdaşlıq"
-      },
-      {
-        "label": "Məxfilik"
-      }
+      "Hüquqi müdafiə"
     ],
     "features": [
       {
@@ -237,49 +176,7 @@
     "sectionLabel": "Müştərilərimiz",
     "heading": "Etibarlı",
     "headingAccent": "tərəfdaşlarımız",
-    "subtext": "Azərbaycanın aparıcı korporasiyaları bizə etibar edir.",
-    "stat1Label": "Korporativ müştəri",
-    "stat2Label": "İl tərəfdaşlıq",
     "trustLine": "Bakı, Azərbaycanda fəaliyyət göstəririk"
-  },
-  "faq": {
-    "badge": "Suallar & Cavablar",
-    "heading": "Ən çox",
-    "headingAccent": "soruşulan",
-    "headingSuffix": "suallar",
-    "detailedAnswers": "ətraflı cavab",
-    "description": "Müştərilərimizin ən çox soruşduğu suallara cavab topladıq. Sualınız cavablanmırsa, bizimlə birbaşa əlaqə saxlayın.",
-    "cta": "Pulsuz məsləhət alın",
-    "items": [
-      {
-        "question": "ProFinance Solutions hansı şirkətlərə xidmət göstərir?",
-        "answer": "Kiçik sahibkarlardan iri holdinqlərə qədər hər ölçüdə şirkətə xidmət göstəririk. Startaplar, yerli bizneslər, xarici şirkət filialları, istehsal müəssisələri, ticarət şirkətləri — hər sahədən müştərimiz var. Bizim üçün vacib olan şirkətin ölçüsü deyil, maliyyə sağlamlığına olan ciddi yanaşmadır."
-      },
-      {
-        "question": "İlkin məsləhət niyə pulsuzdur?",
-        "answer": "Çünki biz ortaqlıq əsasında çalışırıq. İlkin görüşdə şirkətinizin vəziyyətini, ehtiyaclarını və məqsədlərini başa düşürük. Bu mərhələ bizə ən uyğun həll yolunu təklif etməyə, sizə isə heç bir öhdəlik almadan real dəyər qiymətləndirilməsi aparmağa imkan verir."
-      },
-      {
-        "question": "Azərbaycan qanunvericiliyinə tam uyğun xidmət göstərirsinizmi?",
-        "answer": "Bəli. Bütün xidmətlərimiz Azərbaycan Respublikasının Vergi Məcəlləsi, Əmək Məcəlləsi, MHBS standartları və digər aktual qanunvericiliyə tam uyğun aparılır. Qanunvericilikdəki dəyişikliklər daim izlənilir və müştərilərimiz vaxtında məlumatlandırılır."
-      },
-      {
-        "question": "Eyni anda bir neçə xidmətdən istifadə etmək mümkündürmü?",
-        "answer": "Bəli, bu hətta tövsiyə edilən yanaşmadır. Mühasibat, vergi, HR və maliyyə idarəçiliyi bir-biri ilə sıx bağlıdır. Kompleks xidmətlər daha ardıcıl, daha sürətli nəticə verir. Çox müştərimiz bir neçə xidməti eyni vaxtda alır."
-      },
-      {
-        "question": "Məlumatlarımın məxfiliyi necə qorunur?",
-        "answer": "Hər müştəri ilə məxfilik müqaviləsi (NDA) bağlanır. Şirkət məlumatlarınız yalnız layihəyə aid komanda üzvlərinə açıqdır, üçüncü tərəflərə ötürülmür. Bütün sənədlər şifrəli mühitdə saxlanılır."
-      },
-      {
-        "question": "Uzaqdan (remote) xidmət əlçatandır?",
-        "answer": "Bəli. Xidmətlərimizin böyük hissəsi onlayn olaraq tam şəkildə göstərilə bilər. Video görüşlər, buludda sənəd mübadiləsi və rəqəmsal kommunikasiya vasitəsilə Azərbaycanın istənilən şəhərindən, həmçinin xaricdən müştərilərimizlə əməkdaşlıq edirik."
-      },
-      {
-        "question": "Nəticə nə zaman görünür?",
-        "answer": "İlk nəticələr adətən 2–4 həftə ərzində görünür: uçot sistemindəki problemlər aşkar edilir, vergi riskləri müəyyənləşdirilir, proseslər sənədləşdirilir. Strateji nəticələr — büdcə intizamı, vergi qənaəti, HR effektivliyi — 3–6 ay daxilində əldə edilir."
-      }
-    ]
   },
   "about": {
     "hero": {
@@ -289,16 +186,16 @@
     },
     "mission": {
       "sectionLabel": "Haqqımızda",
-      "heading": "Güvən üzərində",
-      "headingAccent": "qurulan",
-      "headingSuffix": "tərəfdaşlıq",
-      "subtext": "Maliyyə proseslərini proqnozlaşdırıla bilən, şəffaf və idarə olunan sistemə çeviririk.",
-      "leadParagraph": "Müasir dünyada biznesin uğuru yalnız ambisiyalardan deyil, həm də maliyyənin dəqiq və şəffaf idarə olunmasından asılıdır.",
-      "paragraph1": "ProFinance Solutions Bakıda fəaliyyət göstərən peşəkar maliyyə konsaltinq şirketidir. MHBS/IFRS standartları, ISA audit tələbləri, Azərbaycan Vergi Məcəlləsi və Əmək Məcəlləsinə tam uyğun şəkildə mühasibat, vergi, audit, HR, maliyyə idarəçiliyi, ERP tətbiqi xidmətlərini göstəririk.",
-      "paragraph2": "Komandamızın birgə 15+ il peşəkar təcrübəsi var. Topdan satış, tikinti, sənaye istehsalı, maliyyə sektoru, texnologiya, hüquqi xidmətlər, ictimai iaşə, layihələndirmə sahələrindən müştərilərə dəstək veririk. Hər müştəri ilə məxfilik müqaviləsi (NDA) imzalanır.",
+      "heading": "Sizin maliyyə və biznesdə",
+      "headingAccent": "etibarlı",
+      "headingSuffix": "tərəfdaşınız",
+      "subtext": "Biz yalnız məsləhət vermirik — maliyyə proseslərini proqnozlaşdırıla bilən, şəffaf və idarə olunan sistemə çeviririk.",
+      "leadParagraph": "Müasir dünyada biznesin uğuru yalnız ambisiyalardan deyil, həm də maliyyələrin dəqiq və şəffaf idarə olunmasından asılıdır.",
+      "paragraph1": "ProFinance Solutions şirkətinizin böyüməsinə, risklərin minimuma endirilməsinə və əsaslı maliyyə qərarlarının qəbuluna dəstək verən strateji tərəfdaş kimi çıxış edir. Təcrübəmiz maliyyə konsaltinqinin əsas sahələrini əhatə edir: mühasibatlıq, vergi, audit və maliyyə idarəçiliyi.",
+      "paragraph2": "Məqsədimiz biznesi risklərdən qorumaqla yanaşı, onun inkişafı üçün yeni imkanlar yaratmaqdır. Biz müştərilərimizlə uzunmüddətli tərəfdaşlıqlar qurur, etibar, peşəkarlıq və strateji yanaşma üzərində dayanırıq. ProFinance Solutions — maliyyə uğurunuzun etibarlı tərəfdaşıdır.",
       "missionLabel": "Missiyamız",
-      "missionQuote": "\"Müştərilərimizin biznesi üçün etibarlı və strateji tərəfdaş olmaq, maliyyə proseslərində maksimum şəffaflığı təmin etmək.\"",
-      "missionSub": "Azərbaycan Vergi Məcəlləsi, MHBS/IFRS standartları, ISA audit tələblərinə tam uyğun şəkildə şirkətinizin maliyyə riskini minimuma endiririk. Topdan satış, tikinti, sənaye, maliyyə, texnologiya, hüquq, iaşə sektorlarından 13+ korporativ müştəriyə davamlı dəstək göstəririk."
+      "missionQuote": "Müştərilərimizin biznesi üçün etibarlı və strateji tərəfdaş olmaq, maliyyə proseslərində maksimum şəffaflığı təmin etmək və mühasibatlıq, vergi, audit və maliyyə idarəçiliyi sahələrindəki peşəkar təcrübəmizə əsaslanaraq şirkətləri xarici risklərdən effektiv şəkildə qorumaq.",
+      "missionSub": "Biznesinizin şəffaf və dayanıqlı inkişafına dəstək oluruq, maliyyə risklərini minimuma endiririk."
     },
     "values": {
       "sectionLabel": "Dəyərlərimiz",
@@ -308,19 +205,19 @@
       "items": [
         {
           "title": "Peşəkarlıq",
-          "description": "Hər bir qərar dərin analitik təhlil və illərin təcrübəsinə əsaslanır. Ən mürəkkəb maliyyə məsələlərində də dəqiq həllər təqdim edirik."
+          "description": "Hər bir qərar dərin analitik təhlil və illərin təcrübəsinə əsaslanır, ən mürəkkəb maliyyə məsələlərində də dəqiq həllər təqdim edir."
         },
         {
           "title": "Şəffaflıq",
-          "description": "Fəaliyyətimizi tam açıqlıq və qanunvericiliyə tam uyğunluq prinsipləri ilə aparırıq. Hesabat sistemimizdən heç nə gizli deyil."
+          "description": "Biz fəaliyyətimizi tam açıqlıq və qanunvericiliyə tam uyğunluq prinsipləri ilə aparırıq."
         },
         {
           "title": "Etibarlılıq",
-          "description": "Müştərilər bizə biznesin ən vacib maliyyə proseslərini etibar edir. Biz bu etimadı hər zaman qoruyuruq."
+          "description": "Müştərilər bizə biznesin ən vacib maliyyə proseslərini etibar edir, biz isə bu etimadı qoruyuruq."
         },
         {
           "title": "Səmərəlilik",
-          "description": "Tövsiyələrimiz yalnız nəzəri deyil, real biznes nəticələrini təmin edən praktik həllərə yönəlibdir."
+          "description": "Tövsiyələrimiz yalnız nəzəri deyil, real biznes nəticələrini təmin edən praktik həllərə yönəlib."
         }
       ]
     },
@@ -335,7 +232,7 @@
       "traits": [
         {
           "title": "Sertifikatlı mütəxəssislər",
-          "desc": "Komandamız MHBS/IFRS, ISA audit standartları, vergi uçotu və HR idarəetməsi sahələrindəki sertifikatlı peşəkarlardan ibarətdir — hər üzv öz sahəsinin dərin bilicisidir."
+          "desc": "Komandamız mühasibatlıq, audit, vergi uçotu və HR idarəetməsi sahələrindəki sertifikatlı peşəkarlardan ibarətdir — hər üzv öz sahəsinin dərin bilicisidir."
         },
         {
           "title": "Birgə 15+ il təcrübə",
@@ -348,9 +245,9 @@
       ]
     },
     "cta": {
-      "heading": "Maliyyə hədəflərinizə",
-      "headingAccent": "birlikdə çataq",
-      "subtext": "Biznesinizin maliyyə sağlamlığı üçün ilk addımı bu gün atın. Pulsuz ilkin konsultasiya ilə hər şey başlayır.",
+      "heading": "Uğura bizimlə",
+      "headingAccent": "birlikdə çatın",
+      "subtext": "Siz inkişaf edin — risklərdən biz qoruyaq.",
       "primaryBtn": "Pulsuz konsultasiya",
       "secondaryBtn": "Xidmətlərə bax"
     }
@@ -370,11 +267,6 @@
     "howItWorks": "Prosesimiz",
     "howItWorksAccent": "necə işləyir?",
     "stepsSupport": "{count} addımda müştərilərə dəstək göstəririk.",
-    "faqBadge": "Suallar & Cavablar",
-    "faqHeading": "Tez-tez",
-    "faqHeadingAccent": "soruşulan",
-    "faqHeadingSuffix": "suallar",
-    "faqSubtext": "{serviceName} xidməti haqqında ən çox soruşulan suallara peşəkar cavab topladıq.",
     "discoverLabel": "Kəşf edin",
     "otherServices": "Digər",
     "otherServicesAccent": "xidmətlər",
@@ -414,5 +306,22 @@
     "labelWhatsapp": "WhatsApp",
     "labelEmail": "E-poçt",
     "labelAddress": "Ünvan"
+  },
+  "industries": {
+    "sectionLabel": "Kimlərlə işləyirik",
+    "heading": "Fəaliyyət",
+    "headingAccent": "sahələri",
+    "intro": "Biz müxtəlif sahələrdə fəaliyyət göstərən şirkətlərlə əməkdaşlıq edir və onlara peşəkar dəstək göstəririk.",
+    "link": "Müştərilərimizə baxın",
+    "items": [
+      "Topdan və pərakəndə satış",
+      "Tikinti və təmir",
+      "Layihələndirmə və bərpa işləri",
+      "Sənaye istehsalı",
+      "İctimai iaşə və keyterinq",
+      "Maliyyə sektoru",
+      "Texnologiya xidmətləri",
+      "Hüquqi xidmətlər"
+    ]
   }
 }

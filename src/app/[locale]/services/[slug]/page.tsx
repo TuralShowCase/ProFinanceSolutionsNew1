@@ -97,7 +97,9 @@ export default async function ServiceSlugPage({
     '@type': 'Service',
     '@id': `${pageUrl}#service`,
     name: localizedService.name,
-    description: localizedService.overview,
+    // Overview + the T3 service components (feature titles) — the visible page
+    // shows the components as cards, but search engines still get the full list
+    description: `${localizedService.overview} ${localizedService.features.map((f) => f.title).join('; ')}.`,
     url: pageUrl,
     provider: { '@id': `${SITE_URL}/#organization` },
     areaServed: [

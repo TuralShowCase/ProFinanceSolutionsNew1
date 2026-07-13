@@ -5,14 +5,12 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScanSearch, Users, Layers, ArrowUpRight } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { CounterStat } from "./CounterStat";
 import { useBreakpoint } from "../../hooks/useBreakpoint";
 import { PLH_DARK, PLH_MID, PLH_ACC, CREAM } from "@/app/lib/brand";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const FEAT_ICONS = [ScanSearch, Users, Layers];
-const STAT_VALS = [{ end: 11, suffix: "+" }, { end: 5, suffix: "+" }, { end: 100, suffix: "%" }];
 
 export function PartnerSection() {
   const t      = useTranslations("partner");
@@ -31,8 +29,7 @@ export function PartnerSection() {
     desc:  t(`features.${i}.desc`  as Parameters<typeof t>[0]),
   }));
 
-  const stats = STAT_VALS.map((s, i) => ({ ...s, label: t(`stats.${i}.label` as Parameters<typeof t>[0]) }));
-  const tags = [t("tags.0"), t("tags.1"), t("tags.2"), t("tags.3")] as string[];
+  const tags = [t("tags.0"), t("tags.1"), t("tags.2")] as string[];
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -99,14 +96,7 @@ export function PartnerSection() {
                 ))}
               </div>
 
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 0, paddingTop: 24, borderTop: "1px solid rgba(255,255,255,0.1)", marginBottom: 28 }}>
-                {stats.map((stat, i) => (
-                  <div key={i} style={{ paddingLeft: i > 0 ? 24 : 0, borderLeft: i > 0 ? "1px solid rgba(255,255,255,0.1)" : "none" }}>
-                    <CounterStat end={stat.end} suffix={stat.suffix} duration={stat.end >= 100 ? 1.8 : 1.2} style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: isMobile ? 22 : 28, color: "#ffffff", letterSpacing: "-0.04em", lineHeight: 1, marginBottom: 5, display: "block" }} />
-                    <div style={{ fontSize: 11, color: "rgba(255,255,255,0.35)", fontWeight: 500 }}>{stat.label}</div>
-                  </div>
-                ))}
-              </div>
+              <div style={{ height: 1, backgroundColor: "rgba(255,255,255,0.1)", marginBottom: 28 }} />
 
               <a href="https://plh.az" target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 7, color: PLH_ACC, fontSize: 13, fontWeight: 600, textDecoration: "none", transition: "gap 220ms", letterSpacing: "0.02em" }}
                 onMouseEnter={e => (e.currentTarget.style.gap = "10px")}

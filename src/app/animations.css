@@ -53,7 +53,8 @@ html {
 }
 
 .carousel-track {
-  animation: clients-scroll-left 38s linear infinite;
+  /* Track half is 3× the logo set — duration scaled ×3 keeps the same px/s speed */
+  animation: clients-scroll-left 114s linear infinite;
   will-change: transform;
 }
 .carousel-track:hover {
@@ -61,7 +62,7 @@ html {
 }
 
 .carousel-track-reverse {
-  animation: clients-scroll-right 42s linear infinite;
+  animation: clients-scroll-right 126s linear infinite;
   will-change: transform;
 }
 .carousel-track-reverse:hover {

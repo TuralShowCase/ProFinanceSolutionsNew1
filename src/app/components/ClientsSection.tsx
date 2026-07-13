@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useTranslations } from "next-intl";
@@ -8,7 +8,6 @@ import { useBreakpoint } from "../../hooks/useBreakpoint";
 import { DARK, CREAM } from "@/app/lib/brand";
 
 gsap.registerPlugin(ScrollTrigger);
-
 
 const clients = [
   { name: "Integral Express",        img: "/IntegralExpress.avif" },
@@ -25,13 +24,29 @@ const clients = [
   { name: "BIMD",                     img: "/BIMD.avif" },
 ];
 
-function ClientCard({ name, img, isMobile }: { name: string; img: string; isMobile: boolean }) {
-  const [hovered, setHovered] = useState(false);
+function LogoChip({ name, img, isMobile }: { name: string; img: string; isMobile: boolean }) {
   return (
-    <div className="client-card-anim" onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}
-      style={{ opacity: 0, backgroundColor: "var(--surface)", borderRadius: 14, border: `1px solid ${hovered ? "color-mix(in srgb, var(--brand) 22%, transparent)" : "var(--border)"}`, display: "flex", alignItems: "center", justifyContent: "center", padding: isMobile ? "18px 14px" : "24px 20px", height: isMobile ? 76 : 92, transition: "border-color 360ms ease, box-shadow 360ms ease, transform 400ms cubic-bezier(0.34, 1.56, 0.64, 1)", transform: hovered ? "translateY(-3px)" : "translateY(0)", boxShadow: hovered ? "0 10px 32px color-mix(in srgb, var(--brand) 9%, transparent), 0 2px 8px rgba(0,0,0,0.04)" : "0 1px 4px rgba(0,0,0,0.04)", cursor: "default", userSelect: "none" }}
-    >
-      <img src={img} alt={name} loading="lazy" style={{ maxWidth: "100%", maxHeight: isMobile ? 34 : 42, objectFit: "contain", display: "block", filter: hovered ? "none" : "grayscale(18%)", opacity: hovered ? 1 : 0.82, transition: "filter 360ms ease, opacity 360ms ease" }} />
+    <div style={{ flexShrink: 0, width: isMobile ? 168 : 216, height: isMobile ? 76 : 92, marginRight: isMobile ? 10 : 14, backgroundColor: "var(--surface)", borderRadius: 14, border: "1px solid var(--border)", display: "flex", alignItems: "center", justifyContent: "center", padding: isMobile ? "16px 18px" : "22px 26px", boxShadow: "0 1px 4px rgba(0,0,0,0.04)", userSelect: "none" }}>
+      <img src={img} alt={name} loading="lazy" style={{ maxWidth: "100%", maxHeight: isMobile ? 34 : 42, objectFit: "contain", display: "block", filter: "grayscale(14%)", opacity: 0.88 }} />
+    </div>
+  );
+}
+
+// Seamless marquee row: each loop half repeats the logo set 3× (~4100px on
+// desktop) so even ultra-wide viewports never outrun the track, then the half
+// is doubled for the CSS -50% loop. Spacing lives on the chips (marginRight),
+// not flex gap, so -50% lands exactly on a period boundary — no seam jump.
+function MarqueeRow({ items, reverse, isMobile }: { items: typeof clients; reverse?: boolean; isMobile: boolean }) {
+  const half = [...items, ...items, ...items];
+  const doubled = [...half, ...half];
+  return (
+    <div style={{ overflow: "hidden", position: "relative" }}>
+      <div className={reverse ? "carousel-track-reverse" : "carousel-track"} style={{ display: "flex", width: "max-content", padding: "2px 0" }}>
+        {doubled.map((c, i) => <LogoChip key={i} name={c.name} img={c.img} isMobile={isMobile} />)}
+      </div>
+      {/* Edge fades so the loop reads as continuous */}
+      <div style={{ position: "absolute", top: 0, bottom: 0, left: 0, width: isMobile ? 40 : 120, background: "linear-gradient(90deg, var(--surface), transparent)", pointerEvents: "none" }} />
+      <div style={{ position: "absolute", top: 0, bottom: 0, right: 0, width: isMobile ? 40 : 120, background: "linear-gradient(270deg, var(--surface), transparent)", pointerEvents: "none" }} />
     </div>
   );
 }
@@ -45,8 +60,8 @@ export function ClientsSection() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.fromTo(".clients-anim", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.9, ease: "expo.out", stagger: 0.12, scrollTrigger: { trigger: sectionRef.current, start: "top 82%", once: true } });
-      gsap.fromTo(".client-card-anim", { opacity: 0, y: 16, scale: 0.97 }, { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: "expo.out", stagger: 0.045, scrollTrigger: { trigger: ".clients-grid", start: "top 80%", once: true } });
+      gsap.fromTo(".clients-anim",  { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.9, ease: "expo.out", stagger: 0.12, scrollTrigger: { trigger: sectionRef.current, start: "top 82%", once: true } });
+      gsap.fromTo(".clients-marquee", { opacity: 0 }, { opacity: 1, duration: 1.0, ease: "power2.out", scrollTrigger: { trigger: ".clients-marquee", start: "top 88%", once: true } });
     }, sectionRef);
     return () => ctx.revert();
   }, [isMobile, isTablet]);
@@ -55,31 +70,21 @@ export function ClientsSection() {
 
   return (
     <section id="clients" ref={sectionRef} style={{ backgroundColor: "var(--surface)", padding: isMobile ? "72px 0 64px" : "100px 0 88px", fontFamily: "var(--font-inter), 'Inter', sans-serif" }}>
-      <div style={{ maxWidth: 1200, margin: "0 auto", padding: hPad, marginBottom: isMobile ? 48 : 56 }}>
-        <div style={{ display: "flex", flexDirection: isMobile ? "column" : "row", alignItems: isMobile ? "flex-start" : "flex-end", justifyContent: "space-between", gap: isMobile ? 24 : 40, flexWrap: "wrap" }}>
-          <div>
-            <p className="clients-anim" style={{ fontSize: 11, fontWeight: 600, color: DARK, letterSpacing: "0.2em", textTransform: "uppercase", margin: "0 0 16px", opacity: 0 }}>{t("sectionLabel")}</p>
-            <h2 className="clients-anim" style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: isMobile ? 26 : "clamp(28px, 3.5vw, 44px)", color: "var(--text)", margin: 0, letterSpacing: "-0.038em", lineHeight: 1.08, opacity: 0 }}>
-              {t("heading")} <span style={{ color: DARK }}>{t("headingAccent")}</span>
-            </h2>
-          </div>
-          <div className="clients-anim" style={{ opacity: 0 }}>
-            <p style={{ fontSize: 15, color: "var(--text-faint)", lineHeight: 1.7, margin: "0 0 20px", maxWidth: 320 }}>{t("subtext")}</p>
-            <div style={{ display: "flex", gap: 28 }}>
-              {[{ value: "12+", label: t("stat1Label") }, { value: "5+", label: t("stat2Label") }].map((s, i) => (
-                <div key={i}>
-                  <p style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: 26, color: DARK, margin: 0, letterSpacing: "-0.04em", lineHeight: 1 }}>{s.value}</p>
-                  <p style={{ fontSize: 11, color: "var(--text-faint)", margin: "4px 0 0", fontWeight: 500 }}>{s.label}</p>
-                </div>
-              ))}
-            </div>
-          </div>
+      {/* Header */}
+      <div style={{ maxWidth: 1200, margin: "0 auto", padding: hPad, marginBottom: isMobile ? 36 : 44 }}>
+        <div>
+          <p className="clients-anim" style={{ fontSize: 11, fontWeight: 600, color: DARK, letterSpacing: "0.2em", textTransform: "uppercase", margin: "0 0 16px", opacity: 0 }}>{t("sectionLabel")}</p>
+          <h2 className="clients-anim" style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: isMobile ? 26 : "clamp(28px, 3.5vw, 44px)", color: "var(--text)", margin: 0, letterSpacing: "-0.038em", lineHeight: 1.08, opacity: 0 }}>
+            {t("heading")} <span style={{ color: DARK }}>{t("headingAccent")}</span>
+          </h2>
         </div>
-        <div className="clients-anim" style={{ height: 1, backgroundColor: "var(--border)", marginTop: 36, opacity: 0 }} />
+        <div className="clients-anim" style={{ height: 1, backgroundColor: "var(--border)", marginTop: 32, opacity: 0 }} />
       </div>
 
-      <div className="clients-grid" style={{ maxWidth: 1200, margin: "0 auto", padding: hPad, display: "grid", gridTemplateColumns: isMobile ? "repeat(2, 1fr)" : isTablet ? "repeat(3, 1fr)" : "repeat(4, 1fr)", gap: isMobile ? 10 : 14 }}>
-        {clients.map((c, i) => <ClientCard key={i} name={c.name} img={c.img} isMobile={isMobile} />)}
+      {/* Client logos — continuous two-row marquee */}
+      <div className="clients-marquee" style={{ display: "flex", flexDirection: "column", gap: isMobile ? 10 : 14, opacity: 0 }}>
+        <MarqueeRow items={clients.slice(0, 6)} isMobile={isMobile} />
+        <MarqueeRow items={clients.slice(6)} reverse isMobile={isMobile} />
       </div>
 
       <div className="clients-anim" style={{ maxWidth: 1200, margin: "48px auto 0", padding: hPad, display: "flex", alignItems: "center", justifyContent: "center", gap: 16, opacity: 0 }}>

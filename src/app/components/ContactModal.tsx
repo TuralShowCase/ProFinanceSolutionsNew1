@@ -8,8 +8,8 @@ import { useTranslations } from "next-intl";
 import { DARK, ACCENT, BRAND_SOLID, mix } from "@/app/lib/brand";
 
 const CONTACT_HREFS = [
-  { Icon: Phone,         value: "+994 12 555 00 11", href: "tel:+994125550011",                                     labelKey: "labelPhone"    },
-  { Icon: MessageCircle, value: "+994 50 555 00 11", href: "https://wa.me/994505550011",                            labelKey: "labelWhatsapp" },
+  { Icon: Phone,         value: "+994 51 505 05 05", href: "tel:+994515050505",                                     labelKey: "labelPhone"    },
+  { Icon: MessageCircle, value: "+994 51 505 05 05", href: "https://wa.me/994515050505",                            labelKey: "labelWhatsapp" },
   { Icon: Mail,          value: "info@profinance.az", href: "mailto:info@profinance.az",                            labelKey: "labelEmail"    },
   { Icon: MapPin,        value: "Bakı, Nizami küçəsi 95", href: "https://maps.google.com/?q=Nizami+street+95+Baku", labelKey: "labelAddress"  },
 ];
@@ -200,7 +200,7 @@ export function ContactModal({ open, onClose }: Props) {
         {/* CTA */}
         <div style={{ padding: "0 24px 24px" }}>
           <a
-            href="https://wa.me/994505550011"
+            href="https://wa.me/994515050505"
             target="_blank"
             rel="noopener noreferrer"
             style={{
