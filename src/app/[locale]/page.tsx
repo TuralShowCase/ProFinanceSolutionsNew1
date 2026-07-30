@@ -3,7 +3,7 @@ import { getTranslations } from 'next-intl/server';
 import { type Locale } from '../../i18n/routing';
 import App from '../App';
 
-const SITE_URL = 'https://profinancesolutions.az';
+import { SITE_URL } from '../lib/site';
 
 export async function generateMetadata({
   params,

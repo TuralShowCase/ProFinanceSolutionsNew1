@@ -1,6 +1,12 @@
 import { ImageResponse } from 'next/og';
 
-export const runtime = 'edge';
+/**
+ * No `runtime = 'edge'` here.
+ *
+ * It forced this route to render per-request ("Using edge runtime on a page
+ * currently disables static generation" in the build log) for an image whose
+ * output never changes. On the Node runtime it prerenders once at build time.
+ */
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 

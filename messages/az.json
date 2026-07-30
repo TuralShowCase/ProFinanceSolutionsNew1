@@ -44,29 +44,17 @@
     },
     "ctaContact": "Bizimlə əlaqə"
   },
-  "pillars": {
-    "sectionLabel": "Brend fəlsəfəsi",
-    "heading": "Üçyarpaqlı",
-    "headingAccent": "yonca",
-    "subtext": "Loqomuz şirkətin fəlsəfəsinin əsasını əks etdirir.",
-    "items": [
-      {
-        "title": "Struktur",
-        "description": "Dəqiq təşkil olunmuş proseslər və şəffaf uçot sistemi."
-      },
-      {
-        "title": "Nəzarət",
-        "description": "Maliyyə məlumatlarının dəqiqliyi və risklərin effektiv idarə olunması."
-      },
-      {
-        "title": "İnkişaf",
-        "description": "Biznesin davamlı inkişafı və maliyyə səmərəliliyinin artırılması."
-      },
-      {
-        "title": "Yaşıl rəng",
-        "description": "Şəffaflığı, dürüstlüyü və uzunmüddətli dayanıqlılığı simvolizə edir."
-      }
-    ]
+  "whoWeAre": {
+    "sectionLabel": "Biz kimik",
+    "heading": "Maliyyə proseslərinizi",
+    "headingAccent": "sistemə çeviririk",
+    "leadParagraph": "Müasir dünyada biznesin uğuru yalnız ambisiyalardan deyil, həm də maliyyələrin dəqiq və şəffaf idarə olunmasından asılıdır.",
+    "paragraph1": "ProFinance Solutions şirkətinizin böyüməsinə, risklərin minimuma endirilməsinə və əsaslı maliyyə qərarlarının qəbuluna dəstək verən strateji tərəfdaş kimi çıxış edir. Təcrübəmiz maliyyə konsaltinqinin əsas sahələrini əhatə edir: mühasibatlıq, vergi, audit və maliyyə idarəçiliyi.",
+    "paragraph2": "Məqsədimiz biznesi risklərdən qorumaqla yanaşı, onun inkişafı üçün yeni imkanlar yaratmaqdır. Müştərilərimizlə etibar, peşəkarlıq və strateji yanaşma üzərində qurulan uzunmüddətli tərəfdaşlıqlar qururuq.",
+    "missionLabel": "Missiyamız",
+    "missionText": "Müştərilərimizin biznesi üçün etibarlı və strateji tərəfdaş olmaq, maliyyə proseslərində maksimum şəffaflığı təmin etmək və mühasibatlıq, vergi, audit və maliyyə idarəçiliyi sahələrindəki peşəkar təcrübəmizə əsaslanaraq şirkətləri xarici risklərdən effektiv şəkildə qorumaq.",
+    "cta": "Haqqımızda ətraflı",
+    "missionSub": "Biznesinizin şəffaf və dayanıqlı inkişafına dəstək oluruq, maliyyə risklərini minimuma endiririk."
   },
   "services": {
     "sectionLabel": "Xidmətlər",
@@ -102,6 +90,16 @@
       "hr-ve-kadrlar-konsaltinqi": "Şirkətinizin kadr sisteminin qurulması və peşəkar dəstəyi.",
       "telim-ve-inkisaf": "Əməkdaşların bacarıqlarını və idarəetmə səriştəsini artırmaq üzrə peşəkar dəstək.",
       "auditor-xidmetleri": "Şirkətinizin maliyyə və əməliyyat proseslərinin müstəqil qiymətləndirilməsi üzrə peşəkar dəstək."
+    },
+    "shortTaglines": {
+      "ucotun-diaqnostikasi-ve-berpasi": "Maliyyə sağlamlığının ilk addımı",
+      "muhasibat-konsaltinqi": "Rəqəmlər arxasında etibarlı dəstək",
+      "vergi-konsaltinqi": "Qanuni optimizasiya, maksimum qənaət",
+      "maliyye-ve-idareetme-konsaltinqi": "Strategiyadan nəticəyə doğru",
+      "emeliyyat-ve-reqemsal-konsaltinq": "Biznesinizi rəqəmsallaşdırırıq",
+      "hr-ve-kadrlar-konsaltinqi": "İnsanı mərkəzə qoyuruq",
+      "telim-ve-inkisaf": "Bilik gücə çevrilir",
+      "auditor-xidmetleri": "Müstəqil baxış, dəqiq nəticə"
     },
     "bullets": {
       "muhasibat-konsaltinqi": [
@@ -152,6 +150,7 @@
     "subtext": "Müştərilərimizə tam hüquqi dəstək üçün PLH Hüquq Bürosu ilə strateji tərəfdaşlıq qururuq.",
     "description": "Mühasibat və maliyyə məsələlərinin hüquqi tərəflərini PLH Hüquq Bürosu ilə birlikdə həll edirik. Müqavilə hazırlanmasından korporativ strukturlaşdırmaya qədər tam dəstək.",
     "visitSite": "plh.az saytına keç",
+    "photoAlt": "ProFinance və PLH Hüquq Bürosu mütəxəssisləri birgə iş görüşündə",
     "tags": [
       "Korporativ hüquq",
       "Müqavilə hüququ",
@@ -277,7 +276,9 @@
     "ctaHeadingAccent": "pulsuz məsləhət alın",
     "ctaSubtext": "Ekspertlərimiz sizinlə əlaqə saxlayıb {serviceName} xidməti haqqında ətraflı məlumat verəcək.",
     "ctaPrimary": "Pulsuz konsultasiya",
-    "ctaSecondary": "Bütün xidmətlər"
+    "ctaSecondary": "Bütün xidmətlər",
+    "closePanel": "Bağla",
+    "currentService": "Hazırkı xidmət"
   },
   "meta": {
     "homeTitle": "ProFinance Solutions — Bakıda Maliyyə Konsaltinqi",
@@ -300,6 +301,7 @@
   },
   "contact": {
     "title": "Bizimlə əlaqə",
+    "close": "Bağla",
     "socialLabel": "Sosial şəbəkələr",
     "whatsappCta": "WhatsApp ilə yazın",
     "labelPhone": "Telefon",

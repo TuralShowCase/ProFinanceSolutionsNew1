@@ -10,7 +10,7 @@ import { useTranslations } from "next-intl";
  * Renders a stable placeholder until mounted so the icon never mismatches
  * the no-flash class set before hydration.
  */
-export function ThemeToggle({ size = 36 }: { size?: number }) {
+export function ThemeToggle({ size = 36, overlay = false }: { size?: number; overlay?: boolean }) {
   const { resolvedTheme, toggleTheme } = useTheme();
   const t = useTranslations();
   const [mounted, setMounted] = useState(false);
@@ -38,10 +38,12 @@ export function ThemeToggle({ size = 36 }: { size?: number }) {
         justifyContent: "center",
         borderRadius: 8,
         cursor: "pointer",
-        color: "var(--text-soft)",
-        backgroundColor: hovered ? "var(--surface-2)" : "var(--page-bg-alt)",
-        border: "1px solid var(--border)",
-        transition: "background-color 200ms ease, color 200ms ease, transform 200ms ease",
+        color: overlay ? "#FFFFFF" : "var(--text-soft)",
+        backgroundColor: overlay
+          ? hovered ? "rgba(255,255,255,0.22)" : "rgba(255,255,255,0.14)"
+          : hovered ? "var(--surface-2)" : "var(--page-bg-alt)",
+        border: overlay ? "1px solid rgba(255,255,255,0.25)" : "1px solid var(--border)",
+        transition: "background-color 300ms ease, color 300ms ease, transform 200ms ease, border-color 300ms ease",
         transform: hovered ? "translateY(-1px)" : "translateY(0)",
         padding: 0,
       }}

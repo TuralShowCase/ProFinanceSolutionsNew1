@@ -1,26 +1,49 @@
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-import { FlatCompat } from "@eslint/eslintrc";
+import next from 'eslint-config-next';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+/**
+ * Flat config, consumed directly.
+ *
+ * This previously went through `FlatCompat` + `compat.extends('next/...')`,
+ * which throws on eslint-config-next v16 — that package now ships a native flat
+ * config array. Combined with eslint never being in package.json at all, it
+ * meant none of the rules below had ever actually run.
+ */
+export default [
+  ...next,
 
-const compat = new FlatCompat({ baseDirectory: __dirname });
+  {
+    ignores: [
+      '.next/**',
+      'node_modules/**',
+      'e2e/**-snapshots/**',
+      'test-results/**',
+      'scripts/**',
+      'src/imports/**',
+      'next-env.d.ts',
+    ],
+  },
 
-const config = [
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
   {
     rules: {
-      // Catch unused variables and imports
-      "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_", varsIgnorePattern: "^_" }],
-      // Disallow console.log in production code
-      "no-console": ["warn", { allow: ["warn", "error"] }],
-      // Enforce consistent use of === over ==
-      "eqeqeq": ["error", "always"],
-      // No empty catch blocks
-      "no-empty": ["error", { allowEmptyCatch: false }],
+      // Unused variables and imports — the main thing worth catching here.
+      '@typescript-eslint/no-unused-vars': [
+        'warn',
+        { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
+      ],
+      'no-console': ['warn', { allow: ['warn', 'error'] }],
+      eqeqeq: ['error', 'always'],
+      'no-empty': ['error', { allowEmptyCatch: false }],
+    },
+  },
+
+  {
+    // The shadcn/ui primitives are vendored, largely unused, and not ours to
+    // restyle. Lint them for correctness only, not for house rules.
+    files: ['src/app/components/ui/**'],
+    rules: {
+      '@typescript-eslint/no-unused-vars': 'off',
+      '@typescript-eslint/no-explicit-any': 'off',
+      'no-console': 'off',
     },
   },
 ];
-
-export default config;

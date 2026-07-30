@@ -6,6 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useTranslations } from "next-intl";
 import { useBreakpoint } from "../../hooks/useBreakpoint";
 import { DARK, CREAM } from "@/app/lib/brand";
+import { FS_H2, FS_LABEL } from "@/app/lib/typography";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -73,8 +74,8 @@ export function ClientsSection() {
       {/* Header */}
       <div style={{ maxWidth: 1200, margin: "0 auto", padding: hPad, marginBottom: isMobile ? 36 : 44 }}>
         <div>
-          <p className="clients-anim" style={{ fontSize: 11, fontWeight: 600, color: DARK, letterSpacing: "0.2em", textTransform: "uppercase", margin: "0 0 16px", opacity: 0 }}>{t("sectionLabel")}</p>
-          <h2 className="clients-anim" style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: isMobile ? 26 : "clamp(28px, 3.5vw, 44px)", color: "var(--text)", margin: 0, letterSpacing: "-0.038em", lineHeight: 1.08, opacity: 0 }}>
+          <p className="clients-anim" style={{ fontSize: FS_LABEL, fontWeight: 600, color: DARK, letterSpacing: "0.2em", textTransform: "uppercase", margin: "0 0 16px", opacity: 0 }}>{t("sectionLabel")}</p>
+          <h2 className="clients-anim" style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: FS_H2, color: "var(--text)", margin: 0, letterSpacing: "-0.038em", lineHeight: 1.08, opacity: 0 }}>
             {t("heading")} <span style={{ color: DARK }}>{t("headingAccent")}</span>
           </h2>
         </div>
@@ -89,7 +90,7 @@ export function ClientsSection() {
 
       <div className="clients-anim" style={{ maxWidth: 1200, margin: "48px auto 0", padding: hPad, display: "flex", alignItems: "center", justifyContent: "center", gap: 16, opacity: 0 }}>
         <div style={{ height: 1, flex: 1, maxWidth: 140, background: "linear-gradient(90deg, transparent, var(--border))" }} />
-        <div style={{ display: "inline-flex", alignItems: "center", gap: 8, backgroundColor: CREAM, borderRadius: 999, padding: "7px 18px", fontSize: 12, fontWeight: 500, color: "var(--text-muted)" }}>
+        <div style={{ display: "inline-flex", alignItems: "center", gap: 8, backgroundColor: CREAM, borderRadius: 999, padding: "7px 18px", fontSize: FS_LABEL, fontWeight: 500, color: "var(--text-muted)" }}>
           <div style={{ width: 6, height: 6, borderRadius: "50%", backgroundColor: "var(--accent-green)", flexShrink: 0 }} />
           {t("trustLine")}
         </div>

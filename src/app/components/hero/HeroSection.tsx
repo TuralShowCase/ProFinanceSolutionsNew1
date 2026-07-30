@@ -56,8 +56,22 @@ export function HeroSection() {
     barRefs.current.forEach((b) => { if (b) gsap.set(b, { scaleX: 0 }); });
     const bar = barRefs.current[activeSlide];
 
-    if (prefersReduced() || !bar) {
+    /**
+     * Reduced motion stops the carousel outright — it does not just skip the
+     * transition. Previously this branch still ran a delayedCall, so the slide
+     * (and the <h1> with it) kept swapping every 8s for exactly the users who
+     * asked for less movement.
+     *
+     * The pagination buttons remain, so those users can still reach slide 2
+     * deliberately. A visible pause control for everyone else is still owed
+     * here — WCAG 2.2.2 wants one for any auto-advancing content.
+     */
+    if (prefersReduced()) {
       if (bar) gsap.set(bar, { scaleX: 1 });
+      return;
+    }
+
+    if (!bar) {
       const call = gsap.delayedCall(SLIDE_SECONDS, () => goToSlide(next));
       return () => { call.kill(); };
     }
@@ -137,7 +151,7 @@ export function HeroSection() {
             onClick={openContact}
             style={{
               fontWeight: 500,
-              fontSize: isStacked ? 14 : 15,
+              fontSize: 18,
               color: "#FFFFFF",
               backgroundColor: "var(--brand-solid)",
               padding: isStacked ? "13px 26px" : "14px 30px",

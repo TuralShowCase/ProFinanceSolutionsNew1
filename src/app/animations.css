@@ -26,6 +26,7 @@ html {
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
 }
@@ -102,11 +103,28 @@ html {
   animation: wa-pulse 2.8s ease-out infinite;
 }
 
-/* ─── Services "show more" chevron nudge ─────────────────────── */
-@keyframes svcChevronBounce {
-  0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(3px); }
+/* ─── Keyboard focus, globally ───────────────────────────────── */
+/* Most interactive elements here are inline-styled with `border: none` and
+   `background: none`, which leaves the UA focus ring barely visible or absent —
+   keyboard users had no idea where they were (WCAG 2.4.7).
+   `:focus-visible` (not `:focus`) means pointer users never see this. */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 3px;
+  border-radius: 2px;
 }
-.svc-more-chevron {
-  animation: svcChevronBounce 1.6s ease-in-out infinite;
+
+/* Over the hero photograph the light-theme brand green is near-black on a dark
+   image and disappears. The on-photo accent is the same green the hero already
+   uses for its active pagination, so it reads in both themes. */
+#hero :where(a, button, [tabindex]):focus-visible {
+  outline-color: #5AD094;
+}
+
+/* ─── Services exhibit grid — keyboard focus ─────────────────── */
+/* Cards drive their visuals from React state (shared by hover + focus), so
+   this only supplies the ring. Offset clears the card's own lift shadow. */
+.svc-card:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 3px;
 }

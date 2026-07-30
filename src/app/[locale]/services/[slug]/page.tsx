@@ -12,7 +12,7 @@ import { getServiceEnBySlug } from '../../../services/servicesData.en';
 import { getServiceRuBySlug } from '../../../services/servicesData.ru';
 import { ServicePage } from '../../../services/ServicePage';
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://profinancesolutions.az';
+import { SITE_URL } from '../../../lib/site';
 
 function getLocalizedServiceData(azSlug: string, locale: Locale) {
   if (locale === 'en') return getServiceEnBySlug(azSlug);

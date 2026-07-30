@@ -6,199 +6,749 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Lightbulb, Layers, Zap, ShieldCheck, TrendingUp, ArrowDown } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useBreakpoint } from "../../hooks/useBreakpoint";
-import { DARK, INVERT } from "@/app/lib/brand";
+import { getLenis } from "@/app/lib/smoothScroll";
+import { DARK, mix } from "@/app/lib/brand";
+import { FS_BODY, FS_CHIP, FS_H2, FS_H3, FS_H4_MOBILE, FS_LABEL } from "@/app/lib/typography";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const ICONS = [Lightbulb, Layers, Zap, ShieldCheck, TrendingUp];
-const AUTO_ADVANCE_MS = 4500;
+const TOTAL = ICONS.length;
 
-export function WhyUsSection() {
-  const t  = useTranslations("whyUs");
-  const bp = useBreakpoint();
+/* How much of the pinned travel is spent stepping through the five reasons.
+   The remaining 14% is a hold on the last one — without it the fifth reason
+   appears and the section releases in the same breath, so it never reads. */
+const STEP_SPAN = 0.86;
 
-  const outerRef        = useRef<HTMLDivElement>(null);
-  const stickyRef       = useRef<HTMLDivElement>(null);
-  const progressBarRef  = useRef<HTMLDivElement>(null);
-  const rightContentRef = useRef<HTMLDivElement>(null);
-  const hintRef         = useRef<HTMLDivElement>(null);
-  const activeIndexRef  = useRef(0);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [isPaused, setIsPaused]       = useState(false);
-  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+/* Total scroll the console consumes. The old version spent 300vh to show five
+   short lines; this shows the same five in a card that is never taller than
+   ~520px, so the throw shrinks with it. */
+const SCROLL_VH = { desktop: 190, tablet: 175 };
 
-  const items = Array.from({ length: 5 }, (_, i) => ({
-    title:       t(`items.${i}.title` as Parameters<typeof t>[0]),
-    description: t(`items.${i}.description` as Parameters<typeof t>[0]),
-    Icon:        ICONS[i],
-  }));
-
-  useEffect(() => {
-    if (bp === "mobile") return;
-    const ctx = gsap.context(() => {
-      gsap.set(".why-entrance", { opacity: 0, y: 18 });
-      gsap.to(".why-entrance", { opacity: 1, y: 0, duration: 0.95, ease: "expo.out", stagger: 0.1, scrollTrigger: { trigger: outerRef.current, start: "top 85%", once: true } });
-      gsap.to(hintRef.current, { y: 6, repeat: -1, yoyo: true, duration: 0.9, ease: "sine.inOut" });
-      gsap.to({}, { scrollTrigger: { trigger: outerRef.current, start: "top top", end: "bottom bottom", scrub: 0.6, onUpdate: (self) => {
-        if (progressBarRef.current) progressBarRef.current.style.width = `${self.progress * 100}%`;
-        const newIndex = Math.min(Math.floor(self.progress * items.length), items.length - 1);
-        if (newIndex !== activeIndexRef.current) { activeIndexRef.current = newIndex; setActiveIndex(newIndex); }
-      } } });
-    }, outerRef);
-    return () => ctx.revert();
-  }, [bp, items.length]);
-
-  useEffect(() => {
-    if (bp === "mobile" || isPaused) return;
-    timerRef.current = setInterval(() => {
-      setActiveIndex(prev => { const next = Math.min(prev + 1, items.length - 1); activeIndexRef.current = next; return next; });
-    }, AUTO_ADVANCE_MS);
-    return () => { if (timerRef.current) clearInterval(timerRef.current); };
-  }, [bp, isPaused, items.length]);
-
-  useEffect(() => {
-    if (bp === "mobile") return;
-    if (rightContentRef.current) {
-      gsap.fromTo(rightContentRef.current, { opacity: 0, y: 24, scale: 0.99, filter: "blur(3px)" }, { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 0.55, ease: "power3.out" });
-    }
-  }, [activeIndex, bp]);
-
-  if (bp === "mobile") return <WhyUsMobileAccordion items={items} t={t} />;
-
-  const isTablet = bp === "tablet";
-  const point   = items[activeIndex];
-  const PointIcon = point.Icon;
-  const leftPadding  = isTablet ? "48px 24px 48px 32px" : "60px 32px 60px 48px";
-  const rightPadding = isTablet ? "48px 40px 48px 48px" : "60px 56px 60px 72px";
+/* The step dashes. Each one is a button that jumps to its reason, so the panel
+   carries its own control instead of only reporting position — the 3px bar is
+   just the visible part, the button around it supplies a ~22px hit target. */
+function Dashes({
+  current,
+  labels,
+  onPick,
+}: {
+  current: number;
+  labels: string[];
+  onPick: (i: number) => void;
+}) {
+  const [hovered, setHovered] = useState<number | null>(null);
 
   return (
-    <div ref={outerRef} style={{ height: "300vh", position: "relative" }}>
-      <div ref={stickyRef} onMouseEnter={() => setIsPaused(true)} onMouseLeave={() => setIsPaused(false)} style={{ position: "sticky", top: 0, height: "100vh", display: "flex", overflow: "hidden" }}>
-
-        {/* Left */}
-        <div style={{ flex: "0 0 46%", backgroundColor: "var(--surface)", display: "flex", alignItems: "center", justifyContent: "center", padding: leftPadding, position: "relative", overflow: "hidden" }}>
-          <div style={{ position: "absolute", bottom: -16, left: -8, fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 900, fontSize: 220, color: "color-mix(in srgb, var(--brand) 4.5%, transparent)", lineHeight: 1, letterSpacing: "-0.06em", userSelect: "none", pointerEvents: "none" }}>
-            {String(activeIndex + 1).padStart(2, "0")}
-          </div>
-          <div style={{ display: "flex", alignItems: "center", width: "100%", gap: 24, position: "relative", zIndex: 1 }}>
-            <div style={{ flex: 1, minWidth: 0 }}>
-              <p className="why-entrance" style={{ fontFamily: "var(--font-inter), 'Inter', sans-serif", fontSize: 11, fontWeight: 600, color: DARK, letterSpacing: "0.18em", textTransform: "uppercase", margin: "0 0 20px 0" }}>{t("sectionLabel")}</p>
-              <h2 className="why-entrance" style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: "clamp(28px, 3vw, 44px)", color: "var(--text)", margin: 0, letterSpacing: "-0.04em", lineHeight: 1.08 }}>
-                {t("heading")}{" "}<span style={{ color: DARK }}>{t("headingAccent")}</span>
-              </h2>
-              <div className="why-entrance" style={{ height: 1, backgroundColor: "var(--border)", margin: "32px 0 24px" }} />
-              <div className="why-entrance" style={{ display: "flex", flexDirection: "column", gap: 2 }}>
-                {items.map((p, i) => {
-                  const isActive = activeIndex === i;
-                  return (
-                    <div key={i} style={{ display: "flex", alignItems: "center", gap: 14, padding: "11px 14px 11px 12px", borderRadius: 8, borderLeft: `3px solid ${isActive ? DARK : "transparent"}`, backgroundColor: isActive ? "color-mix(in srgb, var(--brand) 5%, transparent)" : "transparent", opacity: isActive ? 1 : 0.42, transition: "all 380ms ease" }}>
-                      <span style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: 11, color: isActive ? DARK : "var(--text-faint)", letterSpacing: "0.08em", minWidth: 20, flexShrink: 0, transition: "color 380ms ease" }}>{String(i + 1).padStart(2, "0")}</span>
-                      <span style={{ fontFamily: "var(--font-inter), 'Inter', sans-serif", fontSize: 14, fontWeight: isActive ? 600 : 400, color: isActive ? "var(--text)" : "var(--text-muted)", transition: "all 380ms ease", lineHeight: 1.3 }}>{p.title}</span>
-                    </div>
-                  );
-                })}
-              </div>
-              <div className="why-entrance" style={{ marginTop: 28, paddingLeft: 12 }}>
-                <div style={{ height: 2, backgroundColor: "var(--border)", borderRadius: 2, overflow: "hidden", marginBottom: 10 }}>
-                  <div ref={progressBarRef} style={{ height: "100%", width: "0%", backgroundColor: DARK, borderRadius: 2 }} />
-                </div>
-                <div ref={hintRef} style={{ display: "inline-flex", alignItems: "center", gap: 7, color: "var(--text-faint)", fontSize: 11, fontFamily: "var(--font-inter), 'Inter', sans-serif", letterSpacing: "0.06em" }}>
-                  <ArrowDown size={10} strokeWidth={2} />{t("scrollHint")}
-                </div>
-              </div>
-            </div>
-            {!isTablet && (
-              <div style={{ flexShrink: 0, width: 245, alignSelf: "stretch", position: "relative", display: "flex", alignItems: "flex-end", justifyContent: "center" }}>
-                <div style={{ position: "absolute", bottom: 0, left: "50%", transform: "translateX(-50%)", width: 140, height: 18, background: "radial-gradient(ellipse, rgba(0,0,0,0.13) 0%, transparent 72%)", pointerEvents: "none", zIndex: 0 }} />
-                <img src="/WhyUsHuman.avif" alt="" aria-hidden="true" loading="lazy" style={{ height: 410, width: "auto", objectFit: "contain", display: "block", filter: "drop-shadow(-4px 0 18px rgba(0,0,0,0.13))", position: "relative", zIndex: 1 }} />
-                <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "35%", background: "linear-gradient(to top, color-mix(in srgb, var(--surface) 82%, transparent) 0%, color-mix(in srgb, var(--surface) 35%, transparent) 55%, transparent 100%)", pointerEvents: "none", zIndex: 2 }} />
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* Right */}
-        <div style={{ flex: 1, backgroundColor: INVERT, display: "flex", alignItems: "center", justifyContent: "flex-start", padding: rightPadding, position: "relative", overflow: "hidden" }}>
-          <div style={{ position: "absolute", bottom: -100, right: -80, width: 520, height: 520, borderRadius: "50%", background: "radial-gradient(circle, color-mix(in srgb, var(--accent-green) 18%, transparent) 0%, transparent 65%)", pointerEvents: "none" }} />
-          <div style={{ position: "absolute", top: -80, left: -60, width: 320, height: 320, borderRadius: "50%", background: "radial-gradient(circle, color-mix(in srgb, var(--accent-green) 10%, transparent) 0%, transparent 68%)", pointerEvents: "none" }} />
-          <div style={{ position: "absolute", inset: 0, backgroundImage: "linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)", backgroundSize: "48px 48px", pointerEvents: "none" }} />
-          <div ref={rightContentRef} style={{ maxWidth: isTablet ? 360 : 480, width: "100%", position: "relative", zIndex: 1 }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 44 }}>
-              <div style={{ width: 62, height: 62, borderRadius: 16, backgroundColor: "rgba(255,255,255,0.1)", border: "1px solid rgba(255,255,255,0.18)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                <PointIcon size={26} color="#FFFFFF" strokeWidth={1.6} />
-              </div>
-              <div style={{ display: "inline-flex", alignItems: "center", gap: 4, backgroundColor: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.12)", borderRadius: 999, padding: "5px 14px" }}>
-                <span style={{ fontFamily: "var(--font-inter), 'Inter', sans-serif", fontSize: 11, fontWeight: 600, color: "rgba(255,255,255,0.55)", letterSpacing: "0.1em" }}>{String(activeIndex + 1).padStart(2, "0")} / {String(items.length).padStart(2, "0")}</span>
-              </div>
-            </div>
-            <h3 style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: isTablet ? "clamp(24px, 3vw, 36px)" : "clamp(28px, 3.2vw, 46px)", color: "#FFFFFF", margin: "0 0 18px 0", letterSpacing: "-0.04em", lineHeight: 1.05 }}>{point.title}</h3>
-            <div style={{ height: 1, backgroundColor: "rgba(255,255,255,0.12)", marginBottom: 22 }} />
-            <p style={{ fontFamily: "var(--font-inter), 'Inter', sans-serif", fontSize: 16, color: "rgba(255,255,255,0.72)", lineHeight: 1.82, margin: "0 0 44px 0" }}>{point.description}</p>
-            <div style={{ display: "flex", gap: 6, alignItems: "center" }}>
-              {items.map((_, i) => (
-                <div key={i} style={{ height: 3, width: i === activeIndex ? 28 : 8, borderRadius: 2, backgroundColor: i === activeIndex ? "var(--accent-green)" : i < activeIndex ? "color-mix(in srgb, var(--accent-green) 35%, transparent)" : "rgba(255,255,255,0.15)", transition: "width 400ms ease, background-color 400ms ease" }} />
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
+    <div className="why-fade" style={{ display: "flex", alignItems: "center", gap: 2, marginLeft: -5 }}>
+      {labels.map((label, d) => {
+        const on = d === current;
+        const lit = !on && hovered === d;
+        return (
+          <button
+            key={d}
+            type="button"
+            onClick={() => onPick(d)}
+            onMouseEnter={() => setHovered(d)}
+            onMouseLeave={() => setHovered(null)}
+            aria-label={label}
+            aria-current={on ? "true" : undefined}
+            style={{
+              display: "block",
+              padding: "10px 5px",
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+              borderRadius: 6,
+            }}
+          >
+            <span
+              style={{
+                display: "block",
+                height: 3,
+                borderRadius: 2,
+                width: on ? 30 : 14,
+                /* Hover thickens rather than widens: widening would shove the
+                   remaining dashes sideways under the cursor. */
+                transform: lit ? "scaleY(2)" : "scaleY(1)",
+                backgroundColor: on ? DARK : lit ? mix(DARK, 60) : d < current ? mix(DARK, 38) : mix(DARK, 15),
+                transition:
+                  "width 420ms cubic-bezier(0.22, 1, 0.36, 1), background-color 260ms ease, transform 260ms ease",
+              }}
+            />
+          </button>
+        );
+      })}
     </div>
   );
 }
 
-function WhyUsMobileAccordion({ items, t }: { items: { title: string; description: string; Icon: React.ElementType }[]; t: ReturnType<typeof useTranslations<"whyUs">> }) {
-  const outerRef  = useRef<HTMLDivElement>(null);
-  const [openIndex, setOpenIndex] = useState(0);
+function useMediaQuery(query: string, initial: boolean) {
+  const [matches, setMatches] = useState(initial);
+  useEffect(() => {
+    const mq = window.matchMedia(query);
+    const onChange = () => setMatches(mq.matches);
+    onChange();
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, [query]);
+  return matches;
+}
 
+export function WhyUsSection() {
+  const t = useTranslations("whyUs");
+  const bp = useBreakpoint();
+  const isMobile = bp === "mobile";
+  const isDesktop = bp === "desktop";
+
+  /* Reduced motion gets the plain stacked read — a scroll-driven console that
+     only reveals one reason at a time is exactly the pattern that setting is
+     asking us to drop. The figure needs real width beside two text columns, so
+     it only appears once the card is wide enough to give it its own lane. */
+  const reduced = useMediaQuery("(prefers-reduced-motion: reduce)", false);
+  const wide = useMediaQuery("(min-width: 1180px)", true);
+  const isConsole = !isMobile && !reduced;
+  const showFigure = isConsole && isDesktop && wide;
+
+  const sectionRef = useRef<HTMLElement>(null);
+  const innerRef = useRef<HTMLDivElement>(null);
+  const fillRef = useRef<HTMLDivElement>(null);
+  const paneWrapRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<ScrollTrigger | null>(null);
+  const activeRef = useRef(0);
+  const prevRef = useRef(-1);
+
+  const [active, setActive] = useState(0);
+
+  const items = Array.from({ length: TOTAL }, (_, i) => ({
+    title: t(`items.${i}.title` as Parameters<typeof t>[0]),
+    description: t(`items.${i}.description` as Parameters<typeof t>[0]),
+    Icon: ICONS[i],
+  }));
+
+  const stickyTop = isDesktop ? 108 : 100;
+  /* Breathing room between the end of Industries and this section's first
+     line. It's real padding on the section, so the tinted band opens well
+     before the eyebrow rather than starting on top of it. */
+  const padTop = isDesktop ? 112 : 88;
+
+  /* ---- Entrance: header + card, once ---- */
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.set(".why-entrance", { opacity: 0, y: 18 });
-      gsap.to(".why-entrance", { opacity: 1, y: 0, duration: 0.95, ease: "expo.out", stagger: 0.1, scrollTrigger: { trigger: outerRef.current, start: "top 85%", once: true } });
-    }, outerRef);
+      if (reduced) {
+        gsap.set(".why-in", { opacity: 1, y: 0 });
+        return;
+      }
+      gsap.fromTo(
+        ".why-in",
+        { opacity: 0, y: 22 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.95,
+          ease: "expo.out",
+          stagger: 0.1,
+          scrollTrigger: { trigger: sectionRef.current, start: "top 78%", once: true },
+        },
+      );
+    }, sectionRef);
     return () => ctx.revert();
-  }, []);
+  }, [reduced, bp]);
 
-  return (
-    <section ref={outerRef} style={{ backgroundColor: "var(--surface)", padding: "64px 20px 56px", fontFamily: "var(--font-inter), 'Inter', sans-serif", position: "relative" }}>
-      <div style={{ display: "flex", alignItems: "flex-end", position: "relative", zIndex: 1 }}>
-        <div style={{ flex: 1, minWidth: 0 }}>
-          <p className="why-entrance" style={{ fontFamily: "var(--font-inter), 'Inter', sans-serif", fontSize: 11, fontWeight: 600, color: DARK, letterSpacing: "0.18em", textTransform: "uppercase", margin: "0 0 20px 0" }}>{t("sectionLabel")}</p>
-          <h2 className="why-entrance" style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: "clamp(26px, 7vw, 36px)", color: "var(--text)", margin: "0 0 32px 0", letterSpacing: "-0.04em", lineHeight: 1.1 }}>
-            {t("heading")}{" "}<span style={{ color: DARK }}>{t("headingAccent")}</span>
-          </h2>
-        </div>
-        <div style={{ flexShrink: 0, position: "relative", pointerEvents: "none" }}>
-          <img src="/WhyUsHuman.avif" alt="" aria-hidden="true" loading="lazy" style={{ height: 160, width: "auto", display: "block", filter: "drop-shadow(-3px 0 14px rgba(0,0,0,0.10))", opacity: 0.9 }} />
-          <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "22%", background: "linear-gradient(to top, var(--surface), transparent)", pointerEvents: "none" }} />
-        </div>
-      </div>
+  /* ---- The console: scroll position drives which reason is on screen ----
+     One ScrollTrigger, no pin plugin — the card is a plain CSS sticky, so the
+     browser owns the sticking and GSAP only reads progress. start/end are
+     functions so they re-measure on resize (invalidateOnRefresh), and they map
+     the trigger's 0→1 onto exactly the window where the card is stuck:
+     it locks when the card's own top edge — the section top plus `padTop` —
+     hits `stickyTop`, and lets go when the section bottom catches the card's
+     bottom edge. The section's height carries `padTop` on top of the scroll
+     budget (see `height` below), so adding that spacing costs no travel. */
+  useEffect(() => {
+    if (!isConsole) return;
+    const section = sectionRef.current;
+    const inner = innerRef.current;
+    if (!section || !inner) return;
 
-      <div className="why-entrance" style={{ height: 1, backgroundColor: "var(--border)", margin: "0 0 24px", position: "relative", zIndex: 1 }} />
+    const ctx = gsap.context(() => {
+      const fill = fillRef.current;
+      if (fill) gsap.set(fill, { scaleX: 0 });
 
-      <div style={{ position: "relative", zIndex: 1 }}>
-        {items.map((point, i) => {
-          const isOpen = openIndex === i;
-          const PointIcon = point.Icon;
-          return (
-            <div key={i} style={{ borderBottom: "1px solid var(--border)" }}>
-              <button onClick={() => setOpenIndex(isOpen ? -1 : i)} style={{ width: "100%", display: "flex", alignItems: "center", gap: 14, padding: "18px 0", background: "none", border: "none", cursor: "pointer", textAlign: "left" }}>
-                <span style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: 11, color: isOpen ? DARK : "var(--text-faint)", minWidth: 20, flexShrink: 0, transition: "color 280ms" }}>{String(i + 1).padStart(2, "0")}</span>
-                <div style={{ width: 36, height: 36, borderRadius: 9, flexShrink: 0, backgroundColor: isOpen ? "color-mix(in srgb, var(--brand) 10%, transparent)" : "var(--surface-2)", display: "flex", alignItems: "center", justifyContent: "center", transition: "background-color 280ms" }}>
-                  <PointIcon size={17} color={isOpen ? DARK : "var(--text-faint)"} strokeWidth={1.7} />
-                </div>
-                <span style={{ flex: 1, fontFamily: "var(--font-inter), 'Inter', sans-serif", fontWeight: isOpen ? 600 : 400, fontSize: 16, color: isOpen ? "var(--text)" : "var(--text-muted)", transition: "all 280ms" }}>{point.title}</span>
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0, transition: "transform 280ms", transform: isOpen ? "rotate(180deg)" : "rotate(0deg)" }}>
-                  <path d="M4 6L8 10L12 6" stroke="var(--text-faint)" strokeWidth="1.6" strokeLinecap="round" />
-                </svg>
-              </button>
-              <div style={{ maxHeight: isOpen ? 500 : 0, overflow: "hidden", transition: "max-height 480ms cubic-bezier(0.4, 0, 0.2, 1)" }}>
-                <div style={{ paddingBottom: 20, paddingLeft: 70 }}>
-                  <p style={{ fontSize: 14, color: "var(--text-muted)", lineHeight: 1.75, margin: 0 }}>{point.description}</p>
+      triggerRef.current = ScrollTrigger.create({
+        trigger: section,
+        start: () => `top top+=${stickyTop - padTop}`,
+        end: () => `bottom top+=${stickyTop + inner.offsetHeight}`,
+        invalidateOnRefresh: true,
+        onUpdate: (self) => {
+          const p = Math.min(self.progress / STEP_SPAN, 1);
+          if (fill) gsap.set(fill, { scaleX: p });
+          const next = Math.min(Math.floor(p * TOTAL), TOTAL - 1);
+          if (next !== activeRef.current) {
+            activeRef.current = next;
+            setActive(next);
+          }
+        },
+      });
+    }, section);
+
+    return () => {
+      ctx.revert();
+      triggerRef.current = null;
+    };
+  }, [isConsole, stickyTop, padTop, bp]);
+
+  /* ---- Pane swap ----
+     All five panes live in the DOM stacked on top of each other, so a change is
+     a true crossfade (outgoing pane animates out) instead of the flash you get
+     re-rendering one node. React deliberately never writes opacity/visibility
+     on these — GSAP owns them from mount, and the style prop stays constant so
+     React's diff never fights it. */
+  useEffect(() => {
+    const wrap = paneWrapRef.current;
+    if (!wrap) return;
+
+    const panes = Array.from(wrap.querySelectorAll<HTMLElement>(".why-pane"));
+    if (!panes.length) return;
+
+    const prev = prevRef.current;
+    prevRef.current = active;
+
+    /* Show-don't-animate paths: first run, a mid-page reload that lands with
+       reason 3 already active, and any re-run where the index hasn't actually
+       moved — crossing the mobile/reduced-motion boundary rebuilds these nodes,
+       and there `incoming === outgoing` would have the pane fade itself out. */
+    if (prev === -1 || prev === active || reduced || !isConsole) {
+      gsap.set(panes, { autoAlpha: 0, zIndex: 1 });
+      gsap.set(panes[active], { autoAlpha: 1, zIndex: 2 });
+      /* Nothing else to reset: the pane's children have never been animated on
+         this path, so they're already at their authored values. (`clearProps`
+         here would strip the React-authored inline styles too — GSAP can't tell
+         which inline properties it put there — leaving the chip and rules
+         unstyled until the first swap.) */
+      return;
+    }
+
+    const dir = active > prev ? 1 : -1;
+    const incoming = panes[active];
+    const outgoing = panes[prev];
+
+    gsap.killTweensOf([incoming, outgoing]);
+    gsap.set(outgoing, { zIndex: 1 });
+    gsap.set(incoming, { zIndex: 2 });
+
+    gsap.to(outgoing, { autoAlpha: 0, y: -16 * dir, duration: 0.34, ease: "power2.in" });
+
+    gsap
+      .timeline()
+      .fromTo(incoming, { autoAlpha: 0, y: 0 }, { autoAlpha: 1, duration: 0.4, ease: "power2.out" })
+      .fromTo(
+        incoming.querySelectorAll(".why-roll"),
+        { yPercent: 118 * dir },
+        { yPercent: 0, duration: 0.75, ease: "expo.out", stagger: 0.06 },
+        0,
+      )
+      .fromTo(
+        incoming.querySelectorAll(".why-fade"),
+        { opacity: 0, y: 14 * dir },
+        { opacity: 1, y: 0, duration: 0.6, ease: "expo.out", stagger: 0.07 },
+        0.06,
+      );
+  }, [active, reduced, isConsole]);
+
+  /* Clicking a reason scrolls the page to the point in the pinned window where
+     that reason is centred — the list stays a real control rather than a
+     read-only legend, and it works from the keyboard. Lenis owns the scroll
+     position, so it has to be told; window.scrollTo would be overridden. */
+  const goTo = (i: number) => {
+    const st = triggerRef.current;
+    if (!st) return;
+    const p = ((i + 0.5) / TOTAL) * STEP_SPAN;
+    const y = st.start + (st.end - st.start) * p;
+    const lenis = getLenis();
+    if (lenis) lenis.scrollTo(y, { duration: 0.9 });
+    else window.scrollTo({ top: y, behavior: "smooth" });
+  };
+
+  /* ---------------------------------------------------------------- header */
+  const header = (
+    <div style={{ marginBottom: isMobile ? 30 : 34 }}>
+      <p
+        className="why-in"
+        style={{
+          margin: "0 0 14px",
+          fontSize: FS_LABEL,
+          fontWeight: 600,
+          color: DARK,
+          letterSpacing: "0.2em",
+          textTransform: "uppercase",
+        }}
+      >
+        {t("sectionLabel")}
+      </p>
+      <h2
+        className="why-in"
+        style={{
+          fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif",
+          fontWeight: 800,
+          fontSize: FS_H2,
+          color: "var(--text)",
+          margin: 0,
+          letterSpacing: "-0.035em",
+          lineHeight: 1.08,
+        }}
+      >
+        {t("heading")} <span style={{ color: DARK }}>{t("headingAccent")}</span>
+      </h2>
+    </div>
+  );
+
+  /* ------------------------------------------------------- stacked fallback */
+  if (!isConsole) {
+    return (
+      <section
+        id="whyus"
+        ref={sectionRef}
+        style={{
+          backgroundColor: "var(--page-bg-alt)",
+          padding: isMobile ? "76px 20px 80px" : "96px 32px 104px",
+          fontFamily: "var(--font-inter), 'Inter', sans-serif",
+        }}
+      >
+        <div style={{ maxWidth: 900, margin: "0 auto" }}>
+          {header}
+          <div style={{ display: "grid", gap: 12 }}>
+            {items.map(({ title, description, Icon }, i) => (
+              <div
+                key={i}
+                className="why-in"
+                style={{
+                  display: "flex",
+                  gap: 16,
+                  padding: isMobile ? "20px 18px" : "24px 26px",
+                  borderRadius: 18,
+                  backgroundColor: "var(--surface)",
+                  border: "1px solid var(--border)",
+                }}
+              >
+                <span
+                  style={{
+                    flexShrink: 0,
+                    width: 42,
+                    height: 42,
+                    borderRadius: 12,
+                    display: "grid",
+                    placeItems: "center",
+                    backgroundColor: mix(DARK, 9),
+                    border: `1px solid ${mix(DARK, 14)}`,
+                  }}
+                >
+                  <Icon size={19} color={DARK} strokeWidth={1.9} />
+                </span>
+                <div>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "baseline",
+                      gap: 10,
+                      marginBottom: 6,
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif",
+                        fontSize: FS_CHIP,
+                        fontWeight: 800,
+                        letterSpacing: "0.1em",
+                        color: mix(DARK, 55),
+                        fontVariantNumeric: "tabular-nums",
+                      }}
+                    >
+                      {`0${i + 1}`}
+                    </span>
+                    <h3
+                      style={{
+                        fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif",
+                        fontSize: FS_H4_MOBILE,
+                        fontWeight: 700,
+                        color: "var(--text)",
+                        margin: 0,
+                        letterSpacing: "-0.02em",
+                        lineHeight: 1.3,
+                      }}
+                    >
+                      {title}
+                    </h3>
+                  </div>
+                  <p style={{ margin: 0, fontSize: FS_BODY, lineHeight: 1.6, color: "var(--text-muted)" }}>
+                    {description}
+                  </p>
                 </div>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  /* ---------------------------------------------------------- the console */
+  const cardH = isDesktop
+    ? "clamp(392px, calc(100vh - 288px), 520px)"
+    : "clamp(376px, calc(100vh - 272px), 466px)";
+
+  const columns = showFigure
+    ? "minmax(0, 1fr) 220px minmax(0, 1.34fr)"
+    : "minmax(0, 0.94fr) minmax(0, 1.06fr)";
+
+  return (
+    <section
+      id="whyus"
+      ref={sectionRef}
+      style={{
+        position: "relative",
+        /* padTop rides on top of the scroll budget rather than eating into it,
+           so the spacing above the card doesn't shorten the read-through. */
+        height: `calc(${isDesktop ? SCROLL_VH.desktop : SCROLL_VH.tablet}vh + ${padTop}px)`,
+        paddingTop: padTop,
+        backgroundColor: "var(--page-bg-alt)",
+        fontFamily: "var(--font-inter), 'Inter', sans-serif",
+      }}
+    >
+      <div style={{ position: "sticky", top: stickyTop, padding: isDesktop ? "0 40px" : "0 28px" }}>
+        <div ref={innerRef} style={{ maxWidth: 1200, margin: "0 auto", paddingBottom: 28 }}>
+          {header}
+
+          {/* ---- Card ---- */}
+          <div
+            className="why-in"
+            style={{
+              position: "relative",
+              height: cardH,
+              display: "grid",
+              gridTemplateColumns: columns,
+              borderRadius: 26,
+              overflow: "hidden",
+              backgroundColor: "var(--surface)",
+              border: "1px solid var(--border)",
+              boxShadow: "var(--shadow-card)",
+            }}
+          >
+            {/* ---- Index rail ---- */}
+            <div
+              style={{
+                position: "relative",
+                zIndex: 2,
+                display: "flex",
+                flexDirection: "column",
+                padding: isDesktop ? "30px 26px 26px 30px" : "24px 20px 22px 24px",
+              }}
+            >
+              <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center", gap: 2 }}>
+                {items.map(({ title }, i) => {
+                  const on = i === active;
+                  const past = i < active;
+                  return (
+                    <button
+                      key={i}
+                      type="button"
+                      onClick={() => goTo(i)}
+                      aria-current={on ? "true" : undefined}
+                      aria-controls={`why-pane-${i}`}
+                      style={{
+                        position: "relative",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 14,
+                        width: "100%",
+                        textAlign: "left",
+                        padding: isDesktop ? "11px 14px" : "9px 12px",
+                        borderRadius: 12,
+                        border: "none",
+                        cursor: "pointer",
+                        fontFamily: "inherit",
+                        backgroundColor: on ? mix(DARK, 7) : "transparent",
+                        transition: "background-color 380ms ease",
+                      }}
+                    >
+                      {/* Active marker — scales rather than toggling a border so
+                          the bar grows out of the row instead of popping in */}
+                      <span
+                        aria-hidden="true"
+                        style={{
+                          position: "absolute",
+                          left: 0,
+                          top: 8,
+                          bottom: 8,
+                          width: 3,
+                          borderRadius: 3,
+                          backgroundColor: DARK,
+                          transformOrigin: "center",
+                          transform: on ? "scaleY(1)" : "scaleY(0)",
+                          transition: "transform 420ms cubic-bezier(0.22, 1, 0.36, 1)",
+                        }}
+                      />
+                      <span
+                        style={{
+                          flexShrink: 0,
+                          width: 22,
+                          fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif",
+                          fontSize: FS_CHIP,
+                          fontWeight: 800,
+                          letterSpacing: "0.08em",
+                          fontVariantNumeric: "tabular-nums",
+                          color: on ? DARK : past ? mix(DARK, 45) : "var(--text-faint)",
+                          transition: "color 380ms ease",
+                        }}
+                      >
+                        {`0${i + 1}`}
+                      </span>
+                      <span
+                        style={{
+                          fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif",
+                          fontSize: FS_BODY,
+                          fontWeight: on ? 700 : 500,
+                          letterSpacing: "-0.015em",
+                          lineHeight: 1.35,
+                          color: on ? "var(--text-strong)" : "var(--text-soft)",
+                          opacity: on ? 1 : 0.72,
+                          transition: "color 380ms ease, opacity 380ms ease, font-weight 380ms ease",
+                        }}
+                      >
+                        {title}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Scroll affordance — sits with the progress track rather than
+                  off in the header, and retires the moment you've moved past
+                  the first reason and proved you didn't need telling. */}
+              <div
+                aria-hidden="true"
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 8,
+                  marginBottom: 12,
+                  paddingLeft: 2,
+                  color: "var(--text-faint)",
+                  fontSize: FS_CHIP,
+                  fontWeight: 600,
+                  letterSpacing: "0.14em",
+                  textTransform: "uppercase",
+                  opacity: active === 0 ? 1 : 0,
+                  transform: active === 0 ? "translateY(0)" : "translateY(5px)",
+                  transition: "opacity 420ms ease, transform 420ms ease",
+                }}
+              >
+                <ArrowDown size={13} strokeWidth={2.2} />
+                {t("scrollHint")}
+              </div>
+
+              {/* Progress — one continuous read of where you are in the section */}
+              <div
+                aria-hidden="true"
+                style={{
+                  height: 3,
+                  borderRadius: 3,
+                  backgroundColor: mix(DARK, 9),
+                  overflow: "hidden",
+                }}
+              >
+                <div
+                  ref={fillRef}
+                  style={{
+                    height: "100%",
+                    borderRadius: 3,
+                    backgroundColor: DARK,
+                    transformOrigin: "left center",
+                  }}
+                />
+              </div>
             </div>
-          );
-        })}
+
+            {/* ---- Figure ----
+                 Own lane between the rail and the panel: floor-anchored, full
+                 body, so he never collides with either column's text — only his
+                 shoulder crosses the seam, which is what sells the depth. The
+                 cut-out already fades out at the legs, so there's no crop to
+                 mask at the card floor. */}
+            {showFigure && (
+              <div className="why-in" style={{ position: "relative", zIndex: 2 }}>
+                <img
+                  src="/WhyUsHuman.avif"
+                  alt=""
+                  aria-hidden="true"
+                  loading="lazy"
+                  decoding="async"
+                  width={544}
+                  height={972}
+                  style={{
+                    position: "absolute",
+                    bottom: 0,
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                    height: "88%",
+                    width: "auto",
+                    maxWidth: "none",
+                    display: "block",
+                    filter: "drop-shadow(0 18px 26px rgba(15,32,22,0.16))",
+                    /* Dissolves his legs into the card floor instead of
+                       letting the card's overflow slice them off. Masking the
+                       image itself — rather than laying a gradient over it —
+                       keeps the fade from painting across the panel edge that
+                       his shoulder overlaps. */
+                    WebkitMaskImage: "linear-gradient(to bottom, #000 74%, transparent 97%)",
+                    maskImage: "linear-gradient(to bottom, #000 74%, transparent 97%)",
+                  }}
+                />
+              </div>
+            )}
+
+            {/* ---- Active panel ---- */}
+            <div
+              ref={paneWrapRef}
+              style={{
+                position: "relative",
+                zIndex: 1,
+                overflow: "hidden",
+                background: `linear-gradient(158deg, var(--surface-3) 0%, ${mix(DARK, 4)} 100%)`,
+                borderLeft: "1px solid var(--border)",
+              }}
+            >
+              {/* Grid texture, faded from the top-right — the one cue carried
+                  straight over from the old dark panel */}
+              <div
+                aria-hidden="true"
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  backgroundImage: `linear-gradient(${mix(DARK, 6)} 1px, transparent 1px), linear-gradient(90deg, ${mix(DARK, 6)} 1px, transparent 1px)`,
+                  backgroundSize: "46px 46px",
+                  WebkitMaskImage: "radial-gradient(130% 105% at 100% 0%, #000 8%, transparent 70%)",
+                  maskImage: "radial-gradient(130% 105% at 100% 0%, #000 8%, transparent 70%)",
+                  pointerEvents: "none",
+                }}
+              />
+
+              {items.map(({ title, description, Icon }, i) => (
+                <div
+                  key={i}
+                  id={`why-pane-${i}`}
+                  className="why-pane"
+                  role="group"
+                  aria-hidden={i !== active}
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    opacity: 0,
+                    display: "flex",
+                    flexDirection: "column",
+                    padding: isDesktop ? "34px 40px 32px" : "26px 28px 26px",
+                  }}
+                >
+                  {/* Top: icon + counter */}
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16 }}>
+                    <span
+                      className="why-fade"
+                      style={{
+                        width: 46,
+                        height: 46,
+                        borderRadius: 13,
+                        display: "grid",
+                        placeItems: "center",
+                        backgroundColor: "var(--surface)",
+                        border: `1px solid ${mix(DARK, 14)}`,
+                        boxShadow: `0 6px 18px ${mix(DARK, 8)}`,
+                      }}
+                    >
+                      <Icon size={20} color={DARK} strokeWidth={1.9} />
+                    </span>
+                    <span
+                      className="why-fade"
+                      style={{
+                        fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif",
+                        fontSize: FS_CHIP,
+                        fontWeight: 800,
+                        letterSpacing: "0.12em",
+                        color: DARK,
+                        fontVariantNumeric: "tabular-nums",
+                        padding: "6px 12px",
+                        borderRadius: 999,
+                        backgroundColor: "var(--surface)",
+                        border: `1px solid ${mix(DARK, 12)}`,
+                      }}
+                    >
+                      {`0${i + 1} / 0${TOTAL}`}
+                    </span>
+                  </div>
+
+                  {/* Middle: the reason */}
+                  <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center" }}>
+                    <h3
+                      style={{
+                        margin: 0,
+                        overflow: "hidden",
+                        fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif",
+                        fontSize: FS_H3,
+                        fontWeight: 800,
+                        letterSpacing: "-0.03em",
+                        lineHeight: 1.14,
+                        color: "var(--text-strong)",
+                      }}
+                    >
+                      <span className="why-roll" style={{ display: "block" }}>
+                        {title}
+                      </span>
+                    </h3>
+                    <div
+                      className="why-fade"
+                      aria-hidden="true"
+                      style={{ width: 54, height: 2, borderRadius: 2, backgroundColor: mix(DARK, 40), margin: "18px 0" }}
+                    />
+                    <p
+                      className="why-fade"
+                      style={{
+                        margin: 0,
+                        maxWidth: 440,
+                        fontSize: FS_BODY,
+                        lineHeight: 1.65,
+                        color: "var(--text-muted)",
+                      }}
+                    >
+                      {description}
+                    </p>
+                  </div>
+
+                  {/* Bottom: step dashes — also the panel's own jump control */}
+                  <Dashes current={i} labels={items.map((it) => it.title)} onPick={goTo} />
+
+                  {/* Ghost numeral — the old design's oversized index, moved
+                      into the panel and cropped by the card corner */}
+                  <span
+                    aria-hidden="true"
+                    style={{
+                      position: "absolute",
+                      right: -14,
+                      bottom: -62,
+                      fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif",
+                      fontSize: 196,
+                      fontWeight: 900,
+                      lineHeight: 1,
+                      letterSpacing: "-0.07em",
+                      color: mix(DARK, 6),
+                      userSelect: "none",
+                      pointerEvents: "none",
+                    }}
+                  >
+                    {`0${i + 1}`}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

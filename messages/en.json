@@ -44,29 +44,17 @@
     },
     "ctaContact": "Get in Touch"
   },
-  "pillars": {
-    "sectionLabel": "Brand philosophy",
-    "heading": "The three-leaf",
-    "headingAccent": "clover",
-    "subtext": "Our logo reflects the foundation of the company's philosophy.",
-    "items": [
-      {
-        "title": "Structure",
-        "description": "Clearly organised processes and a transparent accounting system."
-      },
-      {
-        "title": "Control",
-        "description": "Accurate financial data and effective risk management."
-      },
-      {
-        "title": "Growth",
-        "description": "Sustainable business development and increased financial efficiency."
-      },
-      {
-        "title": "Green",
-        "description": "Symbolises transparency, honesty and long-term resilience."
-      }
-    ]
+  "whoWeAre": {
+    "sectionLabel": "Who we are",
+    "heading": "We turn your finances into",
+    "headingAccent": "a system you control",
+    "leadParagraph": "In today's world, business success depends not only on ambition, but also on the ability to manage finances accurately and transparently.",
+    "paragraph1": "ProFinance Solutions acts as your strategic partner, helping companies grow, minimise risks and make well-founded financial decisions. Our experience covers all key areas of financial consulting: accounting, taxation, audit and financial management.",
+    "paragraph2": "Our goal is not only to protect your business from external risks, but also to open up new opportunities for growth. We build long-term partnerships with our clients based on trust, professionalism and a strategic approach.",
+    "missionLabel": "Our mission",
+    "missionText": "To be a reliable and strategic partner for our clients' businesses, to ensure maximum transparency of financial processes and, drawing on our professional experience in accounting, taxation, audit and financial management, to effectively protect companies from external risks.",
+    "cta": "More about us",
+    "missionSub": "We support the transparent and sustainable development of your business and minimise financial risks."
   },
   "services": {
     "sectionLabel": "Services",
@@ -102,6 +90,16 @@
       "hr-ve-kadrlar-konsaltinqi": "Set-up and professional support of your company's HR system.",
       "telim-ve-inkisaf": "Professional support in developing employees' skills and management competencies.",
       "auditor-xidmetleri": "Professional support for the independent assessment of your company's financial and operational processes."
+    },
+    "shortTaglines": {
+      "ucotun-diaqnostikasi-ve-berpasi": "The first step to financial health",
+      "muhasibat-konsaltinqi": "Reliable support behind the numbers",
+      "vergi-konsaltinqi": "Legal optimisation, maximum savings",
+      "maliyye-ve-idareetme-konsaltinqi": "From strategy to results",
+      "emeliyyat-ve-reqemsal-konsaltinq": "We digitise your business",
+      "hr-ve-kadrlar-konsaltinqi": "People at the centre",
+      "telim-ve-inkisaf": "Knowledge becomes power",
+      "auditor-xidmetleri": "Independent review, precise results"
     },
     "bullets": {
       "muhasibat-konsaltinqi": [
@@ -152,6 +150,7 @@
     "subtext": "We build a strategic partnership with PLH Law Firm to provide our clients with comprehensive legal support.",
     "description": "We resolve the legal dimensions of accounting and financial matters together with PLH Law Firm. Full support from contract drafting to corporate structuring.",
     "visitSite": "Visit plh.az",
+    "photoAlt": "ProFinance and PLH Law Firm specialists in a joint working meeting",
     "tags": [
       "Corporate law",
       "Contract law",
@@ -277,7 +276,9 @@
     "ctaHeadingAccent": "about this service",
     "ctaSubtext": "Our experts will get in touch with you and provide detailed information about {serviceName}.",
     "ctaPrimary": "Free consultation",
-    "ctaSecondary": "All services"
+    "ctaSecondary": "All services",
+    "closePanel": "Close",
+    "currentService": "Current service"
   },
   "meta": {
     "homeTitle": "ProFinance Solutions — Financial Consulting in Baku",
@@ -300,6 +301,7 @@
   },
   "contact": {
     "title": "Contact us",
+    "close": "Close",
     "socialLabel": "Social media",
     "whatsappCta": "Write on WhatsApp",
     "labelPhone": "Phone",

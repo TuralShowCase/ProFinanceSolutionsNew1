@@ -21,7 +21,7 @@ export default function Error({
     >
       <div
         style={{
-          fontSize: 11,
+          fontSize: 16,
           fontWeight: 700,
           color: "var(--brand)",
           letterSpacing: "0.18em",
@@ -44,10 +44,10 @@ export default function Error({
       >
         500
       </h1>
-      <p style={{ fontSize: 16, color: "var(--text-muted)", margin: 0 }}>
+      <p style={{ fontSize: 20, color: "var(--text-muted)", margin: 0 }}>
         Xəta baş verdi
       </p>
-      <p style={{ fontSize: 13, color: "var(--text-faint)", margin: 0, textAlign: "center", maxWidth: 320 }}>
+      <p style={{ fontSize: 18, color: "var(--text-muted)", margin: 0, textAlign: "center", maxWidth: 320 }}>
         Texniki problem yarandı. Xahiş edirik bir az sonra yenidən cəhd edin.
       </p>
       <div style={{ display: "flex", gap: 12, marginTop: 8 }}>
@@ -57,7 +57,7 @@ export default function Error({
             color: "#ffffff",
             backgroundColor: "var(--brand-solid)",
             fontWeight: 600,
-            fontSize: 14,
+            fontSize: 18,
             border: "none",
             cursor: "pointer",
             padding: "10px 20px",
@@ -75,7 +75,7 @@ export default function Error({
             color: "var(--brand)",
             fontWeight: 600,
             textDecoration: "none",
-            fontSize: 14,
+            fontSize: 18,
             display: "inline-flex",
             alignItems: "center",
             padding: "10px 20px",

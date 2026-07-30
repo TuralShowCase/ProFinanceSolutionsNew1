@@ -59,38 +59,38 @@ export function Footer() {
         {/* Brand bar */}
         <div className="ftr-brand" style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "auto 1fr auto", alignItems: "center", gap: isMobile ? 20 : 32, paddingTop: isMobile ? 44 : 60, paddingBottom: isMobile ? 28 : 36, borderBottom: "1px solid rgba(255,255,255,0.07)" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-            <img src="/logo-icon.png" alt="ProFinance" loading="lazy" style={{ width: 38, height: 38, objectFit: "contain", flexShrink: 0 }} />
+            <img src="/logo-mark-light.png" alt="ProFinance" width={38} height={38} loading="lazy" style={{ width: 38, height: 38, objectFit: "contain", flexShrink: 0 }} />
             <div>
-              <div style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: 17, color: "#FFFFFF", letterSpacing: "-0.02em", lineHeight: 1.1 }}>ProFinance</div>
-              <div style={{ fontSize: 10, color: "rgba(255,255,255,0.28)", letterSpacing: "0.1em", textTransform: "uppercase" }}>Solutions</div>
+              <div style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: 20, color: "#FFFFFF", letterSpacing: "-0.02em", lineHeight: 1.1 }}>ProFinance</div>
+              <div style={{ fontSize: 16, color: "var(--invert-text-faint)", letterSpacing: "0.1em", textTransform: "uppercase" }}>Solutions</div>
             </div>
           </div>
           {!isMobile && (
-            <p style={{ fontSize: 14, color: "rgba(255,255,255,0.3)", margin: 0, textAlign: "center", lineHeight: 1.6 }}>
+            <p style={{ fontSize: 18, color: "var(--invert-text-muted)", margin: 0, textAlign: "center", lineHeight: 1.6 }}>
               {t("footer.tagline")}
             </p>
           )}
           <div style={{ display: "flex", gap: 9, justifyContent: isMobile ? "flex-start" : "flex-end" }}>
             {[{ Icon: Instagram, href: "#" }, { Icon: Facebook, href: "#" }, { Icon: Linkedin, href: "#" }].map(({ Icon, href }, i) => (
-              <a key={i} href={href} style={{ width: 34, height: 34, borderRadius: 9, backgroundColor: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.08)", display: "flex", alignItems: "center", justifyContent: "center", color: "rgba(255,255,255,0.38)", textDecoration: "none", transition: "all 300ms ease" }}
+              <a key={i} href={href} style={{ width: 40, height: 40, borderRadius: 10, backgroundColor: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.08)", display: "flex", alignItems: "center", justifyContent: "center", color: "rgba(255,255,255,0.38)", textDecoration: "none", transition: "all 300ms ease" }}
                 onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.backgroundColor = "rgba(255,255,255,0.11)"; el.style.color = "#fff"; el.style.borderColor = "rgba(255,255,255,0.18)"; el.style.transform = "translateY(-2px)"; }}
                 onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.backgroundColor = "rgba(255,255,255,0.06)"; el.style.color = "rgba(255,255,255,0.38)"; el.style.borderColor = "rgba(255,255,255,0.08)"; el.style.transform = "translateY(0)"; }}
-              ><Icon size={14} /></a>
+              ><Icon size={18} /></a>
             ))}
           </div>
         </div>
 
         {/* Partner strip */}
         <div className="ftr-partner" style={{ display: "flex", alignItems: "center", gap: isMobile ? 14 : 20, padding: isMobile ? "16px 0" : "20px 0", borderBottom: "1px solid rgba(255,255,255,0.07)", flexWrap: isMobile ? "wrap" : "nowrap" }}>
-          <span style={{ fontSize: 10, fontWeight: 700, color: "rgba(255,255,255,0.25)", letterSpacing: "0.16em", textTransform: "uppercase", flexShrink: 0 }}>{t("footer.legalPartner")}</span>
-          <div style={{ width: 1, height: 14, backgroundColor: "rgba(255,255,255,0.1)", flexShrink: 0 }} />
-          <img src="/PLHLogo.avif" alt="PLH" loading="lazy" style={{ height: 28, width: "auto", objectFit: "contain", flexShrink: 0, opacity: 0.85 }} />
-          <span style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 600, fontSize: 13, color: "rgba(255,255,255,0.6)", flexShrink: 0 }}>{t("partner.firmName")}</span>
+          <span style={{ fontSize: 16, fontWeight: 700, color: "var(--invert-text-faint)", letterSpacing: "0.16em", textTransform: "uppercase", flexShrink: 0 }}>{t("footer.legalPartner")}</span>
+          <div style={{ width: 1, height: 16, backgroundColor: "rgba(255,255,255,0.1)", flexShrink: 0 }} />
+          <img src="/PLHLogo.avif" alt="PLH" loading="lazy" style={{ height: 32, width: "auto", objectFit: "contain", flexShrink: 0, opacity: 0.85 }} />
+          <span style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 600, fontSize: 18, color: "var(--invert-text-muted)", flexShrink: 0 }}>{t("partner.firmName")}</span>
           <div style={{ flex: 1 }} />
-          <a href="https://plh.az" target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 5, fontSize: 12, color: PLH_ACC, textDecoration: "none", fontWeight: 500, transition: "opacity 200ms", opacity: 0.75, flexShrink: 0 }}
+          <a href="https://plh.az" target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 5, fontSize: 16, color: PLH_ACC, textDecoration: "none", fontWeight: 500, transition: "opacity 200ms", opacity: 0.75, flexShrink: 0 }}
             onMouseEnter={e => (e.currentTarget.style.opacity = "1")}
             onMouseLeave={e => (e.currentTarget.style.opacity = "0.75")}
-          >plh.az <ArrowUpRight size={12} /></a>
+          >plh.az <ArrowUpRight size={14} /></a>
         </div>
 
         {/* Link columns */}
@@ -98,13 +98,13 @@ export function Footer() {
 
           {/* Services */}
           <div className="ftr-col">
-            <p style={{ fontSize: 10, fontWeight: 700, color: "rgba(255,255,255,0.28)", letterSpacing: "0.16em", textTransform: "uppercase", margin: "0 0 18px" }}>{t("footer.services")}</p>
+            <p style={{ fontSize: 16, fontWeight: 700, color: "var(--invert-text-faint)", letterSpacing: "0.16em", textTransform: "uppercase", margin: "0 0 18px" }}>{t("footer.services")}</p>
             <nav style={{ display: "flex", flexDirection: "column", gap: 10 }}>
               {AZ_SLUGS.map(azSlug => (
                 <a key={azSlug} href={`${servicesBasePath}/${localizedSlug(azSlug, locale)}`}
-                  style={{ fontSize: 13, color: "rgba(255,255,255,0.45)", textDecoration: "none", transition: "color 200ms", width: "fit-content" }}
+                  style={{ fontSize: 18, color: "var(--invert-text-muted)", textDecoration: "none", transition: "color 200ms", width: "fit-content" }}
                   onMouseEnter={e => (e.currentTarget.style.color = "#fff")}
-                  onMouseLeave={e => (e.currentTarget.style.color = "rgba(255,255,255,0.45)")}
+                  onMouseLeave={e => (e.currentTarget.style.color = "var(--invert-text-muted)")}
                 >{t(`services.names.${azSlug}` as Parameters<typeof t>[0])}</a>
               ))}
             </nav>
@@ -112,13 +112,13 @@ export function Footer() {
 
           {/* Company */}
           <div className="ftr-col">
-            <p style={{ fontSize: 10, fontWeight: 700, color: "rgba(255,255,255,0.28)", letterSpacing: "0.16em", textTransform: "uppercase", margin: "0 0 18px" }}>{t("footer.company")}</p>
+            <p style={{ fontSize: 16, fontWeight: 700, color: "var(--invert-text-faint)", letterSpacing: "0.16em", textTransform: "uppercase", margin: "0 0 18px" }}>{t("footer.company")}</p>
             <nav style={{ display: "flex", flexDirection: "column", gap: 10 }}>
               {companyLinks.map(link => (
                 <a key={link.label} href={link.href}
-                  style={{ fontSize: 13, color: "rgba(255,255,255,0.45)", textDecoration: "none", transition: "color 200ms", width: "fit-content" }}
+                  style={{ fontSize: 18, color: "var(--invert-text-muted)", textDecoration: "none", transition: "color 200ms", width: "fit-content" }}
                   onMouseEnter={e => (e.currentTarget.style.color = "#fff")}
-                  onMouseLeave={e => (e.currentTarget.style.color = "rgba(255,255,255,0.45)")}
+                  onMouseLeave={e => (e.currentTarget.style.color = "var(--invert-text-muted)")}
                 >{link.label}</a>
               ))}
             </nav>
@@ -126,15 +126,15 @@ export function Footer() {
 
           {/* Contact */}
           <div className="ftr-col">
-            <p style={{ fontSize: 10, fontWeight: 700, color: "rgba(255,255,255,0.28)", letterSpacing: "0.16em", textTransform: "uppercase", margin: "0 0 18px" }}>{t("footer.contact")}</p>
+            <p style={{ fontSize: 16, fontWeight: 700, color: "var(--invert-text-faint)", letterSpacing: "0.16em", textTransform: "uppercase", margin: "0 0 18px" }}>{t("footer.contact")}</p>
             <address style={{ fontStyle: "normal", display: "flex", flexDirection: "column", gap: 13 }}>
               {contacts.map(({ Icon, text, href }, i) => (
-                <a key={i} href={href} style={{ display: "flex", alignItems: "flex-start", gap: 10, textDecoration: "none", color: "rgba(255,255,255,0.45)", transition: "color 200ms" }}
+                <a key={i} href={href} style={{ display: "flex", alignItems: "flex-start", gap: 11, textDecoration: "none", color: "var(--invert-text-muted)", transition: "color 200ms" }}
                   onMouseEnter={e => (e.currentTarget.style.color = "#fff")}
-                  onMouseLeave={e => (e.currentTarget.style.color = "rgba(255,255,255,0.45)")}
+                  onMouseLeave={e => (e.currentTarget.style.color = "var(--invert-text-muted)")}
                 >
-                  <Icon size={13} style={{ flexShrink: 0, marginTop: 2, color: ACCENT }} />
-                  <span style={{ fontSize: 13, lineHeight: 1.55 }}>{text}</span>
+                  <Icon size={18} style={{ flexShrink: 0, marginTop: 5, color: ACCENT }} />
+                  <span style={{ fontSize: 18, lineHeight: 1.55 }}>{text}</span>
                 </a>
               ))}
             </address>
@@ -143,22 +143,22 @@ export function Footer() {
 
         {/* Bottom bar */}
         <div className="ftr-bottom" style={{ borderTop: "1px solid rgba(255,255,255,0.06)", paddingTop: isMobile ? 20 : 24, paddingBottom: isMobile ? 32 : 36, display: "flex", flexDirection: isMobile ? "column" : "row", alignItems: isMobile ? "flex-start" : "center", justifyContent: "space-between", gap: isMobile ? 14 : 0 }}>
-          <p style={{ fontSize: 12, color: "rgba(255,255,255,0.18)", margin: 0 }}>
+          <p style={{ fontSize: 16, color: "var(--invert-text-faint)", margin: 0 }}>
             © {new Date().getFullYear()} ProFinance Solutions. {t("footer.copyright")}
           </p>
           <div style={{ display: "flex", alignItems: "center", gap: isMobile ? 16 : 22, flexWrap: "wrap" }}>
-            <span style={{ fontSize: 12, color: "rgba(255,255,255,0.18)" }}>{t("footer.city")}</span>
-            <a href={aboutPath} style={{ display: "inline-flex", alignItems: "center", gap: 5, fontSize: 12, color: "rgba(255,255,255,0.18)", textDecoration: "none", transition: "color 200ms" }}
+            <span style={{ fontSize: 16, color: "var(--invert-text-faint)" }}>{t("footer.city")}</span>
+            <a href={aboutPath} style={{ display: "inline-flex", alignItems: "center", gap: 5, fontSize: 16, color: "var(--invert-text-faint)", textDecoration: "none", transition: "color 200ms" }}
               onMouseEnter={e => (e.currentTarget.style.color = ACCENT)}
-              onMouseLeave={e => (e.currentTarget.style.color = "rgba(255,255,255,0.18)")}
-            >{t("footer.about")} <ArrowUpRight size={11} /></a>
-            <div style={{ width: 1, height: 12, backgroundColor: "rgba(255,255,255,0.1)", flexShrink: 0 }} />
+              onMouseLeave={e => (e.currentTarget.style.color = "var(--invert-text-faint)")}
+            >{t("footer.about")} <ArrowUpRight size={13} /></a>
+            <div style={{ width: 1, height: 14, backgroundColor: "rgba(255,255,255,0.1)", flexShrink: 0 }} />
             <a href="https://wa.me/994553280818" target="_blank" rel="noopener noreferrer" style={{ display: "flex", alignItems: "center", gap: 7, opacity: 0.55, transition: "opacity 220ms", textDecoration: "none" }}
               onMouseEnter={e => ((e.currentTarget as HTMLElement).style.opacity = "0.9")}
               onMouseLeave={e => ((e.currentTarget as HTMLElement).style.opacity = "0.55")}
             >
-              <span style={{ fontSize: 11, color: "rgba(255,255,255,0.5)", letterSpacing: "0.06em", fontWeight: 500, textTransform: "uppercase" }}>{t("footer.designedBy")}</span>
-              <img src="/Kronex.avif" alt="Kronex" loading="lazy" style={{ height: 18, width: "auto", objectFit: "contain", flexShrink: 0, filter: "brightness(0) invert(1)" }} />
+              <span style={{ fontSize: 16, color: "var(--invert-text-faint)", letterSpacing: "0.06em", fontWeight: 500, textTransform: "uppercase" }}>{t("footer.designedBy")}</span>
+              <img src="/Kronex.avif" alt="Kronex" loading="lazy" style={{ height: 20, width: "auto", objectFit: "contain", flexShrink: 0, filter: "brightness(0) invert(1)" }} />
             </a>
           </div>
         </div>

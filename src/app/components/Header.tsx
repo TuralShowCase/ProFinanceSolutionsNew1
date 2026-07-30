@@ -7,9 +7,13 @@ import { useTranslations, useLocale } from "next-intl";
 import { usePathname } from "next/navigation";
 import { useBreakpoint } from "../../hooks/useBreakpoint";
 import { useContactModal } from "../contexts/ContactModalContext";
+import { useTheme } from "../contexts/ThemeContext";
 import { localizedSlug, azSlugFromLocalized, AZ_SLUGS } from "../services/servicesData";
 import { DARK, MID, BRAND_SOLID, PLH_ACC, PLH_TEXT, mix } from "@/app/lib/brand";
+import { useScrollLock } from "@/app/lib/smoothScroll";
 import { ThemeToggle } from "./ThemeToggle";
+// H4 sizes for the wordmark now live in the `.hdr-wordmark` media queries.
+import { FS_LABEL, FS_BODY, FS_BODY_LG, FS_CHIP } from "@/app/lib/typography";
 
 
 
@@ -70,6 +74,8 @@ export function Header() {
   const bp = useBreakpoint();
   const isMobile = bp === "mobile";
   const isTablet = bp === "tablet";
+  const { resolvedTheme } = useTheme();
+  const isHomeRoute = pathname === "/" || pathname === `/${locale}` || pathname === `/${locale}/`;
 
   // `selectedLang` drives the pill position immediately on click (optimistic UI).
   // After the slide animation finishes, we navigate so the full page gets the new locale.
@@ -98,7 +104,26 @@ export function Header() {
   const [hoveredPlh,         setHoveredPlh]         = useState<string | null>(null);
   const { openContact } = useContactModal();
 
+  // On the homepage, the header floats over the full-bleed hero photo until the
+  // user scrolls — no bar, bigger mark — then solidifies to the normal bar once
+  // scrolled. Every other page keeps the always-solid header (no hero to reveal).
+  // Opening the mobile drawer also drops the overlay: the sheet frosts the page
+  // behind it, so white-on-photo type would sit on a light surface and vanish.
+  const heroOverlay = isHomeRoute && !scrolled && !menuOpen;
+  // While floating over the hero photo, the logo borrows the same light variant
+  // dark mode already uses on dark surfaces — no glow, no backdrop chip needed.
+  const useLightMark = resolvedTheme === "dark" || heroOverlay;
+  // 128px marks, not the 1024px originals: this renders at 26–44px, so the big
+  // files were ~30x more pixels than any display can use. The 1024 versions stay
+  // in public/ for the PWA manifest and the Organization schema logo.
+  const logoSrc = useLightMark ? "/logo-mark-light.png" : "/logo-mark.png";
+  const overlayText   = "#FFFFFF";
+  const overlaySoft    = "rgba(255,255,255,0.82)";
+  const overlayFaint  = "rgba(255,255,255,0.55)";
+  const overlayAccent = "#5AD094";
+
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const drawerRef   = useRef<HTMLDivElement>(null);
   const closeTimer  = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const navLinks = [
@@ -132,8 +157,41 @@ export function Header() {
   useEffect(() => { if (!isMobile && !isTablet) setMenuOpen(false); }, [isMobile, isTablet]);
 
   useEffect(() => {
-    document.body.style.overflow = menuOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    if (!showServices) return;
+    const onKeyDown = (e: KeyboardEvent) => { if (e.key === "Escape") setShowServices(false); };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [showServices]);
+
+  // Freezes the page behind the sheet. Must go through Lenis — it drives
+  // window.scrollTo itself and sails straight past `body { overflow: hidden }`.
+  // The sheet keeps scrolling because it carries `data-lenis-prevent`.
+  useScrollLock(menuOpen);
+
+  // Reset the sheet each time it opens: back to the top, services collapsed.
+  useEffect(() => {
+    if (menuOpen) return;
+    setMobileServicesOpen(false);
+  }, [menuOpen]);
+
+  useEffect(() => {
+    if (!menuOpen || !drawerRef.current) return;
+    drawerRef.current.scrollTop = 0;
+    const ctx = gsap.context(() => {
+      gsap.fromTo(".drawer-item",
+        { opacity: 0, y: 14 },
+        { opacity: 1, y: 0, duration: 0.42, ease: "expo.out", stagger: 0.045, delay: 0.06 }
+      );
+    }, drawerRef);
+    return () => ctx.revert();
+  }, [menuOpen]);
+
+  // Esc closes the sheet.
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKeyDown = (e: KeyboardEvent) => { if (e.key === "Escape") setMenuOpen(false); };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
   }, [menuOpen]);
 
   useEffect(() => {
@@ -149,7 +207,7 @@ export function Header() {
   const closeDropdown = () => { closeTimer.current = setTimeout(() => setShowServices(false), 180); };
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string, isDropdown?: boolean) => {
-    if (isDropdown) { e.preventDefault(); return; }
+    if (isDropdown) { e.preventDefault(); setShowServices(o => !o); return; }
     if (!href.startsWith("#")) {
       if (isMobile || isTablet) setMenuOpen(false);
       return;
@@ -176,12 +234,101 @@ export function Header() {
     setTimeout(() => scrollTo(href), isMobile || isTablet ? 200 : 0);
   };
 
-  const hPad   = isMobile ? "0 20px" : isTablet ? "0 24px" : "0 40px";
-  const navGap = isTablet ? 22 : 32;
+  // Height/padding/logo sizing now come from CSS (`.hdr-*` in globals.css) so the
+  // first paint is correct before hydration. `headerH` survives only for the
+  // desktop mega-menu's offset, which never renders below 1024px anyway.
+  const navGap  = isTablet ? 22 : 32;
+  const headerH = 92;
+
+  // The mobile sheet is frosted glass, not a wall: the page stays visible and
+  // keeps its colour behind it, so the menu reads as a layer over the site
+  // rather than a separate screen. Tint carries contrast, blur carries legibility.
+  const SHEET_TINT = "color-mix(in srgb, var(--surface) 62%, transparent)";
+  const SHEET_BLUR = "blur(30px) saturate(180%)";
+  const sheetOpen  = menuOpen && (isMobile || isTablet);
+
+  const navLinksList = navLinks.map((link) => {
+    const isActive = hoveredLink === link.labelKey || (link.dropdown && showServices);
+    const accent = heroOverlay ? overlayAccent : DARK;
+    return (
+      <div
+        key={link.labelKey}
+        style={{ position: "relative" }}
+        onMouseEnter={() => { setHoveredLink(link.labelKey); if (link.dropdown) openDropdown(); }}
+        onMouseLeave={() => { setHoveredLink(null); if (link.dropdown) closeDropdown(); }}
+      >
+        <a
+          href={link.href}
+          onClick={(e) => handleNavClick(e, link.href, link.dropdown)}
+          onFocus={() => { setHoveredLink(link.labelKey); if (link.dropdown) openDropdown(); }}
+          onBlur={() => { setHoveredLink(null); if (link.dropdown) closeDropdown(); }}
+          aria-haspopup={link.dropdown ? "true" : undefined}
+          aria-expanded={link.dropdown ? showServices : undefined}
+          style={{
+            display: "inline-flex", alignItems: "center", gap: 4,
+            fontWeight: 500, fontSize: FS_BODY,
+            color: isActive ? accent : heroOverlay ? overlayText : "var(--text-strong)",
+            textShadow: heroOverlay ? "0 1px 12px rgba(0,0,0,0.3)" : "none",
+            textDecoration: "none", transition: "color 300ms ease", paddingBottom: 2, position: "relative",
+            whiteSpace: "nowrap",
+          }}
+        >
+          {t(link.labelKey as Parameters<typeof t>[0])}
+          {link.dropdown && (
+            <ChevronDown size={13} style={{ transform: showServices ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 220ms ease, color 300ms ease", color: showServices ? accent : heroOverlay ? overlayFaint : "var(--text-faint)" }} />
+          )}
+          <span style={{ position: "absolute", bottom: -2, left: 0, height: 1.5, width: "100%", backgroundColor: accent, borderRadius: 1, transformOrigin: "left center", transform: isActive ? "scaleX(1)" : "scaleX(0)", transition: "transform 280ms ease, background-color 300ms ease", display: "block" }} />
+        </a>
+      </div>
+    );
+  });
+
+  const rightControls = (
+    <>
+      <ThemeToggle size={40} overlay={heroOverlay} />
+      {/* Language switcher */}
+      <div style={{
+        position: "relative", display: "flex", alignItems: "center",
+        backgroundColor: heroOverlay ? "rgba(255,255,255,0.14)" : "var(--surface-2)",
+        border: heroOverlay ? "1px solid rgba(255,255,255,0.25)" : "1px solid transparent",
+        borderRadius: 9, padding: 4, gap: 2, transition: "background-color 300ms ease, border-color 300ms ease",
+      }}>
+        <div style={{
+          position: "absolute", top: 4, bottom: 4, left: 4, width: 40, borderRadius: 7, backgroundColor: BRAND_SOLID,
+          transform: `translateX(${LOCALES.indexOf(selectedLang) * 42}px)`,
+          transition: "transform 360ms cubic-bezier(0.34, 1.56, 0.64, 1)", pointerEvents: "none", zIndex: 0,
+        }} />
+        {LOCALES.map((lang) => (
+          <button
+            key={lang}
+            onClick={() => switchLocale(lang)}
+            disabled={selectedLang === lang}
+            style={{
+              position: "relative", zIndex: 1, fontFamily: "var(--font-inter), 'Inter', sans-serif", fontWeight: 500, fontSize: FS_LABEL,
+              color: selectedLang === lang ? "#FFFFFF" : heroOverlay ? "rgba(255,255,255,0.75)" : "var(--text-muted)",
+              backgroundColor: "transparent", border: "none", cursor: selectedLang === lang ? "default" : "pointer",
+              width: 40, padding: "6px 0", borderRadius: 7, transition: "color 300ms ease",
+              textAlign: "center",
+            }}
+          >{lang}</button>
+        ))}
+      </div>
+
+      {/* CTA */}
+      <button
+        onClick={() => openContact()}
+        style={{ fontWeight: 600, fontSize: FS_BODY, color: "#FFFFFF", backgroundColor: BRAND_SOLID, border: "none", cursor: "pointer", padding: "13px 26px", borderRadius: 9, transition: "background-color 200ms, transform 200ms", whiteSpace: "nowrap", display: "inline-flex", alignItems: "center", gap: 6, fontFamily: "var(--font-inter), 'Inter', sans-serif" }}
+        onMouseEnter={e => { (e.currentTarget as HTMLElement).style.backgroundColor = MID; (e.currentTarget as HTMLElement).style.transform = "translateY(-1px)"; }}
+        onMouseLeave={e => { (e.currentTarget as HTMLElement).style.backgroundColor = BRAND_SOLID; (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; }}
+      >
+        {t("header.cta")}
+      </button>
+    </>
+  );
 
   return (
-    <>
     <header
+      className={heroOverlay ? "hdr-overlay" : undefined}
       style={{
         position: "fixed", top: 0, left: 0, right: 0, zIndex: 1000,
         backgroundColor: "transparent",
@@ -191,133 +338,99 @@ export function Header() {
         fontFamily: "var(--font-inter), 'Inter', sans-serif",
       }}
     >
-      <div style={{ position: "absolute", inset: 0, zIndex: 0, backgroundColor: scrolled ? "color-mix(in srgb, var(--surface) 90%, transparent)" : "var(--surface)", backdropFilter: scrolled ? "blur(16px) saturate(180%)" : "none", WebkitBackdropFilter: scrolled ? "blur(16px) saturate(180%)" : "none", transition: "background-color 320ms", pointerEvents: "none" }} />
+      {/* Header backdrop. While the sheet is open it borrows the sheet's exact
+          glass so the bar and the sheet read as one continuous surface instead
+          of an opaque strip sitting on a translucent panel. */}
+      <div style={{ position: "absolute", inset: 0, zIndex: 0, backgroundColor: sheetOpen ? SHEET_TINT : heroOverlay ? "transparent" : scrolled ? "color-mix(in srgb, var(--surface) 90%, transparent)" : "var(--surface)", backdropFilter: sheetOpen ? SHEET_BLUR : heroOverlay ? "none" : scrolled ? "blur(16px) saturate(180%)" : "none", WebkitBackdropFilter: sheetOpen ? SHEET_BLUR : heroOverlay ? "none" : scrolled ? "blur(16px) saturate(180%)" : "none", transition: "background-color 380ms ease, backdrop-filter 380ms ease", pointerEvents: "none" }} />
 
-      <div style={{ position: "relative", zIndex: 1, maxWidth: 1280, margin: "0 auto", padding: hPad, height: 72, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 32 }}>
+      <div className="hdr-bar" style={{ position: "relative", zIndex: 1, maxWidth: 1280, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 32 }}>
 
-        {/* Logo */}
+        {/* Logo — bigger while floating over the hero, normal size once scrolled.
+            No card, no glow — just the same light mark + white wordmark dark mode
+            already uses on dark surfaces. */}
         <a href={locale === "az" ? "/" : `/${locale}`} style={{ textDecoration: "none", flexShrink: 0 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-            <img src="/logo-icon.png" alt="ProFinance" style={{ width: 36, height: 36, objectFit: "contain", flexShrink: 0 }} />
+          <div style={{ display: "flex", alignItems: "center", gap: 13 }}>
+            <img
+              src={logoSrc}
+              alt="ProFinance"
+              className="hdr-logo"
+              style={{
+                objectFit: "contain", flexShrink: 0,
+                transition: "width 380ms ease, height 380ms ease",
+              }}
+            />
             <div>
-              <div style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: 15, color: "var(--text-strong)", lineHeight: 1.2, letterSpacing: "-0.01em" }}>ProFinance</div>
-              <div style={{ fontSize: 10, color: "var(--text-faint)", lineHeight: 1, letterSpacing: "0.06em", textTransform: "uppercase" }}>Solutions</div>
+              <div className="hdr-wordmark" style={{
+                fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 800,
+                color: heroOverlay ? overlayText : "var(--text-strong)",
+                lineHeight: 1.15, letterSpacing: "-0.015em",
+                transition: "font-size 380ms ease, color 380ms ease",
+              }}>ProFinance</div>
+              <div style={{
+                fontSize: 16, color: heroOverlay ? overlaySoft : "var(--text-muted)",
+                lineHeight: 1, letterSpacing: "0.08em", textTransform: "uppercase", marginTop: 3,
+              }}>Solutions</div>
             </div>
           </div>
         </a>
 
-        {/* Desktop nav */}
-        {!isMobile && !isTablet && (
-          <nav style={{ display: "flex", alignItems: "center", gap: navGap, flex: 1, justifyContent: "center" }}>
-            {navLinks.map((link) => (
-              <div
-                key={link.labelKey}
-                style={{ position: "relative" }}
-                onMouseEnter={() => { setHoveredLink(link.labelKey); if (link.dropdown) openDropdown(); }}
-                onMouseLeave={() => { setHoveredLink(null); if (link.dropdown) closeDropdown(); }}
-              >
-                <a
-                  href={link.href}
-                  onClick={(e) => handleNavClick(e, link.href, link.dropdown)}
-                  style={{
-                    display: "inline-flex", alignItems: "center", gap: 4,
-                    fontWeight: 500, fontSize: 14,
-                    color: hoveredLink === link.labelKey || (link.dropdown && showServices) ? DARK : "var(--text-strong)",
-                    textDecoration: "none", transition: "color 200ms", paddingBottom: 2, position: "relative",
-                  }}
-                >
-                  {t(link.labelKey as Parameters<typeof t>[0])}
-                  {link.dropdown && (
-                    <ChevronDown size={13} style={{ transform: showServices ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 220ms ease", color: showServices ? DARK : "var(--text-faint)" }} />
-                  )}
-                  <span style={{ position: "absolute", bottom: -2, left: 0, height: 1.5, width: "100%", backgroundColor: DARK, borderRadius: 1, transformOrigin: "left center", transform: hoveredLink === link.labelKey || (link.dropdown && showServices) ? "scaleX(1)" : "scaleX(0)", transition: "transform 280ms ease", display: "block" }} />
-                </a>
-              </div>
-            ))}
-          </nav>
-        )}
-
-        {/* Desktop right */}
-        {!isMobile && !isTablet && (
-          <div style={{ display: "flex", alignItems: "center", gap: 12, flexShrink: 0 }}>
-            <ThemeToggle />
-            {/* Language switcher */}
-            <div style={{ position: "relative", display: "flex", alignItems: "center", backgroundColor: "var(--surface-2)", borderRadius: 8, padding: 3, gap: 2 }}>
-              <div style={{
-                position: "absolute", top: 3, bottom: 3, left: 3, width: 36, borderRadius: 6, backgroundColor: BRAND_SOLID,
-                transform: `translateX(${LOCALES.indexOf(selectedLang) * 38}px)`,
-                transition: "transform 360ms cubic-bezier(0.34, 1.56, 0.64, 1)", pointerEvents: "none", zIndex: 0,
-              }} />
-              {LOCALES.map((lang) => (
-                <button
-                  key={lang}
-                  onClick={() => switchLocale(lang)}
-                  disabled={selectedLang === lang}
-                  style={{
-                    position: "relative", zIndex: 1, fontFamily: "var(--font-inter), 'Inter', sans-serif", fontWeight: 500, fontSize: 12,
-                    color: selectedLang === lang ? "#FFFFFF" : "var(--text-muted)",
-                    backgroundColor: "transparent", border: "none", cursor: selectedLang === lang ? "default" : "pointer",
-                    width: 36, padding: "5px 0", borderRadius: 6, transition: "color 280ms ease",
-                    textAlign: "center",
-                  }}
-                >{lang}</button>
-              ))}
-            </div>
-
-            {/* CTA */}
-            <button
-              onClick={() => openContact()}
-              style={{ fontWeight: 600, fontSize: 14, color: "#FFFFFF", backgroundColor: BRAND_SOLID, border: "none", cursor: "pointer", padding: "10px 20px", borderRadius: 8, transition: "background-color 200ms, transform 200ms", whiteSpace: "nowrap", display: "inline-flex", alignItems: "center", gap: 6, fontFamily: "var(--font-inter), 'Inter', sans-serif" }}
-              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.backgroundColor = MID; (e.currentTarget as HTMLElement).style.transform = "translateY(-1px)"; }}
-              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.backgroundColor = BRAND_SOLID; (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; }}
-            >
-              {t("header.cta")}
-            </button>
-          </div>
-        )}
+        {/* Desktop nav — always centered between logo (pinned left) and controls
+            (pinned right), in both the floating and solid states */}
+        {/* Both variants are rendered; `.hdr-desktop` / `.hdr-compact` decide which
+            one shows. Gating these on useBreakpoint made phones paint the desktop
+            nav first and reflow on hydration. No inline `display` here — it would
+            override the media query. */}
+        <nav className="hdr-desktop" style={{ alignItems: "center", gap: navGap, flex: 1, justifyContent: "center" }}>
+          {navLinksList}
+        </nav>
+        <div className="hdr-desktop" style={{ alignItems: "center", gap: 14, flexShrink: 0 }}>
+          {rightControls}
+        </div>
 
         {/* Mobile hamburger */}
-        {(isMobile || isTablet) && (
-          <button
+        <button
+            className="hdr-compact"
             onClick={() => setMenuOpen(o => !o)}
             aria-label={menuOpen ? t("header.close") : t("header.open")}
-            style={{ width: 44, height: 44, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 5, background: "none", border: "none", cursor: "pointer", padding: 0, flexShrink: 0 }}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-menu"
+            style={{ width: 44, height: 44, flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 5, background: "none", border: "none", cursor: "pointer", padding: 0, flexShrink: 0 }}
           >
             {[0, 1, 2].map(i => (
               <span key={i} style={{
-                display: "block", width: 22, height: 2, borderRadius: 2, backgroundColor: "var(--text-strong)",
-                transition: "transform 250ms ease, opacity 250ms ease",
+                display: "block", width: 22, height: 2, borderRadius: 2,
+                backgroundColor: heroOverlay ? overlayText : "var(--text-strong)",
+                transition: "transform 250ms ease, opacity 250ms ease, background-color 300ms ease",
                 transform: menuOpen ? (i === 0 ? "translateY(7px) rotate(45deg)" : i === 2 ? "translateY(-7px) rotate(-45deg)" : "none") : "none",
                 opacity: menuOpen && i === 1 ? 0 : 1,
               }} />
             ))}
-          </button>
-        )}
+        </button>
       </div>
 
       {/* Desktop services dropdown */}
       {!isMobile && !isTablet && showServices && (
-        <div ref={dropdownRef} onMouseEnter={openDropdown} onMouseLeave={closeDropdown} style={{ position: "absolute", top: 76, left: "50%", transform: "translateX(-50%)", pointerEvents: "auto", paddingBottom: 20 }}>
-          <div style={{ width: 880, backgroundColor: "var(--surface)", borderRadius: 16, border: "1px solid var(--border)", boxShadow: "var(--shadow-card-hover)", padding: 10, display: "flex", gap: 8 }}>
+        <div ref={dropdownRef} onMouseEnter={openDropdown} onMouseLeave={closeDropdown} style={{ position: "absolute", top: headerH + 4, left: "50%", transform: "translateX(-50%)", pointerEvents: "auto", paddingBottom: 20 }}>
+          <div style={{ width: "min(1120px, calc(100vw - 48px))", backgroundColor: "var(--surface)", borderRadius: 16, border: "1px solid var(--border)", boxShadow: "var(--shadow-card-hover)", padding: 10, display: "flex", gap: 8 }}>
 
             {/* ProFinance panel */}
-            <div style={{ flex: "0 0 530px", borderRadius: 10, backgroundColor: mix(DARK, 2), border: `1px solid ${mix(DARK, 6)}`, padding: "14px 14px 12px", display: "flex", flexDirection: "column" }}>
+            <div style={{ flex: "0 0 680px", borderRadius: 10, backgroundColor: mix(DARK, 2), border: `1px solid ${mix(DARK, 6)}`, padding: "14px 14px 12px", display: "flex", flexDirection: "column" }}>
               <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
-                <img src="/logo-icon.png" alt="ProFinance" style={{ width: 26, height: 26, objectFit: "contain", borderRadius: 6 }} />
+                <img src={logoSrc} alt="ProFinance" style={{ width: 26, height: 26, objectFit: "contain", borderRadius: 6 }} />
                 <div>
-                  <p style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: 12.5, color: DARK, margin: 0, letterSpacing: "-0.015em", lineHeight: 1.3 }}>ProFinance Solutions</p>
-                  <p style={{ fontSize: 10, color: "var(--text-faint)", margin: 0, letterSpacing: "0.03em" }}>{t("header.financeServices")}</p>
+                  <p style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: FS_BODY, color: DARK, margin: 0, letterSpacing: "-0.015em", lineHeight: 1.3 }}>ProFinance Solutions</p>
+                  <p style={{ fontSize: 16, color: "var(--text-muted)", margin: 0, letterSpacing: "0.03em" }}>{t("header.financeServices")}</p>
                 </div>
               </div>
               <div style={{ height: 1, backgroundColor: mix(DARK, 6), marginBottom: 10 }} />
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 2, flex: 1 }}>
                 {servicesMenu.map(s => (
                   <a key={s.slug} href={s.href} onMouseEnter={() => setHoveredService(s.slug)} onMouseLeave={() => setHoveredService(null)}
-                    style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8, padding: "8px 10px", borderRadius: 8, textDecoration: "none", backgroundColor: hoveredService === s.slug ? mix(DARK, 3) : "transparent", transition: "background-color 160ms" }}
+                    style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 6, padding: "10px 10px", borderRadius: 8, textDecoration: "none", backgroundColor: hoveredService === s.slug ? mix(DARK, 3) : "transparent", transition: "background-color 160ms" }}
                   >
                     <div>
-                      <p style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 600, fontSize: 12.5, color: "var(--text)", margin: "0 0 1px", letterSpacing: "-0.01em" }}>{s.name}</p>
-                      <p style={{ fontSize: 10.5, color: "var(--text-faint)", margin: 0, lineHeight: 1.35 }}>{s.tagline}</p>
+                      <p style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 600, fontSize: FS_BODY, color: "var(--text)", margin: "0 0 1px", letterSpacing: "-0.01em" }}>{s.name}</p>
+                      <p style={{ fontSize: 16, color: "var(--text-muted)", margin: 0, lineHeight: 1.35 }}>{s.tagline}</p>
                     </div>
                     <ArrowUpRight size={12} style={{ color: DARK, flexShrink: 0, opacity: hoveredService === s.slug ? 1 : 0, transform: hoveredService === s.slug ? "translate(0,0)" : "translate(-3px,3px)", transition: "opacity 160ms, transform 160ms" }} />
                   </a>
@@ -331,11 +444,11 @@ export function Header() {
                 <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                   <img src="/PLH.avif" alt="PLH" style={{ width: 30, height: 30, objectFit: "contain", flexShrink: 0 }} />
                   <div>
-                    <p style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: 12.5, color: PLH_TEXT, margin: 0, letterSpacing: "-0.015em", lineHeight: 1.3 }}>{t("partner.firmName")}</p>
-                    <p style={{ fontSize: 10, color: "var(--text-faint)", margin: 0, letterSpacing: "0.03em" }}>{t("header.legalServices")}</p>
+                    <p style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: FS_BODY, color: PLH_TEXT, margin: 0, letterSpacing: "-0.015em", lineHeight: 1.3 }}>{t("partner.firmName")}</p>
+                    <p style={{ fontSize: 16, color: "var(--text-muted)", margin: 0, letterSpacing: "0.03em" }}>{t("header.legalServices")}</p>
                   </div>
                 </div>
-                <span style={{ fontSize: 9.5, fontWeight: 700, color: PLH_ACC, backgroundColor: `${PLH_ACC}14`, border: `1px solid ${PLH_ACC}28`, borderRadius: 999, padding: "3px 8px", letterSpacing: "0.08em", textTransform: "uppercase", flexShrink: 0 }}>{t("header.partner")}</span>
+                <span style={{ fontSize: FS_CHIP, fontWeight: 700, color: PLH_ACC, backgroundColor: `${PLH_ACC}14`, border: `1px solid ${PLH_ACC}28`, borderRadius: 999, padding: "5px 11px", letterSpacing: "0.06em", textTransform: "uppercase", flexShrink: 0 }}>{t("header.partner")}</span>
               </div>
               <div style={{ height: 1, backgroundColor: `${PLH_ACC}22`, marginBottom: 10 }} />
               <div style={{ display: "flex", flexDirection: "column", gap: 2, flex: 1 }}>
@@ -344,8 +457,8 @@ export function Header() {
                     style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8, padding: "9px 10px", borderRadius: 8, textDecoration: "none", backgroundColor: hoveredPlh === s.href ? `${PLH_ACC}12` : "transparent", transition: "background-color 160ms" }}
                   >
                     <div>
-                      <p style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 600, fontSize: 12.5, color: PLH_TEXT, margin: "0 0 1px", letterSpacing: "-0.01em" }}>{s.name}</p>
-                      <p style={{ fontSize: 10.5, color: "var(--text-faint)", margin: 0, lineHeight: 1.35 }}>{s.tagline}</p>
+                      <p style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 600, fontSize: FS_BODY, color: PLH_TEXT, margin: "0 0 1px", letterSpacing: "-0.01em" }}>{s.name}</p>
+                      <p style={{ fontSize: 16, color: "var(--text-muted)", margin: 0, lineHeight: 1.35 }}>{s.tagline}</p>
                     </div>
                     <ArrowUpRight size={12} style={{ color: PLH_ACC, flexShrink: 0, opacity: hoveredPlh === s.href ? 1 : 0, transform: hoveredPlh === s.href ? "translate(0,0)" : "translate(-3px,3px)", transition: "opacity 160ms, transform 160ms" }} />
                   </a>
@@ -353,7 +466,7 @@ export function Header() {
               </div>
               <div style={{ height: 1, backgroundColor: `${PLH_ACC}22`, margin: "10px 0 9px" }} />
               <a href="https://plh.az/az/services/" target="_blank" rel="noopener noreferrer"
-                style={{ display: "inline-flex", alignItems: "center", gap: 5, fontSize: 11.5, fontWeight: 600, color: PLH_ACC, textDecoration: "none", opacity: 0.7, transition: "opacity 200ms" }}
+                style={{ display: "inline-flex", alignItems: "center", gap: 5, fontSize: FS_BODY, fontWeight: 600, color: PLH_ACC, textDecoration: "none", opacity: 0.7, transition: "opacity 200ms" }}
                 onMouseEnter={e => (e.currentTarget.style.opacity = "1")}
                 onMouseLeave={e => (e.currentTarget.style.opacity = "0.7")}
               >
@@ -366,15 +479,45 @@ export function Header() {
 
       {/* Mobile drawer */}
       {(isMobile || isTablet) && (
-        <div style={{ position: "fixed", top: 72, left: 0, right: 0, bottom: 0, backgroundColor: "color-mix(in srgb, var(--surface) 97%, transparent)", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", zIndex: 999, display: "flex", flexDirection: "column", overflowY: "auto", opacity: menuOpen ? 1 : 0, pointerEvents: menuOpen ? "auto" : "none", transform: menuOpen ? "translateY(0)" : "translateY(-8px)", transition: "opacity 250ms ease, transform 250ms ease" }}>
+        <div
+          ref={drawerRef}
+          /* Lenis owns wheel + touch on the window and would otherwise scroll the
+             page behind this sheet instead of the sheet itself. `data-lenis-prevent`
+             hands the gesture back to the browser for this subtree only. */
+          data-lenis-prevent
+          id="mobile-menu"
+          role="dialog"
+          aria-modal="true"
+          aria-label={t("nav.services")}
+          style={{
+            // matches the CSS-driven bar height so the sheet always starts flush
+            // under it, at every breakpoint
+            position: "fixed", top: "var(--hdr-h)", left: 0, right: 0, bottom: 0, zIndex: 999,
+            backgroundColor: SHEET_TINT,
+            backdropFilter: SHEET_BLUR,
+            WebkitBackdropFilter: SHEET_BLUR,
+            display: "flex", flexDirection: "column",
+            overflowY: "auto",
+            overscrollBehavior: "contain",
+            WebkitOverflowScrolling: "touch",
+            touchAction: "pan-y",
+            opacity: menuOpen ? 1 : 0,
+            pointerEvents: menuOpen ? "auto" : "none",
+            // `visibility` keeps the closed sheet out of the tab order — opacity
+            // alone leaves every link focusable behind the page.
+            visibility: menuOpen ? "visible" : "hidden",
+            transform: menuOpen ? "translateY(0)" : "translateY(-8px)",
+            transition: "opacity 250ms ease, transform 250ms ease, visibility 250ms",
+          }}
+        >
           <nav style={{ flex: 1, padding: "8px 24px 24px" }}>
             {navLinks.map((link, i) => (
-              <div key={link.labelKey}>
+              <div key={link.labelKey} className="drawer-row">
                 {link.dropdown ? (
                   <div>
                     <button
                       onClick={() => setMobileServicesOpen(o => !o)}
-                      style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", fontFamily: "var(--font-inter), 'Inter', sans-serif", fontWeight: 500, fontSize: 18, color: "var(--text-strong)", background: "none", border: "none", cursor: "pointer", textAlign: "left", padding: "16px 0", borderBottom: !mobileServicesOpen ? "1px solid var(--border)" : "none" }}
+                      style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", fontFamily: "var(--font-inter), 'Inter', sans-serif", fontWeight: 500, fontSize: 20, color: "var(--text-strong)", background: "none", border: "none", cursor: "pointer", textAlign: "left", padding: "16px 0", borderBottom: !mobileServicesOpen ? "1px solid var(--border)" : "none" }}
                     >
                       {t("nav.services")}
                       <ChevronDown size={18} style={{ transform: mobileServicesOpen ? "rotate(180deg)" : "rotate(0)", transition: "transform 220ms", color: "var(--text-faint)" }} />
@@ -385,17 +528,17 @@ export function Header() {
                         {/* ProFinance card */}
                         <div style={{ borderRadius: 12, backgroundColor: mix(DARK, 2), border: `1px solid ${mix(DARK, 6)}`, padding: "12px 12px 10px" }}>
                           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
-                            <img src="/logo-icon.png" alt="ProFinance" style={{ width: 26, height: 26, objectFit: "contain", borderRadius: 6, flexShrink: 0 }} />
+                            <img src={logoSrc} alt="ProFinance" style={{ width: 26, height: 26, objectFit: "contain", borderRadius: 6, flexShrink: 0 }} />
                             <div>
-                              <p style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: 12.5, color: DARK, margin: 0, letterSpacing: "-0.015em", lineHeight: 1.3 }}>ProFinance Solutions</p>
-                              <p style={{ fontSize: 10, color: "var(--text-faint)", margin: 0 }}>{t("header.financeServices")}</p>
+                              <p style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: FS_BODY, color: DARK, margin: 0, letterSpacing: "-0.015em", lineHeight: 1.3 }}>ProFinance Solutions</p>
+                              <p style={{ fontSize: 16, color: "var(--text-muted)", margin: 0 }}>{t("header.financeServices")}</p>
                             </div>
                           </div>
                           <div style={{ height: 1, backgroundColor: mix(DARK, 6), marginBottom: 8 }} />
                           {servicesMenu.map(s => (
                             <a key={s.slug} href={s.href} onClick={() => setMenuOpen(false)} style={{ display: "flex", flexDirection: "column", padding: "8px 10px", borderRadius: 8, textDecoration: "none" }}>
-                              <span style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 600, fontSize: 13.5, color: "var(--text)", lineHeight: 1.3 }}>{s.name}</span>
-                              <span style={{ fontSize: 11, color: "var(--text-faint)", marginTop: 1 }}>{s.tagline}</span>
+                              <span style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 600, fontSize: FS_BODY, color: "var(--text)", lineHeight: 1.3 }}>{s.name}</span>
+                              <span style={{ fontSize: 16, color: "var(--text-muted)", marginTop: 1 }}>{s.tagline}</span>
                             </a>
                           ))}
                         </div>
@@ -405,21 +548,21 @@ export function Header() {
                             <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                               <img src="/PLH.avif" alt="PLH" style={{ width: 26, height: 26, objectFit: "contain", flexShrink: 0 }} />
                               <div>
-                                <p style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: 12.5, color: PLH_TEXT, margin: 0, letterSpacing: "-0.015em", lineHeight: 1.3 }}>{t("partner.firmName")}</p>
-                                <p style={{ fontSize: 10, color: "var(--text-faint)", margin: 0 }}>{t("header.legalServices")}</p>
+                                <p style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: FS_BODY, color: PLH_TEXT, margin: 0, letterSpacing: "-0.015em", lineHeight: 1.3 }}>{t("partner.firmName")}</p>
+                                <p style={{ fontSize: 16, color: "var(--text-muted)", margin: 0 }}>{t("header.legalServices")}</p>
                               </div>
                             </div>
-                            <span style={{ fontSize: 9.5, fontWeight: 700, color: PLH_ACC, backgroundColor: `${PLH_ACC}14`, border: `1px solid ${PLH_ACC}28`, borderRadius: 999, padding: "3px 8px", letterSpacing: "0.08em", textTransform: "uppercase", flexShrink: 0 }}>{t("header.partner")}</span>
+                            <span style={{ fontSize: FS_CHIP, fontWeight: 700, color: PLH_ACC, backgroundColor: `${PLH_ACC}14`, border: `1px solid ${PLH_ACC}28`, borderRadius: 999, padding: "5px 11px", letterSpacing: "0.06em", textTransform: "uppercase", flexShrink: 0 }}>{t("header.partner")}</span>
                           </div>
                           <div style={{ height: 1, backgroundColor: `${PLH_ACC}22`, marginBottom: 8 }} />
                           {plhMenu.map(s => (
                             <a key={s.href} href={s.href} target="_blank" rel="noopener noreferrer" onClick={() => setMenuOpen(false)} style={{ display: "flex", flexDirection: "column", padding: "8px 10px", borderRadius: 8, textDecoration: "none" }}>
-                              <span style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 600, fontSize: 13.5, color: PLH_TEXT, lineHeight: 1.3 }}>{s.name}</span>
-                              <span style={{ fontSize: 11, color: "var(--text-faint)", marginTop: 1 }}>{s.tagline}</span>
+                              <span style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 600, fontSize: FS_BODY, color: PLH_TEXT, lineHeight: 1.3 }}>{s.name}</span>
+                              <span style={{ fontSize: 16, color: "var(--text-muted)", marginTop: 1 }}>{s.tagline}</span>
                             </a>
                           ))}
                           <div style={{ height: 1, backgroundColor: `${PLH_ACC}22`, margin: "8px 0 8px" }} />
-                          <a href="https://plh.az/az/services/" target="_blank" rel="noopener noreferrer" onClick={() => setMenuOpen(false)} style={{ display: "inline-flex", alignItems: "center", gap: 5, padding: "0 10px", fontSize: 12, fontWeight: 600, color: PLH_ACC, textDecoration: "none", opacity: 0.8 }}>
+                          <a href="https://plh.az/az/services/" target="_blank" rel="noopener noreferrer" onClick={() => setMenuOpen(false)} style={{ display: "inline-flex", alignItems: "center", gap: 5, padding: "0 10px", fontSize: FS_BODY, fontWeight: 600, color: PLH_ACC, textDecoration: "none", opacity: 0.8 }}>
                             {t("header.allPlhServices")} <ArrowUpRight size={12} />
                           </a>
                         </div>
@@ -430,7 +573,7 @@ export function Header() {
                   <a
                     href={link.href}
                     onClick={(e) => handleNavClick(e, link.href)}
-                    style={{ display: "block", fontFamily: "var(--font-inter), 'Inter', sans-serif", fontWeight: 500, fontSize: 18, color: "var(--text-strong)", textDecoration: "none", padding: "16px 0", borderBottom: i < navLinks.length - 1 ? "1px solid var(--border)" : "none", transition: "color 200ms" }}
+                    style={{ display: "block", fontFamily: "var(--font-inter), 'Inter', sans-serif", fontWeight: 500, fontSize: 20, color: "var(--text-strong)", textDecoration: "none", padding: "16px 0", borderBottom: i < navLinks.length - 1 ? "1px solid var(--border)" : "none", transition: "color 200ms" }}
                     onMouseEnter={e => (e.currentTarget.style.color = DARK)}
                     onMouseLeave={e => (e.currentTarget.style.color = "var(--text-strong)")}
                   >{t(link.labelKey as Parameters<typeof t>[0])}</a>
@@ -439,8 +582,21 @@ export function Header() {
             ))}
           </nav>
 
-          {/* Mobile bottom */}
-          <div style={{ padding: "20px 24px 32px", borderTop: "1px solid var(--border)" }}>
+          {/* Mobile bottom. Sticky so the CTA stays on screen even when the
+              services accordion pushes the sheet past 1900px — otherwise the
+              main conversion button is only reachable by scrolling to the end.
+              Extra bottom pad clears the iOS home indicator. */}
+          <div
+            className="drawer-row"
+            style={{
+              position: "sticky", bottom: 0, marginTop: "auto",
+              padding: "18px 24px calc(22px + env(safe-area-inset-bottom))",
+              borderTop: "1px solid var(--border)",
+              backgroundColor: "color-mix(in srgb, var(--surface) 90%, transparent)",
+              backdropFilter: "blur(20px) saturate(180%)",
+              WebkitBackdropFilter: "blur(20px) saturate(180%)",
+            }}
+          >
             {/* Language switcher + theme toggle */}
             <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
               <div style={{ position: "relative", display: "flex", alignItems: "center", gap: 4, backgroundColor: "var(--surface-2)", borderRadius: 10, padding: 4, width: "fit-content" }}>
@@ -449,7 +605,7 @@ export function Header() {
                   <button key={lang}
                     onClick={() => { setMenuOpen(false); switchLocale(lang); }}
                     disabled={selectedLang === lang}
-                    style={{ position: "relative", zIndex: 1, fontFamily: "var(--font-inter), 'Inter', sans-serif", fontWeight: 500, fontSize: 13, color: selectedLang === lang ? "#FFFFFF" : "var(--text-muted)", backgroundColor: "transparent", border: "none", cursor: selectedLang === lang ? "default" : "pointer", width: 46, padding: "7px 0", borderRadius: 7, transition: "color 280ms ease", textAlign: "center" }}
+                    style={{ position: "relative", zIndex: 1, fontFamily: "var(--font-inter), 'Inter', sans-serif", fontWeight: 500, fontSize: FS_LABEL, color: selectedLang === lang ? "#FFFFFF" : "var(--text-muted)", backgroundColor: "transparent", border: "none", cursor: selectedLang === lang ? "default" : "pointer", width: 46, padding: "7px 0", borderRadius: 7, transition: "color 280ms ease", textAlign: "center" }}
                   >{lang}</button>
                 ))}
               </div>
@@ -457,12 +613,11 @@ export function Header() {
             </div>
             <button
               onClick={() => { setMenuOpen(false); openContact(); }}
-              style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "100%", fontFamily: "var(--font-inter), 'Inter', sans-serif", fontWeight: 600, fontSize: 16, color: "#FFFFFF", backgroundColor: BRAND_SOLID, border: "none", cursor: "pointer", padding: "14px 20px", borderRadius: 10, boxShadow: "0 4px 20px var(--brand-ring)" }}
+              style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "100%", fontFamily: "var(--font-inter), 'Inter', sans-serif", fontWeight: 600, fontSize: FS_BODY_LG, color: "#FFFFFF", backgroundColor: BRAND_SOLID, border: "none", cursor: "pointer", padding: "14px 20px", borderRadius: 10, boxShadow: "0 4px 20px var(--brand-ring)" }}
             >{t("header.cta")}</button>
           </div>
         </div>
       )}
     </header>
-    </>
   );
 }

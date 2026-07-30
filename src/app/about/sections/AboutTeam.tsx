@@ -5,7 +5,8 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useTranslations } from "next-intl";
 import { useBreakpoint } from "../../../hooks/useBreakpoint";
-import { DARK, ACCENT, BRAND_SOLID } from "@/app/lib/brand";
+import { DARK, BRAND_SOLID } from "@/app/lib/brand";
+import { FS_LABEL, FS_H2, FS_H4_MOBILE, FS_H4_DESKTOP } from "@/app/lib/typography";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -40,24 +41,24 @@ export function AboutTeam() {
       <section ref={sectionRef} style={{ backgroundColor: "var(--surface)", padding: pad, fontFamily: "var(--font-inter), 'Inter', sans-serif" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
           <div className="team-anim" style={{ marginBottom: 32 }}>
-            <p style={{ fontSize: 11, fontWeight: 600, color: DARK, letterSpacing: "0.18em", textTransform: "uppercase", margin: "0 0 14px" }}>{t("sectionLabel")}</p>
-            <h2 style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: 28, color: "var(--text)", margin: 0, letterSpacing: "-0.035em", lineHeight: 1.1 }}>
+            <p style={{ fontSize: FS_LABEL, fontWeight: 600, color: DARK, letterSpacing: "0.18em", textTransform: "uppercase", margin: "0 0 14px" }}>{t("sectionLabel")}</p>
+            <h2 style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: FS_H2, color: "var(--text)", margin: 0, letterSpacing: "-0.035em", lineHeight: 1.1 }}>
               {t("heading")} <span style={{ color: DARK }}>{t("headingAccent")}</span>
             </h2>
           </div>
           <div style={{ borderRadius: 16, overflow: "hidden", marginBottom: 32, height: 220 }}>
             <img src="/AboutPageTeamLandscape.avif" alt="ProFinance Team" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", display: "block" }} />
           </div>
-          <p className="team-anim" style={{ fontSize: 15, color: "var(--text-muted)", lineHeight: 1.8, margin: "0 0 32px" }}>{t("description")}</p>
+          <p className="team-anim" style={{ fontSize: 18, color: "var(--text-muted)", lineHeight: 1.8, margin: "0 0 32px" }}>{t("description")}</p>
           <div className="team-traits">
             {traits.map((trait, i) => (
               <div key={i} className="team-trait" style={{ borderTop: "1px solid var(--border)", padding: "20px 0", borderBottom: i === traits.length - 1 ? "1px solid var(--border)" : "none", display: "grid", gridTemplateColumns: "36px 1fr", gap: 12 }}>
                 <div style={{ width: 30, height: 30, borderRadius: 8, backgroundColor: BRAND_SOLID, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                  <span style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: 11, color: "#fff", letterSpacing: "0.04em" }}>{trait.number}</span>
+                  <span style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: 16, color: "#fff", letterSpacing: "0.04em" }}>{trait.number}</span>
                 </div>
                 <div>
-                  <p style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: 15, color: "var(--text)", margin: "0 0 5px", letterSpacing: "-0.02em" }}>{trait.title}</p>
-                  <p style={{ fontSize: 13, color: "var(--text-muted)", lineHeight: 1.72, margin: 0 }}>{trait.desc}</p>
+                  <p style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: FS_H4_MOBILE, color: "var(--text)", margin: "0 0 5px", letterSpacing: "-0.02em" }}>{trait.title}</p>
+                  <p style={{ fontSize: 18, color: "var(--text-muted)", lineHeight: 1.72, margin: 0 }}>{trait.desc}</p>
                 </div>
               </div>
             ))}
@@ -72,12 +73,12 @@ export function AboutTeam() {
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
         <div className="team-anim" style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 40, marginBottom: 52, flexWrap: "wrap" }}>
           <div>
-            <p style={{ fontSize: 11, fontWeight: 600, color: DARK, letterSpacing: "0.18em", textTransform: "uppercase", margin: "0 0 16px" }}>{t("sectionLabel")}</p>
-            <h2 style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: isTablet ? 36 : "clamp(34px, 3.8vw, 52px)", color: "var(--text)", margin: 0, letterSpacing: "-0.038em", lineHeight: 1.08 }}>
+            <p style={{ fontSize: FS_LABEL, fontWeight: 600, color: DARK, letterSpacing: "0.18em", textTransform: "uppercase", margin: "0 0 16px" }}>{t("sectionLabel")}</p>
+            <h2 style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: FS_H2, color: "var(--text)", margin: 0, letterSpacing: "-0.038em", lineHeight: 1.08 }}>
               {t("heading")} <span style={{ color: DARK }}>{t("headingAccent")}</span>
             </h2>
           </div>
-          <p style={{ fontSize: 15, color: "var(--text-faint)", lineHeight: 1.72, margin: 0, maxWidth: 300 }}>{t("subtext")}</p>
+          <p style={{ fontSize: 18, color: "var(--text-muted)", lineHeight: 1.72, margin: 0, maxWidth: 300 }}>{t("subtext")}</p>
         </div>
 
         <div style={{ height: 1, backgroundColor: "var(--border)", marginBottom: 52 }} />
@@ -89,18 +90,18 @@ export function AboutTeam() {
 
           <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", paddingTop: 8 }}>
             <div className="team-anim" style={{ marginBottom: 44 }}>
-              <p style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 600, fontSize: isTablet ? 16 : 18, color: "var(--text)", lineHeight: 1.62, margin: "0 0 18px", letterSpacing: "-0.015em" }}>{t("leadParagraph")}</p>
-              <p style={{ fontSize: isTablet ? 14 : 15, color: "var(--text-muted)", lineHeight: 1.84, margin: 0 }}>{t("bodyParagraph")}</p>
+              <p style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 600, fontSize: 20, color: "var(--text)", lineHeight: 1.62, margin: "0 0 18px", letterSpacing: "-0.015em" }}>{t("leadParagraph")}</p>
+              <p style={{ fontSize: 18, color: "var(--text-muted)", lineHeight: 1.84, margin: 0 }}>{t("bodyParagraph")}</p>
             </div>
             <div className="team-traits">
               {traits.map((trait, i) => (
                 <div key={i} className="team-trait" style={{ borderTop: "1px solid var(--border)", padding: `${isTablet ? 22 : 26}px 0`, borderBottom: i === traits.length - 1 ? "1px solid var(--border)" : "none", display: "grid", gridTemplateColumns: "40px 1fr", gap: 20, alignItems: "start" }}>
                   <div style={{ width: 32, height: 32, borderRadius: 9, backgroundColor: BRAND_SOLID, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                    <span style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: 11, color: "#fff", letterSpacing: "0.04em" }}>{trait.number}</span>
+                    <span style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: 16, color: "#fff", letterSpacing: "0.04em" }}>{trait.number}</span>
                   </div>
                   <div>
-                    <p style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: isTablet ? 15 : 16, color: "var(--text)", margin: "0 0 6px", letterSpacing: "-0.02em" }}>{trait.title}</p>
-                    <p style={{ fontSize: isTablet ? 13 : 14, color: "var(--text-muted)", lineHeight: 1.75, margin: 0 }}>{trait.desc}</p>
+                    <p style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: isTablet ? FS_H4_MOBILE : FS_H4_DESKTOP, color: "var(--text)", margin: "0 0 6px", letterSpacing: "-0.02em" }}>{trait.title}</p>
+                    <p style={{ fontSize: 18, color: "var(--text-muted)", lineHeight: 1.75, margin: 0 }}>{trait.desc}</p>
                   </div>
                 </div>
               ))}

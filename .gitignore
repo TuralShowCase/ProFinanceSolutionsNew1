@@ -1,0 +1,19 @@
+# NOTE: this used to start with `*.md`, which silently ignored every markdown
+# file in the repo. CLAUDE.md and README.md were only tracked because they
+# predated the rule; any new doc would never have been committed.
+node_modules
+.next
+.env
+.env.local
+/src/imports/*
+
+# Build artifacts that were previously tracked as source.
+tsconfig.tsbuildinfo
+next-env.d.ts
+
+# Playwright visual-regression artifacts.
+# NOTE: e2e/visual.spec.ts-snapshots/ is intentionally NOT ignored — the
+# committed baselines are the reference that proves refactors don't move pixels.
+/test-results/
+/e2e/.report/
+/playwright-report/

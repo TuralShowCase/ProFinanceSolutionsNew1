@@ -7,7 +7,8 @@ import { ArrowUpRight, Phone } from "lucide-react";
 import { useTranslations, useLocale } from "next-intl";
 import { useBreakpoint } from "../../../hooks/useBreakpoint";
 import { useContactModal } from "../../contexts/ContactModalContext";
-import { DARK, ACCENT, INVERT } from "@/app/lib/brand";
+import { ACCENT, INVERT } from "@/app/lib/brand";
+import { FS_H3 } from "@/app/lib/typography";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -19,7 +20,7 @@ function CTAButton({ children, href, onClick, primary, icon, fullWidth }: {
   const [hovered, setHovered] = useState(false);
   const sharedStyle: React.CSSProperties = {
     display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 8,
-    fontWeight: primary ? 700 : 500, fontSize: 15, padding: "14px 30px", borderRadius: 9,
+    fontWeight: primary ? 700 : 500, fontSize: 18, padding: "14px 30px", borderRadius: 9,
     textDecoration: "none", whiteSpace: "nowrap", width: fullWidth ? "100%" : undefined,
     transition: "background-color 320ms ease, transform 380ms cubic-bezier(0.34, 1.56, 0.64, 1), border-color 320ms ease",
     transform: hovered ? "translateY(-2px)" : "translateY(0)",
@@ -64,11 +65,11 @@ export function AboutCTA() {
 
           <div style={{ position: "relative", zIndex: 1, maxWidth: isMobile ? "100%" : isTablet ? "56%" : "52%", display: "flex", flexDirection: "column", gap: isMobile ? 28 : 36, width: "100%" }}>
             <div>
-              <h2 className="cta-item" style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: isMobile ? 26 : isTablet ? 30 : "clamp(30px, 2.8vw, 42px)", color: "#ffffff", margin: "0 0 16px", letterSpacing: "-0.04em", lineHeight: 1.08 }}>
+              <h2 className="cta-item" style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: FS_H3, color: "#ffffff", margin: "0 0 16px", letterSpacing: "-0.04em", lineHeight: 1.08 }}>
                 {t("heading")}<br /><span style={{ color: ACCENT }}>{t("headingAccent")}</span>
               </h2>
               <div className="cta-item" style={{ width: 40, height: 2, borderRadius: 2, backgroundColor: ACCENT, marginBottom: 18, opacity: 0.6 }} />
-              <p className="cta-item" style={{ fontSize: 14, color: "rgba(255,255,255,0.52)", lineHeight: 1.8, margin: 0 }}>{t("subtext")}</p>
+              <p className="cta-item" style={{ fontSize: 18, color: "var(--invert-text-muted)", lineHeight: 1.8, margin: 0 }}>{t("subtext")}</p>
             </div>
             <div className="cta-item" style={{ display: "flex", flexDirection: isMobile ? "column" : "row", alignItems: isMobile ? "stretch" : "center", gap: isMobile ? 12 : 10, width: isMobile ? "100%" : "auto" }}>
               <CTAButton primary onClick={openContact} icon={<Phone size={15} strokeWidth={1.8} />} fullWidth={isMobile}>{t("primaryBtn")}</CTAButton>

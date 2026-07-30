@@ -29,7 +29,7 @@ export function HeroPagination({
               transition: "flex 500ms cubic-bezier(0.22,1,0.36,1)",
             }}
           >
-            <span style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: 12.5, letterSpacing: "0.04em", color: active ? ACCENT : FAINT, transition: "color 300ms ease", flexShrink: 0 }}>
+            <span style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: 16, letterSpacing: "0.04em", color: active ? ACCENT : FAINT, transition: "color 300ms ease", flexShrink: 0 }}>
               {String(i + 1).padStart(2, "0")}
             </span>
             <span style={{ position: "relative", display: "block", height: 2, flex: 1, background: HAIR, borderRadius: 2, overflow: "hidden" }}>

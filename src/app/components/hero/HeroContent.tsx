@@ -34,7 +34,7 @@ export function HeroContent({ activeSlide }: { activeSlide: number }) {
       <p
         style={{
           margin: `${isStacked ? 14 : 20}px 0 0`,
-          fontSize: isStacked ? 16 : 19,
+          fontSize: 20,
           fontWeight: 500,
           lineHeight: 1.6,
           color: SUB,

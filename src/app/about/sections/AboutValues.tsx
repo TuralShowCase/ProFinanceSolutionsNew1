@@ -7,6 +7,7 @@ import { Award, Eye, ShieldCheck, BarChart3 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useBreakpoint } from "../../../hooks/useBreakpoint";
 import { DARK, ACCENT, CREAM, mix } from "@/app/lib/brand";
+import { FS_LABEL, FS_H2, FS_H3, FS_H4_MOBILE } from "@/app/lib/typography";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -116,8 +117,8 @@ export function AboutValues() {
   if (!mounted || isMobile || isTablet) {
     return (
       <section style={{ backgroundColor: CREAM, padding: "56px 20px 64px", fontFamily: "var(--font-inter), 'Inter', sans-serif" }}>
-        <p style={{ fontSize: 10, fontWeight: 700, color: DARK, letterSpacing: "0.22em", textTransform: "uppercase", margin: "0 0 12px" }}>{t("sectionLabel")}</p>
-        <h2 style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: "clamp(24px, 7.5vw, 30px)", color: "var(--text)", margin: "0 0 32px", letterSpacing: "-0.035em", lineHeight: 1.1 }}>
+        <p style={{ fontSize: FS_LABEL, fontWeight: 700, color: DARK, letterSpacing: "0.22em", textTransform: "uppercase", margin: "0 0 12px" }}>{t("sectionLabel")}</p>
+        <h2 style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: 28, color: "var(--text)", margin: "0 0 32px", letterSpacing: "-0.035em", lineHeight: 1.1 }}>
           {t("heading")} <span style={{ color: DARK }}>{t("headingAccent")}</span>
         </h2>
         <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
@@ -128,10 +129,10 @@ export function AboutValues() {
               </div>
               <div style={{ flex: 1 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
-                  <span style={{ fontSize: 10, fontWeight: 700, color: DARK, letterSpacing: "0.12em", opacity: 0.45 }}>{v.number}</span>
-                  <h3 style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: 15, color: "var(--text)", margin: 0, letterSpacing: "-0.02em", lineHeight: 1.25 }}>{v.title}</h3>
+                  <span style={{ fontSize: 16, fontWeight: 700, color: DARK, letterSpacing: "0.12em", opacity: 0.45 }}>{v.number}</span>
+                  <h3 style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: FS_H4_MOBILE, color: "var(--text)", margin: 0, letterSpacing: "-0.02em", lineHeight: 1.25 }}>{v.title}</h3>
                 </div>
-                <p style={{ fontSize: 13, color: "var(--text-muted)", lineHeight: 1.7, margin: 0 }}>{v.description}</p>
+                <p style={{ fontSize: 18, color: "var(--text-muted)", lineHeight: 1.7, margin: 0 }}>{v.description}</p>
               </div>
             </div>
           ))}
@@ -146,12 +147,12 @@ export function AboutValues() {
     <section ref={sectionRef} style={{ backgroundColor: CREAM, position: "relative", overflow: "hidden" }}>
       <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center", padding: hPad, maxWidth: 1280, margin: "0 auto", position: "relative" }}>
         <div className="val-hdr" style={{ marginBottom: isTablet ? 36 : 52 }}>
-          <p style={{ fontSize: 10, fontWeight: 700, color: DARK, letterSpacing: "0.22em", textTransform: "uppercase", margin: "0 0 14px" }}>{t("sectionLabel")}</p>
+          <p style={{ fontSize: FS_LABEL, fontWeight: 700, color: DARK, letterSpacing: "0.22em", textTransform: "uppercase", margin: "0 0 14px" }}>{t("sectionLabel")}</p>
           <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 32, flexWrap: "wrap" }}>
-            <h2 style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: isTablet ? 36 : "clamp(36px, 4vw, 54px)", color: "var(--text)", margin: 0, letterSpacing: "-0.04em", lineHeight: 1.06 }}>
+            <h2 style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: FS_H2, color: "var(--text)", margin: 0, letterSpacing: "-0.04em", lineHeight: 1.06 }}>
               {t("heading")} <span style={{ color: DARK }}>{t("headingAccent")}</span>
             </h2>
-            <p style={{ fontSize: 15, color: "var(--text-faint)", lineHeight: 1.72, margin: 0, maxWidth: 310, fontFamily: "var(--font-inter), 'Inter', sans-serif" }}>{t("subtext")}</p>
+            <p style={{ fontSize: 18, color: "var(--text-muted)", lineHeight: 1.72, margin: 0, maxWidth: 310, fontFamily: "var(--font-inter), 'Inter', sans-serif" }}>{t("subtext")}</p>
           </div>
         </div>
 
@@ -161,16 +162,16 @@ export function AboutValues() {
               <div ref={el => { borderRefs.current[i] = el; }} style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: 3, borderRadius: 2, backgroundColor: DARK, transform: "scaleY(0)", transformOrigin: "top center", zIndex: 2 }} />
               <span ref={el => { ghostRefs.current[i] = el; }} style={{ position: "absolute", right: isTablet ? -8 : -20, top: "50%", transform: "translateY(-50%)", fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 900, fontSize: isTablet ? 108 : 148, color: DARK, opacity: 0, letterSpacing: "-0.06em", lineHeight: 1, userSelect: "none", pointerEvents: "none", zIndex: 0 }}>{v.number}</span>
               <div ref={el => { headerRowRefs.current[i] = el; }} style={{ display: "flex", alignItems: "center", gap: isTablet ? 20 : 32, padding: isTablet ? "22px 0 22px 16px" : "26px 0 26px 16px", position: "relative", zIndex: 1 }}>
-                <span ref={el => { numLabelRefs.current[i] = el; }} style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: 12, color: "color-mix(in srgb, var(--brand) 30%, transparent)", letterSpacing: "0.12em", flexShrink: 0, width: isTablet ? 36 : 44 }}>{v.number}</span>
+                <span ref={el => { numLabelRefs.current[i] = el; }} style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: FS_LABEL, color: "color-mix(in srgb, var(--brand) 30%, transparent)", letterSpacing: "0.12em", flexShrink: 0, width: isTablet ? 36 : 44 }}>{v.number}</span>
                 <div ref={el => { iconBoxRefs.current[i] = el; }} style={{ width: isTablet ? 44 : 50, height: isTablet ? 44 : 50, borderRadius: 13, flexShrink: 0, boxShadow: "0 0 0 1.5px color-mix(in srgb, var(--brand) 45%, transparent)", backgroundColor: "color-mix(in srgb, var(--brand) 7%, transparent)", display: "flex", alignItems: "center", justifyContent: "center" }}>
                   <div ref={el => { iconFilterRefs.current[i] = el; }} style={{ display: "flex" }}>
                     <v.Icon size={isTablet ? 19 : 21} color={DARK} strokeWidth={1.6} />
                   </div>
                 </div>
-                <h3 ref={el => { titleRefs.current[i] = el; }} style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: isTablet ? 20 : 23, color: "var(--text-faint)", margin: 0, letterSpacing: "-0.03em", lineHeight: 1.2 }}>{v.title}</h3>
+                <h3 ref={el => { titleRefs.current[i] = el; }} style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: FS_H3, color: "var(--text-faint)", margin: 0, letterSpacing: "-0.03em", lineHeight: 1.2 }}>{v.title}</h3>
               </div>
               <div ref={el => { descRefs.current[i] = el; }} style={{ overflow: "hidden", height: 0 }}>
-                <p style={{ fontSize: isTablet ? 14 : 15, color: "var(--text-muted)", lineHeight: 1.78, margin: 0, fontFamily: "var(--font-inter), 'Inter', sans-serif", maxWidth: 580, paddingLeft: isTablet ? 100 : 126, paddingBottom: 26, paddingTop: 2 }}>{v.description}</p>
+                <p style={{ fontSize: 18, color: "var(--text-muted)", lineHeight: 1.78, margin: 0, fontFamily: "var(--font-inter), 'Inter', sans-serif", maxWidth: 580, paddingLeft: isTablet ? 100 : 126, paddingBottom: 26, paddingTop: 2 }}>{v.description}</p>
               </div>
             </div>
           ))}

@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useBreakpoint } from "../../../hooks/useBreakpoint";
+import { FS_LABEL, FS_H2, FS_H4_MOBILE, FS_H4_DESKTOP, FS_CHIP } from "@/app/lib/typography";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -109,12 +110,12 @@ export function AboutTimeline() {
           }}>
             <div>
               <p style={{
-                fontSize: 11, fontWeight: 600, color: "var(--accent-green)",
+                fontSize: FS_LABEL, fontWeight: 600, color: "var(--accent-green)",
                 letterSpacing: "0.18em", textTransform: "uppercase", margin: "0 0 16px",
               }}>Tarixçəmiz</p>
               <h2 style={{
                 fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 800,
-                fontSize: "clamp(30px, 3.8vw, 50px)",
+                fontSize: FS_H2,
                 color: "#FFFFFF", margin: 0,
                 letterSpacing: "-0.035em", lineHeight: 1.08,
               }}>
@@ -122,7 +123,7 @@ export function AboutTimeline() {
                 <span style={{ color: "var(--accent-green)" }}>yolumuz</span>
               </h2>
             </div>
-            <p style={{ fontSize: 15, color: "rgba(255,255,255,0.45)", lineHeight: 1.7, margin: 0, maxWidth: 360 }}>
+            <p style={{ fontSize: 18, color: "var(--invert-text-muted)", lineHeight: 1.7, margin: 0, maxWidth: 360 }}>
               Hər il yeni xidmətlər, yeni tərəfdaşlıqlar — davamlı artım.
             </p>
           </div>
@@ -173,26 +174,26 @@ export function AboutTimeline() {
                   {/* Content */}
                   <div style={{ flex: 1, paddingBottom: 8 }}>
                     <span style={{
-                      display: "inline-block", fontSize: 11, fontWeight: 600,
-                      color: m.tagColor, letterSpacing: "0.06em",
+                      display: "inline-block", fontSize: FS_CHIP, fontWeight: 600,
+                      color: m.tagColor, letterSpacing: "0.04em",
                       backgroundColor: `${m.tagColor}18`,
                       border: `1px solid ${m.tagColor}40`,
-                      borderRadius: 999, padding: "3px 12px", marginBottom: 10,
+                      borderRadius: 999, padding: "5px 12px", marginBottom: 10,
                     }}>{m.tag}</span>
                     <div style={{
                       fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif",
                       fontWeight: 900, fontSize: 36,
-                      color: "rgba(255,255,255,0.08)",
+                      color: "rgba(255,255,255,0.16)",
                       letterSpacing: "-0.05em", lineHeight: 1,
                       marginBottom: 4, userSelect: "none",
                     }}>{m.year}</div>
                     <h3 style={{
                       fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif",
-                      fontWeight: 700, fontSize: 17,
+                      fontWeight: 700, fontSize: FS_H4_MOBILE,
                       color: "#FFFFFF", margin: "0 0 8px",
                       letterSpacing: "-0.02em",
                     }}>{m.title}</h3>
-                    <p style={{ fontSize: 14, color: "rgba(255,255,255,0.50)", lineHeight: 1.72, margin: 0 }}>
+                    <p style={{ fontSize: 18, color: "var(--invert-text-muted)", lineHeight: 1.72, margin: 0 }}>
                       {m.description}
                     </p>
                   </div>
@@ -218,28 +219,28 @@ export function AboutTimeline() {
                   {((isLeft && true) || (!isLeft && false)) ? null : null}
                   <div style={{ maxWidth: 420, textAlign: isLeft ? "right" : "left" }}>
                     <span style={{
-                      display: "inline-block", fontSize: 11, fontWeight: 600,
-                      color: m.tagColor, letterSpacing: "0.06em",
+                      display: "inline-block", fontSize: FS_CHIP, fontWeight: 600,
+                      color: m.tagColor, letterSpacing: "0.04em",
                       backgroundColor: `${m.tagColor}18`,
                       border: `1px solid ${m.tagColor}40`,
-                      borderRadius: 999, padding: "3px 12px", marginBottom: 12,
+                      borderRadius: 999, padding: "5px 12px", marginBottom: 12,
                     }}>{m.tag}</span>
                     <div style={{
                       fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif",
                       fontWeight: 900,
                       fontSize: isTablet ? 52 : 72,
-                      color: "rgba(255,255,255,0.06)",
+                      color: "rgba(255,255,255,0.14)",
                       letterSpacing: "-0.05em", lineHeight: 1,
                       marginBottom: -8, userSelect: "none",
                     }}>{m.year}</div>
                     <h3 style={{
                       fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif",
                       fontWeight: 700,
-                      fontSize: isTablet ? 18 : 22,
+                      fontSize: isTablet ? FS_H4_MOBILE : FS_H4_DESKTOP,
                       color: "#FFFFFF", margin: "0 0 10px",
                       letterSpacing: "-0.025em",
                     }}>{m.title}</h3>
-                    <p style={{ fontSize: 14, color: "rgba(255,255,255,0.50)", lineHeight: 1.75, margin: 0 }}>
+                    <p style={{ fontSize: 18, color: "var(--invert-text-muted)", lineHeight: 1.75, margin: 0 }}>
                       {m.description}
                     </p>
                   </div>

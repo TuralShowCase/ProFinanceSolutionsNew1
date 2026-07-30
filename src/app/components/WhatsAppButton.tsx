@@ -34,7 +34,7 @@ export function WhatsAppButton() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="WhatsApp ilə əlaqə"
-      className={hovered ? undefined : "wa-idle"}
+      className={`wa-fab${hovered ? "" : " wa-idle"}`}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
@@ -61,7 +61,7 @@ export function WhatsAppButton() {
       <WhatsAppIcon />
       <span
         style={{
-          fontSize:   13,
+          fontSize:   18,
           fontWeight: 600,
           color:      "white",
           maxWidth:   hovered ? 180 : 0,

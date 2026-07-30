@@ -22,7 +22,7 @@ const plusJakarta = Plus_Jakarta_Sans({
 });
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID ?? 'G-33DDETT8MX';
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://profinancesolutions.az';
+import { SITE_URL } from './lib/site';
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -65,8 +65,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeNoFlashScript }} />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
-        <link rel="preload" href="/logo-icon.png" as="image" type="image/png" />
-        <link rel="preload" href="/ChatGPT_Image_May_9__2026__05_25_40_PM.avif" as="image" type="image/avif" fetchPriority="high" />
+        {/* No image preloads here on purpose.
+            This layout wraps every route, so anything preloaded is fetched at
+            high priority on pages that never render it. The header mark is a 3KB
+            file already in the initial HTML (the preload scanner finds it with no
+            help), and each page preloads its own LCP image instead — see
+            `preloadHeroImage()` in app/page.tsx. */}
         <meta name="geo.region" content="AZ-BA" />
         <meta name="geo.placename" content="Baku, Azerbaijan" />
         <meta name="geo.position" content="40.3777;49.843" />

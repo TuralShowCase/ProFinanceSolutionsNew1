@@ -7,6 +7,7 @@ import { ShoppingCart, HardHat, Compass, Factory, UtensilsCrossed, Landmark, Cpu
 import { useTranslations } from "next-intl";
 import { useBreakpoint } from "../../hooks/useBreakpoint";
 import { DARK, mix } from "@/app/lib/brand";
+import { FS_H2, FS_LABEL, FS_H4_MOBILE, FS_BODY } from "@/app/lib/typography";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -67,16 +68,16 @@ export function IndustriesSection() {
         {/* Header */}
         <div className="ind-hdr" style={{ opacity: 0, display: "flex", flexDirection: isMobile ? "column" : "row", alignItems: isMobile ? "flex-start" : "flex-end", justifyContent: "space-between", gap: isMobile ? 18 : 40, marginBottom: isMobile ? 30 : 48, flexWrap: "wrap" }}>
           <div>
-            <p style={{ fontSize: 11, fontWeight: 600, color: DARK, letterSpacing: "0.2em", textTransform: "uppercase", margin: "0 0 16px" }}>{t("sectionLabel")}</p>
-            <h2 style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: isMobile ? 28 : "clamp(30px, 3.8vw, 50px)", color: "var(--text)", margin: 0, letterSpacing: "-0.035em", lineHeight: 1.08 }}>
+            <p style={{ fontSize: FS_LABEL, fontWeight: 600, color: DARK, letterSpacing: "0.2em", textTransform: "uppercase", margin: "0 0 16px" }}>{t("sectionLabel")}</p>
+            <h2 style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: FS_H2, color: "var(--text)", margin: 0, letterSpacing: "-0.035em", lineHeight: 1.08 }}>
               {t("heading")} <span style={{ color: DARK }}>{t("headingAccent")}</span>
             </h2>
           </div>
           <div>
-            <p style={{ fontSize: 15, color: "var(--text-muted)", lineHeight: 1.75, margin: "0 0 12px", maxWidth: 400 }}>{t("intro")}</p>
+            <p style={{ fontSize: 18, color: "var(--text-muted)", lineHeight: 1.75, margin: "0 0 12px", maxWidth: 400 }}>{t("intro")}</p>
             <button
               onClick={scrollClients}
-              style={{ display: "inline-flex", alignItems: "center", gap: 7, background: "none", border: "none", padding: 0, cursor: "pointer", color: DARK, fontSize: 13.5, fontWeight: 600, fontFamily: "var(--font-inter), 'Inter', sans-serif", transition: "gap 240ms ease" }}
+              style={{ display: "inline-flex", alignItems: "center", gap: 7, background: "none", border: "none", padding: 0, cursor: "pointer", color: DARK, fontSize: FS_BODY, fontWeight: 600, fontFamily: "var(--font-inter), 'Inter', sans-serif", transition: "gap 240ms ease" }}
               onMouseEnter={e => (e.currentTarget.style.gap = "11px")}
               onMouseLeave={e => (e.currentTarget.style.gap = "7px")}
             >
@@ -103,7 +104,7 @@ export function IndustriesSection() {
                   )}
                   {hasImg && <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(10,17,12,0) 40%, rgba(10,17,12,0.72) 100%)" }} />}
                   <div style={{ position: "absolute", left: 12, right: 12, bottom: 10, display: "flex", alignItems: "center", gap: 8 }}>
-                    <span style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontSize: 13, fontWeight: 700, lineHeight: 1.3, color: hasImg ? "#FFFFFF" : "var(--text)", textShadow: hasImg ? "0 1px 10px rgba(0,0,0,0.4)" : "none" }}>{label}</span>
+                    <span style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontSize: FS_H4_MOBILE, fontWeight: 700, lineHeight: 1.3, color: hasImg ? "#FFFFFF" : "var(--text)", textShadow: hasImg ? "0 1px 10px rgba(0,0,0,0.4)" : "none" }}>{label}</span>
                   </div>
                 </div>
               );
@@ -136,7 +137,7 @@ export function IndustriesSection() {
                       cursor: "pointer",
                     }}
                   >
-                    <span style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: 12.5, letterSpacing: "0.06em", color: isActive ? DARK : "var(--text-faint)", width: 26, flexShrink: 0, transition: "color 320ms ease" }}>
+                    <span style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: FS_LABEL, letterSpacing: "0.06em", color: isActive ? DARK : "var(--text-faint)", width: 26, flexShrink: 0, transition: "color 320ms ease" }}>
                       {`0${i + 1}`}
                     </span>
                     <span style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontSize: 20, fontWeight: 700, letterSpacing: "-0.02em", color: isActive ? DARK : "var(--text)", flex: 1, transition: "color 320ms ease" }}>
@@ -172,7 +173,7 @@ export function IndustriesSection() {
               {/* Caption chip */}
               <div style={{ position: "absolute", left: 18, bottom: 18, display: "inline-flex", alignItems: "center", gap: 9, backgroundColor: "rgba(255,255,255,0.92)", backdropFilter: "blur(8px)", WebkitBackdropFilter: "blur(8px)", borderRadius: 12, padding: "10px 16px", boxShadow: "0 8px 28px rgba(0,0,0,0.18)" }}>
                 <ActiveIcon size={16} color={DARK} strokeWidth={2} />
-                <span style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontSize: 13.5, fontWeight: 700, color: "#111410" }}>{items[active].label}</span>
+                <span style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontSize: FS_BODY, fontWeight: 700, color: "#111410" }}>{items[active].label}</span>
               </div>
             </div>
           </div>

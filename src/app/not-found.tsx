@@ -14,7 +14,7 @@ export default function NotFound() {
     >
       <div
         style={{
-          fontSize: 11,
+          fontSize: 16,
           fontWeight: 700,
           color: 'var(--brand)',
           letterSpacing: '0.18em',
@@ -37,7 +37,7 @@ export default function NotFound() {
       >
         404
       </h1>
-      <p style={{ fontSize: 16, color: 'var(--text-muted)', margin: 0 }}>
+      <p style={{ fontSize: 20, color: 'var(--text-muted)', margin: 0 }}>
         Səhifə tapılmadı
       </p>
       <a
@@ -47,7 +47,7 @@ export default function NotFound() {
           color: 'var(--brand)',
           fontWeight: 600,
           textDecoration: 'none',
-          fontSize: 14,
+          fontSize: 18,
           display: 'inline-flex',
           alignItems: 'center',
           gap: 6,
