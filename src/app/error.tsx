@@ -1,11 +1,20 @@
 "use client";
 
+import { useTranslations } from "next-intl";
+
+/**
+ * Copy is translated, not hardcoded. This sits inside the root layout's
+ * NextIntlClientProvider, so an English or Russian visitor no longer gets an
+ * Azerbaijani error screen.
+ */
 export default function Error({
   reset,
 }: {
   error: Error & { digest?: string };
   reset: () => void;
 }) {
+  const t = useTranslations("errorPage");
+
   return (
     <div
       style={{
@@ -45,10 +54,10 @@ export default function Error({
         500
       </h1>
       <p style={{ fontSize: 20, color: "var(--text-muted)", margin: 0 }}>
-        Xəta baş verdi
+        {t("title")}
       </p>
       <p style={{ fontSize: 18, color: "var(--text-muted)", margin: 0, textAlign: "center", maxWidth: 320 }}>
-        Texniki problem yarandı. Xahiş edirik bir az sonra yenidən cəhd edin.
+        {t("detail")}
       </p>
       <div style={{ display: "flex", gap: 12, marginTop: 8 }}>
         <button
@@ -67,7 +76,7 @@ export default function Error({
           onMouseEnter={e => ((e.currentTarget as HTMLElement).style.opacity = "0.85")}
           onMouseLeave={e => ((e.currentTarget as HTMLElement).style.opacity = "1")}
         >
-          Yenidən cəhd et
+          {t("retry")}
         </button>
         <a
           href="/"
@@ -84,7 +93,7 @@ export default function Error({
             transition: "all 200ms",
           }}
         >
-          Əsas səhifə
+          {t("home")}
         </a>
       </div>
     </div>

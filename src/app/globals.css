@@ -1,6 +1,7 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 @import './animations.css';
+@import './responsive.css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -327,7 +328,7 @@
 /* Structure: both variants are server-rendered, CSS picks one. That way the
    first paint is already correct instead of waiting on hydration. */
 .hdr-desktop { display: none; }
-@media (min-width: 1024px) { .hdr-desktop { display: flex; } }
+@media (min-width: 1024px) { .hdr-desktop { display: flex; gap: 32px; } }
 .hdr-compact { display: flex; }
 @media (min-width: 1024px) { .hdr-compact { display: none; } }
 
@@ -350,6 +351,50 @@
 .svc-crumb-current { display: none; }
 .intro-section    { padding: 40px 20px 40px; }
 .features-section { padding: 56px 16px 72px; }
+
+/* ---- Package / features ---- */
+.pkg-head { margin-bottom: 36px; }
+.pkg-rule { margin-bottom: 32px; }
+/* Was `{!isMobile && <p>}`. Hidden rather than absent so the server HTML is the
+   same at every width; a display:none flex item is out of layout and out of the
+   accessibility tree, so the phone result is unchanged. */
+.pkg-note { display: none; }
+.features-bento { grid-template-columns: 1fr; margin-bottom: 44px; }
+
+/* ---- What you get ---- */
+.whatget-row  { grid-template-columns: 1fr; gap: 36px; margin-bottom: 44px; }
+.whatget-list { grid-template-columns: 1fr; gap: 12px; }
+
+/* ---- Who it's for ----
+   Two copies of the same figure, one per layout: `-stacked` hangs off the top
+   edge above the card, `-inline` stands in its own column inside it. Same src,
+   so the hidden one is not a second request. */
+.targets-row { padding-top: 128px; }
+.targets-figure-stacked { right: 8px; height: 208px; }
+.targets-figure-inline  { display: none; }
+.targets-card  { padding: 24px 20px; flex-direction: column; gap: 14px; align-items: flex-start; }
+.targets-pills { width: 100%; }
+
+/* ---- Process ---- */
+.proc-header { padding: 64px 20px 36px; max-width: none; }
+.proc-note   { display: none; }
+.proc-body   { padding: 0 16px 64px; }
+.proc-grid   { grid-template-columns: 1fr; }
+.proc-step   { padding: 28px 24px; min-height: 180px; }
+.proc-step-num   { font-size: 32px; }
+.proc-step-title { font-size: 20px; } /* FS_H4_MOBILE */
+.feat-card       { padding: 22px 20px; }
+.feat-card-title { font-size: 20px; } /* FS_H4_MOBILE */
+
+/* ---- Bottom CTA. `spcta-`, not `svc-cta-`: those belong to the homepage
+        ServicesSection and would collide. ---- */
+.spcta-section { padding: 48px 16px 64px; }
+.spcta-wrap    { max-width: 100%; }
+.spcta-card    { padding: 44px 24px 260px; flex-direction: column; align-items: flex-start; gap: 28px; }
+.spcta-figure  { bottom: 0; left: 50%; transform: translateX(-50%); height: 240px; }
+.spcta-body    { gap: 28px; max-width: 100%; }
+.spcta-actions { width: 100%; }
+
 @media (min-width: 768px) {
   .svc-title  { font-size: clamp(3rem, 6.5vw, 4rem); }
   .svc-crumb  { margin-bottom: 20px; }
@@ -357,11 +402,63 @@
   .svc-crumb-current { display: inline; }
   .intro-section    { padding: 52px 28px 48px; }
   .features-section { padding: 72px 28px 88px; }
+
+  .pkg-head { margin-bottom: 52px; }
+  .pkg-rule { margin-bottom: 48px; }
+  .pkg-note { display: block; }
+  .features-bento { grid-template-columns: 1fr 1fr; margin-bottom: 64px; }
+
+  .whatget-row  { gap: 40px; margin-bottom: 64px; }
+  .whatget-list { grid-template-columns: 1fr 1fr; gap: 14px 32px; }
+
+  .targets-row { padding-top: 152px; }
+  .targets-figure-stacked { right: 40px; height: 248px; }
+  .targets-card { padding: 28px 32px; gap: 16px; }
+
+  .proc-header { padding: 72px 28px 40px; max-width: 1200px; }
+  .proc-note   { display: block; }
+  .proc-body   { padding: 0 28px 80px; }
+  .proc-grid   { grid-template-columns: 1fr 1fr; }
+  .proc-step   { padding: 30px 28px; min-height: 220px; }
+  .proc-step-num   { font-size: 40px; }
+  .proc-step-title { font-size: 24px; } /* FS_H4_DESKTOP */
+  .feat-card       { padding: 28px 28px; }
+  .feat-card-title { font-size: 24px; } /* FS_H4_DESKTOP */
+
+  .spcta-section { padding: 160px 28px 80px; }
+  .spcta-wrap    { max-width: 900px; }
+  .spcta-card    { padding: 52px 48px; flex-direction: row; align-items: center; gap: 48px; }
+  .spcta-figure  { left: auto; right: 0; transform: none; height: 440px; }
+  .spcta-body    { gap: 36px; max-width: 55%; }
+  .spcta-actions { width: auto; }
 }
 @media (min-width: 1024px) {
   .svc-title { font-size: clamp(3.25rem, 4.4vw, 4.5rem); }
   .intro-section    { padding: 64px 48px 52px; }
   .features-section { padding: 88px 48px 108px; }
+
+  /* Modifier, so it has to come after the plain `.features-bento` rule above. */
+  .features-bento-2col { grid-template-columns: 1fr 1fr; }
+  .features-bento-3col { grid-template-columns: 1fr 1fr 1fr; }
+
+  .whatget-row { grid-template-columns: 1fr 340px; gap: 72px; }
+
+  .targets-row { padding-top: 0; }
+  .targets-figure-stacked { display: none; }
+  .targets-figure-inline  { display: block; }
+  .targets-card  { padding: 36px 40px; flex-direction: row; gap: 32px; align-items: center; }
+  .targets-lede  { flex-shrink: 0; align-self: center; }
+  .targets-pills { width: auto; }
+
+  .proc-header { padding: 88px 48px 44px; }
+  .proc-body   { padding: 0 48px 88px; }
+  .proc-step   { padding: 36px 32px; }
+
+  .spcta-section { padding: 200px 48px 100px; }
+  .spcta-wrap    { max-width: 1200px; }
+  .spcta-card    { padding: 68px 72px; }
+  .spcta-figure  { height: 560px; }
+  .spcta-body    { max-width: 50%; }
 }
 
 /* ============================================================

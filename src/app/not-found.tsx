@@ -1,64 +1,23 @@
-export default function NotFound() {
+import { getLocale, getTranslations } from 'next-intl/server';
+import { NotFoundView } from './components/NotFoundView';
+
+/**
+ * Global 404 — the boundary for anything that never resolved into a locale
+ * segment. Locale-prefixed misses are handled by `app/[locale]/not-found.tsx`.
+ *
+ * Copy is translated rather than hardcoded: requests still pass through the
+ * i18n middleware, so `getLocale()` returns something sensible here, and this
+ * page previously showed Azerbaijani to everyone regardless of language.
+ */
+export default async function NotFound() {
+  const locale = await getLocale();
+  const t = await getTranslations('notFound');
+
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        minHeight: '100vh',
-        fontFamily: "var(--font-inter), 'Inter', sans-serif",
-        gap: 16,
-        backgroundColor: 'var(--page-bg)',
-      }}
-    >
-      <div
-        style={{
-          fontSize: 16,
-          fontWeight: 700,
-          color: 'var(--brand)',
-          letterSpacing: '0.18em',
-          textTransform: 'uppercase',
-          marginBottom: 8,
-        }}
-      >
-        ProFinance Solutions
-      </div>
-      <h1
-        style={{
-          fontSize: 80,
-          fontWeight: 800,
-          margin: 0,
-          color: 'var(--text-strong)',
-          fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif",
-          letterSpacing: '-0.04em',
-          lineHeight: 1,
-        }}
-      >
-        404
-      </h1>
-      <p style={{ fontSize: 20, color: 'var(--text-muted)', margin: 0 }}>
-        Səhifə tapılmadı
-      </p>
-      <a
-        href="/"
-        style={{
-          marginTop: 8,
-          color: 'var(--brand)',
-          fontWeight: 600,
-          textDecoration: 'none',
-          fontSize: 18,
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: 6,
-          padding: '10px 20px',
-          border: '1px solid color-mix(in srgb, var(--brand) 13%, transparent)',
-          borderRadius: 8,
-          transition: 'all 200ms',
-        }}
-      >
-        Əsas səhifəyə qayıt
-      </a>
-    </div>
+    <NotFoundView
+      message={t('message')}
+      backHome={t('backHome')}
+      homeHref={locale === 'az' ? '/' : `/${locale}`}
+    />
   );
 }

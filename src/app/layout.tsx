@@ -87,8 +87,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <ThemeProvider>
           <NextIntlClientProvider locale={locale} messages={messages}>
             {children}
+            {/* Inside the provider, not beside it: the button's label and its
+                prefilled WhatsApp message are translated, and useTranslations
+                throws outside this boundary. */}
+            <WhatsAppButton />
           </NextIntlClientProvider>
-          <WhatsAppButton />
         </ThemeProvider>
         <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} strategy="afterInteractive" />
         <Script id="ga4-init" strategy="afterInteractive">

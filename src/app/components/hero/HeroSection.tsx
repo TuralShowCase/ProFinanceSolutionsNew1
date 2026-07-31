@@ -3,16 +3,23 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { useTranslations } from "next-intl";
-import { useBreakpoint } from "../../../hooks/useBreakpoint";
 import { useContactModal } from "../../contexts/ContactModalContext";
 import { HeroContent } from "./HeroContent";
 import { HeroPagination } from "./HeroPagination";
-import { SLIDES, SLIDE_SECONDS } from "./heroStyle";
+import { SLIDES, SLIDE_SECONDS, HERO_SIZES } from "./heroStyle";
 
 const TOTAL_SLIDES = SLIDES.length;
 const prefersReduced = () =>
   typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+/**
+ * Layout is entirely CSS (see `HeroSection` in app/responsive.css).
+ *
+ * This is the first thing on the page and the LCP element sits inside it, so it
+ * is the worst possible place to compute layout in JS: `useBreakpoint()` reports
+ * desktop during SSR, so phones used to receive desktop padding and a
+ * desktop-width CTA and only correct after hydration.
+ */
 export function HeroSection() {
   const heroRef  = useRef<HTMLDivElement>(null);
   const textRef  = useRef<HTMLDivElement>(null);
@@ -20,12 +27,10 @@ export function HeroSection() {
   const isAnimRef = useRef(false);
 
   const [activeSlide, setActiveSlide] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const timerRef = useRef<gsap.core.Tween | gsap.core.Timeline | null>(null);
 
   const t        = useTranslations("hero");
-  const bp       = useBreakpoint();
-  const isMobile = bp === "mobile";
-  const isTablet = bp === "tablet";
-  const isStacked = isMobile || isTablet;
   const { openContact } = useContactModal();
 
   // Page-load reveal
@@ -60,14 +65,19 @@ export function HeroSection() {
      * Reduced motion stops the carousel outright — it does not just skip the
      * transition. Previously this branch still ran a delayedCall, so the slide
      * (and the <h1> with it) kept swapping every 8s for exactly the users who
-     * asked for less movement.
-     *
-     * The pagination buttons remain, so those users can still reach slide 2
-     * deliberately. A visible pause control for everyone else is still owed
-     * here — WCAG 2.2.2 wants one for any auto-advancing content.
+     * asked for less movement. The pagination buttons remain, so those users
+     * can still reach slide 2 deliberately.
      */
     if (prefersReduced()) {
       if (bar) gsap.set(bar, { scaleX: 1 });
+      timerRef.current = null;
+      return;
+    }
+
+    // Explicitly paused (WCAG 2.2.2 control): hold the current slide and leave
+    // the progress bar where it is, rather than resetting it.
+    if (paused) {
+      timerRef.current = null;
       return;
     }
 
@@ -81,8 +91,19 @@ export function HeroSection() {
       { scaleX: 0 },
       { scaleX: 1, duration: SLIDE_SECONDS, ease: "none", transformOrigin: "left center", onComplete: () => goToSlide(next) }
     );
-    return () => { tween.kill(); };
-  }, [activeSlide, goToSlide]);
+    timerRef.current = tween;
+    return () => { tween.kill(); timerRef.current = null; };
+  }, [activeSlide, goToSlide, paused]);
+
+  // Pausing mid-slide should freeze the bar where it stands, not rewind it —
+  // so the toggle pauses the live tween instead of tearing it down.
+  const togglePause = useCallback(() => {
+    setPaused((wasPaused) => {
+      const next = !wasPaused;
+      if (next) timerRef.current?.pause();
+      return next;
+    });
+  }, []);
 
   const setBarRef = useCallback((i: number, el: HTMLSpanElement | null) => {
     barRefs.current[i] = el;
@@ -107,9 +128,17 @@ export function HeroSection() {
           <div key={i} style={{ position: "absolute", inset: 0, opacity: i === activeSlide ? 1 : 0, transition: "opacity 900ms ease" }}>
             <img
               src={slide.img}
+              srcSet={slide.srcSet}
+              sizes={HERO_SIZES}
+              width={1672}
+              height={941}
               alt=""
               aria-hidden="true"
               fetchPriority={i === 0 ? "high" : undefined}
+              // Slide 2 is offscreen until the first advance — no reason for it
+              // to compete with the LCP image for bandwidth.
+              loading={i === 0 ? "eager" : "lazy"}
+              decoding={i === 0 ? "sync" : "async"}
               style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: slide.objectPosition, display: "block" }}
             />
           </div>
@@ -122,16 +151,12 @@ export function HeroSection() {
 
       {/* Left-anchored content */}
       <div
+        className="hero-inner"
         style={{
           position: "relative",
           zIndex: 2,
           height: "100%",
           maxWidth: 1280,
-          margin: "0 auto",
-          paddingLeft: isStacked ? 20 : 40,
-          paddingRight: isStacked ? 20 : 40,
-          paddingTop: 72,
-          paddingBottom: isStacked ? 28 : 40,
           display: "flex",
           flexDirection: "column",
           alignItems: "flex-start",
@@ -146,19 +171,18 @@ export function HeroSection() {
 
         {/* Single CTA — GSAP animates the wrapper, not the button, so the
             button's transform transition (hover lift) never fights the entrance tween */}
-        <div className="hero-reveal" style={{ marginTop: isStacked ? 26 : 36, width: isMobile ? "100%" : undefined }}>
+        <div className="hero-reveal hero-cta-wrap">
           <button
             onClick={openContact}
+            className="hero-cta"
             style={{
               fontWeight: 500,
               fontSize: 18,
               color: "#FFFFFF",
               backgroundColor: "var(--brand-solid)",
-              padding: isStacked ? "13px 26px" : "14px 30px",
               borderRadius: 8,
               border: "none",
               cursor: "pointer",
-              width: isMobile ? "100%" : undefined,
               fontFamily: "var(--font-inter), 'Inter', sans-serif",
               boxShadow: "0 4px 20px color-mix(in srgb, var(--brand) 32%, transparent)",
               transition: "background-color 300ms ease, transform 380ms cubic-bezier(0.34, 1.56, 0.64, 1)",
@@ -171,8 +195,14 @@ export function HeroSection() {
         </div>
 
         {/* Pagination — aligned with the text block */}
-        <div className="hero-reveal" style={{ marginTop: isStacked ? 30 : 42, width: isMobile ? "70%" : 300 }}>
-          <HeroPagination activeSlide={activeSlide} goToSlide={goToSlide} setBarRef={setBarRef} />
+        <div className="hero-reveal hero-pager-wrap">
+          <HeroPagination
+            activeSlide={activeSlide}
+            goToSlide={goToSlide}
+            setBarRef={setBarRef}
+            paused={paused}
+            onTogglePause={togglePause}
+          />
         </div>
       </div>
     </section>

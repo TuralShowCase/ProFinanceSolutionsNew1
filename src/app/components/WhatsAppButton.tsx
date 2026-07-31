@@ -1,9 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
 
 const WA_NUMBER   = "994515050505";
-const WA_TEXT     = encodeURIComponent("Salam! ProFinance Solutions haqqında məlumat almaq istəyirəm.");
 const DISPLAY_NUM = "+994 51 505 05 05";
 
 function WhatsAppIcon() {
@@ -22,18 +22,24 @@ function WhatsAppIcon() {
 }
 
 export function WhatsAppButton() {
+  const t = useTranslations("header");
   const [hovered,  setHovered]  = useState(false);
   const [mounted,  setMounted]  = useState(false);
 
   useEffect(() => { setMounted(true); }, []);
   if (!mounted) return null;
 
+  // Both the label and the message WhatsApp opens with follow the page language.
+  // These used to be hardcoded Azerbaijani, so an English or Russian visitor got
+  // an Azerbaijani screen-reader label and an Azerbaijani draft message.
+  const waText = encodeURIComponent(t("whatsappPrefill"));
+
   return (
     <a
-      href={`https://wa.me/${WA_NUMBER}?text=${WA_TEXT}`}
+      href={`https://wa.me/${WA_NUMBER}?text=${waText}`}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="WhatsApp ilə əlaqə"
+      aria-label={t("whatsappAria")}
       className={`wa-fab${hovered ? "" : " wa-idle"}`}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}

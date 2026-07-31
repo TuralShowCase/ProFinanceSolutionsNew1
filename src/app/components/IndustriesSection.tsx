@@ -25,12 +25,18 @@ const INDUSTRY_META = [
   { Icon: Scale,           img: "/industries/legal.avif" },
 ] as const;
 
+/**
+ * Sizes and spacing live in responsive.css (`IndustriesSection` there).
+ *
+ * `useBreakpoint()` stays for `isStacked` alone: below 1024px this renders a
+ * grid of photo cards and above it an interactive list beside a crossfading
+ * panel — two different trees with different animation targets, not one layout
+ * at two sizes.
+ */
 export function IndustriesSection() {
   const t      = useTranslations("industries");
   const bp     = useBreakpoint();
-  const isMobile = bp === "mobile";
-  const isTablet = bp === "tablet";
-  const isStacked = isMobile || isTablet;
+  const isStacked = bp === "mobile" || bp === "tablet";
   const sectionRef = useRef<HTMLDivElement>(null);
 
   const [active, setActive] = useState(0);
@@ -49,7 +55,9 @@ export function IndustriesSection() {
       gsap.fromTo(".ind-card",  { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.65, ease: "expo.out", stagger: 0.06, scrollTrigger: { trigger: ".ind-cards", start: "top 84%", once: true } });
     }, sectionRef);
     return () => ctx.revert();
-  }, [isMobile, isTablet]);
+    // Only the stacked/desktop flip matters: the two trees animate different
+    // elements, so the context has to be rebuilt when one replaces the other.
+  }, [isStacked]);
 
   const markFailed = (i: number) =>
     setFailed(prev => { if (prev[i]) return prev; const next = [...prev]; next[i] = true; return next; });
@@ -58,15 +66,14 @@ export function IndustriesSection() {
     document.getElementById("clients")?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const pad = isMobile ? "68px 20px 72px" : isTablet ? "84px 28px 92px" : "104px 48px 112px";
   const ActiveIcon = items[active].Icon;
 
   return (
-    <section id="industries" ref={sectionRef} style={{ backgroundColor: "var(--surface)", padding: pad, fontFamily: "var(--font-inter), 'Inter', sans-serif" }}>
+    <section id="industries" ref={sectionRef} className="ind-section" style={{ backgroundColor: "var(--surface)", fontFamily: "var(--font-inter), 'Inter', sans-serif" }}>
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
 
         {/* Header */}
-        <div className="ind-hdr" style={{ opacity: 0, display: "flex", flexDirection: isMobile ? "column" : "row", alignItems: isMobile ? "flex-start" : "flex-end", justifyContent: "space-between", gap: isMobile ? 18 : 40, marginBottom: isMobile ? 30 : 48, flexWrap: "wrap" }}>
+        <div className="ind-hdr" style={{ opacity: 0, display: "flex", justifyContent: "space-between", flexWrap: "wrap" }}>
           <div>
             <p style={{ fontSize: FS_LABEL, fontWeight: 600, color: DARK, letterSpacing: "0.2em", textTransform: "uppercase", margin: "0 0 16px" }}>{t("sectionLabel")}</p>
             <h2 style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: FS_H2, color: "var(--text)", margin: 0, letterSpacing: "-0.035em", lineHeight: 1.08 }}>
@@ -89,7 +96,7 @@ export function IndustriesSection() {
 
         {isStacked ? (
           /* ── Stacked: photo cards ── */
-          <div className="ind-cards" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: isMobile ? 10 : 14 }}>
+          <div className="ind-cards" style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
             {items.map(({ Icon, label, img }, i) => {
               const hasImg = !failed[i];
               return (

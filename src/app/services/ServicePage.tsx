@@ -37,15 +37,11 @@ export const SERVICES_SIDEBAR_WIDTH = 320;
 // as a layout column). She is layered BEHIND the panel so its top edge is what
 // cuts her off — she reads as standing up from behind it instead of being pasted
 // on top of it with her thighs sliced across the dark card.
-//   reveal = how much of the frame stands above the panel edge. 0.62 of the
-//   source lands just below the tablet she's holding, so the visible crop is
-//   head → hands → device, and everything below that hides behind the panel.
-//   The row reserves exactly `reveal` as padding-top, so she never collides
-//   with the CTA button above her.
-const TARGETS_FIGURE = {
-  mobile: { height: 208, reveal: 128, right: 8 },
-  tablet: { height: 248, reveal: 152, right: 40 },
-} as const;
+//   The row reserves exactly her exposed height as padding-top, so she never
+//   collides with the CTA button above her. 0.62 of the source lands just below
+//   the tablet she's holding, so the visible crop is head → hands → device.
+// Those numbers now live in `.targets-row` / `.targets-figure-stacked` in
+// globals.css (208/128/8 at mobile, 248/152/40 at tablet).
 
 function ServicesSidebar({ allServices, currentSlug, locale, isMobile, open, onOpen, onClose }: {
   allServices: ServiceData[]; currentSlug: string; locale: string; isMobile: boolean;
@@ -225,34 +221,34 @@ function ServicesSidebar({ allServices, currentSlug, locale, isMobile, open, onO
   );
 }
 
-function FeatureCard({ title, description, isMobile }: { title: string; description: string; isMobile: boolean }) {
+function FeatureCard({ title, description }: { title: string; description: string }) {
   const [hovered, setHovered] = useState(false);
   return (
     <div className="feat-card" onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}
-      style={{ backgroundColor: "var(--surface)", border: `1px solid ${hovered ? `${mix(DARK, 19)}` : "var(--border)"}`, borderRadius: 14, padding: isMobile ? "22px 20px" : "28px 28px", position: "relative", transition: "border-color 320ms ease, box-shadow 360ms ease, transform 400ms cubic-bezier(0.34, 1.56, 0.64, 1)", transform: hovered ? "translateY(-3px)" : "translateY(0)", boxShadow: hovered ? "0 12px 36px color-mix(in srgb, var(--brand) 8%, transparent)" : "none", overflow: "hidden" }}
+      style={{ backgroundColor: "var(--surface)", border: `1px solid ${hovered ? `${mix(DARK, 19)}` : "var(--border)"}`, borderRadius: 14, position: "relative", transition: "border-color 320ms ease, box-shadow 360ms ease, transform 400ms cubic-bezier(0.34, 1.56, 0.64, 1)", transform: hovered ? "translateY(-3px)" : "translateY(0)", boxShadow: hovered ? "0 12px 36px color-mix(in srgb, var(--brand) 8%, transparent)" : "none", overflow: "hidden" }}
     >
       <div style={{ position: "absolute", top: 0, left: 0, height: 2, width: hovered ? "100%" : "0%", backgroundColor: DARK, borderRadius: "14px 14px 0 0", transition: "width 350ms ease" }} />
-      <h3 style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: isMobile ? FS_H4_MOBILE : FS_H4_DESKTOP, color: "var(--text)", margin: "0 0 10px", letterSpacing: "-0.02em", lineHeight: 1.3 }}>{title}</h3>
+      <h3 className="feat-card-title" style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 700, color: "var(--text)", margin: "0 0 10px", letterSpacing: "-0.02em", lineHeight: 1.3 }}>{title}</h3>
       <p style={{ fontSize: FS_BODY, color: "var(--text-muted)", lineHeight: 1.78, margin: 0 }}>{description}</p>
     </div>
   );
 }
 
-function ProcessStepCard({ step, title, description, isMobile, isTablet }: {
-  step: string; title: string; description: string; isMobile: boolean; isTablet: boolean;
+function ProcessStepCard({ step, title, description }: {
+  step: string; title: string; description: string;
 }) {
   const [hovered, setHovered] = useState(false);
   return (
     <div className="proc-step" onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}
-      style={{ backgroundColor: CREAM, borderRadius: 18, padding: isMobile ? "28px 24px" : isTablet ? "30px 28px" : "36px 32px", position: "relative", overflow: "hidden", display: "flex", flexDirection: "column", transition: "transform 400ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 360ms ease", transform: hovered ? "translateY(-5px)" : "translateY(0)", boxShadow: hovered ? "0 20px 52px color-mix(in srgb, var(--brand) 10%, transparent)" : "none", minHeight: isMobile ? 180 : 220 }}
+      style={{ backgroundColor: CREAM, borderRadius: 18, position: "relative", overflow: "hidden", display: "flex", flexDirection: "column", transition: "transform 400ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 360ms ease", transform: hovered ? "translateY(-5px)" : "translateY(0)", boxShadow: hovered ? "0 20px 52px color-mix(in srgb, var(--brand) 10%, transparent)" : "none" }}
     >
       <span style={{ position: "absolute", bottom: -16, right: 8, fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 900, fontSize: 100, color: DARK, opacity: hovered ? 0.08 : 0.045, letterSpacing: "-0.08em", lineHeight: 1, userSelect: "none", pointerEvents: "none", transition: "opacity 260ms" }}>{step}</span>
       <div style={{ marginBottom: 20, position: "relative", zIndex: 1 }}>
-        <span style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 900, fontSize: isMobile ? 32 : 40, color: DARK, letterSpacing: "-0.06em", lineHeight: 1, display: "block", marginBottom: 14 }}>{step}</span>
+        <span className="proc-step-num" style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 900, color: DARK, letterSpacing: "-0.06em", lineHeight: 1, display: "block", marginBottom: 14 }}>{step}</span>
         <div style={{ height: 2, borderRadius: 1, backgroundColor: DARK, opacity: hovered ? 0.5 : 0.22, width: hovered ? 52 : 32, transition: "width 320ms ease, opacity 260ms" }} />
       </div>
       <div style={{ position: "relative", zIndex: 1 }}>
-        <h3 style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: isMobile ? FS_H4_MOBILE : FS_H4_DESKTOP, color: "var(--text)", margin: "0 0 10px", letterSpacing: "-0.025em", lineHeight: 1.25 }}>{title}</h3>
+        <h3 className="proc-step-title" style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 700, color: "var(--text)", margin: "0 0 10px", letterSpacing: "-0.025em", lineHeight: 1.25 }}>{title}</h3>
         <p style={{ fontSize: FS_BODY, color: "var(--text-muted)", lineHeight: 1.8, margin: 0 }}>{description}</p>
       </div>
     </div>
@@ -262,8 +258,10 @@ function ProcessStepCard({ step, title, description, isMobile, isTablet }: {
 function ServicePageInner({ service, allServices, locale }: { service: ServiceData; allServices: ServiceData[]; locale: string }) {
   const t      = useTranslations("servicePage");
   const bp     = useBreakpoint();
+  // Sizes and spacing are CSS now (the `Service page` block in globals.css,
+  // mobile-first to match its neighbours there). `isMobile` survives for the
+  // sidebar, which is a drawer on a phone and a static rail otherwise.
   const isMobile = bp === "mobile";
-  const isTablet = bp === "tablet";
   const { openContact } = useContactModal();
 
   const pageRef    = useRef<HTMLDivElement>(null);
@@ -349,25 +347,31 @@ function ServicePageInner({ service, allServices, locale }: { service: ServiceDa
       {/* Features / package — what's included, then what you get, then who it's for */}
       <section className="features-section" style={{ backgroundColor: CREAM }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-          <div style={{ marginBottom: isMobile ? 36 : 52 }}>
+          <div className="pkg-head">
             <p style={{ fontSize: FS_LABEL, fontWeight: 600, color: DARK, letterSpacing: "0.2em", textTransform: "uppercase", margin: "0 0 14px" }}>{t("servicePackage")}</p>
             <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 32, flexWrap: "wrap" }}>
               <h2 style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: FS_H2, color: "var(--text)", margin: 0, letterSpacing: "-0.04em", lineHeight: 1.08 }}>
                 {t("whatsIncluded")} <span style={{ color: DARK }}>{t("whatsIncludedAccent")}</span>
               </h2>
-              {!isMobile && <p style={{ fontSize: 18, color: "var(--text-muted)", lineHeight: 1.7, margin: 0, maxWidth: 300 }}>{t("packageSubtext")}</p>}
+              <p className="pkg-note" style={{ fontSize: 18, color: "var(--text-muted)", lineHeight: 1.7, margin: 0, maxWidth: 300 }}>{t("packageSubtext")}</p>
             </div>
           </div>
-          <div style={{ height: 1, backgroundColor: "var(--border)", marginBottom: isMobile ? 32 : 48 }} />
-          <div className="features-bento" style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isTablet ? "1fr 1fr" : service.features.length === 4 ? "1fr 1fr" : "1fr 1fr 1fr", gap: 12, marginBottom: isMobile ? 44 : 64 }}>
-            {service.features.map((f, i) => <FeatureCard key={i} title={f.title} description={f.description} isMobile={isMobile} />)}
+          <div className="pkg-rule" style={{ height: 1, backgroundColor: "var(--border)" }} />
+          {/* Desktop column count is a data question, not a breakpoint one: four
+              features read better as 2×2 than as 3+1. Hence the modifier class,
+              which only takes effect at ≥1024px. */}
+          <div
+            className={service.features.length === 4 ? "features-bento features-bento-2col" : "features-bento features-bento-3col"}
+            style={{ display: "grid", gap: 12 }}
+          >
+            {service.features.map((f, i) => <FeatureCard key={i} title={f.title} description={f.description} />)}
           </div>
 
           {/* What you get + CTA */}
-          <div className="whatget-row" style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : isTablet ? "1fr" : "1fr 340px", gap: isMobile ? 36 : isTablet ? 40 : 72, alignItems: "start", marginBottom: isMobile ? 44 : 64 }}>
+          <div className="whatget-row" style={{ display: "grid", alignItems: "start" }}>
             <div className="whatget-anim" style={{ opacity: 0 }}>
               <p style={{ fontSize: FS_LABEL, fontWeight: 700, color: DARK, letterSpacing: "0.18em", textTransform: "uppercase", margin: "0 0 18px" }}>{t("whatYouGet")}</p>
-              <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: isMobile ? 12 : "14px 32px" }}>
+              <div className="whatget-list" style={{ display: "grid" }}>
                 {service.highlights.map((h, i) => (
                   <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 12 }}>
                     <div style={{ width: 22, height: 22, borderRadius: "50%", flexShrink: 0, backgroundColor: "var(--surface)", display: "flex", alignItems: "center", justifyContent: "center", marginTop: 1 }}>
@@ -391,29 +395,25 @@ function ServicePageInner({ service, allServices, locale }: { service: ServiceDa
           </div>
 
           {/* Who it's for — see TARGETS_FIGURE for the ≤1023px layering */}
-          <div className="targets-row" style={{ position: "relative", paddingTop: isMobile ? TARGETS_FIGURE.mobile.reveal : isTablet ? TARGETS_FIGURE.tablet.reveal : 0 }}>
-            {(isMobile || isTablet) && (
-              <img
-                src="/ServiceForUHumanImage.avif" alt="" aria-hidden="true" loading="lazy"
-                style={{
-                  position: "absolute", top: 0, zIndex: 0,
-                  right:  isMobile ? TARGETS_FIGURE.mobile.right  : TARGETS_FIGURE.tablet.right,
-                  height: isMobile ? TARGETS_FIGURE.mobile.height : TARGETS_FIGURE.tablet.height,
-                  width: "auto", objectFit: "contain", pointerEvents: "none",
-                }}
-              />
-            )}
-            <div style={{ backgroundColor: INVERT, borderRadius: 18, padding: isMobile ? "24px 20px" : isTablet ? "28px 32px" : "36px 40px", display: "flex", flexDirection: isMobile || isTablet ? "column" : "row", gap: isMobile ? 14 : isTablet ? 16 : 32, alignItems: isMobile || isTablet ? "flex-start" : "center", position: "relative", zIndex: 1, overflow: "visible" }}>
-              <div style={isMobile || isTablet ? undefined : { flexShrink: 0, alignSelf: "center" }}>
+          {/* Both figures are always rendered and one is hidden per breakpoint,
+              rather than branching in JS. They share a single src, so the
+              hidden one costs no extra request — and the server HTML no longer
+              has to guess the viewport. See `.targets-figure-*`. */}
+          <div className="targets-row" style={{ position: "relative" }}>
+            <img
+              className="targets-figure-stacked"
+              src="/ServiceForUHumanImage.avif" alt="" aria-hidden="true" loading="lazy"
+              style={{ position: "absolute", top: 0, zIndex: 0, width: "auto", objectFit: "contain", pointerEvents: "none" }}
+            />
+            <div className="targets-card" style={{ backgroundColor: INVERT, borderRadius: 18, display: "flex", position: "relative", zIndex: 1, overflow: "visible" }}>
+              <div className="targets-lede">
                 <p style={{ fontSize: 16, fontWeight: 700, color: ACCENT, letterSpacing: "0.22em", textTransform: "uppercase", margin: "0 0 8px", opacity: 0.85 }}>{t("suitableFor")}</p>
                 <p style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: FS_H4_MOBILE, color: "#ffffff", margin: 0, letterSpacing: "-0.025em", lineHeight: 1.25, maxWidth: 180 }}>{t("doesThisServeYou")}</p>
               </div>
-              {!isMobile && !isTablet && (
-                <div style={{ position: "relative", width: 180, flexShrink: 0, alignSelf: "stretch", overflow: "visible" }}>
-                  <img src="/ServiceForUHumanImage.avif" alt="" aria-hidden="true" loading="lazy" style={{ position: "absolute", bottom: -36, left: 0, height: 210, width: "auto", objectFit: "contain", pointerEvents: "none" }} />
-                </div>
-              )}
-              <div style={{ flex: 1, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, alignSelf: "center", width: isMobile || isTablet ? "100%" : undefined, position: "relative", zIndex: 1 }}>
+              <div className="targets-figure-inline" style={{ position: "relative", width: 180, flexShrink: 0, alignSelf: "stretch", overflow: "visible" }}>
+                <img src="/ServiceForUHumanImage.avif" alt="" aria-hidden="true" loading="lazy" style={{ position: "absolute", bottom: -36, left: 0, height: 210, width: "auto", objectFit: "contain", pointerEvents: "none" }} />
+              </div>
+              <div className="targets-pills" style={{ flex: 1, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, alignSelf: "center", position: "relative", zIndex: 1 }}>
                 {service.targets.map((target, i) => (
                   <div key={i} className="target-pill" style={{ display: "flex", alignItems: "center", gap: 8, backgroundColor: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.12)", borderRadius: 9, padding: "9px 14px" }}>
                     <div style={{ width: 6, height: 6, borderRadius: "50%", backgroundColor: ACCENT, flexShrink: 0 }} />
@@ -428,18 +428,18 @@ function ServicePageInner({ service, allServices, locale }: { service: ServiceDa
 
       {/* Process */}
       <section ref={processRef} style={{ backgroundColor: "var(--surface)", overflow: "hidden" }}>
-        <div className="proc-header" style={{ padding: isMobile ? "64px 20px 36px" : isTablet ? "72px 28px 40px" : "88px 48px 44px", maxWidth: isMobile ? undefined : 1200, margin: "0 auto" }}>
+        <div className="proc-header" style={{ margin: "0 auto" }}>
           <p style={{ fontSize: FS_LABEL, fontWeight: 600, color: DARK, letterSpacing: "0.2em", textTransform: "uppercase", margin: "0 0 14px" }}>{t("stepByStep")}</p>
           <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 32, flexWrap: "wrap" }}>
             <h2 style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: FS_H2, color: "var(--text)", margin: 0, letterSpacing: "-0.04em", lineHeight: 1.08 }}>
               {t("howItWorks")} <span style={{ color: DARK }}>{t("howItWorksAccent")}</span>
             </h2>
-            {!isMobile && <p style={{ fontSize: 18, color: "var(--text-muted)", lineHeight: 1.7, margin: 0, maxWidth: 280 }}>{t("stepsSupport", { count: service.process.length })}</p>}
+            <p className="proc-note" style={{ fontSize: 18, color: "var(--text-muted)", lineHeight: 1.7, margin: 0, maxWidth: 280 }}>{t("stepsSupport", { count: service.process.length })}</p>
           </div>
         </div>
-        <div style={{ maxWidth: 1200, margin: "0 auto", padding: isMobile ? "0 16px 64px" : isTablet ? "0 28px 80px" : "0 48px 88px" }}>
-          <div className="proc-grid" style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 14 }}>
-            {service.process.map((p, i) => <ProcessStepCard key={i} step={p.step} title={p.title} description={p.description} isMobile={isMobile} isTablet={isTablet} />)}
+        <div className="proc-body" style={{ maxWidth: 1200, margin: "0 auto" }}>
+          <div className="proc-grid" style={{ display: "grid", gap: 14 }}>
+            {service.process.map((p, i) => <ProcessStepCard key={i} step={p.step} title={p.title} description={p.description} />)}
           </div>
         </div>
       </section>
@@ -457,12 +457,12 @@ function ServicePageInner({ service, allServices, locale }: { service: ServiceDa
       </div>
 
       {/* Bottom CTA */}
-      <section style={{ backgroundColor: "var(--surface)", paddingTop: isMobile ? 48 : isTablet ? 160 : 200, paddingBottom: isMobile ? 64 : isTablet ? 80 : 100, paddingLeft: isMobile ? 16 : isTablet ? 28 : 48, paddingRight: isMobile ? 16 : isTablet ? 28 : 48 }}>
-        <div style={{ maxWidth: isMobile ? "100%" : isTablet ? 900 : 1200, margin: "0 auto" }}>
-          <div style={{ backgroundColor: INVERT, borderRadius: 24, padding: isMobile ? "44px 24px 260px" : isTablet ? "52px 48px" : "68px 72px", position: "relative", overflow: "visible", display: "flex", flexDirection: isMobile ? "column" : "row", alignItems: isMobile ? "flex-start" : "center", gap: isMobile ? 28 : 48 }}>
+      <section className="spcta-section" style={{ backgroundColor: "var(--surface)" }}>
+        <div className="spcta-wrap" style={{ margin: "0 auto" }}>
+          <div className="spcta-card" style={{ backgroundColor: INVERT, borderRadius: 24, position: "relative", overflow: "visible", display: "flex" }}>
             <div style={{ position: "absolute", top: 0, left: 80, right: 80, height: 2, backgroundColor: ACCENT, borderRadius: "0 0 2px 2px", opacity: 0.4 }} />
-            <img src="/ServicesCTAHumanImage.avif" alt="" aria-hidden="true" loading="lazy" style={{ position: "absolute", ...(isMobile ? { bottom: 0, left: "50%", transform: "translateX(-50%)", height: 240 } : { bottom: 0, right: 0, height: isTablet ? 440 : 560 }), width: "auto", objectFit: "contain", objectPosition: "bottom", pointerEvents: "none", zIndex: 0 }} />
-            <div style={{ display: "flex", flexDirection: "column", gap: isMobile ? 28 : 36, maxWidth: isMobile ? "100%" : isTablet ? "55%" : "50%", position: "relative", zIndex: 1, width: "100%" }}>
+            <img className="spcta-figure" src="/ServicesCTAHumanImage.avif" alt="" aria-hidden="true" loading="lazy" style={{ position: "absolute", width: "auto", objectFit: "contain", objectPosition: "bottom", pointerEvents: "none", zIndex: 0 }} />
+            <div className="spcta-body" style={{ display: "flex", flexDirection: "column", position: "relative", zIndex: 1, width: "100%" }}>
               <div>
                 <p style={{ fontSize: 16, fontWeight: 700, color: ACCENT, letterSpacing: "0.22em", textTransform: "uppercase", margin: "0 0 16px" }}>{t("ctaReadyLabel")}</p>
                 <h2 style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: FS_H3, color: "#ffffff", margin: "0 0 14px", letterSpacing: "-0.04em", lineHeight: 1.1 }}>
@@ -470,7 +470,7 @@ function ServicePageInner({ service, allServices, locale }: { service: ServiceDa
                 </h2>
                 <p style={{ fontSize: 18, color: "var(--invert-text-muted)", lineHeight: 1.75, margin: 0 }}>{t("ctaSubtext", { serviceName: service.name.toLowerCase() })}</p>
               </div>
-              <div style={{ display: "flex", flexDirection: "column", gap: 12, width: isMobile ? "100%" : "auto" }}>
+              <div className="spcta-actions" style={{ display: "flex", flexDirection: "column", gap: 12 }}>
                 <button onClick={openContact} style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 8, backgroundColor: "var(--cta-bg)", color: "var(--cta-text)", fontWeight: 700, fontSize: 18, padding: "14px 32px", borderRadius: 9, whiteSpace: "nowrap", transition: "transform 200ms, background-color 200ms", border: "none", cursor: "pointer", fontFamily: "var(--font-inter), 'Inter', sans-serif" }}
                   onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)"; (e.currentTarget as HTMLElement).style.backgroundColor = "var(--cta-bg-hover)"; }}
                   onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; (e.currentTarget as HTMLElement).style.backgroundColor = "var(--cta-bg)"; }}

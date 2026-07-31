@@ -15,7 +15,10 @@
     "partner": "Partner",
     "allPlhServices": "All PLH services",
     "financeServices": "Finance & Business Services",
-    "legalServices": "Legal Services"
+    "legalServices": "Legal Services",
+    "whatsappAria": "Contact us on WhatsApp",
+    "slideAria": "Slide",
+    "whatsappPrefill": "Hello! I would like to know more about ProFinance Solutions."
   },
   "footer": {
     "tagline": "Your trusted partner in finance and business",
@@ -42,7 +45,9 @@
       "services": "Strategic planning, tax optimization and financial management",
       "note": "We take your business to the next stage"
     },
-    "ctaContact": "Get in Touch"
+    "ctaContact": "Get in Touch",
+    "pauseSlides": "Pause slides",
+    "playSlides": "Play slides"
   },
   "whoWeAre": {
     "sectionLabel": "Who we are",
@@ -241,7 +246,8 @@
           "title": "Individual approach for every client",
           "desc": "No standard templates. An NDA is signed with every client; in-depth understanding of your company's unique financial challenges drives tailored, bespoke solutions."
         }
-      ]
+      ],
+      "photoAlt": "ProFinance team"
     },
     "cta": {
       "heading": "Achieve success",
@@ -325,5 +331,15 @@
       "IT and technology",
       "Legal services"
     ]
+  },
+  "notFound": {
+    "message": "Page not found",
+    "backHome": "Back to homepage"
+  },
+  "errorPage": {
+    "title": "Something went wrong",
+    "retry": "Try again",
+    "detail": "A technical problem occurred. Please try again in a moment.",
+    "home": "Homepage"
   }
 }

@@ -1,0 +1,1271 @@
+/**
+ * Responsive layout — the CSS half of the JS→CSS migration.
+ *
+ * Background: layout used to be computed in JavaScript. `useBreakpoint()`
+ * returns "desktop" during SSR and corrects in an effect, so every mobile
+ * visitor received desktop HTML and then re-rendered after hydration — layout
+ * shift on the largest elements, after paint, which is the worst kind for CLS.
+ *
+ * The fix is to move *style values* into CSS. Components may still call
+ * `useBreakpoint()` for genuinely structural branches (different markup per
+ * breakpoint) or as an effect dependency — neither affects painted output, so
+ * neither causes shift.
+ *
+ * Rules:
+ *  - Desktop is the base; tablet and mobile override downward. This mirrors the
+ *    `isMobile ? m : isTablet ? t : d` ordering the components used, so values
+ *    can be moved across verbatim.
+ *  - Breakpoints match useBreakpoint() exactly: mobile < 768, tablet 768–1023,
+ *    desktop >= 1024. Do not introduce new ones without updating that hook.
+ *  - Values here are transcribed from the inline styles they replaced. This
+ *    migration is intentionally pixel-identical; restyling is a separate task.
+ */
+
+/* ============================================================
+   PartnerSection
+   ============================================================ */
+
+.partner-section {
+  padding: 100px 40px 108px;
+}
+
+.partner-photo {
+  /* Desktop stretches to the content column, so no ratio is imposed. */
+  aspect-ratio: auto;
+}
+
+.partner-card {
+  grid-template-columns: 1.02fr 0.98fr;
+  min-height: 500px;
+}
+
+/* Hairline on the edge the photo shares with the content panel: down the left
+   on desktop, along the bottom once stacked. */
+.partner-seam {
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+}
+
+.partner-lockup-chip {
+  right: 22px;
+  bottom: 22px;
+}
+
+.partner-content {
+  padding: 64px 64px;
+}
+
+.partner-logo-wrap {
+  margin-bottom: 28px;
+}
+
+.partner-logo {
+  height: 130px;
+  margin-bottom: 20px;
+}
+
+.partner-firm {
+  font-size: 24px; /* FS_H4_DESKTOP */
+}
+
+.partner-hdr {
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 40px;
+}
+
+.partner-features {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.partner-feat {
+  padding: 28px 28px;
+}
+
+/* ============================================================
+   ClientsSection
+   ============================================================ */
+
+.clients-section {
+  padding: 100px 0 88px;
+}
+
+.clients-inner {
+  padding: 0 48px;
+  /* Full shorthand, not just margin-bottom — the component must not carry an
+     inline `margin` for this box or it would win over the stylesheet. */
+  margin: 0 auto 44px;
+}
+
+.clients-marquee {
+  gap: 14px;
+}
+
+.clients-logo {
+  width: 216px;
+  height: 92px;
+  margin-right: 14px;
+  padding: 22px 26px;
+}
+
+.clients-logo img {
+  max-height: 42px;
+}
+
+/* Edge fades over the marquee. */
+.clients-fade {
+  width: 120px;
+}
+
+.clients-foot {
+  padding: 0 48px;
+}
+
+/* ============================================================
+   WhoWeAreSection
+   ============================================================ */
+
+.wwa-section {
+  padding: 108px 48px 116px;
+}
+
+.wwa-head {
+  margin-bottom: 40px;
+}
+
+.wwa-rule {
+  margin-bottom: 48px;
+}
+
+/**
+ * Two columns on desktop (copy + link on the left, mission panel on the right),
+ * one column on mobile with the mission panel between the copy and the link.
+ *
+ * That reordering used to be a JS branch rendering two different trees. Grid
+ * areas express both from one DOM order, so the server HTML is correct at every
+ * width. Row gap stays 0 — the spacing between copy and link comes from the
+ * link's own margin-top, exactly as it did in the flex column this replaced.
+ */
+.wwa-grid {
+  display: grid;
+  grid-template-columns: 1fr 440px;
+  column-gap: 72px;
+  row-gap: 0;
+  align-items: start;
+  grid-template-areas:
+    "body mission"
+    "cta  mission";
+}
+
+.wwa-body {
+  grid-area: body;
+}
+
+.wwa-cta {
+  grid-area: cta;
+  justify-self: start;
+  margin-top: 34px;
+}
+
+.wwa-mission {
+  grid-area: mission;
+  border-radius: 20px;
+  padding: 42px 40px 36px;
+  margin-top: 0;
+}
+
+.wwa-mission-accent {
+  left: 40px;
+  right: 40px;
+}
+
+.wwa-mission-rule {
+  margin: 26px 0 20px;
+}
+
+/* ============================================================
+   About — AboutMission
+   ============================================================ */
+
+.msn-section {
+  padding: 100px 48px 108px;
+}
+
+.msn-label {
+  margin-bottom: 40px;
+}
+
+.msn-rule {
+  margin-bottom: 52px;
+}
+
+.msn-copy {
+  margin-bottom: 48px;
+}
+
+.msn-card {
+  border-radius: 20px;
+  padding: 44px 48px;
+}
+
+.msn-quotemark {
+  font-size: 140px;
+}
+
+.msn-card-label {
+  letter-spacing: 0.22em;
+  margin: 0 0 20px;
+}
+
+.msn-quote {
+  margin: 0 0 28px;
+}
+
+.msn-card-rule {
+  margin-bottom: 20px;
+}
+
+/* ============================================================
+   About — AboutHero
+   ============================================================ */
+
+/* FS_DISPLAY_* from lib/typography.ts, kept in sync by hand. Long headlines
+   don't scale well on vw alone, hence three explicit steps rather than one clamp. */
+.about-tagline {
+  font-size: clamp(3.25rem, 4.4vw, 4.5rem); /* FS_DISPLAY_DESKTOP */
+}
+
+/* ============================================================
+   About — AboutCTA
+   ============================================================ */
+
+.acta-section {
+  padding: 200px 48px 100px;
+}
+
+.acta-wrap {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.acta-card {
+  padding: 64px 64px;
+}
+
+/* Decorative figure overhanging the card. */
+.acta-figure {
+  bottom: 0;
+  right: 5%;
+  height: 560px;
+}
+
+.acta-body {
+  max-width: 52%;
+  gap: 36px;
+}
+
+.acta-actions {
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  width: auto;
+}
+
+/* Buttons size to their content on desktop, stack full-width on mobile. */
+.acta-actions > * {
+  width: auto;
+}
+
+/* ============================================================
+   About — AboutValues (desktop variant only)
+
+   This component keeps `useBreakpoint()`: below 1024px it returns a different
+   tree entirely (see the early return in AboutValues.tsx), which is a design
+   difference rather than a set of sizes. Only the desktop-vs-tablet values that
+   live inside the shared branch moved here.
+   ============================================================ */
+
+.val-inner {
+  padding: 0 64px;
+}
+
+.val-hdr {
+  margin-bottom: 52px;
+}
+
+.val-ghost {
+  right: -20px;
+  font-size: 148px;
+}
+
+.val-row {
+  gap: 32px;
+  padding: 26px 0 26px 16px;
+}
+
+.val-num {
+  width: 44px;
+}
+
+.val-iconbox {
+  width: 50px;
+  height: 50px;
+}
+
+.val-iconbox svg {
+  width: 21px;
+  height: 21px;
+}
+
+.val-dots {
+  right: 24px;
+}
+
+/* ============================================================
+   About — AboutTeam (desktop variant only)
+
+   Same situation: mobile returns its own tree from an early return.
+   ============================================================ */
+
+.team-section {
+  padding: 100px 48px 108px;
+}
+
+.team-grid {
+  grid-template-columns: 380px 1fr;
+  gap: 80px;
+}
+
+.team-trait {
+  padding: 26px 0;
+}
+
+.team-trait-title {
+  font-size: 24px; /* FS_H4_DESKTOP */
+}
+
+/* ============================================================
+   HeroSection
+
+   Mobile and tablet shared every one of these values, so they override
+   together in the tablet block rather than repeating at mobile — the two
+   exceptions (full-width CTA, narrower pager) are mobile-only and are the
+   reason the widths are declared separately from the margins.
+   ============================================================ */
+
+.hero-inner {
+  margin: 0 auto;
+  padding: 72px 40px 40px;
+}
+
+/* The <h1>. Sizing this in JS meant the largest text on the page resized
+   after hydration on every phone. */
+.hero-h1 {
+  font-size: clamp(36px, 3.5vw, 52px);
+}
+
+.hero-note {
+  margin: 20px 0 0;
+}
+
+.hero-cta-wrap {
+  margin-top: 36px;
+}
+
+.hero-cta {
+  padding: 14px 30px;
+}
+
+.hero-pager-wrap {
+  margin-top: 42px;
+  width: 300px;
+}
+
+/* ============================================================
+   WhyUsSection — console variant
+
+   The stacked fallback (`.why-stack*`) is what mobile and reduced-motion get;
+   the console (`.why-console` and below) never renders at mobile width, so its
+   tablet overrides are the narrowest step that exists for those classes.
+
+   `--why-sticky-top` and `--why-pad-top` are read back by the ScrollTrigger in
+   the component: the trigger window has to start exactly where the card locks,
+   so the number has to be the same one CSS painted. Reading it beats keeping a
+   second copy in JS that can drift.
+   ============================================================ */
+
+.why-console {
+  --why-sticky-top: 108px;
+  --why-pad-top: 112px;
+  /* Scroll the console consumes, on top of --why-pad-top, so the spacing above
+     the card doesn't shorten the read-through. */
+  --why-scroll: 190vh;
+  height: calc(var(--why-scroll) + var(--why-pad-top));
+  padding-top: var(--why-pad-top);
+}
+
+.why-sticky {
+  top: var(--why-sticky-top);
+  padding: 0 40px;
+}
+
+.why-card {
+  height: clamp(392px, calc(100vh - 288px), 520px);
+}
+
+/* Three columns once the figure has its own lane between rail and panel. The
+   figure is rendered only above 1180px, so the column count and the child
+   count are decided together in the component. */
+.why-card-figure {
+  grid-template-columns: minmax(0, 1fr) 220px minmax(0, 1.34fr);
+}
+
+.why-card-plain {
+  grid-template-columns: minmax(0, 0.94fr) minmax(0, 1.06fr);
+}
+
+.why-rail {
+  padding: 30px 26px 26px 30px;
+}
+
+.why-row {
+  padding: 11px 14px;
+}
+
+.why-pane {
+  padding: 34px 40px 32px;
+}
+
+/* ============================================================
+   WhyUsSection — stacked fallback
+
+   Rendered at mobile width and whenever reduced motion is on, so unlike the
+   console this one does need all three steps.
+   ============================================================ */
+
+.why-stack {
+  padding: 96px 32px 104px;
+}
+
+.why-stack-row {
+  padding: 24px 26px;
+}
+
+/* Shared by both variants. */
+.why-head {
+  margin-bottom: 34px;
+}
+
+/* ============================================================
+   IndustriesSection
+
+   `.ind-cards` is the stacked variant, so it never renders at desktop width —
+   its base values are the tablet ones.
+   ============================================================ */
+
+.ind-section {
+  padding: 104px 48px 112px;
+}
+
+.ind-hdr {
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 40px;
+  margin-bottom: 48px;
+}
+
+.ind-cards {
+  gap: 14px;
+}
+
+/* ============================================================
+   ServicesSection
+
+   The card has two variants that are breakpoint-exclusive: `svc-*-row` renders
+   only below 768px, `svc-*-stack` only at 768 and up. So their differing values
+   need no media query at all — each class just states its own. Only the
+   desktop-vs-tablet differences inside the stacked variant are overrides.
+   ============================================================ */
+
+.svc-section {
+  padding: 112px 48px 120px;
+}
+
+.svc-heading-anim {
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 48px;
+  margin-bottom: 52px;
+}
+
+.svc-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+/**
+ * Ruled sheet: every cell draws a right and bottom hairline, and the cells on
+ * the sheet's own edges give theirs up. This replaces `isLastCol`/`isLastRow`
+ * index arithmetic in JS, and inherits its one assumption — that the eight
+ * services divide evenly into the column count.
+ *
+ * `:where()` is load-bearing: it contributes no specificity, so these stay at
+ * plain-class weight and a later breakpoint block can reset them with a plain
+ * `.svc-cell` rule. Without it, `.svc-cell:nth-child(4n)` would outrank the
+ * tablet override no matter which media query the override sat in.
+ */
+.svc-cell {
+  padding: 8px;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+/* 4 columns: cells 4 and 8 end a row, 5–8 are the last row. */
+.svc-cell:where(:nth-child(4n)) {
+  border-right: none;
+}
+
+.svc-cell:where(:nth-last-child(-n + 4)) {
+  border-bottom: none;
+}
+
+/* ---- Card: mobile row variant ---- */
+
+.svc-card-row {
+  border-radius: 16px;
+  padding: 12px;
+}
+
+.svc-plate-row {
+  width: 112px;
+  aspect-ratio: 1 / 1;
+  border-radius: 14px;
+}
+
+.svc-plate-row .svc-ground {
+  bottom: 13%;
+  height: 7px;
+}
+
+/* ---- Card: stacked (tablet + desktop) variant ---- */
+
+.svc-card-stack {
+  border-radius: 18px;
+  padding: 18px;
+}
+
+.svc-plate-stack {
+  aspect-ratio: 1 / 1;
+  border-radius: 16px;
+}
+
+.svc-plate-stack .svc-ground {
+  bottom: 15%;
+  height: 11px;
+}
+
+/* The object inside the plate. `--svc-obj-scale` is a per-asset correction set
+   inline by the component; the breakpoint width is the part that lives here. */
+.svc-plate-row .svc-obj {
+  width: calc(76% * var(--svc-obj-scale, 1));
+}
+
+.svc-plate-stack .svc-obj {
+  width: calc(78% * var(--svc-obj-scale, 1));
+}
+
+/* Shared by both card variants.
+   NOT `.svc-title` — that name is already the service *detail page*'s hero
+   headline (three display-size clamps in the global stylesheet). Since this
+   file is @imported at the top of that one, its rules come later at equal
+   specificity and win: reusing the name rendered these card titles at 63px and
+   made the homepage 501px taller. The `svc-` prefix is shared between
+   ServicesSection and ServicePage — grep the global stylesheet for any new
+   `svc-*` name before adding it here. */
+.svc-card-title {
+  font-size: 24px; /* FS_H4_DESKTOP */
+}
+
+/* ---- Closing CTA (stacked-figure variant; mobile renders its own tree) ---- */
+
+.svc-cta {
+  padding-top: 190px;
+}
+
+.svc-cta-figure {
+  left: 48px;
+  height: 360px;
+}
+
+.svc-cta-card {
+  padding: 40px 44px 40px 260px;
+}
+
+/* ============================================================
+   Footer
+   ============================================================ */
+
+.ftr-wrap {
+  padding: 0 48px;
+}
+
+/* Longhands, not `padding`: the brand bar has no horizontal padding of its
+   own and a shorthand would invent some. */
+.ftr-brand {
+  grid-template-columns: auto 1fr auto;
+  gap: 32px;
+  padding-top: 60px;
+  padding-bottom: 36px;
+}
+
+/* Centre tagline — the grid's middle column, dropped entirely at mobile where
+   the bar collapses to one column. */
+.ftr-tagline {
+  display: block;
+}
+
+.ftr-social {
+  justify-content: flex-end;
+}
+
+.ftr-partner {
+  gap: 20px;
+  padding: 20px 0;
+  flex-wrap: nowrap;
+}
+
+.ftr-cols {
+  grid-template-columns: 1.2fr 0.9fr 1fr;
+  gap: 52px;
+  padding-top: 48px;
+  padding-bottom: 56px;
+}
+
+.ftr-bottom {
+  padding-top: 24px;
+  padding-bottom: 36px;
+  flex-direction: row;
+  align-items: center;
+  gap: 0;
+}
+
+.ftr-meta {
+  gap: 22px;
+}
+
+/* ============================================================
+   Breakpoints
+   ============================================================ */
+
+/* ---- Tablet: 768–1023 ---- */
+@media (max-width: 1023px) {
+  .partner-section {
+    padding: 80px 28px 88px;
+  }
+
+  .clients-inner,
+  .clients-foot {
+    padding: 0 28px;
+  }
+
+  /* ---- WhoWeAreSection ---- */
+  .wwa-section {
+    padding: 88px 28px 96px;
+  }
+
+  .wwa-grid {
+    grid-template-columns: 1fr 320px;
+    column-gap: 40px;
+  }
+
+  .wwa-mission {
+    padding: 36px 32px 32px;
+  }
+
+  /* ---- AboutMission ---- */
+  .msn-section {
+    padding: 80px 28px 88px;
+  }
+
+  .msn-card {
+    padding: 36px 40px;
+  }
+
+  /* ---- AboutHero ---- */
+  .about-tagline {
+    font-size: clamp(3rem, 6.5vw, 4rem); /* FS_DISPLAY_TABLET */
+  }
+
+  /* ---- AboutValues ---- */
+  .val-inner {
+    padding: 0 32px;
+  }
+
+  .val-hdr {
+    margin-bottom: 36px;
+  }
+
+  .val-ghost {
+    right: -8px;
+    font-size: 108px;
+  }
+
+  .val-row {
+    gap: 20px;
+    padding: 22px 0 22px 16px;
+  }
+
+  .val-num {
+    width: 36px;
+  }
+
+  .val-iconbox {
+    width: 44px;
+    height: 44px;
+  }
+
+  .val-iconbox svg {
+    width: 19px;
+    height: 19px;
+  }
+
+  .val-dots {
+    right: 14px;
+  }
+
+  /* ---- AboutTeam ---- */
+  .team-section {
+    padding: 80px 28px 88px;
+  }
+
+  .team-grid {
+    grid-template-columns: 300px 1fr;
+    gap: 48px;
+  }
+
+  .team-trait {
+    padding: 22px 0;
+  }
+
+  .team-trait-title {
+    font-size: 20px; /* FS_H4_MOBILE */
+  }
+
+  /* ---- AboutCTA ---- */
+  .acta-section {
+    padding: 160px 28px 80px;
+  }
+
+  .acta-wrap {
+    max-width: 820px;
+  }
+
+  .acta-card {
+    padding: 52px 48px;
+  }
+
+  .acta-figure {
+    right: 4%;
+    height: 440px;
+  }
+
+  .acta-body {
+    max-width: 56%;
+  }
+
+  /* Stacked: an intrinsic landscape band reserves height up front (no CLS).
+     16/9 trims ~16% of the source's native 3:2 height; anything wider starts
+     cutting the tops of both heads. */
+  .partner-photo {
+    aspect-ratio: 16 / 9;
+    /* Stacked reads photo-first. Doing this with `order` keeps the DOM order
+       fixed, which is what stops React/GSAP recycling the two panels — see the
+       comment in PartnerSection.tsx. */
+    order: -1;
+  }
+
+  .partner-card {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  .partner-seam {
+    left: 0;
+    right: 0;
+    top: auto;
+    bottom: 0;
+    width: auto;
+    height: 1px;
+  }
+
+  .partner-content {
+    padding: 48px 48px 52px;
+  }
+
+  .partner-logo {
+    height: 110px;
+  }
+
+  /* Hero — the stacked treatment. Every value here is shared with mobile
+     (the old code branched on `isMobile || isTablet`), so mobile deliberately
+     inherits and only restates the two widths that differ. */
+  .hero-inner {
+    padding: 72px 20px 28px;
+  }
+
+  .hero-h1 {
+    font-size: clamp(28px, 7.2vw, 38px);
+  }
+
+  .hero-note {
+    margin: 14px 0 0;
+  }
+
+  .hero-cta-wrap {
+    margin-top: 26px;
+  }
+
+  .hero-cta {
+    padding: 13px 26px;
+  }
+
+  .hero-pager-wrap {
+    margin-top: 30px;
+  }
+
+  /* WhyUs console — narrowest step that renders, since mobile is served the
+     stacked fallback instead. (Class names are spelled without their leading
+     dot inside media blocks: bpcheck's regex would otherwise attribute the
+     rule below to the class named in this comment.) */
+  .why-console {
+    --why-sticky-top: 100px;
+    --why-pad-top: 88px;
+    --why-scroll: 175vh;
+  }
+
+  .why-sticky {
+    padding: 0 28px;
+  }
+
+  .why-card {
+    height: clamp(376px, calc(100vh - 272px), 466px);
+  }
+
+  .why-rail {
+    padding: 24px 20px 22px 24px;
+  }
+
+  .why-row {
+    padding: 9px 12px;
+  }
+
+  .why-pane {
+    padding: 26px 28px 26px;
+  }
+
+  /* ---- Industries ---- */
+  .ind-section {
+    padding: 84px 28px 92px;
+  }
+
+  /* ---- Services ---- */
+  .svc-section {
+    padding: 84px 28px 92px;
+  }
+
+  .svc-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* 2 columns: every even cell ends a row, the last two are the last row. */
+  .svc-cell {
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .svc-cell:where(:nth-child(2n)) {
+    border-right: none;
+  }
+
+  .svc-cell:where(:nth-last-child(-n + 2)) {
+    border-bottom: none;
+  }
+
+  .svc-card-stack {
+    padding: 16px;
+  }
+
+  /* Two columns give each plate ~370px; square would run the section on
+     forever, so tablet plates go landscape. */
+  .svc-plate-stack {
+    aspect-ratio: 4 / 3;
+  }
+
+  .svc-card-title {
+    font-size: 20px; /* FS_H4_MOBILE */
+  }
+
+  .svc-cta {
+    padding-top: 140px;
+  }
+
+  .svc-cta-figure {
+    left: 32px;
+    height: 280px;
+  }
+
+  .svc-cta-card {
+    padding: 30px 32px 30px 200px;
+  }
+
+  /* ---- Footer ---- */
+  .ftr-wrap {
+    padding: 0 28px;
+  }
+
+  .ftr-cols {
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 40px;
+  }
+}
+
+/* ---- Mobile: < 768 ---- */
+@media (max-width: 767px) {
+  .partner-section {
+    padding: 64px 20px 72px;
+  }
+
+  /* Mobile shows the photo uncropped at its native ratio. */
+  .partner-photo {
+    aspect-ratio: 3 / 2;
+  }
+
+  .partner-lockup-chip {
+    right: 16px;
+    bottom: 16px;
+  }
+
+  .partner-content {
+    padding: 36px 28px 40px;
+  }
+
+  .partner-logo-wrap {
+    margin-bottom: 22px;
+  }
+
+  .partner-logo {
+    height: 88px;
+    margin-bottom: 14px;
+  }
+
+  .partner-firm {
+    font-size: 20px; /* FS_H4_MOBILE */
+  }
+
+  .partner-hdr {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .partner-features {
+    grid-template-columns: 1fr;
+  }
+
+  .partner-feat {
+    padding: 24px 20px;
+  }
+
+  /* ---- ClientsSection ---- */
+  .clients-section {
+    padding: 72px 0 64px;
+  }
+
+  .clients-inner,
+  .clients-foot {
+    padding: 0 20px;
+  }
+
+  .clients-inner {
+    margin-bottom: 36px;
+  }
+
+  .clients-marquee {
+    gap: 10px;
+  }
+
+  .clients-logo {
+    width: 168px;
+    height: 76px;
+    margin-right: 10px;
+    padding: 16px 18px;
+  }
+
+  .clients-logo img {
+    max-height: 34px;
+  }
+
+  .clients-fade {
+    width: 40px;
+  }
+
+  /* ---- WhoWeAreSection ---- */
+  .wwa-section {
+    padding: 68px 20px 76px;
+  }
+
+  .wwa-head {
+    margin-bottom: 28px;
+  }
+
+  .wwa-rule {
+    margin-bottom: 30px;
+  }
+
+  /* Single column: copy, then the mission panel, then the link closes it. */
+  .wwa-grid {
+    grid-template-columns: 1fr;
+    column-gap: 0;
+    grid-template-areas:
+      "body"
+      "mission"
+      "cta";
+  }
+
+  .wwa-cta {
+    margin-top: 32px;
+  }
+
+  .wwa-mission {
+    border-radius: 16px;
+    padding: 32px 24px 28px;
+    margin-top: 36px;
+  }
+
+  .wwa-mission-accent {
+    left: 24px;
+    right: 24px;
+  }
+
+  .wwa-mission-rule {
+    margin: 22px 0 18px;
+  }
+
+  /* ---- AboutMission ---- */
+  .msn-section {
+    padding: 64px 20px 72px;
+  }
+
+  .msn-label {
+    margin-bottom: 32px;
+  }
+
+  .msn-rule {
+    margin-bottom: 36px;
+  }
+
+  .msn-copy {
+    margin-bottom: 40px;
+  }
+
+  .msn-card {
+    border-radius: 16px;
+    padding: 28px 24px;
+  }
+
+  .msn-quotemark {
+    font-size: 100px;
+  }
+
+  .msn-card-label {
+    letter-spacing: 0.2em;
+    margin: 0 0 16px;
+  }
+
+  .msn-quote {
+    margin: 0 0 20px;
+  }
+
+  .msn-card-rule {
+    margin-bottom: 16px;
+  }
+
+  /* ---- AboutHero ---- */
+  .about-tagline {
+    font-size: clamp(2.25rem, 9vw, 2.75rem); /* FS_DISPLAY_MOBILE */
+  }
+
+  /* ---- AboutTeam ----
+     Both branches share this section box, so it needs its own mobile step;
+     without it mobile inherited the tablet padding and the page grew 65px. */
+  .team-section {
+    padding: 64px 20px 72px;
+  }
+
+  /* ---- AboutCTA ---- */
+  .acta-section {
+    padding: 48px 20px 64px;
+  }
+
+  .acta-wrap {
+    max-width: 100%;
+  }
+
+  /* Deep bottom padding reserves the space the figure drops into. */
+  .acta-card {
+    padding: 48px 28px 280px;
+  }
+
+  /* Figure centres along the bottom edge instead of hanging off the right. */
+  .acta-figure {
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    height: 260px;
+  }
+
+  .acta-body {
+    max-width: 100%;
+    gap: 28px;
+  }
+
+  .acta-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .acta-actions > * {
+    width: 100%;
+  }
+
+  /* ---- Hero ---- */
+  /* The only two hero values where mobile parts from tablet: both go
+     full-bleed rather than sitting at their content width. */
+  .hero-cta-wrap,
+  .hero-cta {
+    width: 100%;
+  }
+
+  .hero-pager-wrap {
+    width: 70%;
+  }
+
+  /* ---- WhyUs (stacked fallback) ---- */
+  .why-stack {
+    padding: 76px 20px 80px;
+  }
+
+  .why-stack-row {
+    padding: 20px 18px;
+  }
+
+  .why-head {
+    margin-bottom: 30px;
+  }
+
+  /* ---- Industries ---- */
+  .ind-section {
+    padding: 68px 20px 72px;
+  }
+
+  .ind-hdr {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+    margin-bottom: 30px;
+  }
+
+  .ind-cards {
+    gap: 10px;
+  }
+
+  /* ---- Services ---- */
+  .svc-section {
+    padding: 68px 20px 72px;
+  }
+
+  .svc-heading-anim {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+    margin-bottom: 34px;
+  }
+
+  .svc-grid {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+
+  /* 1 column: nothing has a neighbour to its right, and only the last cell
+     sits on the sheet's bottom edge. */
+  .svc-cell {
+    padding: 6px;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .svc-cell:where(:nth-last-child(-n + 1)) {
+    border-bottom: none;
+  }
+
+  /* ---- Footer ---- */
+  .ftr-wrap {
+    padding: 0 20px;
+  }
+
+  .ftr-brand {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding-top: 44px;
+    padding-bottom: 28px;
+  }
+
+  /* Was `{!isMobile && ...}` in JSX. Hidden rather than absent so the server
+     HTML is the same at every width; a display:none grid item takes no track
+     and is not exposed to assistive tech, so the result is unchanged. */
+  .ftr-tagline {
+    display: none;
+  }
+
+  .ftr-social {
+    justify-content: flex-start;
+  }
+
+  .ftr-partner {
+    gap: 14px;
+    padding: 16px 0;
+    flex-wrap: wrap;
+  }
+
+  .ftr-cols {
+    grid-template-columns: 1fr 1fr;
+    gap: 36px 24px;
+    padding-top: 36px;
+    padding-bottom: 40px;
+  }
+
+  .ftr-bottom {
+    padding-top: 20px;
+    padding-bottom: 32px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .ftr-meta {
+    gap: 16px;
+  }
+}
+
+/* AboutValues — description indent aligns under the icon column. */
+.val-desc {
+  padding-left: 126px;
+}
+
+@media (max-width: 1023px) {
+  .val-desc {
+    padding-left: 100px;
+  }
+}

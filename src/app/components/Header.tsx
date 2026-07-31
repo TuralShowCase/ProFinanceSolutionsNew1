@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import gsap from "gsap";
 import { ChevronDown, ArrowUpRight } from "lucide-react";
 import { useTranslations, useLocale } from "next-intl";
@@ -95,7 +95,31 @@ export function Header() {
     }, 380);
   };
 
-  const [scrolled,           setScrolled]           = useState(false);
+  /**
+   * Is the page scrolled off the hero?
+   *
+   * This used to be `useState(false)` plus an effect that only ever reacted to
+   * scroll EVENTS — it never read the position the page actually loaded at. So
+   * any load that started already-scrolled left the header stuck in its
+   * transparent over-the-hero state: white nav links sitting on the white
+   * Industries section, invisible until you nudged the page and an event fired.
+   *
+   * That hit real navigations, not edge cases — deep links like /#industries,
+   * refreshing while scrolled down (the browser restores the position), back/
+   * forward, and clicking a nav anchor before hydration had attached the
+   * listener (the browser performs the plain anchor jump in that window).
+   *
+   * useSyncExternalStore reads the live value on every render and gives the
+   * server a defined answer, so the flag can't start out of sync.
+   */
+  const scrolled = useSyncExternalStore(
+    (onChange) => {
+      window.addEventListener("scroll", onChange, { passive: true });
+      return () => window.removeEventListener("scroll", onChange);
+    },
+    () => window.scrollY > 20,
+    () => false, // SSR: nothing is scrolled yet, so render the hero treatment.
+  );
   const [menuOpen,           setMenuOpen]           = useState(false);
   const [showServices,       setShowServices]       = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
@@ -148,11 +172,6 @@ export function Header() {
     href,
   }));
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   useEffect(() => { if (!isMobile && !isTablet) setMenuOpen(false); }, [isMobile, isTablet]);
 
@@ -237,7 +256,10 @@ export function Header() {
   // Height/padding/logo sizing now come from CSS (`.hdr-*` in globals.css) so the
   // first paint is correct before hydration. `headerH` survives only for the
   // desktop mega-menu's offset, which never renders below 1024px anyway.
-  const navGap  = isTablet ? 22 : 32;
+  //
+  // The nav's gap went the same way. It used to be `isTablet ? 22 : 32`, but
+  // `.hdr-desktop` is `display: none` below 1024px, so the tablet value never
+  // painted — it was the last style value in this file, and a dead one.
   const headerH = 92;
 
   // The mobile sheet is frosted glass, not a wall: the page stays visible and
@@ -380,7 +402,7 @@ export function Header() {
             one shows. Gating these on useBreakpoint made phones paint the desktop
             nav first and reflow on hydration. No inline `display` here — it would
             override the media query. */}
-        <nav className="hdr-desktop" style={{ alignItems: "center", gap: navGap, flex: 1, justifyContent: "center" }}>
+        <nav className="hdr-desktop" style={{ alignItems: "center", flex: 1, justifyContent: "center" }}>
           {navLinksList}
         </nav>
         <div className="hdr-desktop" style={{ alignItems: "center", gap: 14, flexShrink: 0 }}>

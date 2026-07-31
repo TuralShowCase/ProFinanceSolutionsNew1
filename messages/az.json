@@ -15,7 +15,10 @@
     "partner": "Tərəfdaş",
     "allPlhServices": "Bütün PLH xidmətləri",
     "financeServices": "Maliyyə & Biznes Xidmətləri",
-    "legalServices": "Hüquqi Xidmətlər"
+    "legalServices": "Hüquqi Xidmətlər",
+    "whatsappAria": "WhatsApp ilə əlaqə",
+    "slideAria": "Slayd",
+    "whatsappPrefill": "Salam! ProFinance Solutions haqqında məlumat almaq istəyirəm."
   },
   "footer": {
     "tagline": "Sizin maliyyə və biznesdə etibarlı tərəfdaşınız",
@@ -31,7 +34,7 @@
     "address": "Bakı, Əhməd Rəcəbli-2 küçəsi",
     "copyright": "Bütün hüquqlar qorunur.",
     "city": "Bakı, Azərbaycan",
-    "designedBy": "Designed by"
+    "designedBy": "Hazırlayan"
   },
   "hero": {
     "slide1": {
@@ -42,7 +45,9 @@
       "services": "Strateji planlaşdırma, vergi optimizasiyası və maliyyə idarəçiliyi",
       "note": "Biznesinizi növbəti mərhələyə çatdırırıq"
     },
-    "ctaContact": "Bizimlə əlaqə"
+    "ctaContact": "Bizimlə əlaqə",
+    "pauseSlides": "Slaydları dayandır",
+    "playSlides": "Slaydları davam etdir"
   },
   "whoWeAre": {
     "sectionLabel": "Biz kimik",
@@ -241,7 +246,8 @@
           "title": "Hər müştəriyə ayrıca yanaşma",
           "desc": "Standart şablonlar deyil. Hər müştəri ilə məxfilik müqaviləsi (NDA) bağlanır; şirkətinizin unikal maliyyə məsələlərini dərin anlayaraq fərdi həllər hazırlanır."
         }
-      ]
+      ],
+      "photoAlt": "ProFinance komandası"
     },
     "cta": {
       "heading": "Uğura bizimlə",
@@ -325,5 +331,15 @@
       "Texnologiya xidmətləri",
       "Hüquqi xidmətlər"
     ]
+  },
+  "notFound": {
+    "message": "Səhifə tapılmadı",
+    "backHome": "Əsas səhifəyə qayıt"
+  },
+  "errorPage": {
+    "title": "Xəta baş verdi",
+    "retry": "Yenidən cəhd et",
+    "detail": "Texniki problem yarandı. Xahiş edirik bir az sonra yenidən cəhd edin.",
+    "home": "Əsas səhifə"
   }
 }

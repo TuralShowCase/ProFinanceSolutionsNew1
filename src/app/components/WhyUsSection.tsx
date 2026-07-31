@@ -20,10 +20,18 @@ const TOTAL = ICONS.length;
    appears and the section releases in the same breath, so it never reads. */
 const STEP_SPAN = 0.86;
 
-/* Total scroll the console consumes. The old version spent 300vh to show five
-   short lines; this shows the same five in a card that is never taller than
-   ~520px, so the throw shrinks with it. */
-const SCROLL_VH = { desktop: 190, tablet: 175 };
+/* The two measurements the ScrollTrigger window is built from. Both are painted
+   by CSS (`.why-console` in responsive.css) because they differ per breakpoint,
+   so they are read back from the element rather than duplicated here — a second
+   copy in JS would silently disagree with the layout the first time either one
+   is retuned. Read inside start/end so a resize re-measures. */
+const consoleMetrics = (section: HTMLElement) => {
+  const cs = getComputedStyle(section);
+  return {
+    stickyTop: parseFloat(cs.getPropertyValue("--why-sticky-top")),
+    padTop: parseFloat(cs.getPropertyValue("--why-pad-top")),
+  };
+};
 
 /* The step dashes. Each one is a button that jumps to its reason, so the panel
    carries its own control instead of only reporting position — the 3px bar is
@@ -95,6 +103,14 @@ function useMediaQuery(query: string, initial: boolean) {
   return matches;
 }
 
+/**
+ * Sizes and spacing live in responsive.css (`WhyUsSection` there); the two
+ * `useBreakpoint()` reads left below are structural, not stylistic.
+ *
+ * `isMobile` picks between two different trees — the console and the stacked
+ * fallback — and `isDesktop` decides whether the figure column exists at all.
+ * Both change the markup, which is the one case the migration keeps in JS.
+ */
 export function WhyUsSection() {
   const t = useTranslations("whyUs");
   const bp = useBreakpoint();
@@ -126,12 +142,6 @@ export function WhyUsSection() {
     Icon: ICONS[i],
   }));
 
-  const stickyTop = isDesktop ? 108 : 100;
-  /* Breathing room between the end of Industries and this section's first
-     line. It's real padding on the section, so the tinted band opens well
-     before the eyebrow rather than starting on top of it. */
-  const padTop = isDesktop ? 112 : 88;
-
   /* ---- Entrance: header + card, once ---- */
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -162,8 +172,9 @@ export function WhyUsSection() {
      the trigger's 0→1 onto exactly the window where the card is stuck:
      it locks when the card's own top edge — the section top plus `padTop` —
      hits `stickyTop`, and lets go when the section bottom catches the card's
-     bottom edge. The section's height carries `padTop` on top of the scroll
-     budget (see `height` below), so adding that spacing costs no travel. */
+     bottom edge. Both numbers come from `consoleMetrics`, i.e. from the CSS that
+     painted them. The section's height carries `padTop` on top of the scroll
+     budget (`.why-console` in responsive.css), so that spacing costs no travel. */
   useEffect(() => {
     if (!isConsole) return;
     const section = sectionRef.current;
@@ -176,8 +187,11 @@ export function WhyUsSection() {
 
       triggerRef.current = ScrollTrigger.create({
         trigger: section,
-        start: () => `top top+=${stickyTop - padTop}`,
-        end: () => `bottom top+=${stickyTop + inner.offsetHeight}`,
+        start: () => {
+          const { stickyTop, padTop } = consoleMetrics(section);
+          return `top top+=${stickyTop - padTop}`;
+        },
+        end: () => `bottom top+=${consoleMetrics(section).stickyTop + inner.offsetHeight}`,
         invalidateOnRefresh: true,
         onUpdate: (self) => {
           const p = Math.min(self.progress / STEP_SPAN, 1);
@@ -195,7 +209,7 @@ export function WhyUsSection() {
       ctx.revert();
       triggerRef.current = null;
     };
-  }, [isConsole, stickyTop, padTop, bp]);
+  }, [isConsole, bp]);
 
   /* ---- Pane swap ----
      All five panes live in the DOM stacked on top of each other, so a change is
@@ -271,7 +285,7 @@ export function WhyUsSection() {
 
   /* ---------------------------------------------------------------- header */
   const header = (
-    <div style={{ marginBottom: isMobile ? 30 : 34 }}>
+    <div className="why-head">
       <p
         className="why-in"
         style={{
@@ -308,9 +322,9 @@ export function WhyUsSection() {
       <section
         id="whyus"
         ref={sectionRef}
+        className="why-stack"
         style={{
           backgroundColor: "var(--page-bg-alt)",
-          padding: isMobile ? "76px 20px 80px" : "96px 32px 104px",
           fontFamily: "var(--font-inter), 'Inter', sans-serif",
         }}
       >
@@ -320,11 +334,10 @@ export function WhyUsSection() {
             {items.map(({ title, description, Icon }, i) => (
               <div
                 key={i}
-                className="why-in"
+                className="why-in why-stack-row"
                 style={{
                   display: "flex",
                   gap: 16,
-                  padding: isMobile ? "20px 18px" : "24px 26px",
                   borderRadius: 18,
                   backgroundColor: "var(--surface)",
                   border: "1px solid var(--border)",
@@ -392,40 +405,27 @@ export function WhyUsSection() {
   }
 
   /* ---------------------------------------------------------- the console */
-  const cardH = isDesktop
-    ? "clamp(392px, calc(100vh - 288px), 520px)"
-    : "clamp(376px, calc(100vh - 272px), 466px)";
-
-  const columns = showFigure
-    ? "minmax(0, 1fr) 220px minmax(0, 1.34fr)"
-    : "minmax(0, 0.94fr) minmax(0, 1.06fr)";
-
   return (
     <section
       id="whyus"
       ref={sectionRef}
+      className="why-console"
       style={{
         position: "relative",
-        /* padTop rides on top of the scroll budget rather than eating into it,
-           so the spacing above the card doesn't shorten the read-through. */
-        height: `calc(${isDesktop ? SCROLL_VH.desktop : SCROLL_VH.tablet}vh + ${padTop}px)`,
-        paddingTop: padTop,
         backgroundColor: "var(--page-bg-alt)",
         fontFamily: "var(--font-inter), 'Inter', sans-serif",
       }}
     >
-      <div style={{ position: "sticky", top: stickyTop, padding: isDesktop ? "0 40px" : "0 28px" }}>
+      <div className="why-sticky" style={{ position: "sticky" }}>
         <div ref={innerRef} style={{ maxWidth: 1200, margin: "0 auto", paddingBottom: 28 }}>
           {header}
 
           {/* ---- Card ---- */}
           <div
-            className="why-in"
+            className={`why-in why-card ${showFigure ? "why-card-figure" : "why-card-plain"}`}
             style={{
               position: "relative",
-              height: cardH,
               display: "grid",
-              gridTemplateColumns: columns,
               borderRadius: 26,
               overflow: "hidden",
               backgroundColor: "var(--surface)",
@@ -435,12 +435,12 @@ export function WhyUsSection() {
           >
             {/* ---- Index rail ---- */}
             <div
+              className="why-rail"
               style={{
                 position: "relative",
                 zIndex: 2,
                 display: "flex",
                 flexDirection: "column",
-                padding: isDesktop ? "30px 26px 26px 30px" : "24px 20px 22px 24px",
               }}
             >
               <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center", gap: 2 }}>
@@ -454,6 +454,7 @@ export function WhyUsSection() {
                       onClick={() => goTo(i)}
                       aria-current={on ? "true" : undefined}
                       aria-controls={`why-pane-${i}`}
+                      className="why-row"
                       style={{
                         position: "relative",
                         display: "flex",
@@ -461,7 +462,6 @@ export function WhyUsSection() {
                         gap: 14,
                         width: "100%",
                         textAlign: "left",
-                        padding: isDesktop ? "11px 14px" : "9px 12px",
                         borderRadius: 12,
                         border: "none",
                         cursor: "pointer",
@@ -645,7 +645,6 @@ export function WhyUsSection() {
                     opacity: 0,
                     display: "flex",
                     flexDirection: "column",
-                    padding: isDesktop ? "34px 40px 32px" : "26px 28px 26px",
                   }}
                 >
                   {/* Top: icon + counter */}

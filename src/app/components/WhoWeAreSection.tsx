@@ -5,7 +5,6 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowUpRight } from "lucide-react";
 import { useTranslations, useLocale } from "next-intl";
-import { useBreakpoint } from "../../hooks/useBreakpoint";
 import { DARK, ACCENT, INVERT } from "@/app/lib/brand";
 import { FS_H2, FS_LABEL, FS_BODY, FS_BODY_LG } from "@/app/lib/typography";
 
@@ -21,9 +20,6 @@ gsap.registerPlugin(ScrollTrigger);
 export function WhoWeAreSection() {
   const t      = useTranslations("whoWeAre");
   const locale = useLocale();
-  const bp     = useBreakpoint();
-  const isMobile = bp === "mobile";
-  const isTablet = bp === "tablet";
 
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -50,9 +46,10 @@ export function WhoWeAreSection() {
     }, sectionRef);
 
     return () => ctx.revert();
-  }, [bp]);
+    // Markup no longer changes with the breakpoint, so these triggers are built
+    // once. ScrollTrigger recalculates its own positions on resize.
+  }, []);
 
-  const pad = isMobile ? "68px 20px 76px" : isTablet ? "88px 28px 96px" : "108px 48px 116px";
   const headingId = "who-we-are-heading";
 
   /* ── Body copy: lead paragraph sets up the two About paragraphs ── */
@@ -72,9 +69,9 @@ export function WhoWeAreSection() {
 
   const ctaLink = (
     <a
-      className="wwa-anim"
+      className="wwa-anim wwa-cta"
       href={aboutHref}
-      style={{ opacity: 0, display: "inline-flex", alignItems: "center", gap: 8, marginTop: isMobile ? 32 : 34, color: DARK, fontSize: FS_BODY, fontWeight: 600, textDecoration: "none", transition: "gap 240ms ease" }}
+      style={{ opacity: 0, display: "inline-flex", alignItems: "center", gap: 8, color: DARK, fontSize: FS_BODY, fontWeight: 600, textDecoration: "none", transition: "gap 240ms ease" }}
       onMouseEnter={e => (e.currentTarget.style.gap = "12px")}
       onMouseLeave={e => (e.currentTarget.style.gap = "8px")}
     >
@@ -92,14 +89,11 @@ export function WhoWeAreSection() {
         opacity: 0,
         backgroundColor: INVERT,
         border: "1px solid var(--invert-border)",
-        borderRadius: isMobile ? 16 : 20,
-        padding: isMobile ? "32px 24px 28px" : isTablet ? "36px 32px 32px" : "42px 40px 36px",
-        marginTop: isMobile ? 36 : 0,
         position: "relative",
         overflow: "hidden",
       }}
     >
-      <div aria-hidden="true" style={{ position: "absolute", top: 0, left: isMobile ? 24 : 40, right: isMobile ? 24 : 40, height: 2, backgroundColor: ACCENT, borderRadius: "0 0 2px 2px", opacity: 0.6 }} />
+      <div aria-hidden="true" className="wwa-mission-accent" style={{ position: "absolute", top: 0, height: 2, backgroundColor: ACCENT, borderRadius: "0 0 2px 2px", opacity: 0.6 }} />
       <span
         aria-hidden="true"
         style={{ position: "absolute", right: 18, bottom: -34, fontFamily: "Georgia, serif", fontSize: 132, lineHeight: 1, color: "color-mix(in srgb, var(--accent-green) 10%, transparent)", userSelect: "none", pointerEvents: "none" }}
@@ -113,7 +107,7 @@ export function WhoWeAreSection() {
       <p style={{ fontSize: FS_BODY_LG, color: "var(--invert-text)", lineHeight: 1.72, letterSpacing: "-0.01em", margin: 0, position: "relative", zIndex: 1 }}>
         {t("missionText")}
       </p>
-      <div style={{ height: 1, backgroundColor: "rgba(255,255,255,0.1)", margin: isMobile ? "22px 0 18px" : "26px 0 20px" }} />
+      <div className="wwa-mission-rule" style={{ height: 1, backgroundColor: "rgba(255,255,255,0.1)" }} />
       <p style={{ fontSize: FS_BODY, color: "var(--invert-text-muted)", lineHeight: 1.72, margin: 0, position: "relative", zIndex: 1 }}>
         {t("missionSub")}
       </p>
@@ -125,12 +119,13 @@ export function WhoWeAreSection() {
       id="about"
       ref={sectionRef}
       aria-labelledby={headingId}
-      style={{ backgroundColor: "var(--surface)", padding: pad, fontFamily: "var(--font-inter), 'Inter', sans-serif", scrollMarginTop: 88 }}
+      className="wwa-section"
+      style={{ backgroundColor: "var(--surface)", fontFamily: "var(--font-inter), 'Inter', sans-serif", scrollMarginTop: 88 }}
     >
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
 
         {/* ── Header: eyebrow + one statement line ── */}
-        <div className="wwa-anim" style={{ opacity: 0, marginBottom: isMobile ? 28 : 40 }}>
+        <div className="wwa-anim wwa-head" style={{ opacity: 0 }}>
           <p style={{ fontSize: FS_LABEL, fontWeight: 600, color: DARK, letterSpacing: "0.2em", textTransform: "uppercase", margin: "0 0 16px" }}>
             {t("sectionLabel")}
           </p>
@@ -142,24 +137,16 @@ export function WhoWeAreSection() {
           </h2>
         </div>
 
-        <div style={{ height: 1, backgroundColor: "var(--border)", marginBottom: isMobile ? 30 : 48 }} />
+        <div className="wwa-rule" style={{ height: 1, backgroundColor: "var(--border)" }} />
 
-        {isMobile ? (
-          /* Mobile: copy, then the mission panel, then the link closes the section */
-          <div>
-            {bodyCopy}
-            {missionCard}
-            {ctaLink}
-          </div>
-        ) : (
-          <div style={{ display: "grid", gridTemplateColumns: isTablet ? "1fr 320px" : "1fr 440px", gap: isTablet ? 40 : 72, alignItems: "start" }}>
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
-              {bodyCopy}
-              {ctaLink}
-            </div>
-            {missionCard}
-          </div>
-        )}
+        {/* One DOM order, two layouts — grid areas do the reordering.
+            Desktop/tablet: copy + link stacked on the left, mission panel on the
+            right. Mobile: copy, mission panel, then the link closes the section. */}
+        <div className="wwa-grid">
+          <div className="wwa-body">{bodyCopy}</div>
+          {ctaLink}
+          {missionCard}
+        </div>
 
       </div>
     </section>

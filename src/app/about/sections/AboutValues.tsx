@@ -142,11 +142,10 @@ export function AboutValues() {
   }
 
   // Desktop
-  const hPad = isTablet ? "0 32px" : "0 64px";
   return (
     <section ref={sectionRef} style={{ backgroundColor: CREAM, position: "relative", overflow: "hidden" }}>
-      <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center", padding: hPad, maxWidth: 1280, margin: "0 auto", position: "relative" }}>
-        <div className="val-hdr" style={{ marginBottom: isTablet ? 36 : 52 }}>
+      <div className="val-inner" style={{ minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center", maxWidth: 1280, margin: "0 auto", position: "relative" }}>
+        <div className="val-hdr">
           <p style={{ fontSize: FS_LABEL, fontWeight: 700, color: DARK, letterSpacing: "0.22em", textTransform: "uppercase", margin: "0 0 14px" }}>{t("sectionLabel")}</p>
           <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 32, flexWrap: "wrap" }}>
             <h2 style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: FS_H2, color: "var(--text)", margin: 0, letterSpacing: "-0.04em", lineHeight: 1.06 }}>
@@ -160,18 +159,18 @@ export function AboutValues() {
           {values.map((v, i) => (
             <div key={i} style={{ position: "relative", borderTop: "1px solid var(--border)" }}>
               <div ref={el => { borderRefs.current[i] = el; }} style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: 3, borderRadius: 2, backgroundColor: DARK, transform: "scaleY(0)", transformOrigin: "top center", zIndex: 2 }} />
-              <span ref={el => { ghostRefs.current[i] = el; }} style={{ position: "absolute", right: isTablet ? -8 : -20, top: "50%", transform: "translateY(-50%)", fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 900, fontSize: isTablet ? 108 : 148, color: DARK, opacity: 0, letterSpacing: "-0.06em", lineHeight: 1, userSelect: "none", pointerEvents: "none", zIndex: 0 }}>{v.number}</span>
-              <div ref={el => { headerRowRefs.current[i] = el; }} style={{ display: "flex", alignItems: "center", gap: isTablet ? 20 : 32, padding: isTablet ? "22px 0 22px 16px" : "26px 0 26px 16px", position: "relative", zIndex: 1 }}>
-                <span ref={el => { numLabelRefs.current[i] = el; }} style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: FS_LABEL, color: "color-mix(in srgb, var(--brand) 30%, transparent)", letterSpacing: "0.12em", flexShrink: 0, width: isTablet ? 36 : 44 }}>{v.number}</span>
-                <div ref={el => { iconBoxRefs.current[i] = el; }} style={{ width: isTablet ? 44 : 50, height: isTablet ? 44 : 50, borderRadius: 13, flexShrink: 0, boxShadow: "0 0 0 1.5px color-mix(in srgb, var(--brand) 45%, transparent)", backgroundColor: "color-mix(in srgb, var(--brand) 7%, transparent)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <span ref={el => { ghostRefs.current[i] = el; }} className="val-ghost" style={{ position: "absolute", top: "50%", transform: "translateY(-50%)", fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 900, color: DARK, opacity: 0, letterSpacing: "-0.06em", lineHeight: 1, userSelect: "none", pointerEvents: "none", zIndex: 0 }}>{v.number}</span>
+              <div ref={el => { headerRowRefs.current[i] = el; }} className="val-row" style={{ display: "flex", alignItems: "center", position: "relative", zIndex: 1 }}>
+                <span ref={el => { numLabelRefs.current[i] = el; }} style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: FS_LABEL, color: "color-mix(in srgb, var(--brand) 30%, transparent)", letterSpacing: "0.12em", flexShrink: 0 }} className="val-num">{v.number}</span>
+                <div ref={el => { iconBoxRefs.current[i] = el; }} className="val-iconbox" style={{ borderRadius: 13, flexShrink: 0, boxShadow: "0 0 0 1.5px color-mix(in srgb, var(--brand) 45%, transparent)", backgroundColor: "color-mix(in srgb, var(--brand) 7%, transparent)", display: "flex", alignItems: "center", justifyContent: "center" }}>
                   <div ref={el => { iconFilterRefs.current[i] = el; }} style={{ display: "flex" }}>
-                    <v.Icon size={isTablet ? 19 : 21} color={DARK} strokeWidth={1.6} />
+                    <v.Icon color={DARK} strokeWidth={1.6} />
                   </div>
                 </div>
                 <h3 ref={el => { titleRefs.current[i] = el; }} style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: FS_H3, color: "var(--text-faint)", margin: 0, letterSpacing: "-0.03em", lineHeight: 1.2 }}>{v.title}</h3>
               </div>
               <div ref={el => { descRefs.current[i] = el; }} style={{ overflow: "hidden", height: 0 }}>
-                <p style={{ fontSize: 18, color: "var(--text-muted)", lineHeight: 1.78, margin: 0, fontFamily: "var(--font-inter), 'Inter', sans-serif", maxWidth: 580, paddingLeft: isTablet ? 100 : 126, paddingBottom: 26, paddingTop: 2 }}>{v.description}</p>
+                <p style={{ fontSize: 18, color: "var(--text-muted)", lineHeight: 1.78, margin: 0, fontFamily: "var(--font-inter), 'Inter', sans-serif", maxWidth: 580, paddingBottom: 26, paddingTop: 2 }} className="val-desc">{v.description}</p>
               </div>
             </div>
           ))}
@@ -180,7 +179,7 @@ export function AboutValues() {
       </div>
 
       {/* Progress dots */}
-      <div style={{ position: "absolute", right: isTablet ? 14 : 24, top: "50%", transform: "translateY(-50%)", display: "flex", flexDirection: "column", alignItems: "center", gap: 10, zIndex: 20 }}>
+      <div className="val-dots" style={{ position: "absolute", top: "50%", transform: "translateY(-50%)", display: "flex", flexDirection: "column", alignItems: "center", gap: 10, zIndex: 20 }}>
         {values.map((_, i) => <div key={i} ref={el => { dotRefs.current[i] = el; }} style={{ width: 3, height: 8, borderRadius: 4, backgroundColor: "color-mix(in srgb, var(--brand) 18%, transparent)" }} />)}
       </div>
 

@@ -12,9 +12,28 @@ import { defineConfig, devices } from '@playwright/test';
  */
 export default defineConfig({
   testDir: './e2e',
-  // Screenshot comparison is inherently serial-ish and animation-sensitive;
-  // workers are capped so GSAP timers aren't starved by CPU contention.
-  workers: 2,
+  /**
+   * One worker. These pages drive GSAP timers and decode a lot of AVIF, and the
+   * captures are 9,000–11,000px tall; contention made settling unreliable.
+   *
+   * A baseline harness that sometimes writes a half-rendered reference is worse
+   * than no harness — that happened here once — so this trades wall-clock time
+   * for determinism. (The blank-band failures had a separate cause; see the
+   * occlusion flags under `use.launchOptions`.)
+   */
+  workers: 1,
+
+  /**
+   * Well above Playwright's 30s default, on purpose.
+   *
+   * Settling a page here is not instant: every image is forced to load, then the
+   * document is swept top-to-bottom to fire each ScrollTrigger, then we wait for
+   * the reveals to finish. The homepage is over 10,000px tall on mobile, so that
+   * legitimately runs into the tens of seconds. At 30s the longest pages were
+   * timing out mid-sweep — which is far worse than slow, because a partial
+   * capture can get written in as a baseline.
+   */
+  timeout: 120_000,
   fullyParallel: false,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,
@@ -28,9 +47,16 @@ export default defineConfig({
       animations: 'disabled',
       caret: 'hide',
       scale: 'css',
-      // Font antialiasing and AVIF decode differ by a hair between runs.
-      // Tight enough to catch a 1px layout shift, loose enough not to flake.
-      maxDiffPixelRatio: 0.008,
+      /**
+       * Tolerance covers font antialiasing and AVIF decode jitter between runs
+       * — not real changes.
+       *
+       * This was 0.008 (0.8%), which turned out to be too slack: adding a 26px
+       * control to the hero was only ~0.05% of a 1440x900 viewport, so the
+       * desktop tests passed while their baselines no longer matched the UI.
+       * 0.002 still absorbs antialiasing but won't wave through a new element.
+       */
+      maxDiffPixelRatio: 0.002,
       threshold: 0.2,
     },
   },
@@ -46,6 +72,29 @@ export default defineConfig({
     // for the unprefixed AZ routes.
     locale: 'en-US',
     timezoneId: 'Asia/Baku',
+
+    /**
+     * `CalculateNativeWinOcclusion` is the culprit behind blank bands in
+     * full-page captures on Windows.
+     *
+     * Chromium tracks whether its window is covered by another and stops
+     * painting when it thinks so. Later in a run — once other windows have been
+     * up — a page can be marked occluded while still being screenshotted, so the
+     * capture comes back with whole sections unpainted: correct page height,
+     * about half the file size, content present in the DOM at opacity 1.
+     *
+     * That matched the symptom exactly: ru-home passed every time it ran alone
+     * and failed every time it ran after ~10 other captures.
+     * `--disable-dev-shm-usage` is the usual companion for large captures.
+     */
+    launchOptions: {
+      args: [
+        '--disable-features=CalculateNativeWinOcclusion',
+        '--disable-dev-shm-usage',
+        '--disable-backgrounding-occluded-windows',
+        '--disable-renderer-backgrounding',
+      ],
+    },
   },
 
   projects: [

@@ -5,20 +5,23 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Phone, Mail, MapPin, Instagram, Facebook, Linkedin, ArrowUpRight, MessageCircle } from "lucide-react";
 import { useTranslations, useLocale } from "next-intl";
-import { useBreakpoint } from "../../hooks/useBreakpoint";
 import { localizedSlug, AZ_SLUGS } from "../services/servicesData";
 import { ACCENT, PLH_ACC } from "@/app/lib/brand";
 
 gsap.registerPlugin(ScrollTrigger);
 
-
-
+/**
+ * Layout is entirely CSS (see `Footer` in app/responsive.css).
+ *
+ * The one branch that looked structural — the centre tagline, previously
+ * `{!isMobile && ...}` — is now always rendered and hidden with `display: none`
+ * at mobile. A display:none grid item is out of the layout and out of the
+ * accessibility tree, so the phone result is identical, and the footer no longer
+ * needs `useBreakpoint()` at all.
+ */
 export function Footer() {
   const t      = useTranslations();
   const locale = useLocale();
-  const bp       = useBreakpoint();
-  const isMobile = bp === "mobile";
-  const isTablet = bp === "tablet";
   const footerRef = useRef<HTMLElement>(null);
 
   const base = locale === "az" ? "" : `/${locale}`;
@@ -33,9 +36,7 @@ export function Footer() {
       gsap.from(".ftr-bottom",  { opacity: 0, duration: 0.5, delay: 0.7, scrollTrigger: { trigger: footerRef.current, start: "top 90%", once: true } });
     }, footerRef);
     return () => ctx.revert();
-  }, [isMobile, isTablet]);
-
-  const p = isMobile ? "0 20px" : isTablet ? "0 28px" : "0 48px";
+  }, []);
 
   const contacts = [
     { Icon: Phone,         text: "+994 51 505 05 05",      href: "tel:+994515050505" },
@@ -54,10 +55,10 @@ export function Footer() {
 
   return (
     <footer id="contact" ref={footerRef} style={{ backgroundColor: "var(--ink)", fontFamily: "var(--font-inter), 'Inter', sans-serif" }}>
-      <div style={{ maxWidth: 1200, margin: "0 auto", padding: p }}>
+      <div className="ftr-wrap" style={{ maxWidth: 1200, margin: "0 auto" }}>
 
         {/* Brand bar */}
-        <div className="ftr-brand" style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "auto 1fr auto", alignItems: "center", gap: isMobile ? 20 : 32, paddingTop: isMobile ? 44 : 60, paddingBottom: isMobile ? 28 : 36, borderBottom: "1px solid rgba(255,255,255,0.07)" }}>
+        <div className="ftr-brand" style={{ display: "grid", alignItems: "center", borderBottom: "1px solid rgba(255,255,255,0.07)" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
             <img src="/logo-mark-light.png" alt="ProFinance" width={38} height={38} loading="lazy" style={{ width: 38, height: 38, objectFit: "contain", flexShrink: 0 }} />
             <div>
@@ -65,12 +66,10 @@ export function Footer() {
               <div style={{ fontSize: 16, color: "var(--invert-text-faint)", letterSpacing: "0.1em", textTransform: "uppercase" }}>Solutions</div>
             </div>
           </div>
-          {!isMobile && (
-            <p style={{ fontSize: 18, color: "var(--invert-text-muted)", margin: 0, textAlign: "center", lineHeight: 1.6 }}>
-              {t("footer.tagline")}
-            </p>
-          )}
-          <div style={{ display: "flex", gap: 9, justifyContent: isMobile ? "flex-start" : "flex-end" }}>
+          <p className="ftr-tagline" style={{ fontSize: 18, color: "var(--invert-text-muted)", margin: 0, textAlign: "center", lineHeight: 1.6 }}>
+            {t("footer.tagline")}
+          </p>
+          <div className="ftr-social" style={{ display: "flex", gap: 9 }}>
             {[{ Icon: Instagram, href: "#" }, { Icon: Facebook, href: "#" }, { Icon: Linkedin, href: "#" }].map(({ Icon, href }, i) => (
               <a key={i} href={href} style={{ width: 40, height: 40, borderRadius: 10, backgroundColor: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.08)", display: "flex", alignItems: "center", justifyContent: "center", color: "rgba(255,255,255,0.38)", textDecoration: "none", transition: "all 300ms ease" }}
                 onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.backgroundColor = "rgba(255,255,255,0.11)"; el.style.color = "#fff"; el.style.borderColor = "rgba(255,255,255,0.18)"; el.style.transform = "translateY(-2px)"; }}
@@ -81,7 +80,7 @@ export function Footer() {
         </div>
 
         {/* Partner strip */}
-        <div className="ftr-partner" style={{ display: "flex", alignItems: "center", gap: isMobile ? 14 : 20, padding: isMobile ? "16px 0" : "20px 0", borderBottom: "1px solid rgba(255,255,255,0.07)", flexWrap: isMobile ? "wrap" : "nowrap" }}>
+        <div className="ftr-partner" style={{ display: "flex", alignItems: "center", borderBottom: "1px solid rgba(255,255,255,0.07)" }}>
           <span style={{ fontSize: 16, fontWeight: 700, color: "var(--invert-text-faint)", letterSpacing: "0.16em", textTransform: "uppercase", flexShrink: 0 }}>{t("footer.legalPartner")}</span>
           <div style={{ width: 1, height: 16, backgroundColor: "rgba(255,255,255,0.1)", flexShrink: 0 }} />
           <img src="/PLHLogo.avif" alt="PLH" loading="lazy" style={{ height: 32, width: "auto", objectFit: "contain", flexShrink: 0, opacity: 0.85 }} />
@@ -94,7 +93,7 @@ export function Footer() {
         </div>
 
         {/* Link columns */}
-        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : isTablet ? "1fr 1fr 1fr" : "1.2fr 0.9fr 1fr", gap: isMobile ? "36px 24px" : isTablet ? 40 : 52, paddingTop: isMobile ? 36 : 48, paddingBottom: isMobile ? 40 : 56 }}>
+        <div className="ftr-cols" style={{ display: "grid" }}>
 
           {/* Services */}
           <div className="ftr-col">
@@ -142,11 +141,11 @@ export function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="ftr-bottom" style={{ borderTop: "1px solid rgba(255,255,255,0.06)", paddingTop: isMobile ? 20 : 24, paddingBottom: isMobile ? 32 : 36, display: "flex", flexDirection: isMobile ? "column" : "row", alignItems: isMobile ? "flex-start" : "center", justifyContent: "space-between", gap: isMobile ? 14 : 0 }}>
+        <div className="ftr-bottom" style={{ borderTop: "1px solid rgba(255,255,255,0.06)", display: "flex", justifyContent: "space-between" }}>
           <p style={{ fontSize: 16, color: "var(--invert-text-faint)", margin: 0 }}>
             © {new Date().getFullYear()} ProFinance Solutions. {t("footer.copyright")}
           </p>
-          <div style={{ display: "flex", alignItems: "center", gap: isMobile ? 16 : 22, flexWrap: "wrap" }}>
+          <div className="ftr-meta" style={{ display: "flex", alignItems: "center", flexWrap: "wrap" }}>
             <span style={{ fontSize: 16, color: "var(--invert-text-faint)" }}>{t("footer.city")}</span>
             <a href={aboutPath} style={{ display: "inline-flex", alignItems: "center", gap: 5, fontSize: 16, color: "var(--invert-text-faint)", textDecoration: "none", transition: "color 200ms" }}
               onMouseEnter={e => (e.currentTarget.style.color = ACCENT)}

@@ -10,7 +10,7 @@ import { useContactModal } from "../contexts/ContactModalContext";
 import { localizedSlug, AZ_SLUGS } from "../services/servicesData";
 import { DARK, INVERT, mix } from "@/app/lib/brand";
 import {
-  FS_H2, FS_H3, FS_H4_MOBILE, FS_H4_DESKTOP,
+  FS_H2, FS_H3, FS_H4_MOBILE,
   FS_BODY, FS_LABEL,
 } from "@/app/lib/typography";
 
@@ -61,6 +61,15 @@ const IMG_SCALE: Record<string, number> = {
   "/AuditorXidmetleri.avif":    1.0,
 };
 
+/**
+ * Sizes, spacing and the grid's hairlines live in responsive.css
+ * (`ServicesSection` there).
+ *
+ * `useBreakpoint()` stays for two things, neither of them a size: the closing
+ * CTA is a different composition on a phone (figure overhanging the corner vs.
+ * standing in a left gutter), and `cols` feeds the parallax offset inside a GSAP
+ * effect, which paints nothing.
+ */
 export function ServicesSection() {
   const t      = useTranslations();
   const locale = useLocale();
@@ -81,6 +90,8 @@ export function ServicesSection() {
     href:    `${servicesBasePath}/${localizedSlug(azSlug, locale)}`,
   }));
 
+  /* Column count is set in CSS; this copy exists only to stagger the parallax
+     across a row, and is never used to paint. */
   const cols = isMobile ? 1 : isTablet ? 2 : 4;
 
   useEffect(() => {
@@ -126,15 +137,13 @@ export function ServicesSection() {
     return () => ctx.revert();
   }, [isMobile, isTablet, cols]);
 
-  const sectionPadding = isMobile ? "68px 20px 72px" : isTablet ? "84px 28px 92px" : "112px 48px 120px";
-
   return (
     <section
       id="services"
       ref={sectionRef}
+      className="svc-section"
       style={{
         backgroundColor: "var(--page-bg-alt)",
-        padding: sectionPadding,
         fontFamily: "var(--font-inter), 'Inter', sans-serif",
       }}
     >
@@ -146,11 +155,7 @@ export function ServicesSection() {
           style={{
             opacity: 0,
             display: "flex",
-            flexDirection: isMobile ? "column" : "row",
-            alignItems: isMobile ? "flex-start" : "flex-end",
             justifyContent: "space-between",
-            gap: isMobile ? 18 : 48,
-            marginBottom: isMobile ? 34 : 52,
           }}
         >
           <div style={{ maxWidth: 620 }}>
@@ -176,34 +181,15 @@ export function ServicesSection() {
           className="svc-grid"
           style={{
             display: "grid",
-            gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`,
             borderTop: "1px solid var(--border)",
             borderBottom: "1px solid var(--border)",
           }}
         >
-          {services.map((svc, i) => {
-            const isLastCol = (i % cols) === cols - 1;
-            const isLastRow = i >= services.length - cols;
-            return (
-              <div
-                key={svc.azSlug}
-                className="svc-cell"
-                style={{
-                  opacity: 0,
-                  borderRight:  isLastCol ? "none" : "1px solid var(--border)",
-                  borderBottom: isLastRow ? "none" : "1px solid var(--border)",
-                  padding: isMobile ? 6 : 8,
-                }}
-              >
-                <ServiceCard
-                  {...svc}
-                  isMobile={isMobile}
-                  isTablet={isTablet}
-                  ctaLabel={t("services.viewDetails")}
-                />
-              </div>
-            );
-          })}
+          {services.map((svc) => (
+            <div key={svc.azSlug} className="svc-cell" style={{ opacity: 0 }}>
+              <ServiceCard {...svc} isMobile={isMobile} ctaLabel={t("services.viewDetails")} />
+            </div>
+          ))}
         </div>
 
         {/* ── Closing CTA ────────────────────────────────────────── */}
@@ -233,12 +219,13 @@ export function ServicesSection() {
             </div>
           </div>
         ) : (
-          <div className="svc-cta-anim" style={{ opacity: 0, marginTop: 64, position: "relative", zIndex: 2, paddingTop: isTablet ? 140 : 190 }}>
+          <div className="svc-cta-anim svc-cta" style={{ opacity: 0, marginTop: 64, position: "relative", zIndex: 2 }}>
             <img
               src="/CtaSitting.avif" alt="" aria-hidden="true" loading="lazy" decoding="async"
-              style={{ position: "absolute", top: 2, left: isTablet ? 32 : 48, height: isTablet ? 280 : 360, width: "auto", zIndex: 10, pointerEvents: "none", display: "block", filter: "drop-shadow(8px 12px 24px rgba(0,0,0,0.22))" }}
+              className="svc-cta-figure"
+              style={{ position: "absolute", top: 2, width: "auto", zIndex: 10, pointerEvents: "none", display: "block", filter: "drop-shadow(8px 12px 24px rgba(0,0,0,0.22))" }}
             />
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 24, flexWrap: "wrap", padding: isTablet ? "30px 32px 30px 200px" : "40px 44px 40px 260px", backgroundColor: INVERT, borderRadius: 20, overflow: "hidden", position: "relative" }}>
+            <div className="svc-cta-card" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 24, flexWrap: "wrap", backgroundColor: INVERT, borderRadius: 20, overflow: "hidden", position: "relative" }}>
               <div>
                 <p style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: FS_H3, color: "#FFFFFF", margin: "0 0 8px", letterSpacing: "-0.025em", lineHeight: 1.15 }}>
                   {t("services.ctaQuestion")}
@@ -266,12 +253,18 @@ export function ServicesSection() {
 /* ──────────────────────────────────────────────────────────────────
    Card — desktop/tablet: object plate on top, ledger index + title below.
           mobile: the same parts turned on their side into a compact row.
+
+   The two variants are breakpoint-exclusive, so nothing here needs a media
+   query: `svc-*-row` classes only ever render below 768px and `svc-*-stack`
+   only ever above it, and each carries its own values. `isTablet` is gone
+   entirely — the one place it still differed (plate ratio, card padding, title
+   size) is a tablet override on the stacked classes in responsive.css.
    ────────────────────────────────────────────────────────────────── */
 function ServiceCard({
-  index, name, tagline, img, href, isMobile, isTablet, ctaLabel,
+  index, name, tagline, img, href, isMobile, ctaLabel,
 }: {
   index: string; name: string; tagline: string; img: string; href: string;
-  isMobile: boolean; isTablet: boolean; ctaLabel: string;
+  isMobile: boolean; ctaLabel: string;
 }) {
   const [active, setActive] = useState(false);
   const [w, h] = IMG_DIMS[img] ?? [1400, 1120];
@@ -282,13 +275,15 @@ function ServiceCard({
 
   /* The plate: a tinted well the object sits in, with a soft ground shadow so
      it reads as a physical object on a shelf rather than a floating sticker. */
-  const plate = (size: { width?: number | string; aspectRatio?: string }) => (
+  const plate = (variant: "row" | "stack") => (
     <div
+      /* Both class names spelled out rather than interpolated: a template
+         literal hides them from `e2e/tools/checkcls.mjs`, which is the only
+         thing that catches a rule whose className never got applied. */
+      className={variant === "row" ? "svc-plate svc-plate-row" : "svc-plate svc-plate-stack"}
       style={{
-        ...size,
         position: "relative",
         flexShrink: 0,
-        borderRadius: isMobile ? 14 : 16,
         overflow: "hidden",
         backgroundColor: active ? "var(--plate-active)" : "var(--plate)",
         transition: "background-color 420ms ease",
@@ -308,12 +303,11 @@ function ServiceCard({
       {/* ground shadow — tightens and darkens as the object lifts */}
       <div
         aria-hidden="true"
+        className="svc-ground"
         style={{
           position: "absolute",
           left: "50%",
-          bottom: isMobile ? "13%" : "15%",
           width: active ? "34%" : "42%",
-          height: isMobile ? 7 : 11,
           transform: "translateX(-50%)",
           borderRadius: "50%",
           background: `radial-gradient(ellipse at center, ${mix(DARK, active ? 22 : 15)}, transparent 72%)`,
@@ -335,8 +329,11 @@ function ServiceCard({
           decoding="async"
           width={w}
           height={h}
+          className="svc-obj"
           style={{
-            width: `${(isMobile ? 76 : 78) * scale}%`,
+            /* The breakpoint half of this width lives in CSS; the per-asset
+               correction stays here as a multiplier the stylesheet reads. */
+            ["--svc-obj-scale" as string]: scale,
             height: "auto",
             objectFit: "contain",
             transform: active ? "translateY(-7px) scale(1.055)" : "translateY(0) scale(1)",
@@ -366,10 +363,10 @@ function ServiceCard({
 
   const titleEl = (
     <h3
+      className="svc-card-title"
       style={{
         fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif",
         fontWeight: 700,
-        fontSize: isMobile || isTablet ? FS_H4_MOBILE : FS_H4_DESKTOP,
         color: active ? DARK : "var(--text)",
         margin: 0,
         letterSpacing: "-0.025em",
@@ -391,7 +388,6 @@ function ServiceCard({
     display: "flex",
     textDecoration: "none",
     height: "100%",
-    borderRadius: isMobile ? 16 : 18,
     backgroundColor: active ? "var(--surface)" : "transparent",
     boxShadow: active
       ? "0 22px 48px color-mix(in srgb, var(--brand) 13%, transparent), 0 4px 14px rgba(0,0,0,0.06)"
@@ -405,13 +401,13 @@ function ServiceCard({
     return (
       <a
         href={href}
-        className="svc-card"
+        className="svc-card svc-card-row"
         onMouseEnter={on} onMouseLeave={off}
         onFocus={on} onBlur={off}
         onTouchStart={on} onTouchEnd={off}
-        style={{ ...shell, alignItems: "center", gap: 14, padding: 12 }}
+        style={{ ...shell, alignItems: "center", gap: 14 }}
       >
-        {plate({ width: 112, aspectRatio: "1 / 1" })}
+        {plate("row")}
         {/* No trailing chevron here — at 390px every pixel of that column is
             needed for the title, and the whole row is already the link. */}
         <div style={{ display: "flex", flexDirection: "column", gap: 5, minWidth: 0, flex: 1 }}>
@@ -427,14 +423,15 @@ function ServiceCard({
   return (
     <a
       href={href}
-      className="svc-card"
+      className="svc-card svc-card-stack"
       onMouseEnter={on} onMouseLeave={off}
       onFocus={on} onBlur={off}
-      style={{ ...shell, flexDirection: "column", padding: isTablet ? 16 : 18 }}
+      style={{ ...shell, flexDirection: "column" }}
     >
       {/* Two columns give each plate ~370px — square there would make the
-          section scroll forever, so tablet plates go landscape instead. */}
-      {plate({ aspectRatio: isTablet ? "4 / 3" : "1 / 1" })}
+          section scroll forever, so tablet plates go landscape instead (the
+          ratio flip is a tablet rule on `.svc-plate-stack`). */}
+      {plate("stack")}
 
       <div style={{ display: "flex", alignItems: "center", gap: 10, margin: "20px 0 10px" }}>
         {indexEl}

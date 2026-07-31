@@ -34,11 +34,10 @@ export function AboutTeam() {
     return () => ctx.revert();
   }, [isMobile, isTablet]);
 
-  const pad = isMobile ? "64px 20px 72px" : isTablet ? "80px 28px 88px" : "100px 48px 108px";
 
   if (isMobile) {
     return (
-      <section ref={sectionRef} style={{ backgroundColor: "var(--surface)", padding: pad, fontFamily: "var(--font-inter), 'Inter', sans-serif" }}>
+      <section ref={sectionRef} className="team-section" style={{ backgroundColor: "var(--surface)", fontFamily: "var(--font-inter), 'Inter', sans-serif" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
           <div className="team-anim" style={{ marginBottom: 32 }}>
             <p style={{ fontSize: FS_LABEL, fontWeight: 600, color: DARK, letterSpacing: "0.18em", textTransform: "uppercase", margin: "0 0 14px" }}>{t("sectionLabel")}</p>
@@ -47,7 +46,7 @@ export function AboutTeam() {
             </h2>
           </div>
           <div style={{ borderRadius: 16, overflow: "hidden", marginBottom: 32, height: 220 }}>
-            <img src="/AboutPageTeamLandscape.avif" alt="ProFinance Team" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", display: "block" }} />
+            <img src="/AboutPageTeamLandscape.avif" alt={t("photoAlt")} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", display: "block" }} />
           </div>
           <p className="team-anim" style={{ fontSize: 18, color: "var(--text-muted)", lineHeight: 1.8, margin: "0 0 32px" }}>{t("description")}</p>
           <div className="team-traits">
@@ -69,7 +68,7 @@ export function AboutTeam() {
   }
 
   return (
-    <section ref={sectionRef} style={{ backgroundColor: "var(--surface)", padding: pad, fontFamily: "var(--font-inter), 'Inter', sans-serif" }}>
+    <section ref={sectionRef} className="team-section" style={{ backgroundColor: "var(--surface)", fontFamily: "var(--font-inter), 'Inter', sans-serif" }}>
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
         <div className="team-anim" style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 40, marginBottom: 52, flexWrap: "wrap" }}>
           <div>
@@ -83,9 +82,9 @@ export function AboutTeam() {
 
         <div style={{ height: 1, backgroundColor: "var(--border)", marginBottom: 52 }} />
 
-        <div style={{ display: "grid", gridTemplateColumns: `${isTablet ? 300 : 380}px 1fr`, gap: isTablet ? 48 : 80, alignItems: "start" }}>
+        <div className="team-grid" style={{ display: "grid", alignItems: "start" }}>
           <div ref={portraitRef} style={{ borderRadius: 20, overflow: "hidden", opacity: 0, boxShadow: "0 24px 64px rgba(0,0,0,0.1)", position: "relative" }}>
-            <img src="/AboutPageTeamPortrait.avif" alt="ProFinance Team" style={{ width: "100%", display: "block", objectFit: "cover", objectPosition: "center top", aspectRatio: "3 / 4" }} />
+            <img src="/AboutPageTeamPortrait.avif" alt={t("photoAlt")} style={{ width: "100%", display: "block", objectFit: "cover", objectPosition: "center top", aspectRatio: "3 / 4" }} />
           </div>
 
           <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", paddingTop: 8 }}>
@@ -95,12 +94,12 @@ export function AboutTeam() {
             </div>
             <div className="team-traits">
               {traits.map((trait, i) => (
-                <div key={i} className="team-trait" style={{ borderTop: "1px solid var(--border)", padding: `${isTablet ? 22 : 26}px 0`, borderBottom: i === traits.length - 1 ? "1px solid var(--border)" : "none", display: "grid", gridTemplateColumns: "40px 1fr", gap: 20, alignItems: "start" }}>
+                <div key={i} className="team-trait" style={{ borderTop: "1px solid var(--border)", borderBottom: i === traits.length - 1 ? "1px solid var(--border)" : "none", display: "grid", gridTemplateColumns: "40px 1fr", gap: 20, alignItems: "start" }}>
                   <div style={{ width: 32, height: 32, borderRadius: 9, backgroundColor: BRAND_SOLID, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                     <span style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: 16, color: "#fff", letterSpacing: "0.04em" }}>{trait.number}</span>
                   </div>
                   <div>
-                    <p style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: isTablet ? FS_H4_MOBILE : FS_H4_DESKTOP, color: "var(--text)", margin: "0 0 6px", letterSpacing: "-0.02em" }}>{trait.title}</p>
+                    <p className="team-trait-title" style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 700, color: "var(--text)", margin: "0 0 6px", letterSpacing: "-0.02em" }}>{trait.title}</p>
                     <p style={{ fontSize: 18, color: "var(--text-muted)", lineHeight: 1.75, margin: 0 }}>{trait.desc}</p>
                   </div>
                 </div>

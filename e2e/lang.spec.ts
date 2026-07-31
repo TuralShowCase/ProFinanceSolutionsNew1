@@ -1,0 +1,81 @@
+import { test } from '@playwright/test';
+
+/**
+ * Language purity check on rendered output.
+ *
+ * Reading the message files only proves the translations exist. This proves
+ * what a visitor actually sees — which also catches strings hardcoded into
+ * components that never went through next-intl at all.
+ */
+
+const CYRILLIC = /[Ѐ-ӿ]/;
+// 'ə' (schwa) is the giveaway: it exists in Azerbaijani and essentially nothing
+// else the site would legitimately render.
+const AZERI_ONLY = /[əƏ]/;
+
+// Words that would betray untranslated English UI on a non-English page.
+// Brand names are excluded separately below.
+const ENGLISH_UI = /\b(Home|About|Services|Contact|Read more|Learn more|Submit|Send|Close|Menu|Search|Designed by|Get in Touch|Practice Areas|All rights reserved)\b/;
+
+// Legitimately untranslated everywhere: brands, proper nouns, contact data.
+const ALLOWED = [
+  'ProFinance', 'Solutions', 'PLH', 'WhatsApp', 'Kronex', 'Instagram',
+  'Facebook', 'LinkedIn', 'AZ', 'EN', 'RU', 'Baku', 'Bakı', 'Integral',
+  'Cafe City', 'Dekoriko', 'Conco', 'BIMD', 'City Park', 'Shusha Qala',
+  'La Quzu', 'info@profinance.az', 'Express', 'Service', 'Telecom',
+  'Beyond Compare', 'HR', 'IT', 'ERP', 'SAP', 'MS', 'Excel',
+];
+
+const PAGES = [
+  { locale: 'az', paths: ['/', '/about', '/services/ucotun-diaqnostikasi-ve-berpasi'] },
+  { locale: 'en', paths: ['/en', '/en/about', '/en/services/accounting-diagnostics'] },
+  { locale: 'ru', paths: ['/ru', '/ru/o-nas', '/ru/services/diagnostika-ucheta'] },
+];
+
+/** Strips brand names so they don't trigger the English-word detector. */
+function withoutAllowed(text: string): string {
+  let out = text;
+  for (const term of ALLOWED) out = out.split(term).join(' ');
+  return out;
+}
+
+for (const { locale, paths } of PAGES) {
+  for (const path of paths) {
+    test(`language purity — ${locale} ${path}`, async ({ page }) => {
+      test.skip(test.info().project.name !== 'desktop', 'language check: desktop only');
+
+      await page.goto(path, { waitUntil: 'load' });
+      await page.evaluate(() => document.fonts.ready);
+      await page.waitForTimeout(1500);
+
+      const text = await page.locator('body').innerText();
+      const cleaned = withoutAllowed(text);
+      const lines = cleaned.split('\n').map((l) => l.trim()).filter(Boolean);
+
+      const problems: string[] = [];
+
+      for (const line of lines) {
+        if (locale === 'en') {
+          if (CYRILLIC.test(line)) problems.push(`Cyrillic on EN page: "${line.slice(0, 80)}"`);
+          if (AZERI_ONLY.test(line)) problems.push(`Azerbaijani on EN page: "${line.slice(0, 80)}"`);
+        }
+        if (locale === 'ru') {
+          if (AZERI_ONLY.test(line)) problems.push(`Azerbaijani on RU page: "${line.slice(0, 80)}"`);
+          if (ENGLISH_UI.test(line)) problems.push(`English UI on RU page: "${line.slice(0, 80)}"`);
+        }
+        if (locale === 'az') {
+          if (CYRILLIC.test(line)) problems.push(`Cyrillic on AZ page: "${line.slice(0, 80)}"`);
+          if (ENGLISH_UI.test(line)) problems.push(`English UI on AZ page: "${line.slice(0, 80)}"`);
+        }
+      }
+
+      const htmlLang = await page.getAttribute('html', 'lang');
+      const langOk = htmlLang === locale;
+
+      console.log(
+        `${(locale + ' ' + path).padEnd(46)} html[lang]=${String(htmlLang).padEnd(4)}${langOk ? '' : ' <-- YANLIS'}  sorun=${problems.length}`,
+      );
+      for (const p of [...new Set(problems)]) console.log('      ' + p);
+    });
+  }
+}
