@@ -87,14 +87,14 @@
       "auditor-xidmetleri": "Audit Services"
     },
     "taglines": {
-      "ucotun-diaqnostikasi-ve-berpasi": "Professional support for the comprehensive review and restoration of your company's accounting and tax records.",
+      "ucotun-diaqnostikasi-ve-berpasi": "Professional support reviewing and restoring your accounting and tax records.",
       "muhasibat-konsaltinqi": "Full organisation and professional support of your company's accounting.",
       "vergi-konsaltinqi": "Professional support on tax legislation matters.",
       "maliyye-ve-idareetme-konsaltinqi": "Professional support for developing your company's financial management system.",
-      "emeliyyat-ve-reqemsal-konsaltinq": "Professional support in optimising processes and adopting modern technologies to increase business efficiency.",
+      "emeliyyat-ve-reqemsal-konsaltinq": "Professional support optimising processes and adopting modern technologies.",
       "hr-ve-kadrlar-konsaltinqi": "Set-up and professional support of your company's HR system.",
       "telim-ve-inkisaf": "Professional support in developing employees' skills and management competencies.",
-      "auditor-xidmetleri": "Professional support for the independent assessment of your company's financial and operational processes."
+      "auditor-xidmetleri": "Professional support for the independent assessment of your financial and operational processes."
     },
     "shortTaglines": {
       "ucotun-diaqnostikasi-ve-berpasi": "The first step to financial health",
@@ -288,11 +288,11 @@
   },
   "meta": {
     "homeTitle": "ProFinance Solutions — Financial Consulting in Baku",
-    "homeDescription": "ProFinance Solutions is a Baku-based firm providing financial consulting, tax planning, accounting, audit and HR services to Azerbaijan's leading corporations. 50+ clients since 2019.",
+    "homeDescription": "ProFinance Solutions is a Baku-based firm providing financial consulting, tax planning, accounting, audit and HR services to Azerbaijan's leading corporations.",
     "aboutTitle": "About ProFinance Solutions — Baku Financial Consulting",
-    "aboutDescription": "ProFinance Solutions — a financial consulting firm in Baku. Accounting, tax, audit, HR. Professional support for 13+ corporate clients across 8 service areas.",
+    "aboutDescription": "ProFinance Solutions — a financial consulting firm in Baku. Accounting, tax, audit, HR. Professional support for corporate clients across 8 service areas.",
     "defaultTitle": "ProFinance Solutions — Financial Consulting, Baku, Azerbaijan",
-    "defaultDescription": "ProFinance Solutions — financial consulting, tax planning, accounting and audit services in Baku. Trusted financial partner for 13+ corporations since 2019.",
+    "defaultDescription": "ProFinance Solutions — financial consulting, tax planning, accounting and audit services in Baku. Trusted financial partner for corporations across Azerbaijan.",
     "serviceTitle": "{serviceName} in Baku | ProFinance Solutions",
     "plhMenu": {
       "contractLaw": "Contract Law",

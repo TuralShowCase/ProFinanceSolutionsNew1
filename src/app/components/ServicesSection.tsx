@@ -85,7 +85,7 @@ export function ServicesSection() {
     index:   String(idx + 1).padStart(2, "0"),
     azSlug,
     name:    t(`services.names.${azSlug}` as Parameters<typeof t>[0]),
-    tagline: t(`services.shortTaglines.${azSlug}` as Parameters<typeof t>[0]),
+    tagline: t(`services.taglines.${azSlug}` as Parameters<typeof t>[0]),
     img:     SERVICE_IMAGES[azSlug],
     href:    `${servicesBasePath}/${localizedSlug(azSlug, locale)}`,
   }));

@@ -119,7 +119,7 @@ export default function OgImage() {
           }}
         >
           <span style={{ color: 'rgba(255,255,255,0.45)', fontSize: 15 }}>
-            2019 · 13+ müştəri · 8 xidmət sahəsi
+            Mühasibatlıq · Vergi · Audit · HR
           </span>
           <span style={{ color: 'rgba(255,255,255,0.35)', fontSize: 14 }}>
             profinancesolutions.az

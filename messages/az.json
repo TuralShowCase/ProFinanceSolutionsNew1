@@ -87,14 +87,14 @@
       "auditor-xidmetleri": "Auditor xidmətləri"
     },
     "taglines": {
-      "ucotun-diaqnostikasi-ve-berpasi": "Şirkətinizin mühasibat və vergi uçotunun kompleks yoxlanılması və bərpası üzrə peşəkar dəstək.",
+      "ucotun-diaqnostikasi-ve-berpasi": "Mühasibat və vergi uçotunun yoxlanılması və bərpası üzrə peşəkar dəstək.",
       "muhasibat-konsaltinqi": "Şirkətin mühasibat uçotunun tam təşkili və peşəkar müşayiəti.",
       "vergi-konsaltinqi": "Vergi qanunvericiliyi üzrə şirkətinizə peşəkar dəstək.",
       "maliyye-ve-idareetme-konsaltinqi": "Şirkətinizin maliyyə idarəetmə sisteminin inkişafı üçün peşəkar dəstək.",
-      "emeliyyat-ve-reqemsal-konsaltinq": "Biznesinizin səmərəliliyini artırmaq üçün proseslərin optimallaşdırılması və müasir texnologiyaların tətbiqi üzrə peşəkar dəstək.",
+      "emeliyyat-ve-reqemsal-konsaltinq": "Proseslərin optimallaşdırılması və texnologiyaların tətbiqi üzrə peşəkar dəstək.",
       "hr-ve-kadrlar-konsaltinqi": "Şirkətinizin kadr sisteminin qurulması və peşəkar dəstəyi.",
       "telim-ve-inkisaf": "Əməkdaşların bacarıqlarını və idarəetmə səriştəsini artırmaq üzrə peşəkar dəstək.",
-      "auditor-xidmetleri": "Şirkətinizin maliyyə və əməliyyat proseslərinin müstəqil qiymətləndirilməsi üzrə peşəkar dəstək."
+      "auditor-xidmetleri": "Maliyyə və əməliyyat proseslərinin müstəqil qiymətləndirilməsi üzrə peşəkar dəstək."
     },
     "shortTaglines": {
       "ucotun-diaqnostikasi-ve-berpasi": "Maliyyə sağlamlığının ilk addımı",
@@ -288,11 +288,11 @@
   },
   "meta": {
     "homeTitle": "ProFinance Solutions — Bakıda Maliyyə Konsaltinqi",
-    "homeDescription": "ProFinance Solutions Azərbaycanın aparıcı korporasiyaları üçün maliyyə konsaltinqi, vergi planlaması, mühasibat uçotu, audit və HR xidmətləri göstərən Bakı şirkətidir. 2019-dan 50+ müştəri.",
+    "homeDescription": "ProFinance Solutions Azərbaycanın aparıcı korporasiyaları üçün maliyyə konsaltinqi, vergi planlaması, mühasibat uçotu, audit və HR xidmətləri göstərən Bakı şirkətidir.",
     "aboutTitle": "ProFinance Solutions Haqqında — Bakı Maliyyə Konsaltinqi",
-    "aboutDescription": "ProFinance Solutions — Bakıda maliyyə konsaltinq şirkəti. Mühasibat, vergi, audit, HR. 13+ korporativ müştəri, 8 xidmət sahəsində peşəkar dəstək.",
+    "aboutDescription": "ProFinance Solutions — Bakıda maliyyə konsaltinq şirkəti. Mühasibat, vergi, audit, HR sahələrində 8 xidmət istiqamətində peşəkar dəstək.",
     "defaultTitle": "ProFinance Solutions — Maliyyə Konsaltinqi Bakı, Azərbaycan",
-    "defaultDescription": "ProFinance Solutions — Bakıda maliyyə konsaltinqi, vergi planlaması, mühasibat və audit xidmətləri. 2019-dan 13+ korporasiyaya etibarlı maliyyə tərəfdaşı.",
+    "defaultDescription": "ProFinance Solutions — Bakıda maliyyə konsaltinqi, vergi planlaması, mühasibat və audit xidmətləri. Azərbaycan korporasiyaları üçün etibarlı maliyyə tərəfdaşı.",
     "serviceTitle": "{serviceName} Bakıda | ProFinance Solutions",
     "plhMenu": {
       "contractLaw": "Müqavilə Hüququ",

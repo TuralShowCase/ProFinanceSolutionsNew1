@@ -46,7 +46,6 @@ const organizationSchema = {
   url: SITE_URL,
   logo: { '@type': 'ImageObject', url: `${SITE_URL}/logo-icon.png`, width: 500, height: 500 },
   description: 'Professional financial consulting, tax planning, accounting, audit and HR services for Azerbaijan\'s leading corporations.',
-  foundingDate: '2019',
   areaServed: { '@type': 'Country', name: 'Azerbaijan', sameAs: 'https://www.wikidata.org/wiki/Q227' },
   address: { '@type': 'PostalAddress', streetAddress: 'Əhməd Rəcəbli-2 küçəsi', addressLocality: 'Bakı', addressCountry: 'AZ' },
   contactPoint: [
