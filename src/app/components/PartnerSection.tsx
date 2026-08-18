@@ -190,7 +190,7 @@ export function PartnerSection() {
   );
 
   return (
-    <section ref={sectionRef} className="partner-section" style={{ backgroundColor: CREAM, fontFamily: "var(--font-inter), 'Inter', sans-serif" }}>
+    <section id="partner" ref={sectionRef} className="partner-section" style={{ backgroundColor: CREAM, fontFamily: "var(--font-inter), 'Inter', sans-serif" }}>
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
 
         {/* Header */}

@@ -387,7 +387,7 @@ function ServicePageInner({ service, allServices, locale }: { service: ServiceDa
                 onMouseEnter={e => { (e.currentTarget as HTMLElement).style.opacity = "0.88"; (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)"; }}
                 onMouseLeave={e => { (e.currentTarget as HTMLElement).style.opacity = "1"; (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; }}
               ><Phone size={14} strokeWidth={1.8} /> {t("freeConsultation")}</button>
-              <a href={homeBase} style={{ display: "flex", width: "100%", boxSizing: "border-box", alignItems: "center", justifyContent: "center", gap: 6, backgroundColor: "transparent", color: DARK, fontWeight: 500, fontSize: 18, padding: "12px 24px", borderRadius: 9, textDecoration: "none", border: `1px solid ${mix(DARK, 13)}`, transition: "border-color 300ms ease, background-color 300ms ease" }}
+              <a href={`${homeBase}#services`} style={{ display: "flex", width: "100%", boxSizing: "border-box", alignItems: "center", justifyContent: "center", gap: 6, backgroundColor: "transparent", color: DARK, fontWeight: 500, fontSize: 18, padding: "12px 24px", borderRadius: 9, textDecoration: "none", border: `1px solid ${mix(DARK, 13)}`, transition: "border-color 300ms ease, background-color 300ms ease" }}
                 onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = `${mix(DARK, 31)}`; (e.currentTarget as HTMLElement).style.backgroundColor = `${mix(DARK, 2)}`; }}
                 onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = `${mix(DARK, 13)}`; (e.currentTarget as HTMLElement).style.backgroundColor = "transparent"; }}
               >{t("allServices")} <ArrowUpRight size={15} /></a>

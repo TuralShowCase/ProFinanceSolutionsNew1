@@ -401,7 +401,7 @@
   --why-pad-top: 112px;
   /* Scroll the console consumes, on top of --why-pad-top, so the spacing above
      the card doesn't shorten the read-through. */
-  --why-scroll: 190vh;
+  --why-scroll: 260vh;
   height: calc(var(--why-scroll) + var(--why-pad-top));
   padding-top: var(--why-pad-top);
 }
@@ -841,7 +841,7 @@
   .why-console {
     --why-sticky-top: 100px;
     --why-pad-top: 88px;
-    --why-scroll: 175vh;
+    --why-scroll: 240vh;
   }
 
   .why-sticky {

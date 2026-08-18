@@ -37,7 +37,7 @@ export function AboutTeam() {
 
   if (isMobile) {
     return (
-      <section ref={sectionRef} className="team-section" style={{ backgroundColor: "var(--surface)", fontFamily: "var(--font-inter), 'Inter', sans-serif" }}>
+      <section id="team" ref={sectionRef} className="team-section" style={{ backgroundColor: "var(--surface)", fontFamily: "var(--font-inter), 'Inter', sans-serif" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
           <div className="team-anim" style={{ marginBottom: 32 }}>
             <p style={{ fontSize: FS_LABEL, fontWeight: 600, color: DARK, letterSpacing: "0.18em", textTransform: "uppercase", margin: "0 0 14px" }}>{t("sectionLabel")}</p>
@@ -68,7 +68,7 @@ export function AboutTeam() {
   }
 
   return (
-    <section ref={sectionRef} className="team-section" style={{ backgroundColor: "var(--surface)", fontFamily: "var(--font-inter), 'Inter', sans-serif" }}>
+    <section id="team" ref={sectionRef} className="team-section" style={{ backgroundColor: "var(--surface)", fontFamily: "var(--font-inter), 'Inter', sans-serif" }}>
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
         <div className="team-anim" style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 40, marginBottom: 52, flexWrap: "wrap" }}>
           <div>

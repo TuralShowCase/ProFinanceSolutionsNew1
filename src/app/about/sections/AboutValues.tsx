@@ -116,7 +116,7 @@ export function AboutValues() {
   // Mobile / Tablet
   if (!mounted || isMobile || isTablet) {
     return (
-      <section style={{ backgroundColor: CREAM, padding: "56px 20px 64px", fontFamily: "var(--font-inter), 'Inter', sans-serif" }}>
+      <section id="values" style={{ backgroundColor: CREAM, padding: "56px 20px 64px", fontFamily: "var(--font-inter), 'Inter', sans-serif" }}>
         <p style={{ fontSize: FS_LABEL, fontWeight: 700, color: DARK, letterSpacing: "0.22em", textTransform: "uppercase", margin: "0 0 12px" }}>{t("sectionLabel")}</p>
         <h2 style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: 28, color: "var(--text)", margin: "0 0 32px", letterSpacing: "-0.035em", lineHeight: 1.1 }}>
           {t("heading")} <span style={{ color: DARK }}>{t("headingAccent")}</span>
@@ -143,7 +143,7 @@ export function AboutValues() {
 
   // Desktop
   return (
-    <section ref={sectionRef} style={{ backgroundColor: CREAM, position: "relative", overflow: "hidden" }}>
+    <section id="values" ref={sectionRef} style={{ backgroundColor: CREAM, position: "relative", overflow: "hidden" }}>
       <div className="val-inner" style={{ minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center", maxWidth: 1280, margin: "0 auto", position: "relative" }}>
         <div className="val-hdr">
           <p style={{ fontSize: FS_LABEL, fontWeight: 700, color: DARK, letterSpacing: "0.22em", textTransform: "uppercase", margin: "0 0 14px" }}>{t("sectionLabel")}</p>
