@@ -165,7 +165,7 @@ export const REVEAL_SELECTOR = [
   'ind-card', 'ind-hdr', 'ind-panel', 'ind-row', 'intro-anim',
   'msn-anim', 'msn-card', 'partner-card', 'partner-feat', 'partner-hdr',
   'partner-photo', 'proc-header', 'proc-step', 'svc-cell', 'svc-crumb',
-  'svc-cta-anim', 'svc-faq-header', 'svc-heading-anim', 'target-pill',
+  'svc-cta-anim', 'svc-heading-anim', 'target-pill',
   'svc-cta', 'targets-row', 'team-anim', 'team-trait', 'val-hdr',
   'whatget-anim', 'why-in', 'why-pane', 'word-inner', 'wwa-anim', 'wwa-cta',
   'wwa-head', 'wwa-mission', 'cta-item',

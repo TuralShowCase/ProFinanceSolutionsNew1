@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: 'ProFinance Solutions',
     short_name: 'ProFinance',
     description:
-      'Bakıda maliyyə konsaltinqi, vergi planlaması, mühasibat və audit xidmətləri.',
+      'Bakıda maliyyə konsaltinqi, vergi planlaması, mühasibat, audit və HR xidmətləri.',
     start_url: '/',
     display: 'standalone',
     background_color: '#ffffff',

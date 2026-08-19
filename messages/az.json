@@ -54,7 +54,7 @@
     "heading": "Maliyyə proseslərinizi",
     "headingAccent": "sistemə çeviririk",
     "leadParagraph": "Müasir dünyada biznesin uğuru yalnız ambisiyalardan deyil, həm də maliyyələrin dəqiq və şəffaf idarə olunmasından asılıdır.",
-    "paragraph1": "ProFinance Solutions şirkətinizin böyüməsinə, risklərin minimuma endirilməsinə və əsaslı maliyyə qərarlarının qəbuluna dəstək verən strateji tərəfdaş kimi çıxış edir. Təcrübəmiz maliyyə konsaltinqinin əsas sahələrini əhatə edir: mühasibatlıq, vergi, audit və maliyyə idarəçiliyi.",
+    "paragraph1": "<b>ProFinance Solutions</b> şirkətinizin böyüməsinə, risklərin minimuma endirilməsinə və əsaslı maliyyə qərarlarının qəbuluna dəstək verən strateji tərəfdaş kimi çıxış edir. Təcrübəmiz maliyyə konsaltinqinin əsas sahələrini əhatə edir: mühasibatlıq, vergi, audit və maliyyə idarəçiliyi.",
     "paragraph2": "Məqsədimiz biznesi risklərdən qorumaqla yanaşı, onun inkişafı üçün yeni imkanlar yaratmaqdır. Müştərilərimizlə etibar, peşəkarlıq və strateji yanaşma üzərində qurulan uzunmüddətli tərəfdaşlıqlar qururuq.",
     "missionLabel": "Missiyamız",
     "missionText": "Müştərilərimizin biznesi üçün etibarlı və strateji tərəfdaş olmaq, maliyyə proseslərində maksimum şəffaflığı təmin etmək və mühasibatlıq, vergi, audit və maliyyə idarəçiliyi sahələrindəki peşəkar təcrübəmizə əsaslanaraq şirkətləri xarici risklərdən effektiv şəkildə qorumaq.",
@@ -70,7 +70,7 @@
     "ctaLearnMore": "Ətraflı məlumat",
     "ctaContact": "Əlaqə saxlayın",
     "ctaQuestion": "Hansı xidmət sizə lazımdır?",
-    "ctaSubtext": "Pulsuz ilkin məsləhət üçün bu gün bizimlə əlaqə saxlayın.",
+    "ctaSubtext": "İlkin məsləhət üçün bu gün bizimlə əlaqə saxlayın.",
     "viewDetails": "Ətraflı bax",
     "showMore": "Daha {count} xidmət göstər",
     "showLess": "Daha az",
@@ -195,8 +195,8 @@
       "headingSuffix": "tərəfdaşınız",
       "subtext": "Biz yalnız məsləhət vermirik — maliyyə proseslərini proqnozlaşdırıla bilən, şəffaf və idarə olunan sistemə çeviririk.",
       "leadParagraph": "Müasir dünyada biznesin uğuru yalnız ambisiyalardan deyil, həm də maliyyələrin dəqiq və şəffaf idarə olunmasından asılıdır.",
-      "paragraph1": "ProFinance Solutions şirkətinizin böyüməsinə, risklərin minimuma endirilməsinə və əsaslı maliyyə qərarlarının qəbuluna dəstək verən strateji tərəfdaş kimi çıxış edir. Təcrübəmiz maliyyə konsaltinqinin əsas sahələrini əhatə edir: mühasibatlıq, vergi, audit və maliyyə idarəçiliyi.",
-      "paragraph2": "Məqsədimiz biznesi risklərdən qorumaqla yanaşı, onun inkişafı üçün yeni imkanlar yaratmaqdır. Biz müştərilərimizlə uzunmüddətli tərəfdaşlıqlar qurur, etibar, peşəkarlıq və strateji yanaşma üzərində dayanırıq. ProFinance Solutions — maliyyə uğurunuzun etibarlı tərəfdaşıdır.",
+      "paragraph1": "<b>ProFinance Solutions</b> şirkətinizin böyüməsinə, risklərin minimuma endirilməsinə və əsaslı maliyyə qərarlarının qəbuluna dəstək verən strateji tərəfdaş kimi çıxış edir. Təcrübəmiz maliyyə konsaltinqinin əsas sahələrini əhatə edir: mühasibatlıq, vergi, audit və maliyyə idarəçiliyi.",
+      "paragraph2": "Məqsədimiz biznesi risklərdən qorumaqla yanaşı, onun inkişafı üçün yeni imkanlar yaratmaqdır. Biz müştərilərimizlə uzunmüddətli tərəfdaşlıqlar qurur, etibar, peşəkarlıq və strateji yanaşma üzərində dayanırıq. <b>ProFinance Solutions</b> — maliyyə uğurunuzun etibarlı tərəfdaşıdır.",
       "missionLabel": "Missiyamız",
       "missionQuote": "Müştərilərimizin biznesi üçün etibarlı və strateji tərəfdaş olmaq, maliyyə proseslərində maksimum şəffaflığı təmin etmək və mühasibatlıq, vergi, audit və maliyyə idarəçiliyi sahələrindəki peşəkar təcrübəmizə əsaslanaraq şirkətləri xarici risklərdən effektiv şəkildə qorumaq.",
       "missionSub": "Biznesinizin şəffaf və dayanıqlı inkişafına dəstək oluruq, maliyyə risklərini minimuma endiririk."
@@ -209,7 +209,7 @@
       "items": [
         {
           "title": "Peşəkarlıq",
-          "description": "Hər bir qərar dərin analitik təhlil və illərin təcrübəsinə əsaslanır, ən mürəkkəb maliyyə məsələlərində də dəqiq həllər təqdim edir."
+          "description": "Hər bir qərar dərin analitik təhlil və illərin təcrübəsinə əsaslanır, ən mürəkkəb maliyyə məsələlərində də dəqiq həllər təqdim edirik."
         },
         {
           "title": "Şəffaflıq",
@@ -253,14 +253,14 @@
       "heading": "Uğura bizimlə",
       "headingAccent": "birlikdə çatın",
       "subtext": "Siz inkişaf edin — risklərdən biz qoruyaq.",
-      "primaryBtn": "Pulsuz konsultasiya",
+      "primaryBtn": "İlkin konsultasiya",
       "secondaryBtn": "Xidmətlərə bax"
     }
   },
   "servicePage": {
     "breadcrumbServices": "Xidmətlər",
     "whatYouGet": "Nə əldə edirsiniz",
-    "freeConsultation": "Pulsuz konsultasiya",
+    "freeConsultation": "İlkin konsultasiya",
     "allServices": "Bütün xidmətlər",
     "servicePackage": "Xidmət paketi",
     "whatsIncluded": "Nə",
@@ -279,16 +279,16 @@
     "viewDetails": "Ətraflı bax",
     "ctaReadyLabel": "Hazırsınız?",
     "ctaHeading": "Bu xidmət haqqında",
-    "ctaHeadingAccent": "pulsuz məsləhət alın",
+    "ctaHeadingAccent": "ilkin məsləhət alın",
     "ctaSubtext": "Ekspertlərimiz sizinlə əlaqə saxlayıb {serviceName} xidməti haqqında ətraflı məlumat verəcək.",
-    "ctaPrimary": "Pulsuz konsultasiya",
+    "ctaPrimary": "İlkin konsultasiya",
     "ctaSecondary": "Bütün xidmətlər",
     "closePanel": "Bağla",
     "currentService": "Hazırkı xidmət"
   },
   "meta": {
     "homeTitle": "ProFinance Solutions — Bakıda Maliyyə Konsaltinqi",
-    "homeDescription": "ProFinance Solutions Azərbaycanın aparıcı korporasiyaları üçün maliyyə konsaltinqi, vergi planlaması, mühasibat uçotu, audit və HR xidmətləri göstərən Bakı şirkətidir.",
+    "homeDescription": "ProFinance Solutions — Azərbaycan şirkətlərinə Bakıda maliyyə konsaltinqi, vergi, mühasibatlıq, audit və HR xidmətləri göstərən etibarlı tərəfdaşdır.",
     "aboutTitle": "ProFinance Solutions Haqqında — Bakı Maliyyə Konsaltinqi",
     "aboutDescription": "ProFinance Solutions — Bakıda maliyyə konsaltinq şirkəti. Mühasibat, vergi, audit, HR sahələrində 8 xidmət istiqamətində peşəkar dəstək.",
     "defaultTitle": "ProFinance Solutions — Maliyyə Konsaltinqi Bakı, Azərbaycan",

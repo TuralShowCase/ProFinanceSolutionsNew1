@@ -9,11 +9,14 @@ import { DARK, BRAND_SOLID, mix } from "@/app/lib/brand";
 import { useScrollLock } from "@/app/lib/smoothScroll";
 import { FS_LABEL } from "@/app/lib/typography";
 
-const CONTACT_HREFS = [
-  { Icon: Phone,         value: "+994 51 505 05 05", href: "tel:+994515050505",                                     labelKey: "labelPhone"    },
-  { Icon: MessageCircle, value: "+994 51 505 05 05", href: "https://wa.me/994515050505",                            labelKey: "labelWhatsapp" },
+// `value` for phone/WhatsApp/email is locale-independent; the address alone
+// needs translation, so it's filled in from `footer.address` at render time
+// (see CONTACT_HREFS() below) instead of being hardcoded here.
+const CONTACT_HREFS_BASE = [
+  { Icon: Phone,         value: "+994 10 505 71 71",  href: "tel:+994105057171",                                     labelKey: "labelPhone"    },
+  { Icon: MessageCircle, value: "+994 10 505 71 71",  href: "https://wa.me/994105057171",                            labelKey: "labelWhatsapp" },
   { Icon: Mail,          value: "info@profinance.az", href: "mailto:info@profinance.az",                            labelKey: "labelEmail"    },
-  { Icon: MapPin,        value: "Bakı, Əhməd Rəcəbli-2 küçəsi", href: "https://maps.google.com/?q=Ahmad+Rajabli+2+Baku", labelKey: "labelAddress"  },
+  { Icon: MapPin,        value: null as string | null, href: "https://maps.google.com/?q=Ahmad+Rajabli+2+Baku",     labelKey: "labelAddress"  },
 ];
 
 const socials = [
@@ -28,7 +31,11 @@ interface Props {
 }
 
 export function ContactModal({ open, onClose }: Props) {
-  const t = useTranslations("contact");
+  const t       = useTranslations("contact");
+  const tFooter = useTranslations("footer");
+  const CONTACT_HREFS = CONTACT_HREFS_BASE.map(item =>
+    item.value === null ? { ...item, value: tFooter("address") } : item
+  );
   const backdropRef  = useRef<HTMLDivElement>(null);
   const cardRef      = useRef<HTMLDivElement>(null);
   const [mounted, setMounted] = useState(false);
@@ -271,7 +278,7 @@ export function ContactModal({ open, onClose }: Props) {
         {/* CTA */}
         <div style={{ padding: "0 24px 24px" }}>
           <a
-            href="https://wa.me/994515050505"
+            href="https://wa.me/994105057171"
             target="_blank"
             rel="noopener noreferrer"
             style={{

@@ -6,6 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Award, Eye, ShieldCheck, BarChart3 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useBreakpoint } from "../../../hooks/useBreakpoint";
+import { getLenis } from "@/app/lib/smoothScroll";
 import { DARK, ACCENT, CREAM, mix } from "@/app/lib/brand";
 import { FS_LABEL, FS_H2, FS_H3, FS_H4_MOBILE } from "@/app/lib/typography";
 
@@ -24,7 +25,7 @@ export function AboutValues() {
   const sectionRef     = useRef<HTMLDivElement>(null);
   const progressBarRef = useRef<HTMLDivElement>(null);
   const borderRefs     = useRef<(HTMLDivElement | null)[]>([]);
-  const headerRowRefs  = useRef<(HTMLDivElement | null)[]>([]);
+  const headerRowRefs  = useRef<(HTMLButtonElement | null)[]>([]);
   const descRefs       = useRef<(HTMLDivElement | null)[]>([]);
   const ghostRefs      = useRef<(HTMLSpanElement | null)[]>([]);
   const iconBoxRefs    = useRef<(HTMLDivElement | null)[]>([]);
@@ -33,6 +34,7 @@ export function AboutValues() {
   const numLabelRefs   = useRef<(HTMLSpanElement | null)[]>([]);
   const dotRefs        = useRef<(HTMLDivElement | null)[]>([]);
   const activeIndexRef = useRef(-1);
+  const triggerRef     = useRef<ScrollTrigger | null>(null);
 
   const values = ICONS.map((Icon, i) => ({
     Icon,
@@ -98,8 +100,8 @@ export function AboutValues() {
         gsap.fromTo(iconBoxRefs.current[idx], { scale: 0.82 }, { scale: 1, backgroundColor: DARK, boxShadow: `0 0 0 1.5px ${DARK}`, duration: 0.48, ease: "back.out(2)", overwrite: true });
       }
 
-      ScrollTrigger.create({
-        trigger: sectionRef.current, pin: true, start: "top top", end: "+=300%", scrub: 1.5,
+      triggerRef.current = ScrollTrigger.create({
+        trigger: sectionRef.current, pin: true, start: "top top", end: "+=170%", scrub: 1.5,
         onUpdate(self) {
           gsap.set(progressBarRef.current, { scaleX: self.progress });
           const idx = Math.min(Math.floor(self.progress * 4), 3);
@@ -110,8 +112,22 @@ export function AboutValues() {
       gsap.fromTo(".val-hdr", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.95, ease: "expo.out", scrollTrigger: { trigger: sectionRef.current, start: "top 84%", once: true } });
     }, sectionRef);
 
-    return () => ctx.revert();
+    return () => { ctx.revert(); triggerRef.current = null; };
   }, [isMobile, isTablet, mounted]);
+
+  /* Clicking a value scrolls the page to the point in the pinned window where
+     that card is active — same pattern as WhyUsSection's `goTo`. Lenis owns
+     the scroll position, so it has to be told; window.scrollTo would be
+     overridden. */
+  const goTo = (i: number) => {
+    const st = triggerRef.current;
+    if (!st) return;
+    const p = (i + 0.5) / 4;
+    const y = st.start + (st.end - st.start) * p;
+    const lenis = getLenis();
+    if (lenis) lenis.scrollTo(y, { duration: 0.9 });
+    else window.scrollTo({ top: y, behavior: "smooth" });
+  };
 
   // Mobile / Tablet
   if (!mounted || isMobile || isTablet) {
@@ -160,7 +176,27 @@ export function AboutValues() {
             <div key={i} style={{ position: "relative", borderTop: "1px solid var(--border)" }}>
               <div ref={el => { borderRefs.current[i] = el; }} style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: 3, borderRadius: 2, backgroundColor: DARK, transform: "scaleY(0)", transformOrigin: "top center", zIndex: 2 }} />
               <span ref={el => { ghostRefs.current[i] = el; }} className="val-ghost" style={{ position: "absolute", top: "50%", transform: "translateY(-50%)", fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 900, color: DARK, opacity: 0, letterSpacing: "-0.06em", lineHeight: 1, userSelect: "none", pointerEvents: "none", zIndex: 0 }}>{v.number}</span>
-              <div ref={el => { headerRowRefs.current[i] = el; }} className="val-row" style={{ display: "flex", alignItems: "center", position: "relative", zIndex: 1 }}>
+              <button
+                type="button"
+                ref={el => { headerRowRefs.current[i] = el; }}
+                className="val-row"
+                onClick={() => goTo(i)}
+                aria-current={activeIndexRef.current === i ? "true" : undefined}
+                aria-controls={`val-desc-${i}`}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  position: "relative",
+                  zIndex: 1,
+                  width: "100%",
+                  background: "none",
+                  border: "none",
+                  margin: 0,
+                  font: "inherit",
+                  textAlign: "left",
+                  cursor: "pointer",
+                }}
+              >
                 <span ref={el => { numLabelRefs.current[i] = el; }} style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: FS_LABEL, color: "color-mix(in srgb, var(--brand) 30%, transparent)", letterSpacing: "0.12em", flexShrink: 0 }} className="val-num">{v.number}</span>
                 <div ref={el => { iconBoxRefs.current[i] = el; }} className="val-iconbox" style={{ borderRadius: 13, flexShrink: 0, boxShadow: "0 0 0 1.5px color-mix(in srgb, var(--brand) 45%, transparent)", backgroundColor: "color-mix(in srgb, var(--brand) 7%, transparent)", display: "flex", alignItems: "center", justifyContent: "center" }}>
                   <div ref={el => { iconFilterRefs.current[i] = el; }} style={{ display: "flex" }}>
@@ -168,8 +204,8 @@ export function AboutValues() {
                   </div>
                 </div>
                 <h3 ref={el => { titleRefs.current[i] = el; }} style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: FS_H3, color: "var(--text-faint)", margin: 0, letterSpacing: "-0.03em", lineHeight: 1.2 }}>{v.title}</h3>
-              </div>
-              <div ref={el => { descRefs.current[i] = el; }} style={{ overflow: "hidden", height: 0 }}>
+              </button>
+              <div id={`val-desc-${i}`} ref={el => { descRefs.current[i] = el; }} style={{ overflow: "hidden", height: 0 }}>
                 <p style={{ fontSize: 18, color: "var(--text-muted)", lineHeight: 1.78, margin: 0, fontFamily: "var(--font-inter), 'Inter', sans-serif", maxWidth: 580, paddingBottom: 26, paddingTop: 2 }} className="val-desc">{v.description}</p>
               </div>
             </div>

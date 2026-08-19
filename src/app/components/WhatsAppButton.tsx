@@ -3,8 +3,8 @@
 import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 
-const WA_NUMBER   = "994515050505";
-const DISPLAY_NUM = "+994 51 505 05 05";
+const WA_NUMBER   = "994105057171";
+const DISPLAY_NUM = "+994 10 505 71 71";
 
 function WhatsAppIcon() {
   return (

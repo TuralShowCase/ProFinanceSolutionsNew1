@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { getLocale, getMessages } from 'next-intl/server';
+import { getLocale, getMessages, getTranslations } from 'next-intl/server';
 import { NextIntlClientProvider } from 'next-intl';
 import Script from 'next/script';
 import { Inter, Plus_Jakarta_Sans } from 'next/font/google';
@@ -38,26 +38,33 @@ export const viewport: Viewport = {
   ],
 };
 
-const organizationSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'Organization',
-  '@id': `${SITE_URL}/#organization`,
-  name: 'ProFinance Solutions',
-  url: SITE_URL,
-  logo: { '@type': 'ImageObject', url: `${SITE_URL}/logo-icon.png`, width: 500, height: 500 },
-  description: 'Professional financial consulting, tax planning, accounting, audit and HR services for Azerbaijan\'s leading corporations.',
-  areaServed: { '@type': 'Country', name: 'Azerbaijan', sameAs: 'https://www.wikidata.org/wiki/Q227' },
-  address: { '@type': 'PostalAddress', streetAddress: 'Əhməd Rəcəbli-2 küçəsi', addressLocality: 'Bakı', addressCountry: 'AZ' },
-  contactPoint: [
-    { '@type': 'ContactPoint', telephone: '+994-51-505-05-05', contactType: 'customer service', availableLanguage: ['Azerbaijani', 'Russian', 'English'] },
-  ],
-  email: 'info@profinance.az',
-  sameAs: [],
-};
+// `description` is filled in per-locale below (reuses meta.homeDescription so
+// there's one source of truth) — this schema block sits in the root layout,
+// outside the [locale] segment, so it can't be statically pre-filled.
+function buildOrganizationSchema(description: string) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    '@id': `${SITE_URL}/#organization`,
+    name: 'ProFinance Solutions',
+    url: SITE_URL,
+    logo: { '@type': 'ImageObject', url: `${SITE_URL}/logo-icon.png`, width: 500, height: 500 },
+    description,
+    areaServed: { '@type': 'Country', name: 'Azerbaijan', sameAs: 'https://www.wikidata.org/wiki/Q227' },
+    address: { '@type': 'PostalAddress', streetAddress: 'Əhməd Rəcəbli-2 küçəsi', addressLocality: 'Bakı', addressCountry: 'AZ' },
+    contactPoint: [
+      { '@type': 'ContactPoint', telephone: '+994-10-505-71-71', contactType: 'customer service', availableLanguage: ['Azerbaijani', 'Russian', 'English'] },
+    ],
+    email: 'info@profinance.az',
+    sameAs: [],
+  };
+}
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const locale = await getLocale();
   const messages = await getMessages();
+  const tMeta = await getTranslations({ locale, namespace: 'meta' });
+  const organizationSchema = buildOrganizationSchema(tMeta('homeDescription'));
 
   return (
     <html lang={locale} className={`${inter.variable} ${plusJakarta.variable}`} suppressHydrationWarning>

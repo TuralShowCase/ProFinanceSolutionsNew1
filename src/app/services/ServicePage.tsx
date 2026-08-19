@@ -284,8 +284,6 @@ function ServicePageInner({ service, allServices, locale }: { service: ServiceDa
       gsap.fromTo(".proc-step",     { clipPath: "inset(0 0 100% 0 round 18px)" }, { clipPath: "inset(0 0 0% 0 round 18px)", duration: 0.7, ease: "expo.out", stagger: 0.12, scrollTrigger: { trigger: ".proc-grid", start: "top 78%", once: true } });
       gsap.fromTo(".targets-row",   { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.85, ease: "expo.out", scrollTrigger: { trigger: ".targets-row", start: "top 85%", once: true } });
       gsap.fromTo(".target-pill",   { opacity: 0, x: -8 }, { opacity: 1, x: 0, duration: 0.65, ease: "expo.out", stagger: 0.08, scrollTrigger: { trigger: ".targets-row", start: "top 85%", once: true } });
-      gsap.fromTo(".svc-faq-header",{ opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.85, ease: "expo.out", scrollTrigger: { trigger: ".svc-faq-section", start: "top 82%", once: true } });
-      gsap.fromTo(".svc-faq-section .faq-item", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.6, ease: "expo.out", stagger: 0.07, scrollTrigger: { trigger: ".svc-faq-section", start: "top 78%", once: true } });
     }, pageRef);
     return () => ctx.revert();
   }, [isMobile, service.slug]);

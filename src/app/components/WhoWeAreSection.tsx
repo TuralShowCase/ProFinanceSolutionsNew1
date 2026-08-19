@@ -59,7 +59,7 @@ export function WhoWeAreSection() {
         {t("leadParagraph")}
       </p>
       <p className="wwa-anim" style={{ opacity: 0, fontSize: FS_BODY, color: "var(--text-muted)", lineHeight: 1.85, margin: "0 0 18px" }}>
-        {t("paragraph1")}
+        {t.rich("paragraph1", { b: (chunks) => <strong style={{ fontWeight: 800, color: "var(--brand)" }}>{chunks}</strong> })}
       </p>
       <p className="wwa-anim" style={{ opacity: 0, fontSize: FS_BODY, color: "var(--text-muted)", lineHeight: 1.85, margin: 0 }}>
         {t("paragraph2")}

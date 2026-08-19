@@ -35,8 +35,8 @@ export function AboutMission() {
         {/* Full-width about-us text — no sidebar squeezing it down anymore */}
         <div className="msn-anim msn-copy">
           <p style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 600, fontSize: 20, color: "var(--text)", lineHeight: 1.6, margin: "0 0 16px", letterSpacing: "-0.015em" }}>{t("leadParagraph")}</p>
-          <p style={{ fontSize: 18, color: "var(--text-muted)", lineHeight: 1.82, margin: "0 0 12px" }}>{t("paragraph1")}</p>
-          <p style={{ fontSize: 18, color: "var(--text-muted)", lineHeight: 1.82, margin: 0 }}>{t("paragraph2")}</p>
+          <p style={{ fontSize: 18, fontWeight: 500, color: "var(--text)", lineHeight: 1.82, margin: "0 0 12px" }}>{t.rich("paragraph1", { b: (chunks) => <strong style={{ fontWeight: 800, color: "var(--brand)" }}>{chunks}</strong> })}</p>
+          <p style={{ fontSize: 18, fontWeight: 500, color: "var(--text)", lineHeight: 1.82, margin: 0 }}>{t.rich("paragraph2", { b: (chunks) => <strong style={{ fontWeight: 800, color: "var(--brand)" }}>{chunks}</strong> })}</p>
         </div>
 
         {/* Mission — moved under the about-us text instead of a sidebar card */}

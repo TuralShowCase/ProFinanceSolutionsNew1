@@ -9,11 +9,6 @@ export interface ServiceStep {
   description: string;
 }
 
-export interface FAQItem {
-  question: string;
-  answer: string;
-}
-
 export interface ServiceData {
   slug: string;
   index: string;
@@ -26,7 +21,6 @@ export interface ServiceData {
   features: ServiceFeature[];
   targets: string[];
   process: ServiceStep[];
-  faqs: FAQItem[];
   relatedSlugs: string[];
 }
 
@@ -100,32 +94,6 @@ export const servicesData: ServiceData[] = [
       { step: "03", title: "Tam diaqnostika", description: "Hər bir uçot elementi dəqiqliklə yoxlanılır, xətalar siyahıya alınır." },
       { step: "04", title: "Bərpa və hesabat", description: "Xətalar düzəldilir, tam diaqnostika hesabatı və tövsiyə paketi təqdim edilir." },
     ],
-    faqs: [
-      {
-        question: "Diaqnostika neçə müddətdə tamamlanır?",
-        answer: "Şirkətin ölçüsündən və mövcud sənədləşmə vəziyyətindən asılı olaraq diaqnostika prosesi 5–15 iş günü çəkir. Kiçik müəssisələr üçün daha sürətli, çoxillik uçot problemi olan şirkətlər üçün daha geniş zaman çərçivəsi nəzərdə tutulur. Başlamadan əvvəl dəqiq müddət sizinlə razılaşdırılır.",
-      },
-      {
-        question: "Diaqnostika üçün hansı sənədlər tələb olunur?",
-        answer: "İlkin mərhələdə gündəlik jurnal, mühasibat balansı, bank çıxarışları, illik hesabatlar (mövcuddursa) və vergi bəyannamələri tələb olunur. Tam sənəd siyahısı şirkətinizin fəaliyyət növünə uyğun olaraq ilkin görüşdə müəyyənləşdirilir.",
-      },
-      {
-        question: "Diaqnostikadan sonra bərpa mütləq lazımdırmı?",
-        answer: "Xeyr. Diaqnostika nəticəsindən asılı olaraq qərarı siz verirsiniz. Bəzi müştərilər yalnız hesabat alaraq özləri hərəkət edir, bəziləri isə tam bərpa xidmətinə keçir. Biz hər iki seçimə tam hazırıq.",
-      },
-      {
-        question: "İllər boyu yanlış aparılmış uçotu bərpa etmək mümkündürmü?",
-        answer: "Bəli. Biz çoxillik uçot bərpasını uğurla həyata keçirmişik. Proses sistematik yanaşma tələb edir: əvvəlcə keçmiş dövrlərin analizi, sonra ardıcıl düzəliş mərhələləri. Əksər hallarda 1–3 ay ərzində tam bərpa mümkündür.",
-      },
-      {
-        question: "Bərpa prosesi zamanı şirkətin fəaliyyəti dayanırmı?",
-        answer: "Xeyr. Bərpa prosesi şirkətinizin cari fəaliyyəti ilə paralel aparılır. Biz sənəd mübadiləsini rəqəmsal mühitdə həyata keçiririk və normal iş ritminizi minimuma qədər pozmağa çalışırıq.",
-      },
-      {
-        question: "Xidmətin qiyməti necə müəyyənləşdirilir?",
-        answer: "Qiymət şirkətin həcmi, mövcud uçot sənədlərinin vəziyyəti və bərpa üçün tələb olunan iş həcminə əsasən fərdiləşdirilir. Diaqnostika ilə bərpanı ayrı-ayrılıqda da sifariş etmək mümkündür. İlkin konsultasiya pulsuzdur — bu görüşdə vəziyyət qiymətləndirilir və dəqiq qiymət əvvəlcədən razılaşdırılır.",
-      },
-    ],
     relatedSlugs: ["muhasibat-konsaltinqi", "auditor-xidmetleri", "vergi-konsaltinqi"],
   },
   {
@@ -157,32 +125,6 @@ export const servicesData: ServiceData[] = [
       { step: "03", title: "Cari xidmət", description: "Gündəlik əməliyyatlar qeydə alınır, aylıq hesabatlar hazırlanır." },
       { step: "04", title: "Hesabat və analiz", description: "Maliyyə nəticələri şərh edilir, qərar qəbuluna dəstək verilir." },
     ],
-    faqs: [
-      {
-        question: "Öz mühasibimlə paralel olaraq xidmətinizdən istifadə edə bilərəm?",
-        answer: "Bəli. Biz ya mövcud mühasibinizin yanında məsləhətçi rolu oynayaraq sistemin inkişafını dəstəkləyirik, ya da mühasibliyi tam olaraq üzərimizə götürürük. Hər iki format mümkündür — mövcud komandanıza hörmət edirik.",
-      },
-      {
-        question: "Hansı mühasibat proqramları ilə işləyirsiniz?",
-        answer: "1C, SAP, QuickBooks, Xero, Microsoft Dynamics kimi geniş yayılmış sistemlərlə işləyirik. Şirkətiniz artıq bir sistem istifadə edirsə, ona uyğunlaşırıq. Hər hansı sistem yoxdursa, ehtiyacınıza ən uyğun həll tövsiyə edirik.",
-      },
-      {
-        question: "Aylıq hesabatlar necə çatdırılır?",
-        answer: "Hesabatlar PDF, Excel və ya istifadə etdiyiniz sistemin öz formatında hazırlanır. E-poçt, birgə buld mühiti (Google Drive, SharePoint) və ya xüsusi müştəri portalı vasitəsilə çatdırılır. Format və tezlik müqavilə zamanı razılaşdırılır.",
-      },
-      {
-        question: "IFRS standartlarına keçid mürəkkəbdirmi?",
-        answer: "Ciddi, lakin idarə oluna bilən bir prosesdir. Biz keçidi addım-addım həyata keçiririk: əvvəlcə mövcud sistemin analizi, sonra uyğunlaşdırma planı, ardından paralel uçot dövrü. Proses adətən 3–6 ay çəkir.",
-      },
-      {
-        question: "Xidmət hansı ölçülü şirkətlərə uyğundur?",
-        answer: "Startup-lardan iri holdinqlərə qədər hər ölçüdə şirkətə xidmət göstəririk. Xidmətin həcmi və formatı şirkətin əməliyyat miqyasına uyğun olaraq fərdiləşdirilir — siz yalnız lazım olan dəstəyi alırsınız.",
-      },
-      {
-        question: "Xidmətin qiyməti necə müəyyənləşdirilir?",
-        answer: "Qiymət şirkətin əməliyyat həcminə, aylıq əməliyyat sayına və tələb olunan hesabat növlərinə əsasən fərdiləşdirilir. Xidmət aylıq abunə formatında da, layihə əsasında da təqdim edilir — hər iki variant mümkündür. İlkin konsultasiya pulsuzdur: bu görüşdə ehtiyaclar müəyyənləşdirilir, uyğun format və dəqiq qiymət razılaşdırılır.",
-      },
-    ],
     relatedSlugs: ["ucotun-diaqnostikasi-ve-berpasi", "vergi-konsaltinqi", "maliyye-ve-idareetme-konsaltinqi"],
   },
   {
@@ -205,7 +147,7 @@ export const servicesData: ServiceData[] = [
       { title: "Vergi yükünün optimallaşdırılması", description: "Qanuni çərçivədə ƏDV optimizasiyası, xərc tanınması və güzəşt mexanizmləri tətbiq edilərək vergi yükü minimuma endirilir." },
       { title: "Vergi planlaşdırılması", description: "Vergi öhdəlikləri əvvəlcədən proqnozlaşdırılır — gözlənilməz məbləğlər və cərimə riskləri istisna edilir." },
       { title: "Vergi hesabatlarının hazırlanması", description: "Bəyannamələr son tarixdən 5–7 iş günü əvvəl hazırlanıb dövlət elektron sistemi vasitəsilə təqdim edilir." },
-      { title: "Qanunvericilik dəyişiklikləri üzrə məsləhət", description: "Vergi Məcəlləsindəki hər dəyişiklik izlənilir, biznesinizə təsiri barədə proaktiv məlumat verilir." },
+      { title: "Vergi qanunvericiliyi dəyişiklikləri üzrə məsləhət", description: "Vergi Məcəlləsindəki hər dəyişiklik izlənilir, biznesinizə təsiri barədə proaktiv məlumat verilir." },
     ],
     targets: ["İstehsal müəssisələri", "Ticarət şirkətləri", "Xidmət sektoru", "Xarici investorlar"],
     process: [
@@ -213,32 +155,6 @@ export const servicesData: ServiceData[] = [
       { step: "02", title: "Strategiya", description: "Qanuni vergi optimallaşdırma strategiyası hazırlanır." },
       { step: "03", title: "Tətbiq", description: "Strategiya həyata keçirilir, bəyannamələr hazırlanır." },
       { step: "04", title: "Monitorinq", description: "Vergi öhdəliklərinin yerinə yetirilməsi daim izlənilir." },
-    ],
-    faqs: [
-      {
-        question: "Vergi yükünü qanuni yollarla azaltmaq mümkündürmü?",
-        answer: "Bəli, bu tamamilə mümkündür və tövsiyə edilir. Azərbaycan vergi qanunvericiliyi müxtəlif güzəştlər, azadolmalar və optimallaşdırma imkanları nəzərdə tutur. Biz şirkətinizin fəaliyyət növünə uyğun ən əlverişli vergi rejimini, xərc tanınması qaydalarını və güzəşt mexanizmlərini tətbiq edirik.",
-      },
-      {
-        question: "Vergi bəyannamələrini son günə saxlamaq risklidirmi?",
-        answer: "Həddindən artıq riskldir. Son günə qalan bəyannamələr tələsik hazırlanır, xətalara daha meyllidir. Biz bütün vergi öhdəliklərini son tarixdən ən az 5–7 iş günü əvvəl hazır edir, yoxlayır və təqdim edirik — bu yanaşma həm dəqiqliyi artırır, həm də cərimə riskini sıfıra endirir.",
-      },
-      {
-        question: "Vergi yoxlaması zamanı yanımda olursunuzmu?",
-        answer: "Bəli. Vergi orqanlarının yoxlaması zamanı nümayəndəmiz şirkətinizin yanında olur: sənədlər hazırlanır, suallara cavab verilir, hüquqi mövqe müdafiə edilir. Müştərilərimiz heç vaxt yoxlama prosesini tək keçmir.",
-      },
-      {
-        question: "Keçmiş illər üzrə vergi borclarım varsa, həll etmək mümkündürmü?",
-        answer: "Bəli. Keçmiş vergi öhdəliklərinin analizi, mübahisəli məbləğlərin hesablanması, vergi orqanları ilə razılaşma prosesinin idarə edilməsi — bunların hamısını həll edə bilirik. Erkən müdaxilə həmişə daha az ziyan deməkdir; problemi uzatmaq isə cərimə faizlərini artırır.",
-      },
-      {
-        question: "Vergi qanunvericiliyindəki dəyişiklikləri izləyirsinizmi?",
-        answer: "Bəli, bu bizim əsas öhdəliklərimizdən biridir. Vergi Məcəlləsindəki hər dəyişiklik izlənilir, müştərilərimiz proaktiv şəkildə məlumatlandırılır. Lazım olduqda vergi strategiyası yenilənir ki, siz həmişə qanunvericiliyə tam uyğun olasınız.",
-      },
-      {
-        question: "Vergi konsaltinq xidmətinin qiyməti necə hesablanır?",
-        answer: "Qiymət xidmət həcminə görə fərqlənir: bir dəfəlik vergi auditi, davamlı aylıq dəstək paketi və ya yoxlamaya hazırlıq ayrı-ayrı qiymətləndirilir. Şirkətin dövriyyəsi, üzərinə düşən vergi növlərinin sayı və bəyannamə tezliyi əsas amillərdir. İlkin konsultasiya pulsuzdur — bu görüşdə vəziyyət qiymətləndirilir və dəqiq qiymət razılaşdırılır.",
-      },
     ],
     relatedSlugs: ["muhasibat-konsaltinqi", "auditor-xidmetleri", "maliyye-ve-idareetme-konsaltinqi"],
   },
@@ -271,32 +187,6 @@ export const servicesData: ServiceData[] = [
       { step: "03", title: "Strategiya", description: "Məqsədlərə uyğun maliyyə strategiyası formalaşdırılır." },
       { step: "04", title: "Tətbiq və nəzarət", description: "Strategiya tətbiq edilir, nəticələr sistemli izlənilir." },
     ],
-    faqs: [
-      {
-        question: "KPI sistemi qurmaq nə qədər vaxt aparır?",
-        answer: "Şirkətin ölçüsündən, struktur mürəkkəbliyindən və mövcud məlumat bazasından asılı olaraq 4–10 həftə çəkir. Bu müddət ərzində maliyyə KPI-ları müəyyənləşdirilir, ölçmə metodologiyası hazırlanır, hesabat şablonları yaradılır və komanda üçün istifadə sənədləşməsi tamamlanır.",
-      },
-      {
-        question: "Maliyyə modelləri hansı formatlarda hazırlanır?",
-        answer: "Excel, Google Sheets, Power BI və ya şirkətin istifadə etdiyi digər platformalarda hazırlanır. Modellər dinamik — ssenarilər üzrə dəyişənlərlə — qurulur ki, siz gələcəkdə müstəqil olaraq yeniləyə biləsiniz. Hər modelin üzərinə ətraflı istifadə bələdçisi verilir.",
-      },
-      {
-        question: "Büdcə planlaması üçün ilk görüşə nə hazırlamalıyam?",
-        answer: "Keçmiş 12–24 ayın gəlir-xərc məlumatları, şirkətin strateji hədəfləri, əsas xərc kateqoriyaları üzrə məlumat və investisiya planları (varsa) hazırlasanız, ilk görüş çox səmərəli keçər. Sıfırdan başlayırsanız narahat olmayın — biz hər iki halda işləyə bilirik.",
-      },
-      {
-        question: "Maliyyə idarəçiliyi konsaltinqinin real faydası nədir?",
-        answer: "Real nəticələr arasında büdcə kənarlaşmalarının 30–50% azalması, qərar qəbul sürətinin artması, investor danışıqları üçün güclü maliyyə sənədi və nağd pul axını idarəçiliyinin yaxşılaşması sayıla bilər. Çox vaxt ilk 90 gün ərzində investisiya geri qazanılmağa başlayır.",
-      },
-      {
-        question: "Bu xidmət yalnız iri şirkətlər üçündürmü?",
-        answer: "Xeyr. Maliyyə idarəçiliyi sistemi olmayan orta ölçülü şirkətlər bu xidmətdən ən çox faydalananlardır. Sürətlə böyüyən biznes üçün intuitiv qərarlardan rəqəmlərə əsaslanan idarəetməyə keçmək — böyüməni davamlı etməyin yeganə yoludur.",
-      },
-      {
-        question: "Xidmətin qiyməti necə müəyyənləşdirilir?",
-        answer: "Qiymət layihənin həcminə görə dəyişir: bir dəfəlik büdcə modelinin hazırlanması, KPI sisteminin qurulması və ya davamlı maliyyə idarəçiliyi dəstəyi ayrı-ayrı qiymətləndirilir. Əksər müştərilər ilk 90 gün ərzində investisiyanı geri qazandığını bildirir. İlkin konsultasiya pulsuzdur — bu görüşdə layihə həcmi və dəqiq qiymət razılaşdırılır.",
-      },
-    ],
     relatedSlugs: ["vergi-konsaltinqi", "muhasibat-konsaltinqi", "auditor-xidmetleri"],
   },
   {
@@ -327,32 +217,6 @@ export const servicesData: ServiceData[] = [
       { step: "02", title: "Həll dizaynı", description: "Optimal rəqəmsal həll seçilir və layihə planı hazırlanır." },
       { step: "03", title: "Tətbiq", description: "Sistem qurulur, məlumatlar köçürülür, testlər aparılır." },
       { step: "04", title: "Dəstək", description: "İşçilər öyrədilir, davamlı texniki dəstək təmin edilir." },
-    ],
-    faqs: [
-      {
-        question: "Hansı ERP sistemlərini tövsiyə edirsiniz?",
-        answer: "Tövsiyəmiz həmişə şirkətin ölçüsünə, sektora, büdcəyə və texniki imkanlara görə fərqlənir. Kiçik bizneslər üçün 1C, Odoo; orta müəssisələr üçün Microsoft Dynamics, SAP Business One; iri şirkətlər üçün SAP ERP, Oracle tipik seçimlərdir. Xüsusi tövsiyə üçün ilkin analiz aparılır.",
-      },
-      {
-        question: "Mövcud proqramlarımı saxlaya bilərəm?",
-        answer: "Mümkün olan hallarda — bəli. Biz mövcud sistemlərə hörmət edirik. Lakin bəzən sistemlər inteqrasiya üçün uyğun olmur. Bu zaman tam dəyişiklik yerinə yalnız inteqrasiya nöqtələrinin (API bağlantısı) yaradılmasını tövsiyə edə bilərik. Hər qərar sənədlə əsaslandırılır.",
-      },
-      {
-        question: "Rəqəmsal transformasiya işçiləri çaşdırmırmı?",
-        answer: "Düzgün idarə edildiyi zaman — xeyr. Biz dəyişiklik idarəçiliyi (change management) yanaşması ilə işləyirik: işçilər prosesə erkən cəlb edilir, təlim proqramları tədricən tətbiq olunur, keçid dövrü üçün paralel işləmə rejimi saxlanılır. Adaptasiya dəstəyi xidmət paketinə daxildir.",
-      },
-      {
-        question: "Avtomatlaşdırma investisiyası özünü nə zaman ödəyir?",
-        answer: "Əksər hallarda 6–18 ay ərzində. ROI hesablanması hər layihənin planlaşdırma mərhələsindən aparılır ki, investisiyanın nə vaxt geri qayıdacağını dəqiq biləsiniz. Bürokrasiyaya xərclənən saatlar, xəta düzəltmə xərcləri və itirilən imkanlar — hamısı modelə daxil edilir.",
-      },
-      {
-        question: "Layihə başa çatdıqdan sonra texniki dəstək verirsinizsə?",
-        answer: "Bəli. Sistemin canlıya keçməsindən sonra dəstək dövrü başlayır: işçilərin sualları cavablandırılır, kritik xətalar həll edilir, sistem tənzimlənir. Uzunmüddətli texniki dəstək müqavilələri ayrıca razılaşdırıla bilər.",
-      },
-      {
-        question: "ERP tətbiqi layihəsinin qiyməti necə müəyyənləşdirilir?",
-        answer: "Qiymət seçilən sistemə, şirkətin ölçüsünə, mövcud infrastruktura, tətbiq müddətinə və lazım olan modullara görə dəyişir. Layihə başlamadan ROI hesablaması aparılır ki, investisiyanın nə vaxt geri qayıdacağını dəqiq biləsiniz. Mövcud sistemin qiymətləndirilməsi konsultasiyası pulsuzdur.",
-      },
     ],
     relatedSlugs: ["muhasibat-konsaltinqi", "hr-ve-kadrlar-konsaltinqi", "maliyye-ve-idareetme-konsaltinqi"],
   },
@@ -385,32 +249,6 @@ export const servicesData: ServiceData[] = [
       { step: "03", title: "Tətbiq", description: "Sənədlər hazırlanır, proseslər tətbiq edilir." },
       { step: "04", title: "Davamlı dəstək", description: "Əmək qanunvericiliyindəki dəyişikliklər izlənilir, sistem yenilənir." },
     ],
-    faqs: [
-      {
-        question: "HR auditi nə qədər vaxt aparır?",
-        answer: "Şirkətin işçi sayından asılı olaraq 3–7 iş günü çəkir. Audit zamanı mövcud əmək müqavilələri, kadr sənədləşməsi, əmək haqqı hesablamaları, işə qəbul prosedurları və qanunvericiliyə uyğunluq yoxlanılır. Nəticə ətraflı hesabat şəklində təqdim edilir.",
-      },
-      {
-        question: "Kiçik şirkətlər üçün HR xidməti niyə vacibdir?",
-        answer: "Kiçik şirkətlər çox vaxt HR sistemsiz böyüyür — müqavilələr qeyri-rəsmidir, əmək qanunvericiliyi nəzərə alınmır, motivasiya sistemi mövcud deyil. Böyüməyə başlayan kimi bu boşluqlar hüquqi problemlərə çevrilir. Erkən qurulan düzgün HR sistemi sonradan böyük xərclərin qarşısını alır.",
-      },
-      {
-        question: "Əmək qanunvericiliyindəki dəyişiklikləri izləyirsinizmi?",
-        answer: "Bəli, bu əsas öhdəliklərimizdən biridir. Azərbaycan Əmək Məcəlləsindəki hər dəyişiklik izlənilir, müştərilərimiz proaktiv olaraq məlumatlandırılır. Lazım olduqda müqavilələr, siyasətlər və prosedurlar yenilənir.",
-      },
-      {
-        question: "Mövcud işçiylə yaşanan mübahisəni həll etməyə kömək edirsinizmi?",
-        answer: "Bəli. Əmək münasibətlərindən yaranan mübahisələrdə hüquqi çərçivənin analizi, danışıqlar üçün arqumentasiya hazırlığı, sənəd bütünlüyünün yoxlanılması və zəruri hallarda mediasiyaya yönləndirilmə xidmətlərini göstəririk. Çox vaxt məhkəməyə getmədən məsələ həll olunur.",
-      },
-      {
-        question: "Əmək haqqı siyasəti necə hazırlanır?",
-        answer: "Bazar araşdırması ilə başlayırıq: sektorda rəqabətli əmək haqqı səviyyələri, vəzifə bandları müəyyənləşdirilir. Ardından şirkətin büdcəsi, performans meyarları və inkişaf yolu nəzərə alınaraq ədalətli, motivasiyaedici əmək haqqı strukturu hazırlanır.",
-      },
-      {
-        question: "HR konsaltinq xidmətinin qiyməti necə müəyyənləşdirilir?",
-        answer: "Qiymət şirkətin işçi sayına, mövcud HR sisteminin vəziyyətinə və tələb olunan xidmətlərin həcminə əsasən müəyyənləşdirilir. HR auditi, tam HR sisteminin qurulması və davamlı aylıq dəstək paketi ayrı-ayrı qiymətləndirilir. İlkin konsultasiya pulsuzdur — bu görüşdə ehtiyaclar qiymətləndirilir və dəqiq qiymət razılaşdırılır.",
-      },
-    ],
     relatedSlugs: ["telim-ve-inkisaf", "emeliyyat-ve-reqemsal-konsaltinq", "muhasibat-konsaltinqi"],
   },
   {
@@ -431,7 +269,7 @@ export const servicesData: ServiceData[] = [
       { title: "Əməkdaşların qiymətləndirilməsi", description: "Komandanın bilik səviyyəsi və inkişaf ehtiyacları obyektiv metodlarla müəyyənləşdirilir." },
       { title: "Təlim proqramlarının hazırlanması", description: "Ehtiyac analizinə əsasən fərdi və qrup formatında xüsusi öyrənmə proqramları hazırlanır." },
       { title: "Peşəkar treninqlərin təşkili", description: "Real biznes ssenarilərinə əsaslanan praktiki, interaktiv treninqlər keçirilir — onlayn modullar və şəxsi öyrənmə paneli daxil olmaqla." },
-      { title: "Mühasibatlıq və kadr mütəxəssislərinin təlimi", description: "Mühasibatlıq, vergi və HR sahəsində ixtisaslaşmış proqramlar — uğurla tamamlayanlara rəsmi sertifikat verilir." },
+      { title: "Mühasibatlıq və kadr sahəsində mütəxəssislərinin təlimi", description: "Mühasibatlıq, vergi və HR sahəsində ixtisaslaşmış proqramlar — uğurla tamamlayanlara rəsmi sertifikat verilir." },
     ],
     targets: ["Maliyyəçilər", "Mühasiblər", "Şirkət rəhbərləri", "Karyerasını inkişaf etdirmək istəyənlər"],
     process: [
@@ -439,32 +277,6 @@ export const servicesData: ServiceData[] = [
       { step: "02", title: "Proqram hazırlığı", description: "Sizin üçün xüsusi öyrənmə proqramı hazırlanır." },
       { step: "03", title: "Təlim prosesi", description: "Praktiki yönümlü, interaktiv təlimlər keçirilir." },
       { step: "04", title: "Qiymətləndirmə", description: "Biliklərin mənimsənilməsi yoxlanılır, sertifikat verilir." },
-    ],
-    faqs: [
-      {
-        question: "Bilik səviyyəm yetərsizdirsə, iştirak edə bilərəm?",
-        answer: "Bəli, əlbəttə. Proqramlar başlanğıc, orta və inkişaf etmiş səviyyə üçün ayrıca hazırlanır. İlkin ehtiyac analizindən sonra tam olaraq sizin bilik səviyyənizdən başlayan proqram formalaşdırılır. Heç kim özü üçün uyğun olmayan mövzularla vaxtını itirmir.",
-      },
-      {
-        question: "Qrup proqramı şirkətin öz komandası üçün keçirilə bilərmi?",
-        answer: "Bəli, bu ən populyar formatlardan biridir. Şirkətin mühasibat, maliyyə və ya HR komandasına xüsusi hazırlanmış korporativ təlim proqramı təqdim edirik. Mövzu, müddət və format şirkətin ehtiyacına uyğun müzakirə edilir.",
-      },
-      {
-        question: "Sertifikat beynəlxalq səviyyədə keçərlidirmi?",
-        answer: "ProFinance Solutions tərəfindən verilən sertifikat peşəkar tamamlanma sertifikatıdır. Beynəlxalq sertifikatlara hazırlıq proqramları da mövcuddur — bu proqramlarda uğurla imtahan verənlər müvafiq beynəlxalq təşkilatların sertifikatlarını alır.",
-      },
-      {
-        question: "Onlayn formatda öyrənmə proqresi necə izlənilir?",
-        answer: "Hər iştirakçı üçün şəxsi öyrənmə paneli yaradılır. Modul tamamlanması, test nəticələri, vaxtında çatdırılma faizi real vaxtda izlənilir. Müəllim hər modul sonunda fərdi rəy bildirir. Qrup proqramlarında ümumi proqres şirkətə hesabat şəklində göndərilir.",
-      },
-      {
-        question: "Təlim nə qədər müddət davam edir?",
-        answer: "Formatdan asılı olaraq fərqlənir. Fərdi proqramlar 4–12 həftə, qrup proqramları 2–8 həftə, intensiv seminarlar isə 1–3 gün çərçivəsində keçirilir. Müddət iştirakçının öyrənmə hədəflərinə və şirkətin cədvəlinə uyğun razılaşdırılır.",
-      },
-      {
-        question: "Təlim proqramının qiyməti necə müəyyənləşdirilir?",
-        answer: "Qiymət proqramın formatına (fərdi, qrup, korporativ), müddətinə, mövzu həcminə və iştirakçı sayına görə dəyişir. Korporativ proqramlar şirkətin komanda ölçüsünə, cədvəlinə və öyrənmə hədəflərinə uyğun fərdiləşdirilir. İlkin ehtiyac analizi görüşü pulsuzdur — bu görüşdə proqram məzmunu, format və qiymət birlikdə razılaşdırılır.",
-      },
     ],
     relatedSlugs: ["hr-ve-kadrlar-konsaltinqi", "muhasibat-konsaltinqi", "vergi-konsaltinqi"],
   },
@@ -494,32 +306,6 @@ export const servicesData: ServiceData[] = [
       { step: "02", title: "Sənəd toplanması", description: "Maliyyə sənədləri, hesabatlar və daxili proseslər analiz edilir." },
       { step: "03", title: "Sahə işi", description: "Yoxlama prosedurları həyata keçirilir, sübutlar toplanır." },
       { step: "04", title: "Hesabat", description: "Audit hesabatı hazırlanır, rəhbərliyə təqdim edilir." },
-    ],
-    faqs: [
-      {
-        question: "Daxili audit ilə xarici audit arasındakı fərq nədir?",
-        answer: "Daxili audit şirkətin öz daxili proseslərinin, nəzarət mexanizmlərinin və idarəetmə effektivliyinin qiymətləndirilməsidir — davamlı proses kimi aparılır. Xarici audit isə maliyyə hesabatlarının müstəqil üçüncü tərəf tərəfindən yoxlanılmasıdır: investorlar, banklar və tərəfdaşlar üçün etibarlılığı təsdiqləyir.",
-      },
-      {
-        question: "Audit hesabatı nə qədər müddətdə hazır olur?",
-        answer: "Şirkətin ölçüsü, sənədlərin vəziyyəti və audit əhatəsindən asılı olaraq 2–6 həftə çəkir. Kiçik müəssisələr üçün daha sürətli, mürəkkəb mühasibat strukturu olan şirkətlər üçün daha geniş zaman çərçivəsi nəzərdə tutulur. Başlamadan əvvəl dəqiq cədvəl razılaşdırılır.",
-      },
-      {
-        question: "IFRS-ə keçid üçün audit məcburidirmi?",
-        answer: "Qanunən məcburi olan şirkətlər üçün — bəli (xüsusən maliyyə qurumları, səhmdar cəmiyyətlər). Digər şirkətlər üçün IFRS-ə keçid auditsiz həyata keçirilə bilər, lakin audit keçidin düzgünlüyünü təsdiqləyir. Biz hər iki variantda — audit ilə və auditsiz — IFRS keçid dəstəyi göstəririk.",
-      },
-      {
-        question: "Audit prosesi şirkətin işini pozurmu?",
-        answer: "Minimal. Audit prosesini iş ritminizi pozmayacaq şəkildə planlaşdırırıq: sənəd sorğuları e-poçt vasitəsilə göndərilir, görüşlər sizin cədvələ uyğun planlaşdırılır, əsas iş vaxtlarında bilavasitə müdaxilə minimuma endirilir. Müştərilərimizin böyük əksəriyyəti audit zamanı normal fəaliyyətini tam davam etdirib.",
-      },
-      {
-        question: "Audit yalnız qanuni öhdəlik kimi mi baxılmalıdır?",
-        answer: "Xeyr — bu yanaşma şirkəti real dəyərdən məhrum edir. Müstəqil auditor baxışı idarəetmədəki zəif nöqtələri, gizli riskləri və itirilmiş imkanları aşkara çıxarır. Auditdən sonra şirkətlər investorlarla danışıqlarda, bank kreditlərini cəlb etməkdə və idarəetmə keyfiyyətini artırmaqda əhəmiyyətli üstünlük əldə edir.",
-      },
-      {
-        question: "Audit xidmətinin qiyməti necə müəyyənləşdirilir?",
-        answer: "Qiymət audit növünə (daxili/xarici/IFRS keçid), şirkətin ölçüsünə, maliyyə əməliyyatlarının mürəkkəbliyinə və audit əhatəsinə görə müəyyənləşdirilir. IFRS keçid auditi ilə illik hesabat auditi ayrı-ayrı qiymətləndirilir. Başlamadan əvvəl dəqiq qiymət, cədvəl və audit əhatəsi razılaşdırılır — ilkin görüş pulsuzdur.",
-      },
     ],
     relatedSlugs: ["ucotun-diaqnostikasi-ve-berpasi", "vergi-konsaltinqi", "maliyye-ve-idareetme-konsaltinqi"],
   },
