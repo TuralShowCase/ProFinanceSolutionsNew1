@@ -54,7 +54,7 @@ html {
 }
 
 .carousel-track {
-  
+
   animation: clients-scroll-left 114s linear infinite;
   will-change: transform;
 }

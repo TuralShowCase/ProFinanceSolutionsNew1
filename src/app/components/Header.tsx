@@ -11,7 +11,7 @@ import { useTheme } from "../contexts/ThemeContext";
 import { localizedSlug, azSlugFromLocalized, AZ_SLUGS } from "../services/servicesData";
 import { DARK, MID, BRAND_SOLID, PLH_ACC, PLH_TEXT, mix } from "@/app/lib/brand";
 import { useScrollLock } from "@/app/lib/smoothScroll";
-import { ThemeToggle } from "./ThemeToggle";
+import { ThemeToggle } from "./ThemeToggle";
 import { FS_LABEL, FS_BODY, FS_BODY_LG, FS_CHIP } from "@/app/lib/typography";
 
 
@@ -27,23 +27,23 @@ const LOCALES = ["AZ", "EN", "RU"] as const;
 type LocaleCode = typeof LOCALES[number];
 
 const ABOUT_SLUGS: Record<string, string> = { az: "/about", en: "/about", ru: "/o-nas" };
-
+
 function getTargetUrl(targetLocale: string, currentLocale: string, fullPathname: string): string {
- 
+
   const bare = fullPathname.replace(/^\/(en|ru)(\/|$)/, "/");
 
- 
+
   if (bare === "/") {
     return targetLocale === "az" ? "/" : `/${targetLocale}`;
   }
 
- 
+
   if (bare === "/about" || bare === "/o-nas") {
     const aboutPath = ABOUT_SLUGS[targetLocale] ?? "/about";
     return targetLocale === "az" ? aboutPath : `/${targetLocale}${aboutPath}`;
   }
 
- 
+
   const serviceMatch = bare.match(/^\/services\/([^/]+)/);
   if (serviceMatch) {
     const currentSlug = serviceMatch[1];
@@ -55,7 +55,7 @@ function getTargetUrl(targetLocale: string, currentLocale: string, fullPathname:
     }
   }
 
- 
+
   return targetLocale === "az" ? "/" : `/${targetLocale}`;
 }
 
@@ -74,17 +74,17 @@ export function Header() {
   const { resolvedTheme } = useTheme();
   const isHomeRoute = pathname === "/" || pathname === `/${locale}` || pathname === `/${locale}/`;
 
- 
- 
+
+
   const [selectedLang, setSelectedLang] = useState<LocaleCode>(locale.toUpperCase() as LocaleCode);
 
   const switchLocale = (lang: LocaleCode) => {
     if (lang === selectedLang) return;
 
-   
+
     setSelectedLang(lang);
 
-   
+
     setTimeout(() => {
       const lower = lang.toLowerCase();
       document.cookie = `NEXT_LOCALE=${lower}; path=/; max-age=31536000; SameSite=Lax`;
@@ -92,7 +92,7 @@ export function Header() {
     }, 380);
   };
 
-  
+
   const scrolled = useSyncExternalStore(
     (onChange) => {
       window.addEventListener("scroll", onChange, { passive: true });
@@ -109,18 +109,18 @@ export function Header() {
   const [hoveredPlh,         setHoveredPlh]         = useState<string | null>(null);
   const { openContact } = useContactModal();
 
- 
- 
- 
- 
- 
+
+
+
+
+
   const heroOverlay = isHomeRoute && !scrolled && !menuOpen;
- 
- 
+
+
   const useLightMark = resolvedTheme === "dark" || heroOverlay;
- 
- 
- 
+
+
+
   const logoSrc = useLightMark ? "/logo-mark-light.png" : "/logo-mark.png";
   const overlayText   = "#FFFFFF";
   const overlaySoft    = "rgba(255,255,255,0.82)";
@@ -163,12 +163,12 @@ export function Header() {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [showServices]);
 
- 
- 
- 
+
+
+
   useScrollLock(menuOpen);
 
- 
+
   useEffect(() => {
     if (menuOpen) return;
     setMobileServicesOpen(false);
@@ -186,7 +186,7 @@ export function Header() {
     return () => ctx.revert();
   }, [menuOpen]);
 
- 
+
   useEffect(() => {
     if (!menuOpen) return;
     const onKeyDown = (e: KeyboardEvent) => { if (e.key === "Escape") setMenuOpen(false); };
@@ -234,18 +234,18 @@ export function Header() {
     setTimeout(() => scrollTo(href), isMobile || isTablet ? 200 : 0);
   };
 
- 
- 
- 
- 
- 
- 
- 
+
+
+
+
+
+
+
   const headerH = 92;
 
- 
- 
- 
+
+
+
   const SHEET_TINT = "color-mix(in srgb, var(--surface) 62%, transparent)";
   const SHEET_BLUR = "blur(30px) saturate(180%)";
   const sheetOpen  = menuOpen && (isMobile || isTablet);
@@ -476,15 +476,15 @@ export function Header() {
       {(isMobile || isTablet) && (
         <div
           ref={drawerRef}
-          
+
           data-lenis-prevent
           id="mobile-menu"
           role="dialog"
           aria-modal="true"
           aria-label={t("nav.services")}
           style={{
-           
-           
+
+
             position: "fixed", top: "var(--hdr-h)", left: 0, right: 0, bottom: 0, zIndex: 999,
             backgroundColor: SHEET_TINT,
             backdropFilter: SHEET_BLUR,
@@ -496,8 +496,8 @@ export function Header() {
             touchAction: "pan-y",
             opacity: menuOpen ? 1 : 0,
             pointerEvents: menuOpen ? "auto" : "none",
-           
-           
+
+
             visibility: menuOpen ? "visible" : "hidden",
             transform: menuOpen ? "translateY(0)" : "translateY(-8px)",
             transition: "opacity 250ms ease, transform 250ms ease, visibility 250ms",

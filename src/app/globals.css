@@ -45,17 +45,17 @@
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
 
-  
+
   --color-bg: #F4F8F5;
   --color-text: #0F1117;
   --color-text-muted: #4B5563;
   --color-green-light: #52B788;
   --color-green-mid: #2D6A4F;
 
-  
+
   color-scheme: light;
 
-  
+
   --page-bg:        #F4F8F5;   
   --page-bg-alt:    #F5F4F1;   
   --surface:        #FFFFFF;   
@@ -63,11 +63,11 @@
   --surface-3:      #EBF4EE;   
   --surface-hover:  #FFFFFF;   
 
-  
+
   --plate:          #E7E4DD;
   --plate-active:   #DFEDE4;
 
-  
+
   --invert:         #1A3D2B;
   --invert-2:       #14301F;
   --ink:            #0F1117;
@@ -78,19 +78,19 @@
   --invert-border:  rgba(255,255,255,0.12);
   --invert-surface: rgba(255,255,255,0.06);
 
-  
+
   --text:           #111410;
   --text-strong:    #0F1117;
   --text-soft:      #232A31;
   --text-muted:     #3A424A;
   --text-faint:     #545F69;
 
-  
+
   --border:         #E2E0DC;
   --border-2:       #E0DDD8;
   --border-strong:  #D8D5D0;
 
-  
+
   --brand:          #1A3D2B;   
   --brand-solid:    #1A3D2B;   
   --brand-solid-hover: #2D6A4F;
@@ -101,20 +101,20 @@
   --brand-tint-2:   rgba(26,61,43,0.12);
   --brand-ring:     rgba(26,61,43,0.30);
 
-  
+
   --plh-text:       #092c3a;
 
-  
+
   --hero-bg:        #F4F8F5;   
-  
+
   --subhero-ink:    6, 16, 11;
 
-  
+
   --cta-bg:         #FFFFFF;
   --cta-bg-hover:   #EAF3EC;
   --cta-text:       #1A3D2B;
 
-  
+
   --shadow-card:        0 1px 3px rgba(0,0,0,0.05);
   --shadow-card-hover:  0 24px 64px rgba(26,61,43,0.12), 0 6px 18px rgba(0,0,0,0.06);
   --shadow-soft:        0 2px 12px rgba(0,0,0,0.05);
@@ -131,7 +131,7 @@
   --surface-3:      #16241C;
   --surface-hover:  #18221C;
 
-  
+
   --plate:          #1B251F;
   --plate-active:   #1B3026;
 
@@ -167,11 +167,11 @@
 
   --plh-text:       #CDE9EF;
 
-  
-  --hero-bg:        #101813;
-  
 
-  
+  --hero-bg:        #101813;
+
+
+
   --cta-bg:         #74C69D;
   --cta-bg-hover:   #8AD3AB;
   --cta-text:       #08130D;
@@ -180,7 +180,7 @@
   --shadow-card-hover:  0 24px 64px rgba(0,0,0,0.55), 0 6px 18px rgba(0,0,0,0.40);
   --shadow-soft:        0 2px 12px rgba(0,0,0,0.45);
 
-  
+
   --background: #0A0F0C;
   --foreground: #ECF1ED;
   --card: #121A15;
@@ -380,7 +380,7 @@
   .intro-section    { padding: 64px 48px 52px; }
   .features-section { padding: 88px 48px 108px; }
 
-  
+
   .features-bento-2col { grid-template-columns: 1fr 1fr; }
   .features-bento-3col { grid-template-columns: 1fr 1fr 1fr; }
 
@@ -441,7 +441,7 @@ html[data-overlay-open] .wa-fab {
   right: 0;
   bottom: 0;
   left: calc(max(48px, 50% - 592px) + 0.46 * (min(100% - 96px, 1184px) - 56px) + 56px);
-  
+
   -webkit-mask-image: linear-gradient(to right, transparent 0, rgba(0,0,0,0.14) 36px, rgba(0,0,0,0.62) 88px, #000 156px);
           mask-image: linear-gradient(to right, transparent 0, rgba(0,0,0,0.14) 36px, rgba(0,0,0,0.62) 88px, #000 156px);
 }
@@ -501,14 +501,14 @@ html[data-overlay-open] .wa-fab {
 
 @media (max-width: 1023px) {
   .subhero-band {
-    
+
     align-items: flex-end;
     min-height: 400px;
-    
+
     background-color: rgb(var(--subhero-ink));
 
-    
-    
+
+
     --text:         #FFFFFF;
     --text-strong:  #FFFFFF;
     --text-soft:    rgba(255,255,255,0.88);
@@ -526,7 +526,7 @@ html[data-overlay-open] .wa-fab {
   .subhero-inner { padding: 32px 28px 36px; }
   .subhero-text { max-width: 68%; }
   .subhero-rule { margin-top: 22px; }
-  
+
   .subhero-cap,
   .subhero-fade { display: none; }
   .subhero-scrim {
@@ -534,7 +534,7 @@ html[data-overlay-open] .wa-fab {
     position: absolute;
     inset: 0;
     pointer-events: none;
-    
+
     background:
       linear-gradient(to right,
         rgba(var(--subhero-ink), 0.34) 0%,
@@ -554,7 +554,7 @@ html[data-overlay-open] .wa-fab {
   .subhero-inner { padding: 28px 20px 30px; }
   .subhero-text { max-width: 100%; }
   .subhero-rule { margin-top: 18px; }
-  
+
   .subhero-scrim {
     background: linear-gradient(to bottom,
       rgba(var(--subhero-ink), 0.34) 0%,
@@ -577,7 +577,7 @@ html[data-overlay-open] .wa-fab {
     @apply bg-background text-foreground;
   }
 
-  
+
   html, body {
     overflow-x: clip;
   }

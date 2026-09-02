@@ -31,7 +31,7 @@ function LogoChip({ name, img }: { name: string; img: string }) {
     </div>
   );
 }
-
+
 function MarqueeRow({ items, reverse }: { items: typeof clients; reverse?: boolean }) {
   const half = [...items, ...items, ...items];
   const doubled = [...half, ...half];
@@ -46,7 +46,7 @@ function MarqueeRow({ items, reverse }: { items: typeof clients; reverse?: boole
     </div>
   );
 }
-
+
 export function ClientsSection() {
   const t      = useTranslations("clients");
   const sectionRef = useRef<HTMLDivElement>(null);

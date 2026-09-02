@@ -22,7 +22,7 @@ function walk(dir, acc = []) {
 const src = walk('src').map((f) => fs.readFileSync(f, 'utf8')).join('\n');
 
 const unused = [...classes].filter((c) => {
- 
+
   const re = new RegExp('className=[^>]*\\b' + c + '\\b');
   return !re.test(src);
 });

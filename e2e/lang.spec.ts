@@ -2,11 +2,11 @@ import { test } from '@playwright/test';
 
 
 
-const CYRILLIC = /[Ѐ-ӿ]/;
+const CYRILLIC = /[Ѐ-ӿ]/;
 const AZERI_ONLY = /[əƏ]/;
-
+
 const ENGLISH_UI = /\b(Home|About|Services|Contact|Read more|Learn more|Submit|Send|Close|Menu|Search|Designed by|Get in Touch|Practice Areas|All rights reserved)\b/;
-
+
 const ALLOWED = [
   'ProFinance', 'Solutions', 'PLH', 'WhatsApp', 'Kronex', 'Instagram',
   'Facebook', 'LinkedIn', 'AZ', 'EN', 'RU', 'Baku', 'Bakı', 'Integral',

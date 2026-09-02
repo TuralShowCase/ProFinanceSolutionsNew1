@@ -10,7 +10,7 @@ import { DARK, mix } from "@/app/lib/brand";
 import { FS_H2, FS_LABEL, FS_H4_MOBILE, FS_BODY } from "@/app/lib/typography";
 
 gsap.registerPlugin(ScrollTrigger);
-
+
 const INDUSTRY_META = [
   { Icon: ShoppingCart,    img: "/industries/trade.avif" },
   { Icon: HardHat,         img: "/industries/construction.avif" },
@@ -45,8 +45,8 @@ export function IndustriesSection() {
       gsap.fromTo(".ind-card",  { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.65, ease: "expo.out", stagger: 0.06, scrollTrigger: { trigger: ".ind-cards", start: "top 84%", once: true } });
     }, sectionRef);
     return () => ctx.revert();
-   
-   
+
+
   }, [isStacked]);
 
   const markFailed = (i: number) =>
@@ -85,7 +85,7 @@ export function IndustriesSection() {
         </div>
 
         {isStacked ? (
-          
+
           <div className="ind-cards" style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
             {items.map(({ Icon, label, img }, i) => {
               const hasImg = !failed[i];
@@ -108,7 +108,7 @@ export function IndustriesSection() {
             })}
           </div>
         ) : (
-          
+
           <div style={{ display: "grid", gridTemplateColumns: "1fr 480px", gap: 64, alignItems: "stretch" }}>
 
             {}

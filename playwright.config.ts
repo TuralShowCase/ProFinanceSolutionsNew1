@@ -3,10 +3,10 @@ import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
   testDir: './e2e',
-  
+
   workers: 1,
 
-  
+
   timeout: 120_000,
   fullyParallel: false,
   forbidOnly: !!process.env.CI,
@@ -15,13 +15,13 @@ export default defineConfig({
 
   expect: {
     toHaveScreenshot: {
-     
-     
-     
+
+
+
       animations: 'disabled',
       caret: 'hide',
       scale: 'css',
-      
+
       maxDiffPixelRatio: 0.002,
       threshold: 0.2,
     },
@@ -29,17 +29,17 @@ export default defineConfig({
 
   use: {
     baseURL: process.env.BASE_URL ?? 'http://localhost:3100',
-   
+
     deviceScaleFactor: 1,
     trace: 'retain-on-failure',
-   
-   
-   
-   
+
+
+
+
     locale: 'en-US',
     timezoneId: 'Asia/Baku',
 
-    
+
     launchOptions: {
       args: [
         '--disable-features=CalculateNativeWinOcclusion',
@@ -65,10 +65,10 @@ export default defineConfig({
     },
   ],
 
-  
- 
- 
- 
+
+
+
+
   webServer: process.env.BASE_URL
     ? undefined
     : {

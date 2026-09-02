@@ -32,7 +32,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 
 export const SERVICES_SIDEBAR_WIDTH = 320;
-
+
 
 function ServicesSidebar({ allServices, currentSlug, locale, isMobile, open, onOpen, onClose }: {
   allServices: ServiceData[]; currentSlug: string; locale: string; isMobile: boolean;
@@ -46,7 +46,7 @@ function ServicesSidebar({ allServices, currentSlug, locale, isMobile, open, onO
 
   useEffect(() => { setMounted(true); }, []);
 
- 
+
   useEffect(() => {
     if (!isMobile || !open || !backdropRef.current || !panelRef.current) return;
     document.body.style.overflow = "hidden";
@@ -66,13 +66,13 @@ function ServicesSidebar({ allServices, currentSlug, locale, isMobile, open, onO
     const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") handleClose(); };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-   
+
   }, [isMobile, open]);
 
- 
- 
- 
- 
+
+
+
+
 
   const list = (
     <nav style={{ flex: 1, minHeight: 0, overflowY: "auto", padding: "6px 0 12px" }}>
@@ -169,9 +169,9 @@ function ServicesSidebar({ allServices, currentSlug, locale, isMobile, open, onO
     );
   }
 
- 
- 
- 
+
+
+
   return (
     <aside
       style={{
@@ -249,9 +249,9 @@ function ProcessStepCard({ step, title, description }: {
 function ServicePageInner({ service, allServices, locale }: { service: ServiceData; allServices: ServiceData[]; locale: string }) {
   const t      = useTranslations("servicePage");
   const bp     = useBreakpoint();
- 
- 
- 
+
+
+
   const isMobile = bp === "mobile";
   const { openContact } = useContactModal();
 
@@ -284,11 +284,11 @@ function ServicePageInner({ service, allServices, locale }: { service: ServiceDa
   const titleWords = service.name.split(" ");
 
   return (
-   
-   
-   
-   
-   
+
+
+
+
+
     <div style={{ backgroundColor: "var(--page-bg)", overflowX: "clip" }}>
     <div ref={pageRef} style={{ fontFamily: "var(--font-inter), 'Inter', sans-serif", backgroundColor: "var(--surface)", position: "relative", zIndex: 1 }}>
       <Header />

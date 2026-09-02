@@ -29,9 +29,9 @@ export function WhatsAppButton() {
   useEffect(() => { setMounted(true); }, []);
   if (!mounted) return null;
 
- 
- 
- 
+
+
+
   const waText = encodeURIComponent(t("whatsappPrefill"));
 
   return (

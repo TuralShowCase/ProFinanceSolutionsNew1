@@ -40,8 +40,8 @@ const suspect = [];
 for (const cls of [...all].sort()) {
   const t = T[cls], m = M[cls];
   if (!t) continue;
- 
- 
+
+
   const missing = [...t].filter((p) => !m || !m.has(p));
   if (missing.length) suspect.push(`  .${cls}  ->  mobilde tekrar edilmemis: ${missing.join(', ')}`);
 }

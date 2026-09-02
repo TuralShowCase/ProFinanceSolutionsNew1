@@ -54,11 +54,11 @@ export function useScrollLock(active: boolean) {
     const prevOverflow = root.style.overflow;
     if (canHideOverflow) root.style.overflow = "hidden";
 
-   
-   
+
+
     root.dataset.overlayOpen = "true";
 
-   
+
     const prevBodyOverflow = document.body.style.overflow;
     if (!lenis) document.body.style.overflow = "hidden";
 

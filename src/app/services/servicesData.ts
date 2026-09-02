@@ -23,7 +23,7 @@ export interface ServiceData {
   process: ServiceStep[];
   relatedSlugs: string[];
 }
-
+
 export const AZ_SLUGS = [
   'ucotun-diaqnostikasi-ve-berpasi',
   'muhasibat-konsaltinqi',
@@ -36,7 +36,7 @@ export const AZ_SLUGS = [
 ] as const;
 
 export type AzSlug = typeof AZ_SLUGS[number];
-
+
 export const serviceSlugMap: Record<string, { en: string; ru: string }> = {
   'ucotun-diaqnostikasi-ve-berpasi':  { en: 'accounting-diagnostics',      ru: 'diagnostika-ucheta' },
   'muhasibat-konsaltinqi':            { en: 'accounting-consulting',        ru: 'buhgalterskiy-konsalting' },
@@ -47,14 +47,14 @@ export const serviceSlugMap: Record<string, { en: string; ru: string }> = {
   'telim-ve-inkisaf':                 { en: 'training-development',         ru: 'obuchenie-razvitie' },
   'auditor-xidmetleri':               { en: 'audit-services',               ru: 'audit-uslugi' },
 };
-
+
 export function azSlugFromLocalized(localizedSlug: string, locale: string): string | undefined {
   if (locale === 'az') return localizedSlug;
   return Object.entries(serviceSlugMap).find(
     ([, map]) => map[locale as 'en' | 'ru'] === localizedSlug
   )?.[0];
 }
-
+
 export function localizedSlug(azSlug: string, locale: string): string {
   if (locale === 'az') return azSlug;
   return serviceSlugMap[azSlug]?.[locale as 'en' | 'ru'] ?? azSlug;
@@ -111,8 +111,8 @@ export const servicesData: ServiceData[] = [
       { title: "Yeni şirkətlərin qeydiyyatı və uçot üzrə dəstək", description: "Şirkətin qeydiyyatından ilk işlək uçot sisteminə qədər bütün mərhələlərdə müşayiət." },
       { title: "Mühasibat uçotu sisteminin qurulması və tətbiqi", description: "Şirkətinizin strukturuna uyğun uçot sistemi və mühasibat siyasəti hazırlanır və tətbiq edilir." },
       { title: "Mühasibatlıq xidmətlərinin autsorsinqi", description: "Gündəlik əməliyyatların qeydə alınması və mühasibatlığın tam idarə edilməsi komandamıza həvalə olunur." },
-      { title: "Uçotun avtomatlaşdırılması", description: "1C və bulud həlləri əsasında uçot prosesləri avtomatlaşdırılır — mövcud proqramınıza tam uyğunlaşırıq." },
-      { title: "Maliyyə hesabatlarının hazırlanması", description: "Xarici istifadəçilər — banklar, investorlar və tərəfdaşlar üçün aylıq, rüblük və illik hesabatlar hazırlanır." },
+      { title: "Uçotun avtomatlaşdırılması", description: "1C və bulud həlləri əsasında uçot prosesləri avtomatlaşdırılır. Mövcud proqramınıza tam uyğunlaşırıq." },
+      { title: "Maliyyə hesabatlarının hazırlanması", description: "Banklar, investorlar və tərəfdaşlar kimi xarici istifadəçilər üçün aylıq, rüblük və illik hesabatlar hazırlanır." },
     ],
     targets: ["Kiçik və orta bizneslər", "Startaplar", "Beynəlxalq şirkət filialları", "Sahibkarlar"],
     process: [
@@ -135,17 +135,17 @@ export const servicesData: ServiceData[] = [
       "Qanuni yolla azaldılmış vergi yükü",
       "Proqnozlaşdırıla bilən vergi öhdəlikləri",
       "Vaxtında təqdim edilən səhvsiz bəyannamələr",
-      "Qanunvericilik dəyişikliklərindən həmişə xəbərdar",
+      "Qanunvericilik dəyişikliklərindən daim xəbərdarlıq",
     ],
     iconName: "FileText",
     features: [
       { title: "Vergi strategiyasının hazırlanması", description: "Fəaliyyət növünüzə uyğun ən əlverişli vergi rejimi seçilir, uzunmüddətli vergi strategiyası qurulur." },
       { title: "Vergi yükünün optimallaşdırılması", description: "Qanuni çərçivədə ƏDV optimizasiyası, xərc tanınması və güzəşt mexanizmləri tətbiq edilərək vergi yükü minimuma endirilir." },
-      { title: "Vergi planlaşdırılması", description: "Vergi öhdəlikləri əvvəlcədən proqnozlaşdırılır — gözlənilməz məbləğlər və cərimə riskləri minimuma endirilir." },
+      { title: "Vergi planlaşdırılması", description: "Vergi öhdəlikləri əvvəlcədən proqnozlaşdırılır. Gözlənilməz məbləğlər və cərimə riskləri minimuma endirilir." },
       { title: "Vergi hesabatlarının hazırlanması", description: "Bəyannamələr son tarixdən 5–7 iş günü əvvəl hazırlanıb dövlət elektron sistemi vasitəsilə təqdim edilir." },
       { title: "Vergi qanunvericiliyi dəyişiklikləri üzrə məsləhət", description: "Vergi Məcəlləsindəki hər dəyişiklik izlənilir, biznesinizə təsiri barədə proaktiv məlumat verilir." },
     ],
-    targets: ["İstehsal müəssisələri", "Ticarət şirkətləri", "Xidmət sektoru", "Xarici investorlar"],
+    targets: ["İstehsal müəssisələri", "Ticarət şirkətləri", "Xidmət sektoru müəssisələri", "Xarici investorlar"],
     process: [
       { step: "01", title: "Vergi auditi", description: "Mövcud vergi vəziyyəti tam analiz edilir, risklər müəyyənləşdirilir." },
       { step: "02", title: "Strategiya", description: "Qanuni vergi optimallaşdırma strategiyası hazırlanır." },
@@ -163,7 +163,7 @@ export const servicesData: ServiceData[] = [
     overview: "Şirkətinizin maliyyə idarəetmə sisteminin inkişafı üçün peşəkar dəstək.",
     highlights: [
       "Maliyyə vəziyyətinizin tam diaqnostik mənzərəsi",
-      "Rəqəmlərə əsaslanan idarəetmə sistemi",
+      "İntuisiyaya deyil, rəqəmlərə əsaslanan idarəetmə sistemi",
       "Ssenarilər üzrə hazır maliyyə modelləri",
       "Aydın büdcə və maliyyə planı",
       "Rəhbərlik üçün operativ dashboard hesabatları",
@@ -172,7 +172,7 @@ export const servicesData: ServiceData[] = [
     features: [
       { title: "Biznesin maliyyə diaqnostikası", description: "Şirkətin maliyyə vəziyyəti hərtərəfli təhlil edilir, güclü və zəif tərəflər müəyyənləşdirilir." },
       { title: "İdarəetmə uçotunun qurulması və tətbiqi", description: "Rəhbərliyin qərar qəbulu üçün idarəetmə uçotu sistemi və KPI göstəriciləri qurulur." },
-      { title: "Maliyyə modellərinin hazırlanması", description: "Müxtəlif ssenarilər üzrə dinamik maliyyə modelləri qurulur — NPV, IRR və geri ödəmə müddəti hesablanmaqla." },
+      { title: "Maliyyə modellərinin hazırlanması", description: "Müxtəlif ssenarilər üzrə dinamik maliyyə modelləri qurulur, NPV, IRR və geri ödəmə müddəti hesablanmaqla." },
       { title: "Maliyyə planlaşdırılması", description: "İllik büdcə hazırlanır, gəlir və xərclər proqnozlaşdırılır, kənarlaşmalara nəzarət mexanizmi qurulur." },
       { title: "İdarəetmə hesabatlarının hazırlanması", description: "Daxili istifadəçilər üçün Excel, Power BI və Google Sheets dashboard formatında operativ hesabatlar hazırlanır." },
     ],
@@ -202,7 +202,7 @@ export const servicesData: ServiceData[] = [
     iconName: "Monitor",
     features: [
       { title: "Biznes proseslərinin modelləşdirilməsi", description: "Mövcud iş prosesləri xəritələnir, darboğazlar və təkrarlanan əməliyyatlar aşkar edilir." },
-      { title: "Standart əməliyyat prosedurlarının hazırlanması", description: "Hər proses üçün aydın prosedur sənədləri hazırlanır — işlər ayrı-ayrı şəxslərdən deyil, sistemdən asılı olur." },
+      { title: "Standart əməliyyat prosedurlarının hazırlanması", description: "Hər proses üçün aydın prosedur sənədləri hazırlanır. İşlər ayrı-ayrı şəxslərdən deyil, sistemdən asılı olur." },
       { title: "ERP və CRM sistemlərinin tətbiqi", description: "Şirkətin ehtiyacına uyğun sistem müstəqil qiymətləndirilərək seçilir; tətbiq, məlumat köçürülməsi və API inteqrasiyası həyata keçirilir." },
       { title: "Proseslərin avtomatlaşdırılması", description: "Əl ilə aparılan əməliyyatlar avtomatik sistemlərə keçirilir, işçilər yeni sistemlər üzrə öyrədilir." },
       { title: "Əməliyyat xərclərinin optimallaşdırılması", description: "Səmərəsiz xərc mənbələri müəyyənləşdirilir, ROI hesablaması ilə optimallaşdırma planı təqdim edilir." },
@@ -232,10 +232,10 @@ export const servicesData: ServiceData[] = [
     ],
     iconName: "Users",
     features: [
-      { title: "Kadr uçotunun aparılması", description: "Əmək müqavilələri, əmrlər, xidmət vərəqələri və DSMF hesabatları daxil olmaqla bütün kadr sənədləşməsi Əmək Məcəlləsi tələblərinə uyğun aparılır." },
+      { title: "Kadr uçotunun aparılması", description: "Əmək müqavilələri, əmrlər, işçilərin şəxsi uçot kartları və DSMF hesabatları daxil olmaqla bütün kadr sənədləşməsi Əmək Məcəlləsi tələblərinə uyğun aparılır." },
       { title: "Əmək haqqının hesablanması", description: "Əmək haqqı, məzuniyyət və sosial sığorta hesablamaları dəqiq və vaxtında yerinə yetirilir." },
       { title: "HR siyasətlərinin hazırlanması", description: "Daxili iş qaydaları, vəzifə təsvirləri və motivasiya mexanizmləri şirkətinizin strukturuna uyğun hazırlanır." },
-      { title: "Personalın seçimi və işə qəbulu", description: "İşə qəbul, adaptasiya və qiymətləndirmə prosesləri sistemli şəkildə qurulur." },
+      { title: "İşçi heyətinin seçimi və işə qəbulu", description: "İşə qəbul, adaptasiya və qiymətləndirmə prosesləri sistemli şəkildə qurulur." },
       { title: "Əmək qanunvericiliyinə uyğun müşayiət", description: "Əmək Məcəlləsindəki dəyişikliklər izlənilir, mübahisələrin qanuni həllində peşəkar dəstək göstərilir." },
     ],
     targets: ["Böyüyən şirkətlər", "Çoxlu işçisi olan müəssisələr", "Xarici şirkət filialları", "HR departamenti qurmaq istəyənlər"],
@@ -264,8 +264,8 @@ export const servicesData: ServiceData[] = [
     features: [
       { title: "Əməkdaşların qiymətləndirilməsi", description: "Komandanın bilik səviyyəsi və inkişaf ehtiyacları obyektiv metodlarla müəyyənləşdirilir." },
       { title: "Təlim proqramlarının hazırlanması", description: "Ehtiyac analizinə əsasən fərdi və qrup formatında xüsusi öyrənmə proqramları hazırlanır." },
-      { title: "Peşəkar treninq sessiyalarının keçirilməsi", description: "Real biznes ssenarilərinə əsaslanan praktiki, interaktiv treninqlər keçirilir — onlayn modullar və şəxsi öyrənmə paneli daxil olmaqla." },
-      { title: "Mühasibatlıq və HR mütəxəssislərinin təlimi", description: "Mühasibatlıq, vergi və HR sahəsində ixtisaslaşmış proqramlar — uğurla tamamlayanlara tamamlama sertifikatı verilir." },
+      { title: "Peşəkar treninqlərin təşkili", description: "Real biznes ssenarilərinə əsaslanan praktiki, interaktiv treninqlər keçirilir, onlayn modullar və şəxsi öyrənmə paneli daxil olmaqla." },
+      { title: "Mühasibatlıq və HR mütəxəssislərinin təlimi", description: "Mühasibatlıq, vergi və HR sahəsində ixtisaslaşmış proqramlar. Uğurla tamamlayanlara tamamlama sertifikatı verilir." },
     ],
     targets: ["Maliyyəçilər", "Mühasiblər", "Şirkət rəhbərləri", "Karyerasını inkişaf etdirmək istəyənlər"],
     process: [
@@ -285,13 +285,13 @@ export const servicesData: ServiceData[] = [
     overview: "Şirkətinizin maliyyə və əməliyyat proseslərinin müstəqil qiymətləndirilməsi üzrə peşəkar dəstək.",
     highlights: [
       "Proseslərinizə müstəqil və obyektiv baxış",
-      "Qanunvericiliyə uyğunluğun təsdiqi",
+      "Qanunvericiliyə uyğunluq vəziyyətinin qiymətləndirilməsi",
       "Gücləndirilmiş daxili nəzarət sistemi",
       "Aşkarlanmış risklər və aydın tədbirlər planı",
     ],
     iconName: "ShieldCheck",
     features: [
-      { title: "Daxili audit", description: "Şirkətin daxili proseslərinin və idarəetmə effektivliyinin ISA (Beynəlxalq Audit Standartları) əsasında müstəqil qiymətləndirilməsi." },
+      { title: "Daxili audit", description: "Şirkətin daxili proseslərinin və idarəetmə effektivliyinin IIA (Daxili Auditorlar İnstitutu) Qlobal Daxili Audit Standartları əsasında müstəqil qiymətləndirilməsi." },
       { title: "Uyğunluq (compliance) auditi", description: "Qanunvericilik tələblərinə uyğunluğun hərtərəfli yoxlanılması, aşkar edilən boşluqların sənədləşdirilməsi." },
       { title: "Daxili nəzarət sisteminin təhlili", description: "Nəzarət mexanizmlərinin effektivliyi qiymətləndirilir, zəif nöqtələr üzrə tövsiyələr verilir." },
       { title: "Maliyyə və əməliyyat risklərinin müəyyən edilməsi", description: "Biznes riskləri identifikasiya edilir; detallı audit hesabatı və idarəetmə məktubu təqdim edilir." },
@@ -310,7 +310,7 @@ export const servicesData: ServiceData[] = [
 export function getServiceBySlug(slug: string): ServiceData | undefined {
   return servicesData.find(s => s.slug === slug);
 }
-
+
 export function getServiceByLocalizedSlug(slug: string, locale: string): ServiceData | undefined {
   const az = azSlugFromLocalized(slug, locale);
   if (!az) return undefined;

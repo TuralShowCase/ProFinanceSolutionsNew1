@@ -17,7 +17,7 @@ export function WhoWeAreSection() {
 
   const sectionRef = useRef<HTMLElement>(null);
 
- 
+
   const base = locale === "az" ? "" : `/${locale}`;
   const aboutHref = locale === "ru" ? `${base}/o-nas` : `${base}/about`;
 
@@ -40,13 +40,13 @@ export function WhoWeAreSection() {
     }, sectionRef);
 
     return () => ctx.revert();
-   
-   
+
+
   }, []);
 
   const headingId = "who-we-are-heading";
 
-  
+
   const bodyCopy = (
     <>
       <p className="wwa-anim" style={{ opacity: 0, fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 600, fontSize: FS_BODY_LG, color: "var(--text)", lineHeight: 1.6, letterSpacing: "-0.015em", margin: "0 0 22px" }}>
@@ -74,7 +74,7 @@ export function WhoWeAreSection() {
     </a>
   );
 
-  
+
   const missionCard = (
     <div
       className="wwa-mission"

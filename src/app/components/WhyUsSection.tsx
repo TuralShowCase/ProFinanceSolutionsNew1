@@ -68,7 +68,7 @@ function Dashes({
                 height: 3,
                 borderRadius: 2,
                 width: on ? 30 : 14,
-                
+
                 transform: lit ? "scaleY(2)" : "scaleY(1)",
                 backgroundColor: on ? DARK : lit ? mix(DARK, 60) : d < current ? mix(DARK, 38) : mix(DARK, 15),
                 transition:
@@ -101,7 +101,7 @@ export function WhyUsSection() {
   const isMobile = bp === "mobile";
   const isDesktop = bp === "desktop";
 
-  
+
   const reduced = useMediaQuery("(prefers-reduced-motion: reduce)", false);
   const wide = useMediaQuery("(min-width: 1180px)", true);
   const isConsole = !isMobile && !reduced;
@@ -123,7 +123,7 @@ export function WhyUsSection() {
     Icon: ICONS[i],
   }));
 
-  
+
   useEffect(() => {
     const ctx = gsap.context(() => {
       if (reduced) {
@@ -146,7 +146,7 @@ export function WhyUsSection() {
     return () => ctx.revert();
   }, [reduced, bp]);
 
-  
+
   useEffect(() => {
     if (!isConsole) return;
     const section = sectionRef.current;
@@ -183,7 +183,7 @@ export function WhyUsSection() {
     };
   }, [isConsole, bp]);
 
-  
+
   useEffect(() => {
     const wrap = paneWrapRef.current;
     if (!wrap) return;
@@ -194,11 +194,11 @@ export function WhyUsSection() {
     const prev = prevRef.current;
     prevRef.current = active;
 
-    
+
     if (prev === -1 || prev === active || reduced || !isConsole) {
       gsap.set(panes, { autoAlpha: 0, zIndex: 1 });
       gsap.set(panes[active], { autoAlpha: 1, zIndex: 2 });
-      
+
       return;
     }
 
@@ -229,7 +229,7 @@ export function WhyUsSection() {
       );
   }, [active, reduced, isConsole]);
 
-  
+
   const goTo = (i: number) => {
     const st = triggerRef.current;
     if (!st) return;
@@ -240,7 +240,7 @@ export function WhyUsSection() {
     else window.scrollTo({ top: y, behavior: "smooth" });
   };
 
-  
+
   const header = (
     <div className="why-head">
       <p
@@ -273,7 +273,7 @@ export function WhyUsSection() {
     </div>
   );
 
-  
+
   if (!isConsole) {
     return (
       <section
@@ -361,7 +361,7 @@ export function WhyUsSection() {
     );
   }
 
-  
+
   return (
     <section
       id="whyus"
@@ -543,7 +543,7 @@ export function WhyUsSection() {
                     maxWidth: "none",
                     display: "block",
                     filter: "drop-shadow(0 18px 26px rgba(15,32,22,0.16))",
-                    
+
                     WebkitMaskImage: "linear-gradient(to bottom, #000 74%, transparent 97%)",
                     maskImage: "linear-gradient(to bottom, #000 74%, transparent 97%)",
                   }}

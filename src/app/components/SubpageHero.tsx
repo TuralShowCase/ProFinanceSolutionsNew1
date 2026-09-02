@@ -8,7 +8,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const prefersReduced = () =>
   typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
+
 export function SubpageHero({ children }: { children: ReactNode }) {
   const bandRef  = useRef<HTMLDivElement>(null);
   const mediaRef = useRef<HTMLDivElement>(null);
@@ -28,9 +28,9 @@ export function SubpageHero({ children }: { children: ReactNode }) {
       gsap.fromTo(ruleRef.current, { scaleX: 0, opacity: 0 },
         { scaleX: 1, opacity: 1, duration: 0.75, ease: "expo.out", delay: 0.5 });
 
-     
-     
-     
+
+
+
       gsap.fromTo(imgRef.current, { yPercent: -5 }, {
         yPercent: 5, ease: "none",
         scrollTrigger: { trigger: bandRef.current, start: "top top", end: "bottom top", scrub: 0.6 },

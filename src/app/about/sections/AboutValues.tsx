@@ -115,7 +115,7 @@ export function AboutValues() {
     return () => { ctx.revert(); triggerRef.current = null; };
   }, [isMobile, isTablet, mounted]);
 
-  
+
   const goTo = (i: number) => {
     const st = triggerRef.current;
     if (!st) return;
@@ -126,7 +126,7 @@ export function AboutValues() {
     else window.scrollTo({ top: y, behavior: "smooth" });
   };
 
- 
+
   if (!mounted || isMobile || isTablet) {
     return (
       <section id="values" style={{ backgroundColor: CREAM, padding: "56px 20px 64px", fontFamily: "var(--font-inter), 'Inter', sans-serif" }}>
@@ -154,7 +154,7 @@ export function AboutValues() {
     );
   }
 
- 
+
   return (
     <section id="values" ref={sectionRef} style={{ backgroundColor: CREAM, position: "relative", overflow: "hidden" }}>
       <div className="val-inner" style={{ minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center", maxWidth: 1280, margin: "0 auto", position: "relative" }}>

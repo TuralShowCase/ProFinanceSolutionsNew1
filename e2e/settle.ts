@@ -40,7 +40,7 @@ async function sweep(page: Page) {
     await page.waitForTimeout(STEP_MS);
   }
 
- 
+
   await page.evaluate(() => window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'instant' as ScrollBehavior }));
   await waitForAnimationsIdle(page);
   await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior }));
@@ -60,12 +60,12 @@ async function loadAllImages(page: Page) {
   await page.evaluate(() => {
     document.querySelectorAll<HTMLImageElement>('img[loading="lazy"]').forEach((img) => {
       img.loading = 'eager';
-     
+
       if (!img.complete && img.src) img.src = img.src;
     });
   });
 
-  
+
   await page
     .waitForFunction(
       () => Array.from(document.images).every((img) => img.complete),
@@ -73,7 +73,7 @@ async function loadAllImages(page: Page) {
       { timeout: 30_000 },
     )
     .catch(() => {
-      
+
     });
 
   await page
@@ -84,21 +84,21 @@ async function loadAllImages(page: Page) {
     })
     .catch(() => {});
 
- 
- 
+
+
   await page.evaluate(() => window.dispatchEvent(new Event('resize')));
   await page.waitForTimeout(300);
 }
 
 
 const ALWAYS_TRANSPARENT = [
- 
+
   'val-ghost',
- 
+
   'drawer-item',
- 
+
   'hero-photo', 'hero-anim', 'hero-reveal',
-  
+
   'why-pane',
 ];
 

@@ -13,7 +13,7 @@ import { getServiceRuBySlug } from '../../../services/servicesData.ru';
 import { ServicePage } from '../../../services/ServicePage';
 
 import { SITE_URL } from '../../../lib/site';
-
+
 const INCLUDES_LABEL: Record<Locale, string> = {
   az: 'Xidmətə daxildir',
   en: 'This service includes',
@@ -89,7 +89,7 @@ export default async function ServiceSlugPage({
 
   const localizedService = getLocalizedServiceData(service.slug, locale) ?? service;
 
- 
+
   const allLocalizedServices = servicesData.map(
     (s) => getLocalizedServiceData(s.slug, locale) ?? s
   );
@@ -103,9 +103,9 @@ export default async function ServiceSlugPage({
     '@type': 'Service',
     '@id': `${pageUrl}#service`,
     name: localizedService.name,
-   
-   
-   
+
+
+
     description: `${localizedService.overview} ${INCLUDES_LABEL[locale]}: ${localizedService.features.map((f) => f.title).join(', ')}.`,
     url: pageUrl,
     provider: { '@id': `${SITE_URL}/#organization` },

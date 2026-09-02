@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import { open, openHeroOnly, useTheme, heroMask } from './settle';
 
 
-
+
 const AZ_SERVICE = '/services/ucotun-diaqnostikasi-ve-berpasi';
 
 const CORE = [
@@ -10,7 +10,7 @@ const CORE = [
   { name: 'about', path: '/about' },
   { name: 'service', path: AZ_SERVICE },
 ] as const;
-
+
 for (const theme of ['light', 'dark'] as const) {
   for (const route of CORE) {
     test(`${route.name}-${theme}`, async ({ page }) => {
@@ -28,7 +28,7 @@ for (const theme of ['light', 'dark'] as const) {
     await useTheme(page, theme);
     await openHeroOnly(page, '/');
 
-   
+
     await expect(page.locator('#hero')).toHaveScreenshot(`hero-${theme}.png`);
   });
 }

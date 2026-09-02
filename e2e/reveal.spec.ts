@@ -5,8 +5,8 @@ import { open, useTheme, stillHidden } from './settle';
 
 const PAGES = [
   { name: 'az', path: '/' },
- 
- 
+
+
   { name: 'ru', path: '/ru' },
   { name: 'about', path: '/about' },
 ] as const;

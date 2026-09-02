@@ -18,7 +18,7 @@ export default [
 
   {
     rules: {
-     
+
       '@typescript-eslint/no-unused-vars': [
         'warn',
         { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
@@ -30,8 +30,8 @@ export default [
   },
 
   {
-   
-   
+
+
     files: ['src/app/components/ui/**'],
     rules: {
       '@typescript-eslint/no-unused-vars': 'off',

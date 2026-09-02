@@ -51,8 +51,8 @@ export const servicesDataEn: ServiceData[] = [
       { title: 'Registration and accounting support for new companies', description: 'Guidance at every stage, from company registration to the first working accounting system.' },
       { title: 'Set-up and implementation of the accounting system', description: 'An accounting system and policy tailored to your company\'s structure is developed and implemented.' },
       { title: 'Accounting outsourcing', description: 'Day-to-day transaction recording and the full accounting function are handled by our team.' },
-      { title: 'Accounting automation', description: 'Accounting processes are automated on 1C and cloud solutions — we fully adapt to your existing software.' },
-      { title: 'Preparation of financial statements', description: 'Monthly, quarterly and annual statements prepared for external users — banks, investors and partners.' },
+      { title: 'Accounting automation', description: 'Accounting processes are automated on 1C and cloud solutions. We fully adapt to your existing software.' },
+      { title: 'Preparation of financial statements', description: 'Monthly, quarterly and annual statements prepared for external users such as banks, investors and partners.' },
     ],
     targets: ['Small and medium-sized businesses', 'Start-ups', 'Branches of international companies', 'Entrepreneurs'],
     process: [
@@ -75,14 +75,14 @@ export const servicesDataEn: ServiceData[] = [
       'A lawfully reduced tax burden',
       'Predictable tax liabilities',
       'Accurate returns filed on time',
-      'Always ahead of legislative changes',
+      'Always kept up to date with legislative changes',
     ],
     iconName: 'FileText',
     features: [
       { title: 'Development of tax strategy', description: 'The most advantageous tax regime for your activities is selected and a long-term tax strategy is built.' },
       { title: 'Optimisation of the tax burden', description: 'VAT optimisation, expense recognition and relief mechanisms are applied within the legal framework to minimise the tax burden.' },
-      { title: 'Tax planning', description: 'Tax liabilities are forecast in advance — unexpected amounts and penalty risks are minimised.' },
-      { title: 'Preparation of tax reports', description: 'Returns are prepared and submitted via the government\'s electronic system at least 5–7 business days before the deadline.' },
+      { title: 'Tax planning', description: 'Tax liabilities are forecast in advance. Unexpected amounts and penalty risks are minimised.' },
+      { title: 'Preparation of tax reports', description: 'Returns are prepared and submitted via the government\'s electronic system 5–7 business days before the deadline.' },
       { title: 'Advice on changes in tax legislation', description: 'Every change in the Tax Code is tracked, with proactive advice on its impact on your business.' },
     ],
     targets: ['Manufacturing enterprises', 'Trading companies', 'Service sector businesses', 'Foreign investors'],
@@ -112,7 +112,7 @@ export const servicesDataEn: ServiceData[] = [
     features: [
       { title: 'Financial diagnostics of the business', description: 'The company\'s financial position is analysed in depth; strengths and weaknesses are identified.' },
       { title: 'Set-up and implementation of management accounting', description: 'A management accounting system with KPI indicators is built to support leadership decision-making.' },
-      { title: 'Financial modelling', description: 'Dynamic financial models are built across scenarios — with NPV, IRR and payback period calculated.' },
+      { title: 'Financial modelling', description: 'Dynamic financial models are built across scenarios, with NPV, IRR and payback period calculated.' },
       { title: 'Financial planning', description: 'The annual budget is prepared, revenues and expenses are forecast, and variance controls are put in place.' },
       { title: 'Preparation of management reports', description: 'Operational reports for internal users in Excel, Power BI and Google Sheets dashboard formats.' },
     ],
@@ -142,7 +142,7 @@ export const servicesDataEn: ServiceData[] = [
     iconName: 'Monitor',
     features: [
       { title: 'Business process modelling', description: 'Existing workflows are mapped; bottlenecks and duplicated operations are uncovered.' },
-      { title: 'Development of standard operating procedures', description: 'Clear procedure documents are prepared for every process — work depends on the system, not on individuals.' },
+      { title: 'Development of standard operating procedures', description: 'Clear procedure documents are prepared for every process. Work depends on the system, not on individuals.' },
       { title: 'Implementation of ERP and CRM systems', description: 'The right system is independently evaluated and selected for your needs; implementation, data migration and API integration follow.' },
       { title: 'Process automation', description: 'Manual operations are migrated to automated systems, and employees are trained on them.' },
       { title: 'Optimisation of operating costs', description: 'Inefficient cost sources are identified and an optimisation plan is delivered with an ROI calculation.' },
@@ -172,7 +172,7 @@ export const servicesDataEn: ServiceData[] = [
     ],
     iconName: 'Users',
     features: [
-      { title: 'HR record-keeping', description: 'All personnel documentation — employment contracts, orders, service records and reports to the State Social Protection Fund (DSMF) — is maintained in compliance with the Labour Code.' },
+      { title: 'HR record-keeping', description: 'All personnel documentation, including employment contracts, orders, employee personnel cards/records and reports to the State Social Protection Fund (DSMF), is maintained in compliance with the Labour Code.' },
       { title: 'Payroll calculation', description: 'Salary, leave and social insurance calculations are performed accurately and on time.' },
       { title: 'Development of HR policies', description: 'Internal rules of procedure, job descriptions and motivation mechanisms are prepared to fit your company\'s structure.' },
       { title: 'Personnel selection and recruitment', description: 'Recruitment, onboarding and performance appraisal processes are established systematically.' },
@@ -204,8 +204,8 @@ export const servicesDataEn: ServiceData[] = [
     features: [
       { title: 'Employee assessment', description: 'The team\'s knowledge level and development needs are identified through objective methods.' },
       { title: 'Development of training programmes', description: 'Bespoke learning programmes in individual and group formats, based on a needs analysis.' },
-      { title: 'Delivery of professional training sessions', description: 'Practical, interactive sessions grounded in real business scenarios — including online modules with a personal learning dashboard.' },
-      { title: 'Training of accounting and HR specialists', description: 'Specialised programmes for accounting, tax and HR professionals — a certificate of completion is awarded on successful completion.' },
+      { title: 'Delivery of professional training sessions', description: 'Practical, interactive sessions grounded in real business scenarios, including online modules with a personal learning dashboard.' },
+      { title: 'Training of accounting and HR specialists', description: 'Specialised programmes for accounting, tax and HR professionals. A certificate of completion is awarded on successful completion.' },
     ],
     targets: ['Finance professionals', 'Accountants', 'Company managers', 'Those seeking to advance their careers'],
     process: [
@@ -225,13 +225,13 @@ export const servicesDataEn: ServiceData[] = [
     overview: 'Professional support for the independent assessment of your company\'s financial and operational processes.',
     highlights: [
       'An independent, objective view of your processes',
-      'Confirmed compliance with legislation',
+      'Assessment of compliance with legislation',
       'A strengthened internal control system',
       'Risks uncovered, with a clear action plan',
     ],
     iconName: 'ShieldCheck',
     features: [
-      { title: 'Internal audit', description: 'Independent assessment of the company\'s internal processes and management effectiveness, conducted in accordance with ISA (International Standards on Auditing).' },
+      { title: 'Internal audit', description: 'Independent assessment of the company\'s internal processes and management effectiveness, conducted in accordance with the IIA (Institute of Internal Auditors) Global Internal Audit Standards.' },
       { title: 'Compliance audit', description: 'Comprehensive review of compliance with legislative requirements; identified gaps are documented.' },
       { title: 'Analysis of the internal control system', description: 'The effectiveness of control mechanisms is evaluated, with recommendations on weak points.' },
       { title: 'Identification of financial and operational risks', description: 'Business risks are identified; a detailed audit report and management letter are delivered.' },

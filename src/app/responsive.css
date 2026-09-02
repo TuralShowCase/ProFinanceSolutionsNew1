@@ -7,7 +7,7 @@
 }
 
 .partner-photo {
-  
+
   aspect-ratio: auto;
 }
 
@@ -68,7 +68,7 @@
 
 .clients-inner {
   padding: 0 48px;
-  
+
   margin: 0 auto 44px;
 }
 
@@ -325,7 +325,7 @@
 .why-console {
   --why-sticky-top: 108px;
   --why-pad-top: 112px;
-  
+
   --why-scroll: 260vh;
   height: calc(var(--why-scroll) + var(--why-pad-top));
   padding-top: var(--why-pad-top);
@@ -551,7 +551,7 @@
     padding: 0 28px;
   }
 
-  
+
   .wwa-section {
     padding: 88px 28px 96px;
   }
@@ -565,7 +565,7 @@
     padding: 36px 32px 32px;
   }
 
-  
+
   .msn-section {
     padding: 80px 28px 88px;
   }
@@ -574,12 +574,12 @@
     padding: 36px 40px;
   }
 
-  
+
   .about-tagline {
     font-size: clamp(3rem, 6.5vw, 4rem); 
   }
 
-  
+
   .val-inner {
     padding: 0 32px;
   }
@@ -616,7 +616,7 @@
     right: 14px;
   }
 
-  
+
   .team-section {
     padding: 80px 28px 88px;
   }
@@ -634,7 +634,7 @@
     font-size: 20px; 
   }
 
-  
+
   .acta-section {
     padding: 160px 28px 80px;
   }
@@ -656,10 +656,10 @@
     max-width: 56%;
   }
 
-  
+
   .partner-photo {
     aspect-ratio: 16 / 9;
-    
+
     order: -1;
   }
 
@@ -685,7 +685,7 @@
     height: 110px;
   }
 
-  
+
   .hero-inner {
     padding: 72px 20px 28px;
   }
@@ -710,7 +710,7 @@
     margin-top: 30px;
   }
 
-  
+
   .why-console {
     --why-sticky-top: 100px;
     --why-pad-top: 88px;
@@ -737,12 +737,12 @@
     padding: 26px 28px 26px;
   }
 
-  
+
   .ind-section {
     padding: 84px 28px 92px;
   }
 
-  
+
   .svc-section {
     padding: 84px 28px 92px;
   }
@@ -751,7 +751,7 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  
+
   .svc-cell {
     border-right: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
@@ -769,7 +769,7 @@
     padding: 16px;
   }
 
-  
+
   .svc-plate-stack {
     aspect-ratio: 4 / 3;
   }
@@ -791,7 +791,7 @@
     padding: 30px 32px 30px 200px;
   }
 
-  
+
   .ftr-wrap {
     padding: 0 28px;
   }
@@ -808,7 +808,7 @@
     padding: 64px 20px 72px;
   }
 
-  
+
   .partner-photo {
     aspect-ratio: 3 / 2;
   }
@@ -849,7 +849,7 @@
     padding: 24px 20px;
   }
 
-  
+
   .clients-section {
     padding: 72px 0 64px;
   }
@@ -882,7 +882,7 @@
     width: 40px;
   }
 
-  
+
   .wwa-section {
     padding: 68px 20px 76px;
   }
@@ -895,7 +895,7 @@
     margin-bottom: 30px;
   }
 
-  
+
   .wwa-grid {
     grid-template-columns: 1fr;
     column-gap: 0;
@@ -924,7 +924,7 @@
     margin: 22px 0 18px;
   }
 
-  
+
   .msn-section {
     padding: 64px 20px 72px;
   }
@@ -963,17 +963,17 @@
     margin-bottom: 16px;
   }
 
-  
+
   .about-tagline {
     font-size: clamp(2.25rem, 9vw, 2.75rem); 
   }
 
-  
+
   .team-section {
     padding: 64px 20px 72px;
   }
 
-  
+
   .acta-section {
     padding: 48px 20px 64px;
   }
@@ -982,12 +982,12 @@
     max-width: 100%;
   }
 
-  
+
   .acta-card {
     padding: 48px 28px 280px;
   }
 
-  
+
   .acta-figure {
     left: 0;
     right: 0;
@@ -1011,8 +1011,8 @@
     width: 100%;
   }
 
-  
-  
+
+
   .hero-cta-wrap,
   .hero-cta {
     width: 100%;
@@ -1022,7 +1022,7 @@
     width: 70%;
   }
 
-  
+
   .why-stack {
     padding: 76px 20px 80px;
   }
@@ -1035,7 +1035,7 @@
     margin-bottom: 30px;
   }
 
-  
+
   .ind-section {
     padding: 68px 20px 72px;
   }
@@ -1051,7 +1051,7 @@
     gap: 10px;
   }
 
-  
+
   .svc-section {
     padding: 68px 20px 72px;
   }
@@ -1067,7 +1067,7 @@
     grid-template-columns: repeat(1, minmax(0, 1fr));
   }
 
-  
+
   .svc-cell {
     padding: 6px;
     border-right: none;
@@ -1078,7 +1078,7 @@
     border-bottom: none;
   }
 
-  
+
   .ftr-wrap {
     padding: 0 20px;
   }
@@ -1090,7 +1090,7 @@
     padding-bottom: 28px;
   }
 
-  
+
   .ftr-tagline {
     display: none;
   }

@@ -14,7 +14,7 @@ const FEAT_ICONS = [ScanSearch, Users, Layers];
 
 const prefersReducedMotion = () =>
   typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
+
 const PHOTO_POS = "50% 32%";
 
 
@@ -45,20 +45,20 @@ export function PartnerSection() {
 
       if (reduce) return;
 
-     
-     
+
+
       gsap.fromTo(photoRef.current, { scale: 1.16 }, { scale: 1.08, duration: 1.5, ease: "expo.out", scrollTrigger: { trigger: cardRef.current, start: "top 82%", once: true } });
       gsap.fromTo(photoRef.current, { yPercent: -3 }, { yPercent: 3, ease: "none", scrollTrigger: { trigger: cardRef.current, start: "top bottom", end: "bottom top", scrub: 0.6 } });
     }, sectionRef);
 
     return () => ctx.revert();
-   
-   
-   
+
+
+
   }, []);
 
 
-  
+
   const photoPanel = (
     <div
       key="photo"
@@ -136,7 +136,7 @@ export function PartnerSection() {
     </div>
   );
 
-  
+
   const contentPanel = (
     <div
       key="content"

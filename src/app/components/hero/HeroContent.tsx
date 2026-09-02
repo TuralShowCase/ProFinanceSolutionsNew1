@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { INK, SUB, SLIDES } from "./heroStyle";
-
+
 export function HeroContent({ activeSlide }: { activeSlide: number }) {
   const t        = useTranslations("hero");
 

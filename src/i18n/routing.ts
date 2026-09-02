@@ -8,7 +8,7 @@ export const routing = defineRouting({
   locales,
   defaultLocale: 'az',
   localePrefix: 'as-needed',
-  
+
   localeDetection: false,
   pathnames: {
     '/': '/',
@@ -24,5 +24,5 @@ export const routing = defineRouting({
     },
   },
 });
-
+
 export const { Link, redirect, usePathname, useRouter } = createNavigation(routing);

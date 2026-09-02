@@ -30,7 +30,7 @@ export function HeroPagination({
             key={i}
             onClick={() => goToSlide(i)}
             aria-label={`${tHeader("slideAria")} ${i + 1}`}
-            
+
             aria-current={active ? "true" : undefined}
             style={{
               display: "flex", alignItems: "center", gap: 10,

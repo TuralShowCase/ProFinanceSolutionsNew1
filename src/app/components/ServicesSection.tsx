@@ -77,7 +77,7 @@ export function ServicesSection() {
     href:    `${servicesBasePath}/${localizedSlug(azSlug, locale)}`,
   }));
 
-  
+
   const cols = isMobile ? 1 : isTablet ? 2 : 4;
 
   useEffect(() => {
@@ -99,7 +99,7 @@ export function ServicesSection() {
         { opacity: 1, y: 0, duration: 0.85, ease: "expo.out",
           scrollTrigger: { trigger: ".svc-cta-anim", start: "top 90%", once: true } });
 
-      
+
       if (!reduce && !isMobile) {
         gsap.utils.toArray<HTMLElement>(".svc-drift").forEach((el, i) => {
           gsap.fromTo(el,
@@ -174,7 +174,7 @@ export function ServicesSection() {
 
         {}
         {isMobile ? (
-          
+
           <div className="svc-cta-anim" style={{ opacity: 0, marginTop: 34, position: "relative", zIndex: 2, paddingTop: 82 }}>
             <img
               src="/CtaSitting.avif" alt="" aria-hidden="true" loading="lazy" decoding="async"
@@ -241,10 +241,10 @@ function ServiceCard({
   const on  = () => setActive(true);
   const off = () => setActive(false);
 
-  
+
   const plate = (variant: "row" | "stack") => (
     <div
-      
+
       className={variant === "row" ? "svc-plate svc-plate-row" : "svc-plate svc-plate-stack"}
       style={{
         position: "relative",
@@ -296,7 +296,7 @@ function ServiceCard({
           height={h}
           className="svc-obj"
           style={{
-            
+
             ["--svc-obj-scale" as string]: scale,
             height: "auto",
             objectFit: "contain",
@@ -360,7 +360,7 @@ function ServiceCard({
     transition: "background-color 420ms ease, box-shadow 420ms ease, transform 460ms cubic-bezier(0.34, 1.3, 0.64, 1)",
   };
 
-  
+
   if (isMobile) {
     return (
       <a
@@ -382,7 +382,7 @@ function ServiceCard({
     );
   }
 
-  
+
   return (
     <a
       href={href}

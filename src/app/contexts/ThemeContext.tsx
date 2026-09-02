@@ -6,12 +6,12 @@ export type ThemePref = "light" | "dark" | "system";
 export type ResolvedTheme = "light" | "dark";
 
 interface ThemeCtx {
-  
+
   theme: ThemePref;
-  
+
   resolvedTheme: ResolvedTheme;
   setTheme: (t: ThemePref) => void;
-  
+
   toggleTheme: () => void;
 }
 
@@ -35,21 +35,21 @@ function applyTheme(resolved: ResolvedTheme) {
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
- 
- 
-  const [theme, setThemeState] = useState<ThemePref>("system");
+
+
+  const [theme, setThemeState] = useState<ThemePref>("light");
   const [resolvedTheme, setResolvedTheme] = useState<ResolvedTheme>("light");
 
- 
+
   useEffect(() => {
-    const stored = (localStorage.getItem(STORAGE_KEY) as ThemePref | null) ?? "system";
+    const stored = (localStorage.getItem(STORAGE_KEY) as ThemePref | null) ?? "light";
     setThemeState(stored);
     const resolved: ResolvedTheme = stored === "system" ? (systemPrefersDark() ? "dark" : "light") : stored;
     setResolvedTheme(resolved);
     applyTheme(resolved);
   }, []);
 
- 
+
   useEffect(() => {
     if (theme !== "system") return;
     const mq = window.matchMedia("(prefers-color-scheme: dark)");
@@ -87,4 +87,4 @@ export function useTheme() {
 }
 
 
-export const themeNoFlashScript = `(function(){try{var k='${STORAGE_KEY}';var s=localStorage.getItem(k);var d=s?s==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;var e=document.documentElement;if(d)e.classList.add('dark');e.style.colorScheme=d?'dark':'light';}catch(e){}})();`;
+export const themeNoFlashScript = `(function(){try{var k='${STORAGE_KEY}';var s=localStorage.getItem(k);var d=s==='dark';var e=document.documentElement;if(d)e.classList.add('dark');e.style.colorScheme=d?'dark':'light';}catch(e){}})();`;

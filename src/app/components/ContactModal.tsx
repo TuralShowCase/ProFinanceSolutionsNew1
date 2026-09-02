@@ -8,7 +8,7 @@ import { useTranslations } from "next-intl";
 import { DARK, BRAND_SOLID, mix } from "@/app/lib/brand";
 import { useScrollLock } from "@/app/lib/smoothScroll";
 import { FS_LABEL } from "@/app/lib/typography";
-
+
 const CONTACT_HREFS_BASE = [
   { Icon: Phone,         value: "+994 10 505 71 71",  href: "tel:+994105057171",                                     labelKey: "labelPhone"    },
   { Icon: MessageCircle, value: "+994 10 505 71 71",  href: "https://wa.me/994105057171",                            labelKey: "labelWhatsapp" },
@@ -39,11 +39,11 @@ export function ContactModal({ open, onClose }: Props) {
 
   useEffect(() => { setMounted(true); }, []);
 
- 
- 
+
+
   useScrollLock(open);
 
- 
+
   useEffect(() => {
     if (!backdropRef.current || !cardRef.current) return;
 
@@ -59,14 +59,14 @@ export function ContactModal({ open, onClose }: Props) {
     }
   }, [open]);
 
- 
+
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
     if (open) window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [open, onClose]);
 
-  
+
   useEffect(() => {
     if (!open) return;
     const card = cardRef.current;
@@ -81,8 +81,8 @@ export function ContactModal({ open, onClose }: Props) {
         (el) => el.offsetParent !== null || el === document.activeElement,
       );
 
-   
-   
+
+
     card.focus({ preventScroll: true });
 
     const onKeyDown = (e: KeyboardEvent) => {
@@ -138,9 +138,9 @@ export function ContactModal({ open, onClose }: Props) {
         role="dialog"
         aria-modal="true"
         aria-labelledby="contact-modal-title"
-       
+
         tabIndex={-1}
-        
+
         data-lenis-prevent
         style={{
           outline: "none",
@@ -148,8 +148,8 @@ export function ContactModal({ open, onClose }: Props) {
           borderRadius: 20,
           width: "100%",
           maxWidth: 500,
-         
-         
+
+
           maxHeight: "calc(100dvh - 40px)",
           overflowY: "auto",
           overscrollBehavior: "contain",

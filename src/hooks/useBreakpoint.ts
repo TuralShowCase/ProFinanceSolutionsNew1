@@ -5,9 +5,9 @@ import { useEffect, useState } from "react";
 export type Breakpoint = "mobile" | "tablet" | "desktop";
 
 export function useBreakpoint(): Breakpoint {
- 
- 
- 
+
+
+
   const [bp, setBp] = useState<Breakpoint>("desktop");
 
   useEffect(() => {

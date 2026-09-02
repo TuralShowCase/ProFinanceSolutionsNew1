@@ -66,7 +66,7 @@
     "heading": "",
     "headingAccent": "Complete",
     "headingSuffix": "professional services for your business",
-    "subtext": "We support your business at every stage of its development — from setting up accounting to strategic financial management.",
+    "subtext": "We support your business at every stage of its development, from setting up accounting to strategic financial management.",
     "ctaLearnMore": "Learn more",
     "ctaContact": "Contact us",
     "ctaQuestion": "Which service do you need?",
@@ -168,18 +168,18 @@
       },
       {
         "title": "Teams Unite",
-        "desc": "Financial and legal specialists at the same table — a single coordination point for the client."
+        "desc": "Financial and legal specialists at the same table: a single coordination point for the client."
       },
       {
         "title": "Complete Solution Package",
-        "desc": "Accounting, tax, legal documentation and audit — all processes managed in a coordinated manner."
+        "desc": "Accounting, tax, legal documentation and audit: all processes managed in a coordinated manner."
       }
     ]
   },
   "clients": {
     "sectionLabel": "Our Clients",
     "heading": "Our trusted",
-    "headingAccent": "partners",
+    "headingAccent": "clients",
     "trustLine": "Operating in Baku, Azerbaijan"
   },
   "about": {
@@ -193,7 +193,7 @@
       "heading": "Your trusted partner",
       "headingAccent": "in finance",
       "headingSuffix": "and business",
-      "subtext": "We don't just advise — we build a system in which financial processes become predictable, transparent and manageable.",
+      "subtext": "We don't just advise. We build a system in which financial processes become predictable, transparent and manageable.",
       "leadParagraph": "In today's world, business success depends not only on ambition, but also on the ability to manage finances accurately and transparently.",
       "paragraph1": "<b>ProFinance Solutions</b> acts as your strategic partner, helping companies grow, minimise risks and make well-founded financial decisions. Our experience covers all key areas of financial consulting: accounting, taxation, audit and financial management.",
       "paragraph2": "Our goal is not only to protect your business from external risks, but also to open up new opportunities for growth and development. We build long-term partnerships with our clients based on trust, professionalism and a strategic approach. <b>ProFinance Solutions</b> is your trusted partner in financial success.",
@@ -205,7 +205,7 @@
       "sectionLabel": "Our Values",
       "heading": "4 values,",
       "headingAccent": "1 standard",
-      "subtext": "We operate on the same foundations for every client — from small entrepreneurs to large corporations.",
+      "subtext": "We operate on the same foundations for every client, from small entrepreneurs to large corporations.",
       "items": [
         {
           "title": "Professionalism",
@@ -229,18 +229,18 @@
       "sectionLabel": "Our Team",
       "heading": "One team,",
       "headingAccent": "one goal",
-      "subtext": "The best specialists in the field under one roof — for your success.",
+      "subtext": "The best specialists in the field under one roof, for your success.",
       "description": "The ProFinance Solutions team is made up of specialists in finance, tax, audit and accounting. Together, we provide clients with comprehensive, reliable financial support.",
       "leadParagraph": "Highly experienced specialists in finance, tax, audit and accounting operating as a single, unified team.",
-      "bodyParagraph": "At ProFinance Solutions, every member is a specialist in their own field. But we don't work in isolation — we work together, analysing each client's problem from a 360° perspective and jointly developing the optimal solution.",
+      "bodyParagraph": "At ProFinance Solutions, every member is a specialist in their own field. But we don't work in isolation. We work together, analysing each client's problem from a 360° perspective and jointly developing the optimal solution.",
       "traits": [
         {
           "title": "Certified professionals",
-          "desc": "Our team is composed of certified practitioners in accounting, audit, tax accounting and HR management — every member is a deep expert in their own discipline."
+          "desc": "Our team is composed of certified practitioners in accounting, audit, tax accounting and HR management. Every member is a deep expert in their own discipline."
         },
         {
           "title": "15+ years combined experience",
-          "desc": "Over 15 years of combined professional experience in accounting, tax, audit, HR and financial management — a cohesive team that unites each member's specialist knowledge."
+          "desc": "Over 15 years of combined professional experience in accounting, tax, audit, HR and financial management: a cohesive team that unites each member's specialist knowledge."
         },
         {
           "title": "Individual approach for every client",
@@ -252,7 +252,7 @@
     "cta": {
       "heading": "Achieve success",
       "headingAccent": "together with us",
-      "subtext": "Grow with confidence — we minimise the risks.",
+      "subtext": "Grow with confidence. We minimise the risks.",
       "primaryBtn": "Initial consultation",
       "secondaryBtn": "View services"
     }
@@ -267,7 +267,7 @@
     "whatsIncludedAccent": "included?",
     "packageSubtext": "Service components detailed below.",
     "suitableFor": "Who is it for",
-      "doesThisServeYou": "Is this service right for you?",
+    "doesThisServeYou": "Is this service right for you?",
     "stepByStep": "Step by step",
     "howItWorks": "How our",
     "howItWorksAccent": "process works",
@@ -278,8 +278,8 @@
     "allServicesLink": "All services",
     "viewDetails": "View details",
     "ctaReadyLabel": "Ready?",
-      "ctaHeading": "Get an initial consultation",
-      "ctaHeadingAccent": "about this service",
+    "ctaHeading": "Get an initial consultation",
+    "ctaHeadingAccent": "about this service",
     "ctaSubtext": "Our experts will get in touch with you and provide detailed information about {serviceName}.",
     "ctaPrimary": "Initial consultation",
     "ctaSecondary": "All services",
@@ -287,12 +287,12 @@
     "currentService": "Current service"
   },
   "meta": {
-    "homeTitle": "ProFinance Solutions — Financial Consulting in Baku",
+    "homeTitle": "ProFinance Solutions | Financial Consulting in Baku",
     "homeDescription": "ProFinance Solutions is a trusted Baku partner providing financial consulting, tax, accounting, audit and HR services to Azerbaijani businesses.",
-    "aboutTitle": "About ProFinance Solutions — Baku Financial Consulting",
-    "aboutDescription": "ProFinance Solutions — a financial consulting firm in Baku. Accounting, tax, audit, HR — professional support across 8 service areas.",
-    "defaultTitle": "ProFinance Solutions — Financial Consulting, Baku, Azerbaijan",
-    "defaultDescription": "ProFinance Solutions — financial consulting, tax planning, accounting and audit services in Baku. Trusted financial partner for corporations across Azerbaijan.",
+    "aboutTitle": "About ProFinance Solutions | Baku Financial Consulting",
+    "aboutDescription": "ProFinance Solutions is a financial consulting firm in Baku, offering professional support across 8 service areas: accounting, tax, audit and HR.",
+    "defaultTitle": "ProFinance Solutions | Financial Consulting, Baku, Azerbaijan",
+    "defaultDescription": "ProFinance Solutions provides financial consulting, tax planning, accounting and audit services in Baku. A trusted financial partner for corporations across Azerbaijan.",
     "serviceTitle": "{serviceName} in Baku | ProFinance Solutions",
     "plhMenu": {
       "contractLaw": "Contract Law",
@@ -326,7 +326,7 @@
       "Construction and renovation",
       "Design and restoration works",
       "Industrial manufacturing",
-      "Catering and HoReCa",
+      "Food service and catering",
       "Financial sector",
       "Technology services",
       "Legal services"

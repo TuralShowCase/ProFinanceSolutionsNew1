@@ -16,7 +16,7 @@ const classes = new Set();
 
 for (const file of walk('src')) {
   const src = fs.readFileSync(file, 'utf8');
- 
+
   for (const chunk of src.split('<')) {
     if (!/opacity:\s*0\s*[,}]/.test(chunk)) continue;
     const m = chunk.match(/className="([^"]+)"/);
@@ -24,7 +24,7 @@ for (const file of walk('src')) {
     for (const c of m[1].split(/\s+/)) if (c) classes.add(c);
   }
 }
-
+
 for (const file of walk('src')) {
   const src = fs.readFileSync(file, 'utf8');
   for (const m of src.matchAll(/gsap\.(?:fromTo|from|set)\(\s*"\.([a-z][\w-]*)"/g)) {

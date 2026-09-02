@@ -20,7 +20,7 @@ export function AboutMission() {
       gsap.fromTo(".msn-card",  { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.95, ease: "expo.out", scrollTrigger: { trigger: ".msn-card", start: "top 85%", once: true } });
     }, sectionRef);
     return () => ctx.revert();
-   
+
   }, []);
 
   return (

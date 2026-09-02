@@ -26,7 +26,7 @@ export function HeroSection() {
   const t        = useTranslations("hero");
   const { openContact } = useContactModal();
 
- 
+
   useEffect(() => {
     if (prefersReduced()) return;
     const ctx = gsap.context(() => {
@@ -47,22 +47,22 @@ export function HeroSection() {
       .to(textRef.current, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" });
   }, [activeSlide]);
 
- 
- 
+
+
   useEffect(() => {
     const next = (activeSlide + 1) % TOTAL_SLIDES;
     barRefs.current.forEach((b) => { if (b) gsap.set(b, { scaleX: 0 }); });
     const bar = barRefs.current[activeSlide];
 
-    
+
     if (prefersReduced()) {
       if (bar) gsap.set(bar, { scaleX: 1 });
       timerRef.current = null;
       return;
     }
 
-   
-   
+
+
     if (paused) {
       timerRef.current = null;
       return;
@@ -82,8 +82,8 @@ export function HeroSection() {
     return () => { tween.kill(); timerRef.current = null; };
   }, [activeSlide, goToSlide, paused]);
 
- 
- 
+
+
   const togglePause = useCallback(() => {
     setPaused((wasPaused) => {
       const next = !wasPaused;
@@ -122,8 +122,8 @@ export function HeroSection() {
               alt=""
               aria-hidden="true"
               fetchPriority={i === 0 ? "high" : undefined}
-             
-             
+
+
               loading={i === 0 ? "eager" : "lazy"}
               decoding={i === 0 ? "sync" : "async"}
               style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: slide.objectPosition, display: "block" }}
