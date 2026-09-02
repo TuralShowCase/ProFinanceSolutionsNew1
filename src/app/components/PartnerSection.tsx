@@ -14,21 +14,10 @@ const FEAT_ICONS = [ScanSearch, Users, Layers];
 
 const prefersReducedMotion = () =>
   typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-// The photo is a landscape 3:2 frame with a person in each outer third and the
-// desk in the middle. Any gradient scrim on an inner edge would land on a face,
-// so the panel/photo boundary is a deliberate hard split + hairline instead.
-// Vertical bias sits above centre: faces and hands up top, desk clutter below.
+
 const PHOTO_POS = "50% 32%";
 
-/**
- * Layout is entirely CSS (see `PartnerSection` in app/responsive.css).
- *
- * This component used to call `useBreakpoint()` and branch ~11 style values off
- * it. That hook reports "desktop" during SSR and corrects in an effect, so every
- * phone was served desktop styling and then re-laid-out after hydration. Now the
- * server HTML is already correct at every width and nothing re-renders on resize.
- */
+
 export function PartnerSection() {
   const t      = useTranslations("partner");
 
@@ -56,20 +45,20 @@ export function PartnerSection() {
 
       if (reduce) return;
 
-      // Ken-Burns settle, then a slow scrubbed drift. Baseline scale 1.08 leaves
-      // 4% of headroom each side, so the ±3% drift never exposes a frame edge.
+     
+     
       gsap.fromTo(photoRef.current, { scale: 1.16 }, { scale: 1.08, duration: 1.5, ease: "expo.out", scrollTrigger: { trigger: cardRef.current, start: "top 82%", once: true } });
       gsap.fromTo(photoRef.current, { yPercent: -3 }, { yPercent: 3, ease: "none", scrollTrigger: { trigger: cardRef.current, start: "top bottom", end: "bottom top", scrub: 0.6 } });
     }, sectionRef);
 
     return () => ctx.revert();
-    // No breakpoint dependency any more: the markup is identical at every width,
-    // so these triggers never need rebuilding. ScrollTrigger recalculates its own
-    // start/end positions on resize.
+   
+   
+   
   }, []);
 
 
-  /* ---- Photo panel: full-bleed on the card's right (desktop) or top (stacked) ---- */
+  
   const photoPanel = (
     <div
       key="photo"
@@ -102,8 +91,7 @@ export function PartnerSection() {
         }}
       />
 
-      {/* Teal grade — pulls the photo into PLH's palette and darkens the base
-          just enough for the lockup to read. Never touches the faces. */}
+      {}
       <div
         aria-hidden="true"
         style={{
@@ -114,8 +102,7 @@ export function PartnerSection() {
         }}
       />
 
-      {/* Hairline on the edge shared with the content panel — below when
-          stacked, to the left on desktop — so the split reads as deliberate */}
+      {}
       <div
         aria-hidden="true"
         className="partner-seam"
@@ -126,7 +113,7 @@ export function PartnerSection() {
         }}
       />
 
-      {/* Partnership lockup */}
+      {}
       <div
         className="partner-lockup-chip"
         style={{
@@ -149,7 +136,7 @@ export function PartnerSection() {
     </div>
   );
 
-  /* ---- Content panel ---- */
+  
   const contentPanel = (
     <div
       key="content"
@@ -193,15 +180,12 @@ export function PartnerSection() {
     <section id="partner" ref={sectionRef} className="partner-section" style={{ backgroundColor: CREAM, fontFamily: "var(--font-inter), 'Inter', sans-serif" }}>
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
 
-        {/* Header */}
+        {}
         <div className="partner-hdr" style={{ display: "flex", justifyContent: "space-between", marginBottom: 36, flexWrap: "wrap" }}>
           <div>
             <p style={{ fontSize: FS_LABEL, fontWeight: 600, color: PLH_ACC, letterSpacing: "0.2em", textTransform: "uppercase", margin: "0 0 16px" }}>{t("sectionLabel")}</p>
             <h2 style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: FS_H2, color: "var(--text)", margin: 0, letterSpacing: "-0.035em", lineHeight: 1.08 }}>
-              {/* PLH_TEXT, not PLH_DARK: the raw deep teal is a panel-background
-                  value and all but vanishes on the dark theme's near-black bg.
-                  PLH_TEXT is the theme-flipping partner text token (as used in
-                  Header.tsx) and stays legible in both. */}
+              {}
               {t("heading")} <span style={{ color: PLH_TEXT }}>{t("headingAccent")}</span>
             </h2>
           </div>
@@ -210,7 +194,7 @@ export function PartnerSection() {
 
         <div style={{ height: 1, backgroundColor: mix(PLH_ACC, 19), marginBottom: 36 }} />
 
-        {/* Main card — content panel + full-bleed partnership photo */}
+        {}
         <div
           ref={cardRef}
           className="partner-card"
@@ -223,25 +207,11 @@ export function PartnerSection() {
             boxShadow: "0 28px 72px rgba(9,44,58,0.22)",
           }}
         >
-          {/* Stacked reads photo-first: the image sets up the partnership before
-              the copy explains it.
-
-              That reordering is done in CSS (`order` on .partner-photo), not by
-              swapping these two in the array. It used to be a JS swap, which
-              cost a subtle bug: React reconciled the two panels by position, so
-              flipping them at the breakpoint made it reuse each node as the
-              other panel, and gsap.context().revert() then restored the photo's
-              cached `opacity: 0` onto whatever node had moved into that slot —
-              leaving the content panel invisible on tablet and mobile. Keys were
-              added to pin each panel to its own node.
-
-              With CSS doing the reorder the DOM order never changes at all, so
-              neither React nor GSAP can be confused by it. The keys are kept
-              because this is still an array. */}
+          {}
           {[contentPanel, photoPanel]}
         </div>
 
-        {/* How the partnership works — an ordered 3-step flow, not 3 parallel features */}
+        {}
         <div className="partner-features" style={{ display: "grid", gap: 14 }}>
           {features.map(({ Icon, title, desc }, i) => (
             <div key={i} className="partner-feat" style={{ backgroundColor: "var(--surface)", borderRadius: 16, display: "flex", flexDirection: "column", gap: 16, opacity: 0, borderTop: "3px solid transparent", transition: "box-shadow 320ms ease, transform 400ms cubic-bezier(0.34, 1.56, 0.64, 1), border-top-color 280ms ease" }}

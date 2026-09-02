@@ -29,9 +29,9 @@ export function WhatsAppButton() {
   useEffect(() => { setMounted(true); }, []);
   if (!mounted) return null;
 
-  // Both the label and the message WhatsApp opens with follow the page language.
-  // These used to be hardcoded Azerbaijani, so an English or Russian visitor got
-  // an Azerbaijani screen-reader label and an Azerbaijani draft message.
+ 
+ 
+ 
   const waText = encodeURIComponent(t("whatsappPrefill"));
 
   return (

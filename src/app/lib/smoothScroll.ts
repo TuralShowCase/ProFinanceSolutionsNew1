@@ -5,19 +5,7 @@ import Lenis from "lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-/**
- * One shared Lenis instance per page.
- *
- * Lenis hijacks wheel/touch on `window` and drives the scroll itself, so any UI
- * that needs to (a) scroll on its own or (b) freeze the page has to talk to the
- * instance directly — `body { overflow: hidden }` alone does nothing, Lenis
- * keeps scrolling right past it. This module is the handle everything else uses.
- *
- * Two rules for consumers:
- *   1. Any nested scroll container (drawer, modal body) needs `data-lenis-prevent`
- *      so Lenis lets the gesture through to the browser.
- *   2. Freeze/unfreeze the page with `useScrollLock`, never with body overflow.
- */
+
 
 let instance: Lenis | null = null;
 
@@ -25,7 +13,7 @@ export function getLenis(): Lenis | null {
   return instance;
 }
 
-/** Boots Lenis + wires it to GSAP's ticker and ScrollTrigger. One call per page root. */
+
 export function useSmoothScroll() {
   useEffect(() => {
     const isMobile = window.innerWidth < 768;
@@ -51,18 +39,7 @@ export function useSmoothScroll() {
   }, []);
 }
 
-/**
- * Freezes the page behind an open overlay (drawer, modal) and restores it after.
- *
- * `lenis.stop()` is the real lock: while stopped Lenis calls preventDefault on
- * both wheel and touch, so neither pointer nor finger moves the page — while
- * anything marked `data-lenis-prevent` still scrolls natively.
- *
- * `overflow: hidden` on <html> is only added as a keyboard/native belt-and-braces
- * when the scrollbar takes no layout width (mobile + overlay scrollbars). On a
- * classic desktop scrollbar we skip it, since removing it would shift the whole
- * page sideways the moment the overlay opens.
- */
+
 export function useScrollLock(active: boolean) {
   useEffect(() => {
     if (!active) return;
@@ -77,11 +54,11 @@ export function useScrollLock(active: boolean) {
     const prevOverflow = root.style.overflow;
     if (canHideOverflow) root.style.overflow = "hidden";
 
-    // Lets floating chrome (the WhatsApp FAB) duck out of the way while an
-    // overlay is up — it's stacked above everything and would sit on the menu.
+   
+   
     root.dataset.overlayOpen = "true";
 
-    // Fallback for the (brief) window before Lenis has booted.
+   
     const prevBodyOverflow = document.body.style.overflow;
     if (!lenis) document.body.style.overflow = "hidden";
 

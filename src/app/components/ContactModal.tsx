@@ -8,10 +8,7 @@ import { useTranslations } from "next-intl";
 import { DARK, BRAND_SOLID, mix } from "@/app/lib/brand";
 import { useScrollLock } from "@/app/lib/smoothScroll";
 import { FS_LABEL } from "@/app/lib/typography";
-
-// `value` for phone/WhatsApp/email is locale-independent; the address alone
-// needs translation, so it's filled in from `footer.address` at render time
-// (see CONTACT_HREFS() below) instead of being hardcoded here.
+
 const CONTACT_HREFS_BASE = [
   { Icon: Phone,         value: "+994 10 505 71 71",  href: "tel:+994105057171",                                     labelKey: "labelPhone"    },
   { Icon: MessageCircle, value: "+994 10 505 71 71",  href: "https://wa.me/994105057171",                            labelKey: "labelWhatsapp" },
@@ -42,11 +39,11 @@ export function ContactModal({ open, onClose }: Props) {
 
   useEffect(() => { setMounted(true); }, []);
 
-  // Freezes the page behind the modal. Lenis drives window.scrollTo itself, so
-  // `body { overflow: hidden }` never stopped it — the page scrolled under the card.
+ 
+ 
   useScrollLock(open);
 
-  // Animate in / out
+ 
   useEffect(() => {
     if (!backdropRef.current || !cardRef.current) return;
 
@@ -62,23 +59,14 @@ export function ContactModal({ open, onClose }: Props) {
     }
   }, [open]);
 
-  // Escape key closes
+ 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
     if (open) window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [open, onClose]);
 
-  /**
-   * Focus management.
-   *
-   * This is the site's main conversion path (the hero CTA opens it), and it was
-   * a plain div: focus stayed on the page behind, so a keyboard or screen-reader
-   * user could tab straight out of the "modal" into content they couldn't see.
-   *
-   * On open: remember what was focused, move focus into the card. While open:
-   * keep Tab inside. On close: restore focus to whatever opened it.
-   */
+  
   useEffect(() => {
     if (!open) return;
     const card = cardRef.current;
@@ -93,8 +81,8 @@ export function ContactModal({ open, onClose }: Props) {
         (el) => el.offsetParent !== null || el === document.activeElement,
       );
 
-    // Focus the card itself rather than the close button, so screen readers
-    // announce the dialog's title before offering "close".
+   
+   
     card.focus({ preventScroll: true });
 
     const onKeyDown = (e: KeyboardEvent) => {
@@ -150,10 +138,9 @@ export function ContactModal({ open, onClose }: Props) {
         role="dialog"
         aria-modal="true"
         aria-labelledby="contact-modal-title"
-        // -1 so the container can hold focus on open without joining the tab order.
+       
         tabIndex={-1}
-        /* Same reason as the mobile sheet: without this Lenis eats the gesture
-           and scrolls the page behind the card instead of the card's own body. */
+        
         data-lenis-prevent
         style={{
           outline: "none",
@@ -161,8 +148,8 @@ export function ContactModal({ open, onClose }: Props) {
           borderRadius: 20,
           width: "100%",
           maxWidth: 500,
-          // Short phones and landscape can't fit the full card — let it scroll
-          // rather than clipping the address and socials off the bottom.
+         
+         
           maxHeight: "calc(100dvh - 40px)",
           overflowY: "auto",
           overscrollBehavior: "contain",
@@ -171,7 +158,7 @@ export function ContactModal({ open, onClose }: Props) {
           fontFamily: "var(--font-inter), 'Inter', sans-serif",
         }}
       >
-        {/* Header */}
+        {}
         <div style={{
           display: "flex", alignItems: "center", justifyContent: "space-between",
           padding: "24px 24px 20px",
@@ -203,7 +190,7 @@ export function ContactModal({ open, onClose }: Props) {
           </button>
         </div>
 
-        {/* Contact items */}
+        {}
         <div style={{ padding: "20px 24px 0" }}>
           {CONTACT_HREFS.map(({ Icon, labelKey, value, href }) => (
             <a
@@ -240,7 +227,7 @@ export function ContactModal({ open, onClose }: Props) {
           ))}
         </div>
 
-        {/* Divider + Social */}
+        {}
         <div style={{ padding: "16px 24px 20px", marginTop: 4, borderTop: "1px solid var(--border)", marginInline: 24 }}>
           <p style={{ fontSize: 16, fontWeight: 600, color: "var(--text-muted)", letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 12px" }}>
             {t("socialLabel")}
@@ -275,7 +262,7 @@ export function ContactModal({ open, onClose }: Props) {
           </div>
         </div>
 
-        {/* CTA */}
+        {}
         <div style={{ padding: "0 24px 24px" }}>
           <a
             href="https://wa.me/994105057171"

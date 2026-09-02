@@ -5,8 +5,6 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-// Root layout (app/layout.tsx) handles HTML, provider, GA, and WhatsApp.
-// This layout validates the locale param and returns children directly.
 export default async function LocaleLayout({
   children,
   params,

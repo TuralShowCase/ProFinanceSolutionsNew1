@@ -11,8 +11,7 @@ import { useTheme } from "../contexts/ThemeContext";
 import { localizedSlug, azSlugFromLocalized, AZ_SLUGS } from "../services/servicesData";
 import { DARK, MID, BRAND_SOLID, PLH_ACC, PLH_TEXT, mix } from "@/app/lib/brand";
 import { useScrollLock } from "@/app/lib/smoothScroll";
-import { ThemeToggle } from "./ThemeToggle";
-// H4 sizes for the wordmark now live in the `.hdr-wordmark` media queries.
+import { ThemeToggle } from "./ThemeToggle";
 import { FS_LABEL, FS_BODY, FS_BODY_LG, FS_CHIP } from "@/app/lib/typography";
 
 
@@ -28,25 +27,23 @@ const LOCALES = ["AZ", "EN", "RU"] as const;
 type LocaleCode = typeof LOCALES[number];
 
 const ABOUT_SLUGS: Record<string, string> = { az: "/about", en: "/about", ru: "/o-nas" };
-
-// Computes the equivalent URL for any page in the target locale.
-// Handles: home, about (with RU /o-nas variant), service pages (with localized slugs).
+
 function getTargetUrl(targetLocale: string, currentLocale: string, fullPathname: string): string {
-  // Strip existing locale prefix so we always work with the bare path
+ 
   const bare = fullPathname.replace(/^\/(en|ru)(\/|$)/, "/");
 
-  // Home
+ 
   if (bare === "/") {
     return targetLocale === "az" ? "/" : `/${targetLocale}`;
   }
 
-  // About (bare = "/about" for az/en, "/o-nas" for ru)
+ 
   if (bare === "/about" || bare === "/o-nas") {
     const aboutPath = ABOUT_SLUGS[targetLocale] ?? "/about";
     return targetLocale === "az" ? aboutPath : `/${targetLocale}${aboutPath}`;
   }
 
-  // Service page — slug must be mapped to the target locale's equivalent
+ 
   const serviceMatch = bare.match(/^\/services\/([^/]+)/);
   if (serviceMatch) {
     const currentSlug = serviceMatch[1];
@@ -58,7 +55,7 @@ function getTargetUrl(targetLocale: string, currentLocale: string, fullPathname:
     }
   }
 
-  // Fallback: go to the home of the target locale
+ 
   return targetLocale === "az" ? "/" : `/${targetLocale}`;
 }
 
@@ -77,17 +74,17 @@ export function Header() {
   const { resolvedTheme } = useTheme();
   const isHomeRoute = pathname === "/" || pathname === `/${locale}` || pathname === `/${locale}/`;
 
-  // `selectedLang` drives the pill position immediately on click (optimistic UI).
-  // After the slide animation finishes, we navigate so the full page gets the new locale.
+ 
+ 
   const [selectedLang, setSelectedLang] = useState<LocaleCode>(locale.toUpperCase() as LocaleCode);
 
   const switchLocale = (lang: LocaleCode) => {
     if (lang === selectedLang) return;
 
-    // Slide the pill immediately for instant visual feedback
+   
     setSelectedLang(lang);
 
-    // Navigate after the CSS transition finishes (360ms)
+   
     setTimeout(() => {
       const lower = lang.toLowerCase();
       document.cookie = `NEXT_LOCALE=${lower}; path=/; max-age=31536000; SameSite=Lax`;
@@ -95,30 +92,14 @@ export function Header() {
     }, 380);
   };
 
-  /**
-   * Is the page scrolled off the hero?
-   *
-   * This used to be `useState(false)` plus an effect that only ever reacted to
-   * scroll EVENTS — it never read the position the page actually loaded at. So
-   * any load that started already-scrolled left the header stuck in its
-   * transparent over-the-hero state: white nav links sitting on the white
-   * Industries section, invisible until you nudged the page and an event fired.
-   *
-   * That hit real navigations, not edge cases — deep links like /#industries,
-   * refreshing while scrolled down (the browser restores the position), back/
-   * forward, and clicking a nav anchor before hydration had attached the
-   * listener (the browser performs the plain anchor jump in that window).
-   *
-   * useSyncExternalStore reads the live value on every render and gives the
-   * server a defined answer, so the flag can't start out of sync.
-   */
+  
   const scrolled = useSyncExternalStore(
     (onChange) => {
       window.addEventListener("scroll", onChange, { passive: true });
       return () => window.removeEventListener("scroll", onChange);
     },
     () => window.scrollY > 20,
-    () => false, // SSR: nothing is scrolled yet, so render the hero treatment.
+    () => false,
   );
   const [menuOpen,           setMenuOpen]           = useState(false);
   const [showServices,       setShowServices]       = useState(false);
@@ -128,18 +109,18 @@ export function Header() {
   const [hoveredPlh,         setHoveredPlh]         = useState<string | null>(null);
   const { openContact } = useContactModal();
 
-  // On the homepage, the header floats over the full-bleed hero photo until the
-  // user scrolls — no bar, bigger mark — then solidifies to the normal bar once
-  // scrolled. Every other page keeps the always-solid header (no hero to reveal).
-  // Opening the mobile drawer also drops the overlay: the sheet frosts the page
-  // behind it, so white-on-photo type would sit on a light surface and vanish.
+ 
+ 
+ 
+ 
+ 
   const heroOverlay = isHomeRoute && !scrolled && !menuOpen;
-  // While floating over the hero photo, the logo borrows the same light variant
-  // dark mode already uses on dark surfaces — no glow, no backdrop chip needed.
+ 
+ 
   const useLightMark = resolvedTheme === "dark" || heroOverlay;
-  // 128px marks, not the 1024px originals: this renders at 26–44px, so the big
-  // files were ~30x more pixels than any display can use. The 1024 versions stay
-  // in public/ for the PWA manifest and the Organization schema logo.
+ 
+ 
+ 
   const logoSrc = useLightMark ? "/logo-mark-light.png" : "/logo-mark.png";
   const overlayText   = "#FFFFFF";
   const overlaySoft    = "rgba(255,255,255,0.82)";
@@ -182,12 +163,12 @@ export function Header() {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [showServices]);
 
-  // Freezes the page behind the sheet. Must go through Lenis — it drives
-  // window.scrollTo itself and sails straight past `body { overflow: hidden }`.
-  // The sheet keeps scrolling because it carries `data-lenis-prevent`.
+ 
+ 
+ 
   useScrollLock(menuOpen);
 
-  // Reset the sheet each time it opens: back to the top, services collapsed.
+ 
   useEffect(() => {
     if (menuOpen) return;
     setMobileServicesOpen(false);
@@ -205,7 +186,7 @@ export function Header() {
     return () => ctx.revert();
   }, [menuOpen]);
 
-  // Esc closes the sheet.
+ 
   useEffect(() => {
     if (!menuOpen) return;
     const onKeyDown = (e: KeyboardEvent) => { if (e.key === "Escape") setMenuOpen(false); };
@@ -253,18 +234,18 @@ export function Header() {
     setTimeout(() => scrollTo(href), isMobile || isTablet ? 200 : 0);
   };
 
-  // Height/padding/logo sizing now come from CSS (`.hdr-*` in globals.css) so the
-  // first paint is correct before hydration. `headerH` survives only for the
-  // desktop mega-menu's offset, which never renders below 1024px anyway.
-  //
-  // The nav's gap went the same way. It used to be `isTablet ? 22 : 32`, but
-  // `.hdr-desktop` is `display: none` below 1024px, so the tablet value never
-  // painted — it was the last style value in this file, and a dead one.
+ 
+ 
+ 
+ 
+ 
+ 
+ 
   const headerH = 92;
 
-  // The mobile sheet is frosted glass, not a wall: the page stays visible and
-  // keeps its colour behind it, so the menu reads as a layer over the site
-  // rather than a separate screen. Tint carries contrast, blur carries legibility.
+ 
+ 
+ 
   const SHEET_TINT = "color-mix(in srgb, var(--surface) 62%, transparent)";
   const SHEET_BLUR = "blur(30px) saturate(180%)";
   const sheetOpen  = menuOpen && (isMobile || isTablet);
@@ -308,7 +289,7 @@ export function Header() {
   const rightControls = (
     <>
       <ThemeToggle size={40} overlay={heroOverlay} />
-      {/* Language switcher */}
+      {}
       <div style={{
         position: "relative", display: "flex", alignItems: "center",
         backgroundColor: heroOverlay ? "rgba(255,255,255,0.14)" : "var(--surface-2)",
@@ -336,7 +317,7 @@ export function Header() {
         ))}
       </div>
 
-      {/* CTA */}
+      {}
       <button
         onClick={() => openContact()}
         style={{ fontWeight: 600, fontSize: FS_BODY, color: "#FFFFFF", backgroundColor: BRAND_SOLID, border: "none", cursor: "pointer", padding: "13px 26px", borderRadius: 9, transition: "background-color 200ms, transform 200ms", whiteSpace: "nowrap", display: "inline-flex", alignItems: "center", gap: 6, fontFamily: "var(--font-inter), 'Inter', sans-serif" }}
@@ -360,16 +341,12 @@ export function Header() {
         fontFamily: "var(--font-inter), 'Inter', sans-serif",
       }}
     >
-      {/* Header backdrop. While the sheet is open it borrows the sheet's exact
-          glass so the bar and the sheet read as one continuous surface instead
-          of an opaque strip sitting on a translucent panel. */}
+      {}
       <div style={{ position: "absolute", inset: 0, zIndex: 0, backgroundColor: sheetOpen ? SHEET_TINT : heroOverlay ? "transparent" : scrolled ? "color-mix(in srgb, var(--surface) 90%, transparent)" : "var(--surface)", backdropFilter: sheetOpen ? SHEET_BLUR : heroOverlay ? "none" : scrolled ? "blur(16px) saturate(180%)" : "none", WebkitBackdropFilter: sheetOpen ? SHEET_BLUR : heroOverlay ? "none" : scrolled ? "blur(16px) saturate(180%)" : "none", transition: "background-color 380ms ease, backdrop-filter 380ms ease", pointerEvents: "none" }} />
 
       <div className="hdr-bar" style={{ position: "relative", zIndex: 1, maxWidth: 1280, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 32 }}>
 
-        {/* Logo — bigger while floating over the hero, normal size once scrolled.
-            No card, no glow — just the same light mark + white wordmark dark mode
-            already uses on dark surfaces. */}
+        {}
         <a href={locale === "az" ? "/" : `/${locale}`} style={{ textDecoration: "none", flexShrink: 0 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 13 }}>
             <img
@@ -396,12 +373,8 @@ export function Header() {
           </div>
         </a>
 
-        {/* Desktop nav — always centered between logo (pinned left) and controls
-            (pinned right), in both the floating and solid states */}
-        {/* Both variants are rendered; `.hdr-desktop` / `.hdr-compact` decide which
-            one shows. Gating these on useBreakpoint made phones paint the desktop
-            nav first and reflow on hydration. No inline `display` here — it would
-            override the media query. */}
+        {}
+        {}
         <nav className="hdr-desktop" style={{ alignItems: "center", flex: 1, justifyContent: "center" }}>
           {navLinksList}
         </nav>
@@ -409,7 +382,7 @@ export function Header() {
           {rightControls}
         </div>
 
-        {/* Mobile hamburger */}
+        {}
         <button
             className="hdr-compact"
             onClick={() => setMenuOpen(o => !o)}
@@ -430,12 +403,12 @@ export function Header() {
         </button>
       </div>
 
-      {/* Desktop services dropdown */}
+      {}
       {!isMobile && !isTablet && showServices && (
         <div ref={dropdownRef} onMouseEnter={openDropdown} onMouseLeave={closeDropdown} style={{ position: "absolute", top: headerH + 4, left: "50%", transform: "translateX(-50%)", pointerEvents: "auto", paddingBottom: 20 }}>
           <div style={{ width: "min(1120px, calc(100vw - 48px))", backgroundColor: "var(--surface)", borderRadius: 16, border: "1px solid var(--border)", boxShadow: "var(--shadow-card-hover)", padding: 10, display: "flex", gap: 8 }}>
 
-            {/* ProFinance panel */}
+            {}
             <div style={{ flex: "0 0 680px", borderRadius: 10, backgroundColor: mix(DARK, 2), border: `1px solid ${mix(DARK, 6)}`, padding: "14px 14px 12px", display: "flex", flexDirection: "column" }}>
               <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
                 <img src={logoSrc} alt="ProFinance" style={{ width: 26, height: 26, objectFit: "contain", borderRadius: 6 }} />
@@ -460,7 +433,7 @@ export function Header() {
               </div>
             </div>
 
-            {/* PLH panel */}
+            {}
             <div style={{ flex: 1, borderRadius: 10, backgroundColor: `${PLH_ACC}07`, border: `1px solid ${PLH_ACC}22`, padding: "14px 14px 12px", display: "flex", flexDirection: "column" }}>
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
@@ -499,21 +472,19 @@ export function Header() {
         </div>
       )}
 
-      {/* Mobile drawer */}
+      {}
       {(isMobile || isTablet) && (
         <div
           ref={drawerRef}
-          /* Lenis owns wheel + touch on the window and would otherwise scroll the
-             page behind this sheet instead of the sheet itself. `data-lenis-prevent`
-             hands the gesture back to the browser for this subtree only. */
+          
           data-lenis-prevent
           id="mobile-menu"
           role="dialog"
           aria-modal="true"
           aria-label={t("nav.services")}
           style={{
-            // matches the CSS-driven bar height so the sheet always starts flush
-            // under it, at every breakpoint
+           
+           
             position: "fixed", top: "var(--hdr-h)", left: 0, right: 0, bottom: 0, zIndex: 999,
             backgroundColor: SHEET_TINT,
             backdropFilter: SHEET_BLUR,
@@ -525,8 +496,8 @@ export function Header() {
             touchAction: "pan-y",
             opacity: menuOpen ? 1 : 0,
             pointerEvents: menuOpen ? "auto" : "none",
-            // `visibility` keeps the closed sheet out of the tab order — opacity
-            // alone leaves every link focusable behind the page.
+           
+           
             visibility: menuOpen ? "visible" : "hidden",
             transform: menuOpen ? "translateY(0)" : "translateY(-8px)",
             transition: "opacity 250ms ease, transform 250ms ease, visibility 250ms",
@@ -547,7 +518,7 @@ export function Header() {
 
                     {mobileServicesOpen && (
                       <div style={{ display: "flex", flexDirection: "column", gap: 8, paddingBottom: 12, borderBottom: "1px solid var(--border)" }}>
-                        {/* ProFinance card */}
+                        {}
                         <div style={{ borderRadius: 12, backgroundColor: mix(DARK, 2), border: `1px solid ${mix(DARK, 6)}`, padding: "12px 12px 10px" }}>
                           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
                             <img src={logoSrc} alt="ProFinance" style={{ width: 26, height: 26, objectFit: "contain", borderRadius: 6, flexShrink: 0 }} />
@@ -564,7 +535,7 @@ export function Header() {
                             </a>
                           ))}
                         </div>
-                        {/* PLH card */}
+                        {}
                         <div style={{ borderRadius: 12, backgroundColor: `${PLH_ACC}07`, border: `1px solid ${PLH_ACC}22`, padding: "12px 12px 10px" }}>
                           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
                             <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
@@ -604,10 +575,7 @@ export function Header() {
             ))}
           </nav>
 
-          {/* Mobile bottom. Sticky so the CTA stays on screen even when the
-              services accordion pushes the sheet past 1900px — otherwise the
-              main conversion button is only reachable by scrolling to the end.
-              Extra bottom pad clears the iOS home indicator. */}
+          {}
           <div
             className="drawer-row"
             style={{
@@ -619,7 +587,7 @@ export function Header() {
               WebkitBackdropFilter: "blur(20px) saturate(180%)",
             }}
           >
-            {/* Language switcher + theme toggle */}
+            {}
             <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
               <div style={{ position: "relative", display: "flex", alignItems: "center", gap: 4, backgroundColor: "var(--surface-2)", borderRadius: 10, padding: 4, width: "fit-content" }}>
                 <div style={{ position: "absolute", top: 4, bottom: 4, left: 4, width: 46, borderRadius: 7, backgroundColor: BRAND_SOLID, transform: `translateX(${LOCALES.indexOf(selectedLang) * 50}px)`, transition: "transform 360ms cubic-bezier(0.34, 1.56, 0.64, 1)", pointerEvents: "none", zIndex: 0 }} />

@@ -45,104 +45,82 @@
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
 
-  /* Brand tokens */
+  
   --color-bg: #F4F8F5;
   --color-text: #0F1117;
   --color-text-muted: #4B5563;
   --color-green-light: #52B788;
   --color-green-mid: #2D6A4F;
 
-  /* ============================================================
-     Semantic theme tokens (light) — single source of truth.
-     Components reference these via src/app/lib/brand.ts.
-     ============================================================ */
+  
   color-scheme: light;
 
-  /* Page surfaces */
-  --page-bg:        #F4F8F5;   /* primary section background  (BG)    */
-  --page-bg-alt:    #F5F4F1;   /* warm cream section bg        (CREAM) */
-  --surface:        #FFFFFF;   /* cards / panels                       */
-  --surface-2:      #EFEDE9;   /* secondary card / wells               */
-  --surface-3:      #EBF4EE;   /* green-tinted well (icon chips)       */
-  --surface-hover:  #FFFFFF;   /* card hover bg                        */
+  
+  --page-bg:        #F4F8F5;   
+  --page-bg-alt:    #F5F4F1;   
+  --surface:        #FFFFFF;   
+  --surface-2:      #EFEDE9;   
+  --surface-3:      #EBF4EE;   
+  --surface-hover:  #FFFFFF;   
 
-  /* Object plate — the well the 3D service renders sit in.
-     Deliberately a step deeper than --surface-2: those renders are white
-     clay, so the plate has to carry enough value contrast for them to read
-     as objects rather than dissolve into the panel. */
+  
   --plate:          #E7E4DD;
   --plate-active:   #DFEDE4;
 
-  /* Inverted bands.
-     --invert : forest-green panels (CTA cards, WhyUs, service panels)
-     --ink    : near-black panels (footer, stats strip, timeline) */
+  
   --invert:         #1A3D2B;
   --invert-2:       #14301F;
   --ink:            #0F1117;
   --ink-2:          #14181E;
   --invert-text:    #FFFFFF;
   --invert-text-muted: rgba(255,255,255,0.66);
-  --invert-text-faint: rgba(255,255,255,0.46);  /* floor for tertiary text on dark panels — never go lower, ~4.5:1 */
+  --invert-text-faint: rgba(255,255,255,0.46);  
   --invert-border:  rgba(255,255,255,0.12);
   --invert-surface: rgba(255,255,255,0.06);
 
-  /* Text
-     4-step gray scale — deliberately dark charcoal, not "gray", at every step.
-     Each reads as clearly dark/legible; none should look washed out on --page-bg / --surface:
-       text-strong / text  → primary reading text                    (~15-17:1)
-       text-soft            → de-emphasized headings/labels, near-black (~13:1)
-       text-muted           → secondary copy, captions, descriptions, dark charcoal (~10.5:1)
-       text-faint           → LARGE (≥18px) or decorative/icon use only, ~6.5:1 —
-                               never use for body paragraphs or small labels, use text-muted instead */
+  
   --text:           #111410;
   --text-strong:    #0F1117;
   --text-soft:      #232A31;
   --text-muted:     #3A424A;
   --text-faint:     #545F69;
 
-  /* Borders / dividers */
+  
   --border:         #E2E0DC;
   --border-2:       #E0DDD8;
   --border-strong:  #D8D5D0;
 
-  /* Brand greens (semantic intent) */
-  --brand:          #1A3D2B;   /* accent text / icons / emphasis (DARK) */
-  --brand-solid:    #1A3D2B;   /* filled button bg (white text reads)   */
+  
+  --brand:          #1A3D2B;   
+  --brand-solid:    #1A3D2B;   
   --brand-solid-hover: #2D6A4F;
-  --brand-hover:    #2D6A4F;   /* hover green                    (MID)  */
-  --brand-light:    #74C69D;   /* lighter green                  (LIGHT)*/
-  --accent-green:   #52B788;   /* bright accent                  (ACCENT)*/
+  --brand-hover:    #2D6A4F;   
+  --brand-light:    #74C69D;   
+  --accent-green:   #52B788;   
   --brand-tint:     rgba(26,61,43,0.07);
   --brand-tint-2:   rgba(26,61,43,0.12);
   --brand-ring:     rgba(26,61,43,0.30);
 
-  /* Partner (PLH) heading text on tinted panels */
+  
   --plh-text:       #092c3a;
 
-  /* Hero backgrounds (distinct from page-bg so each can be tuned per theme).
-     Subpage heroes sit on --surface now that the photo is a panel rather than
-     a full-bleed band, so they no longer need a background token of their own. */
-  --hero-bg:        #F4F8F5;   /* homepage hero */
-  /* Ink for the scrim laid over the subpage hero photo below 1024px, where the
-     photo runs full-bleed behind the headline. Raw RGB triplet — consumed as
-     rgba(var(--subhero-ink), a) so one gradient definition serves both themes
-     (the type reverses out white over it either way — see .subhero-*). */
+  
+  --hero-bg:        #F4F8F5;   
+  
   --subhero-ink:    6, 16, 11;
 
-  /* "Light CTA on a dark panel" buttons (Services / About / Service CTA) */
+  
   --cta-bg:         #FFFFFF;
   --cta-bg-hover:   #EAF3EC;
   --cta-text:       #1A3D2B;
 
-  /* Shadows */
+  
   --shadow-card:        0 1px 3px rgba(0,0,0,0.05);
   --shadow-card-hover:  0 24px 64px rgba(26,61,43,0.12), 0 6px 18px rgba(0,0,0,0.06);
   --shadow-soft:        0 2px 12px rgba(0,0,0,0.05);
 }
 
-/* ============================================================
-   Forest Charcoal — dark theme overrides
-   ============================================================ */
+
 :root.dark {
   color-scheme: dark;
 
@@ -153,12 +131,11 @@
   --surface-3:      #16241C;
   --surface-hover:  #18221C;
 
-  /* Plate runs the other way on dark: white renders already pop, so the well
-     only needs to sit just above the panel, not below it. */
+  
   --plate:          #1B251F;
   --plate-active:   #1B3026;
 
-  --invert:         #060A08;   /* bands recede below page level */
+  --invert:         #060A08;   
   --invert-2:       #0B110D;
   --ink:            #05080A;
   --ink-2:          #0A0E12;
@@ -178,8 +155,8 @@
   --border-2:       #202A24;
   --border-strong:  #2E3A32;
 
-  --brand:          #74C69D;   /* bright green pops on dark */
-  --brand-solid:    #2D6A4F;   /* white text still reads    */
+  --brand:          #74C69D;   
+  --brand-solid:    #2D6A4F;   
   --brand-solid-hover: #40916C;
   --brand-hover:    #40916C;
   --brand-light:    #B7E4C7;
@@ -190,12 +167,11 @@
 
   --plh-text:       #CDE9EF;
 
-  /* Hero: homepage a touch lighter than the page background */
+  
   --hero-bg:        #101813;
-  /* --subhero-ink is theme-agnostic: it sits over a photograph, not over the
-     page, and the hero type reverses out white in both themes. */
+  
 
-  /* Light-CTA-on-dark becomes a bright green fill with near-black text */
+  
   --cta-bg:         #74C69D;
   --cta-bg-hover:   #8AD3AB;
   --cta-text:       #08130D;
@@ -204,7 +180,7 @@
   --shadow-card-hover:  0 24px 64px rgba(0,0,0,0.55), 0 6px 18px rgba(0,0,0,0.40);
   --shadow-soft:        0 2px 12px rgba(0,0,0,0.45);
 
-  /* keep shadcn tokens aligned with Forest Charcoal */
+  
   --background: #0A0F0C;
   --foreground: #ECF1ED;
   --card: #121A15;
@@ -291,103 +267,70 @@
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
-/* ============================================================
-   Header responsive metrics.
 
-   These mirror useBreakpoint()'s thresholds exactly (mobile <768,
-   tablet 768–1023, desktop >=1024) and MUST be kept in sync with
-   src/hooks/useBreakpoint.ts.
-
-   They live in CSS rather than in JS because useBreakpoint can only
-   report the real width *after* hydration. Letting it drive the
-   header's height and padding meant phones painted the 92px desktop
-   bar first, then snapped to 76px — one reflow that pushed every
-   section below it and produced CLS 0.16 on service pages under a
-   throttled connection (Google's "good" ceiling is 0.10).
-   Values below are identical to the ones the JS branches used, so
-   the rendered design is unchanged at every width.
-   ============================================================ */
 :root { --hdr-h: 76px; --hdr-pad: 20px; }
 @media (min-width: 768px)  { :root { --hdr-h: 84px; --hdr-pad: 24px; } }
 @media (min-width: 1024px) { :root { --hdr-h: 92px; --hdr-pad: 40px; } }
 
 .hdr-bar { height: var(--hdr-h); padding: 0 var(--hdr-pad); }
 
-/* Logo mark: 38 -> 46 at tablet; larger while floating over the hero photo. */
+
 .hdr-logo { width: 38px; height: 38px; }
 @media (min-width: 768px) { .hdr-logo { width: 46px; height: 46px; } }
 .hdr-overlay .hdr-logo { width: 52px; height: 52px; }
 @media (min-width: 768px) { .hdr-overlay .hdr-logo { width: 64px; height: 64px; } }
 
-/* Wordmark: FS_H4_MOBILE -> FS_H4_DESKTOP, and the hero-overlay pair. */
+
 .hdr-wordmark { font-size: 20px; }
 @media (min-width: 768px) { .hdr-wordmark { font-size: 24px; } }
 .hdr-overlay .hdr-wordmark { font-size: 23px; }
 @media (min-width: 768px) { .hdr-overlay .hdr-wordmark { font-size: 28px; } }
 
-/* Structure: both variants are server-rendered, CSS picks one. That way the
-   first paint is already correct instead of waiting on hydration. */
+
 .hdr-desktop { display: none; }
 @media (min-width: 1024px) { .hdr-desktop { display: flex; gap: 32px; } }
 .hdr-compact { display: flex; }
 @media (min-width: 1024px) { .hdr-compact { display: none; } }
 
-/* ============================================================
-   Service page — the metrics that drove the biggest layout shift.
-   Same rationale and same thresholds as the header block above:
-   these were `isMobile ? a : isTablet ? b : c` inline styles, so a
-   phone painted the desktop title size and desktop section padding
-   before hydration, then reflowed the whole page.
-   Values are copied verbatim from the JS branches they replaced
-   (FS_DISPLAY_* in lib/typography.ts) — no visual change.
-   ============================================================ */
+
 .svc-title  { font-size: clamp(2.25rem, 9vw, 2.75rem); }
 .svc-crumb  { margin-bottom: 14px; }
-/* On a phone the crumb's trailing segment is a verbatim repeat of the H1
-   directly beneath it, and long service names wrap it onto a second line —
-   two stacked copies of the same sentence. Keep the "back to Services" link,
-   drop the echo. Restored at ≥768px where it fits on one line. */
+
 .svc-crumb-sep,
 .svc-crumb-current { display: none; }
 .intro-section    { padding: 40px 20px 40px; }
 .features-section { padding: 56px 16px 72px; }
 
-/* ---- Package / features ---- */
+
 .pkg-head { margin-bottom: 36px; }
 .pkg-rule { margin-bottom: 32px; }
-/* Was `{!isMobile && <p>}`. Hidden rather than absent so the server HTML is the
-   same at every width; a display:none flex item is out of layout and out of the
-   accessibility tree, so the phone result is unchanged. */
+
 .pkg-note { display: none; }
 .features-bento { grid-template-columns: 1fr; margin-bottom: 44px; }
 
-/* ---- What you get ---- */
+
 .whatget-row  { grid-template-columns: 1fr; gap: 36px; margin-bottom: 44px; }
 .whatget-list { grid-template-columns: 1fr; gap: 12px; }
 
-/* ---- Who it's for ----
-   Two copies of the same figure, one per layout: `-stacked` hangs off the top
-   edge above the card, `-inline` stands in its own column inside it. Same src,
-   so the hidden one is not a second request. */
+
 .targets-row { padding-top: 128px; }
 .targets-figure-stacked { right: 8px; height: 208px; }
 .targets-figure-inline  { display: none; }
 .targets-card  { padding: 24px 20px; flex-direction: column; gap: 14px; align-items: flex-start; }
 .targets-pills { width: 100%; }
 
-/* ---- Process ---- */
+
 .proc-header { padding: 64px 20px 36px; max-width: none; }
 .proc-note   { display: none; }
 .proc-body   { padding: 0 16px 64px; }
 .proc-grid   { grid-template-columns: 1fr; }
 .proc-step   { padding: 28px 24px; min-height: 180px; }
 .proc-step-num   { font-size: 32px; }
-.proc-step-title { font-size: 20px; } /* FS_H4_MOBILE */
+.proc-step-title { font-size: 20px; } 
 .feat-card       { padding: 22px 20px; }
-.feat-card-title { font-size: 20px; } /* FS_H4_MOBILE */
+.feat-card-title { font-size: 20px; } 
 
-/* ---- Bottom CTA. `spcta-`, not `svc-cta-`: those belong to the homepage
-        ServicesSection and would collide. ---- */
+
 .spcta-section { padding: 48px 16px 64px; }
 .spcta-wrap    { max-width: 100%; }
 .spcta-card    { padding: 44px 24px 260px; flex-direction: column; align-items: flex-start; gap: 28px; }
@@ -421,9 +364,9 @@
   .proc-grid   { grid-template-columns: 1fr 1fr; }
   .proc-step   { padding: 30px 28px; min-height: 220px; }
   .proc-step-num   { font-size: 40px; }
-  .proc-step-title { font-size: 24px; } /* FS_H4_DESKTOP */
+  .proc-step-title { font-size: 24px; } 
   .feat-card       { padding: 28px 28px; }
-  .feat-card-title { font-size: 24px; } /* FS_H4_DESKTOP */
+  .feat-card-title { font-size: 24px; } 
 
   .spcta-section { padding: 160px 28px 80px; }
   .spcta-wrap    { max-width: 900px; }
@@ -437,7 +380,7 @@
   .intro-section    { padding: 64px 48px 52px; }
   .features-section { padding: 88px 48px 108px; }
 
-  /* Modifier, so it has to come after the plain `.features-bento` rule above. */
+  
   .features-bento-2col { grid-template-columns: 1fr 1fr; }
   .features-bento-3col { grid-template-columns: 1fr 1fr 1fr; }
 
@@ -461,12 +404,7 @@
   .spcta-body    { max-width: 50%; }
 }
 
-/* ============================================================
-   Floating WhatsApp button — ducks out while an overlay (mobile
-   menu, contact modal) is open. It is stacked above the header,
-   so without this it lands on top of the sheet's own CTA.
-   The flag is set by useScrollLock() in lib/smoothScroll.ts.
-   ============================================================ */
+
 .wa-fab {
   transition: opacity 220ms ease, transform 260ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }
@@ -476,35 +414,18 @@ html[data-overlay-open] .wa-fab {
   pointer-events: none;
 }
 
-/* ============================================================
-   Hero background — light pattern + scrim adapt to dark theme.
-   In dark mode only the pattern's light details show as faint
-   glints (screen blend), and the readability scrim flips dark.
-   ============================================================ */
+
 .hero-bg-pattern { transition: opacity 300ms ease; }
 :root.dark .hero-bg-pattern {
   opacity: 0.12;
   mix-blend-mode: screen;
 }
-/* Homepage hero scrim — lighter in dark so the hero reads brighter overall */
+
 :root.dark .hero-bg-scrim {
   background: linear-gradient(100deg, rgba(8,12,10,0.70) 0%, rgba(8,12,10,0.42) 48%, rgba(8,12,10,0.16) 100%) !important;
 }
 
-/* ============================================================
-   Subpage hero (About / Service) — editorial split
-   ------------------------------------------------------------
-   ≥1024px : headline on clear surface at left, photo panel bleeding off the
-             right edge, feathered (not framed) at the seam.
-   ≤1023px : photo goes full-bleed behind the headline with a readability veil.
 
-   The panel's left edge is derived from the same container the rest of the
-   page uses (max-width 1280, 48px gutters), so the headline's left edge and
-   the seam both line up with every section below:
-       container inner left  = max(48px, 50% - 592px)
-       container inner width = min(100% - 96px, 1184px)
-       text column           = 46% of (inner width - 56px gap)
-   ============================================================ */
 .subhero-band {
   position: relative;
   display: flex;
@@ -520,8 +441,7 @@ html[data-overlay-open] .wa-fab {
   right: 0;
   bottom: 0;
   left: calc(max(48px, 50% - 592px) + 0.46 * (min(100% - 96px, 1184px) - 56px) + 56px);
-  /* Feathered seam instead of a card edge — the photo dissolves into the
-     surface the headline sits on, so the two halves read as one band. */
+  
   -webkit-mask-image: linear-gradient(to right, transparent 0, rgba(0,0,0,0.14) 36px, rgba(0,0,0,0.62) 88px, #000 156px);
           mask-image: linear-gradient(to right, transparent 0, rgba(0,0,0,0.14) 36px, rgba(0,0,0,0.62) 88px, #000 156px);
 }
@@ -533,18 +453,14 @@ html[data-overlay-open] .wa-fab {
   top: -8%;
   left: 0;
   width: 100%;
-  height: 116%;          /* headroom for the ±5% scroll parallax */
+  height: 116%;          
   object-fit: cover;
   object-position: 62% 42%;
   display: block;
   will-change: transform;
 }
 
-/* Top + bottom feathers. Without the cap the photo cuts against the surface on
-   a hard horizontal line right under the fixed header; with it, all four edges
-   dissolve and the panel reads as part of the band rather than a pasted-in
-   rectangle. Kept as overlay gradients rather than extra mask layers so no
-   mask-composite support is required. */
+
 .subhero-cap {
   position: absolute;
   left: 0; right: 0; top: 0;
@@ -572,7 +488,7 @@ html[data-overlay-open] .wa-fab {
 }
 .subhero-text { max-width: calc(46% - 26px); }
 
-/* Accent anchor under the page title */
+
 .subhero-rule {
   width: 64px;
   height: 3px;
@@ -582,39 +498,17 @@ html[data-overlay-open] .wa-fab {
   transform-origin: left center;
 }
 
-/* ---- Tablet + phone: photo full-bleed, type reversed out over an ink scrim ----
 
-   Below 1024px there is no room for the desktop split, so the photo has to run
-   underneath the headline. That used to be handled with a near-opaque WHITE
-   veil and dark type on top — but to keep the breadcrumb legible at 390px the
-   veil had to reach 0.95 alpha, which left the photograph as a milky smear:
-   full download cost, no visual payoff, and a hero band that read as an
-   accident rather than a decision.
-
-   Reversed instead. The photo stays sharp under a green-black scrim that
-   deepens toward the base, the type sits in that base and reverses out white,
-   and the band becomes a deliberate dark entry panel — the same family as the
-   CTA cards further down the page.
-
-   The colour flip is done by re-declaring the text tokens ON .subhero-band, so
-   every `var(--text)` / `var(--text-muted)` already written inline in
-   SubpageHero's children keeps working untouched, and both themes land on the
-   same on-photo palette (which is what you want over a photograph). */
 @media (max-width: 1023px) {
   .subhero-band {
-    /* Type drops to the bottom of the band so the top of the frame stays
-       readable as a photograph instead of being covered by the headline. */
+    
     align-items: flex-end;
     min-height: 400px;
-    /* Paint the ink under the photo too — .subhero-photo-media fades in from
-       opacity 0, and a white band flashing behind white type is the one frame
-       this hero must never show. */
+    
     background-color: rgb(var(--subhero-ink));
 
-    /* on-photo palette */
-    /* Muted/faint sit higher than their on-page counterparts: the breadcrumb
-       lands in the UPPER third of the band, over sky and skyline rather than
-       over the deep base, so it needs the headroom to clear 4.5:1 there. */
+    
+    
     --text:         #FFFFFF;
     --text-strong:  #FFFFFF;
     --text-soft:    rgba(255,255,255,0.88);
@@ -632,8 +526,7 @@ html[data-overlay-open] .wa-fab {
   .subhero-inner { padding: 32px 28px 36px; }
   .subhero-text { max-width: 68%; }
   .subhero-rule { margin-top: 22px; }
-  /* The white feathers are part of the desktop panel treatment — over a dark
-     band they would put a light smear back on the edges. */
+  
   .subhero-cap,
   .subhero-fade { display: none; }
   .subhero-scrim {
@@ -641,8 +534,7 @@ html[data-overlay-open] .wa-fab {
     position: absolute;
     inset: 0;
     pointer-events: none;
-    /* Left wash carries the tablet's 68%-width type column; the vertical ramp
-       carries the base. Layered rather than summed so each stays tunable. */
+    
     background:
       linear-gradient(to right,
         rgba(var(--subhero-ink), 0.34) 0%,
@@ -662,8 +554,7 @@ html[data-overlay-open] .wa-fab {
   .subhero-inner { padding: 28px 20px 30px; }
   .subhero-text { max-width: 100%; }
   .subhero-rule { margin-top: 18px; }
-  /* Type runs the full width at this size, so there is no clear column to lean
-     on — drop the side wash and let the vertical ramp carry all of it. */
+  
   .subhero-scrim {
     background: linear-gradient(to bottom,
       rgba(var(--subhero-ink), 0.34) 0%,
@@ -686,14 +577,7 @@ html[data-overlay-open] .wa-fab {
     @apply bg-background text-foreground;
   }
 
-  /* Nothing may scroll the page sideways — site-wide, not per page root.
-     Phones render the desktop layout on the first paint (useBreakpoint can
-     only report the real width after hydration), so a single over-wide
-     element makes mobile Chrome shrink-to-fit the entire page: it zooms out,
-     the layout viewport grows past device width, and fixed chrome like the
-     hamburger ends up off the right edge of the screen.
-     `clip` rather than `hidden` on purpose — hidden would turn the viewport
-     into a scroll container and break `position: sticky` sections. */
+  
   html, body {
     overflow-x: clip;
   }

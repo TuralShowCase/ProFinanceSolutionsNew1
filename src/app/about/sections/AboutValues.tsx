@@ -115,10 +115,7 @@ export function AboutValues() {
     return () => { ctx.revert(); triggerRef.current = null; };
   }, [isMobile, isTablet, mounted]);
 
-  /* Clicking a value scrolls the page to the point in the pinned window where
-     that card is active — same pattern as WhyUsSection's `goTo`. Lenis owns
-     the scroll position, so it has to be told; window.scrollTo would be
-     overridden. */
+  
   const goTo = (i: number) => {
     const st = triggerRef.current;
     if (!st) return;
@@ -129,7 +126,7 @@ export function AboutValues() {
     else window.scrollTo({ top: y, behavior: "smooth" });
   };
 
-  // Mobile / Tablet
+ 
   if (!mounted || isMobile || isTablet) {
     return (
       <section id="values" style={{ backgroundColor: CREAM, padding: "56px 20px 64px", fontFamily: "var(--font-inter), 'Inter', sans-serif" }}>
@@ -157,7 +154,7 @@ export function AboutValues() {
     );
   }
 
-  // Desktop
+ 
   return (
     <section id="values" ref={sectionRef} style={{ backgroundColor: CREAM, position: "relative", overflow: "hidden" }}>
       <div className="val-inner" style={{ minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center", maxWidth: 1280, margin: "0 auto", position: "relative" }}>
@@ -214,12 +211,12 @@ export function AboutValues() {
         </div>
       </div>
 
-      {/* Progress dots */}
+      {}
       <div className="val-dots" style={{ position: "absolute", top: "50%", transform: "translateY(-50%)", display: "flex", flexDirection: "column", alignItems: "center", gap: 10, zIndex: 20 }}>
         {values.map((_, i) => <div key={i} ref={el => { dotRefs.current[i] = el; }} style={{ width: 3, height: 8, borderRadius: 4, backgroundColor: "color-mix(in srgb, var(--brand) 18%, transparent)" }} />)}
       </div>
 
-      {/* Progress bar */}
+      {}
       <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 2, backgroundColor: "color-mix(in srgb, var(--brand) 6%, transparent)", zIndex: 20, overflow: "hidden" }}>
         <div ref={progressBarRef} style={{ height: "100%", width: "100%", background: `linear-gradient(90deg, ${DARK}, ${ACCENT})`, transformOrigin: "left center" }} />
       </div>

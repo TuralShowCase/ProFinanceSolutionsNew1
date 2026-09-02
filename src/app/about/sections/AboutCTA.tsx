@@ -67,8 +67,7 @@ export function AboutCTA() {
               <div className="cta-item" style={{ width: 40, height: 2, borderRadius: 2, backgroundColor: ACCENT, marginBottom: 18, opacity: 0.6 }} />
               <p className="cta-item" style={{ fontSize: 18, color: "var(--invert-text-muted)", lineHeight: 1.8, margin: 0 }}>{t("subtext")}</p>
             </div>
-            {/* Width comes from `.acta-actions > *` in CSS rather than a
-                fullWidth prop, so the buttons no longer need the breakpoint. */}
+            {}
             <div className="cta-item acta-actions" style={{ display: "flex" }}>
               <CTAButton primary onClick={openContact} icon={<Phone size={15} strokeWidth={1.8} />}>{t("primaryBtn")}</CTAButton>
               <CTAButton href={servicesHref} icon={<ArrowUpRight size={16} />}>{t("secondaryBtn")}</CTAButton>

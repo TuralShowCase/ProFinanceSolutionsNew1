@@ -31,11 +31,7 @@ function LogoChip({ name, img }: { name: string; img: string }) {
     </div>
   );
 }
-
-// Seamless marquee row: each loop half repeats the logo set 3× (~4100px on
-// desktop) so even ultra-wide viewports never outrun the track, then the half
-// is doubled for the CSS -50% loop. Spacing lives on the chips (marginRight),
-// not flex gap, so -50% lands exactly on a period boundary — no seam jump.
+
 function MarqueeRow({ items, reverse }: { items: typeof clients; reverse?: boolean }) {
   const half = [...items, ...items, ...items];
   const doubled = [...half, ...half];
@@ -44,15 +40,13 @@ function MarqueeRow({ items, reverse }: { items: typeof clients; reverse?: boole
       <div className={reverse ? "carousel-track-reverse" : "carousel-track"} style={{ display: "flex", width: "max-content", padding: "2px 0" }}>
         {doubled.map((c, i) => <LogoChip key={i} name={c.name} img={c.img} />)}
       </div>
-      {/* Edge fades so the loop reads as continuous */}
+      {}
       <div className="clients-fade" style={{ position: "absolute", top: 0, bottom: 0, left: 0, background: "linear-gradient(90deg, var(--surface), transparent)", pointerEvents: "none" }} />
       <div className="clients-fade" style={{ position: "absolute", top: 0, bottom: 0, right: 0, background: "linear-gradient(270deg, var(--surface), transparent)", pointerEvents: "none" }} />
     </div>
   );
 }
-
-// Layout is CSS-driven (see `ClientsSection` in app/responsive.css) — no
-// breakpoint hook, so the server HTML is already right on a phone.
+
 export function ClientsSection() {
   const t      = useTranslations("clients");
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -67,10 +61,8 @@ export function ClientsSection() {
 
   return (
     <section id="clients" ref={sectionRef} className="clients-section" style={{ backgroundColor: "var(--surface)", fontFamily: "var(--font-inter), 'Inter', sans-serif" }}>
-      {/* Header */}
-      {/* No inline `margin` here: the shorthand would override the
-          `margin-bottom` set in responsive.css, since inline styles always beat
-          the stylesheet. Centering lives in CSS with the rest of the box. */}
+      {}
+      {}
       <div className="clients-inner" style={{ maxWidth: 1200 }}>
         <div>
           <p className="clients-anim" style={{ fontSize: FS_LABEL, fontWeight: 600, color: DARK, letterSpacing: "0.2em", textTransform: "uppercase", margin: "0 0 16px", opacity: 0 }}>{t("sectionLabel")}</p>
@@ -81,7 +73,7 @@ export function ClientsSection() {
         <div className="clients-anim" style={{ height: 1, backgroundColor: "var(--border)", marginTop: 32, opacity: 0 }} />
       </div>
 
-      {/* Client logos — continuous two-row marquee */}
+      {}
       <div className="clients-marquee" style={{ display: "flex", flexDirection: "column", opacity: 0 }}>
         <MarqueeRow items={clients.slice(0, 6)} />
         <MarqueeRow items={clients.slice(6)} reverse />

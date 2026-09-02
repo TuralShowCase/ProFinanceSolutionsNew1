@@ -23,8 +23,7 @@ export interface ServiceData {
   process: ServiceStep[];
   relatedSlugs: string[];
 }
-
-// Canonical ordered list of all AZ service slugs — single source of truth
+
 export const AZ_SLUGS = [
   'ucotun-diaqnostikasi-ve-berpasi',
   'muhasibat-konsaltinqi',
@@ -37,8 +36,7 @@ export const AZ_SLUGS = [
 ] as const;
 
 export type AzSlug = typeof AZ_SLUGS[number];
-
-// Localized slug map: azSlug → { en, ru }
+
 export const serviceSlugMap: Record<string, { en: string; ru: string }> = {
   'ucotun-diaqnostikasi-ve-berpasi':  { en: 'accounting-diagnostics',      ru: 'diagnostika-ucheta' },
   'muhasibat-konsaltinqi':            { en: 'accounting-consulting',        ru: 'buhgalterskiy-konsalting' },
@@ -49,16 +47,14 @@ export const serviceSlugMap: Record<string, { en: string; ru: string }> = {
   'telim-ve-inkisaf':                 { en: 'training-development',         ru: 'obuchenie-razvitie' },
   'auditor-xidmetleri':               { en: 'audit-services',               ru: 'audit-uslugi' },
 };
-
-// Reverse lookup: localized slug → az slug (canonical ID)
+
 export function azSlugFromLocalized(localizedSlug: string, locale: string): string | undefined {
   if (locale === 'az') return localizedSlug;
   return Object.entries(serviceSlugMap).find(
     ([, map]) => map[locale as 'en' | 'ru'] === localizedSlug
   )?.[0];
 }
-
-// Get localized slug from az slug
+
 export function localizedSlug(azSlug: string, locale: string): string {
   if (locale === 'az') return azSlug;
   return serviceSlugMap[azSlug]?.[locale as 'en' | 'ru'] ?? azSlug;
@@ -314,8 +310,7 @@ export const servicesData: ServiceData[] = [
 export function getServiceBySlug(slug: string): ServiceData | undefined {
   return servicesData.find(s => s.slug === slug);
 }
-
-// Resolve service by a potentially localized slug
+
 export function getServiceByLocalizedSlug(slug: string, locale: string): ServiceData | undefined {
   const az = azSlugFromLocalized(slug, locale);
   if (!az) return undefined;

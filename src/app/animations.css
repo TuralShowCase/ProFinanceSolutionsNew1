@@ -1,17 +1,17 @@
-/* ─── Global text rendering ──────────────────────────────────── */
+
 html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
 }
 
-/* ─── Text selection ─────────────────────────────────────────── */
+
 ::selection {
   background-color: rgba(26, 61, 43, 0.16);
   color: #111410;
 }
 
-/* ─── Custom scrollbar ───────────────────────────────────────── */
+
 ::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
@@ -22,7 +22,7 @@ html {
   background: rgba(26, 61, 43, 0.38);
 }
 
-/* ─── Reduced motion ─────────────────────────────────────────── */
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
@@ -31,7 +31,7 @@ html {
   }
 }
 
-/* ─── Hero float animations ────────────────────────────────── */
+
 @keyframes heroFloat {
   0%, 100% { transform: translateY(0px); }
   50%       { transform: translateY(-6px); }
@@ -42,7 +42,7 @@ html {
   50%       { transform: translateY(-5px); }
 }
 
-/* ─── Clients marquee animations ───────────────────────────── */
+
 @keyframes clients-scroll-left {
   0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
@@ -54,7 +54,7 @@ html {
 }
 
 .carousel-track {
-  /* Track half is 3× the logo set — duration scaled ×3 keeps the same px/s speed */
+  
   animation: clients-scroll-left 114s linear infinite;
   will-change: transform;
 }
@@ -70,7 +70,7 @@ html {
   animation-play-state: paused;
 }
 
-/* ─── Header nav link hover underline ──────────────────────── */
+
 .nav-link-hover {
   position: relative;
 }
@@ -92,7 +92,7 @@ html {
   color: #1A3D2B !important;
 }
 
-/* ─── WhatsApp floating button pulse ───────────────────────── */
+
 @keyframes wa-pulse {
   0%   { box-shadow: 0 4px 20px rgba(37,211,102,0.35), 0 2px 8px rgba(0,0,0,0.12), 0 0 0 0   rgba(37,211,102,0.45); }
   60%  { box-shadow: 0 4px 20px rgba(37,211,102,0.35), 0 2px 8px rgba(0,0,0,0.12), 0 0 0 14px rgba(37,211,102,0);    }
@@ -103,27 +103,21 @@ html {
   animation: wa-pulse 2.8s ease-out infinite;
 }
 
-/* ─── Keyboard focus, globally ───────────────────────────────── */
-/* Most interactive elements here are inline-styled with `border: none` and
-   `background: none`, which leaves the UA focus ring barely visible or absent —
-   keyboard users had no idea where they were (WCAG 2.4.7).
-   `:focus-visible` (not `:focus`) means pointer users never see this. */
+
+
 :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
   outline: 2px solid var(--brand);
   outline-offset: 3px;
   border-radius: 2px;
 }
 
-/* Over the hero photograph the light-theme brand green is near-black on a dark
-   image and disappears. The on-photo accent is the same green the hero already
-   uses for its active pagination, so it reads in both themes. */
+
 #hero :where(a, button, [tabindex]):focus-visible {
   outline-color: #5AD094;
 }
 
-/* ─── Services exhibit grid — keyboard focus ─────────────────── */
-/* Cards drive their visuals from React state (shared by hover + focus), so
-   this only supplies the ring. Offset clears the card's own lift shadow. */
+
+
 .svc-card:focus-visible {
   outline: 2px solid var(--brand);
   outline-offset: 3px;

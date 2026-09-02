@@ -5,11 +5,7 @@ import { Sun, Moon } from "lucide-react";
 import { useTheme } from "../contexts/ThemeContext";
 import { useTranslations } from "next-intl";
 
-/**
- * Light/dark toggle pill. Lives in the header beside the language switcher.
- * Renders a stable placeholder until mounted so the icon never mismatches
- * the no-flash class set before hydration.
- */
+
 export function ThemeToggle({ size = 36, overlay = false }: { size?: number; overlay?: boolean }) {
   const { resolvedTheme, toggleTheme } = useTheme();
   const t = useTranslations();
@@ -48,7 +44,7 @@ export function ThemeToggle({ size = 36, overlay = false }: { size?: number; ove
         padding: 0,
       }}
     >
-      {/* Crossfade sun/moon. Hidden until mounted to avoid an icon flip. */}
+      {}
       <span style={{ position: "relative", width: 18, height: 18, opacity: mounted ? 1 : 0, transition: "opacity 200ms ease" }}>
         <Sun
           size={18}

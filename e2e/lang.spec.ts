@@ -1,23 +1,12 @@
 import { test } from '@playwright/test';
 
-/**
- * Language purity check on rendered output.
- *
- * Reading the message files only proves the translations exist. This proves
- * what a visitor actually sees — which also catches strings hardcoded into
- * components that never went through next-intl at all.
- */
 
-const CYRILLIC = /[Ѐ-ӿ]/;
-// 'ə' (schwa) is the giveaway: it exists in Azerbaijani and essentially nothing
-// else the site would legitimately render.
+
+const CYRILLIC = /[Ѐ-ӿ]/;
 const AZERI_ONLY = /[əƏ]/;
-
-// Words that would betray untranslated English UI on a non-English page.
-// Brand names are excluded separately below.
+
 const ENGLISH_UI = /\b(Home|About|Services|Contact|Read more|Learn more|Submit|Send|Close|Menu|Search|Designed by|Get in Touch|Practice Areas|All rights reserved)\b/;
-
-// Legitimately untranslated everywhere: brands, proper nouns, contact data.
+
 const ALLOWED = [
   'ProFinance', 'Solutions', 'PLH', 'WhatsApp', 'Kronex', 'Instagram',
   'Facebook', 'LinkedIn', 'AZ', 'EN', 'RU', 'Baku', 'Bakı', 'Integral',
@@ -32,7 +21,7 @@ const PAGES = [
   { locale: 'ru', paths: ['/ru', '/ru/o-nas', '/ru/services/diagnostika-ucheta'] },
 ];
 
-/** Strips brand names so they don't trigger the English-word detector. */
+
 function withoutAllowed(text: string): string {
   let out = text;
   for (const term of ALLOWED) out = out.split(term).join(' ');

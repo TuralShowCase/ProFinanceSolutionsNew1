@@ -2,11 +2,7 @@
 
 import { useTranslations } from "next-intl";
 
-/**
- * Copy is translated, not hardcoded. This sits inside the root layout's
- * NextIntlClientProvider, so an English or Russian visitor no longer gets an
- * Azerbaijani error screen.
- */
+
 export default function Error({
   reset,
 }: {

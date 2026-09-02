@@ -13,9 +13,7 @@ import { getServiceRuBySlug } from '../../../services/servicesData.ru';
 import { ServicePage } from '../../../services/ServicePage';
 
 import { SITE_URL } from '../../../lib/site';
-
-// Lead-in for the JSON-LD Service.description's feature list (see serviceSchema
-// below) — keeps that sentence readable instead of a bare comma dump.
+
 const INCLUDES_LABEL: Record<Locale, string> = {
   az: 'Xidmətə daxildir',
   en: 'This service includes',
@@ -91,7 +89,7 @@ export default async function ServiceSlugPage({
 
   const localizedService = getLocalizedServiceData(service.slug, locale) ?? service;
 
-  // Build localized allServices list for related cards
+ 
   const allLocalizedServices = servicesData.map(
     (s) => getLocalizedServiceData(s.slug, locale) ?? s
   );
@@ -105,9 +103,9 @@ export default async function ServiceSlugPage({
     '@type': 'Service',
     '@id': `${pageUrl}#service`,
     name: localizedService.name,
-    // Overview + the T3 service components (feature titles) — the visible page
-    // shows the components as cards, but search engines still get the full list,
-    // phrased as a sentence rather than a semicolon-separated dump.
+   
+   
+   
     description: `${localizedService.overview} ${INCLUDES_LABEL[locale]}: ${localizedService.features.map((f) => f.title).join(', ')}.`,
     url: pageUrl,
     provider: { '@id': `${SITE_URL}/#organization` },

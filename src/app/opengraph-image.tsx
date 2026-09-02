@@ -1,12 +1,6 @@
 import { ImageResponse } from 'next/og';
 
-/**
- * No `runtime = 'edge'` here.
- *
- * It forced this route to render per-request ("Using edge runtime on a page
- * currently disables static generation" in the build log) for an image whose
- * output never changes. On the Node runtime it prerenders once at build time.
- */
+
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
@@ -24,7 +18,7 @@ export default function OgImage() {
           fontFamily: 'sans-serif',
         }}
       >
-        {/* Decorative corner accent */}
+        {}
         <div
           style={{
             position: 'absolute',
@@ -37,7 +31,7 @@ export default function OgImage() {
           }}
         />
 
-        {/* Logo row */}
+        {}
         <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
           <div
             style={{
@@ -68,10 +62,10 @@ export default function OgImage() {
           </span>
         </div>
 
-        {/* Spacer */}
+        {}
         <div style={{ flex: 1, display: 'flex' }} />
 
-        {/* Main headline */}
+        {}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
           <span
             style={{
@@ -107,7 +101,7 @@ export default function OgImage() {
           </div>
         </div>
 
-        {/* Bottom strip */}
+        {}
         <div
           style={{
             display: 'flex',

@@ -15,16 +15,10 @@ gsap.registerPlugin(ScrollTrigger);
 const ICONS = [Lightbulb, Layers, Zap, ShieldCheck, TrendingUp];
 const TOTAL = ICONS.length;
 
-/* How much of the pinned travel is spent stepping through the five reasons.
-   The remaining 14% is a hold on the last one — without it the fifth reason
-   appears and the section releases in the same breath, so it never reads. */
+
 const STEP_SPAN = 0.86;
 
-/* The two measurements the ScrollTrigger window is built from. Both are painted
-   by CSS (`.why-console` in responsive.css) because they differ per breakpoint,
-   so they are read back from the element rather than duplicated here — a second
-   copy in JS would silently disagree with the layout the first time either one
-   is retuned. Read inside start/end so a resize re-measures. */
+
 const consoleMetrics = (section: HTMLElement) => {
   const cs = getComputedStyle(section);
   return {
@@ -33,9 +27,7 @@ const consoleMetrics = (section: HTMLElement) => {
   };
 };
 
-/* The step dashes. Each one is a button that jumps to its reason, so the panel
-   carries its own control instead of only reporting position — the 3px bar is
-   just the visible part, the button around it supplies a ~22px hit target. */
+
 function Dashes({
   current,
   labels,
@@ -76,8 +68,7 @@ function Dashes({
                 height: 3,
                 borderRadius: 2,
                 width: on ? 30 : 14,
-                /* Hover thickens rather than widens: widening would shove the
-                   remaining dashes sideways under the cursor. */
+                
                 transform: lit ? "scaleY(2)" : "scaleY(1)",
                 backgroundColor: on ? DARK : lit ? mix(DARK, 60) : d < current ? mix(DARK, 38) : mix(DARK, 15),
                 transition:
@@ -103,24 +94,14 @@ function useMediaQuery(query: string, initial: boolean) {
   return matches;
 }
 
-/**
- * Sizes and spacing live in responsive.css (`WhyUsSection` there); the two
- * `useBreakpoint()` reads left below are structural, not stylistic.
- *
- * `isMobile` picks between two different trees — the console and the stacked
- * fallback — and `isDesktop` decides whether the figure column exists at all.
- * Both change the markup, which is the one case the migration keeps in JS.
- */
+
 export function WhyUsSection() {
   const t = useTranslations("whyUs");
   const bp = useBreakpoint();
   const isMobile = bp === "mobile";
   const isDesktop = bp === "desktop";
 
-  /* Reduced motion gets the plain stacked read — a scroll-driven console that
-     only reveals one reason at a time is exactly the pattern that setting is
-     asking us to drop. The figure needs real width beside two text columns, so
-     it only appears once the card is wide enough to give it its own lane. */
+  
   const reduced = useMediaQuery("(prefers-reduced-motion: reduce)", false);
   const wide = useMediaQuery("(min-width: 1180px)", true);
   const isConsole = !isMobile && !reduced;
@@ -142,7 +123,7 @@ export function WhyUsSection() {
     Icon: ICONS[i],
   }));
 
-  /* ---- Entrance: header + card, once ---- */
+  
   useEffect(() => {
     const ctx = gsap.context(() => {
       if (reduced) {
@@ -165,16 +146,7 @@ export function WhyUsSection() {
     return () => ctx.revert();
   }, [reduced, bp]);
 
-  /* ---- The console: scroll position drives which reason is on screen ----
-     One ScrollTrigger, no pin plugin — the card is a plain CSS sticky, so the
-     browser owns the sticking and GSAP only reads progress. start/end are
-     functions so they re-measure on resize (invalidateOnRefresh), and they map
-     the trigger's 0→1 onto exactly the window where the card is stuck:
-     it locks when the card's own top edge — the section top plus `padTop` —
-     hits `stickyTop`, and lets go when the section bottom catches the card's
-     bottom edge. Both numbers come from `consoleMetrics`, i.e. from the CSS that
-     painted them. The section's height carries `padTop` on top of the scroll
-     budget (`.why-console` in responsive.css), so that spacing costs no travel. */
+  
   useEffect(() => {
     if (!isConsole) return;
     const section = sectionRef.current;
@@ -211,12 +183,7 @@ export function WhyUsSection() {
     };
   }, [isConsole, bp]);
 
-  /* ---- Pane swap ----
-     All five panes live in the DOM stacked on top of each other, so a change is
-     a true crossfade (outgoing pane animates out) instead of the flash you get
-     re-rendering one node. React deliberately never writes opacity/visibility
-     on these — GSAP owns them from mount, and the style prop stays constant so
-     React's diff never fights it. */
+  
   useEffect(() => {
     const wrap = paneWrapRef.current;
     if (!wrap) return;
@@ -227,18 +194,11 @@ export function WhyUsSection() {
     const prev = prevRef.current;
     prevRef.current = active;
 
-    /* Show-don't-animate paths: first run, a mid-page reload that lands with
-       reason 3 already active, and any re-run where the index hasn't actually
-       moved — crossing the mobile/reduced-motion boundary rebuilds these nodes,
-       and there `incoming === outgoing` would have the pane fade itself out. */
+    
     if (prev === -1 || prev === active || reduced || !isConsole) {
       gsap.set(panes, { autoAlpha: 0, zIndex: 1 });
       gsap.set(panes[active], { autoAlpha: 1, zIndex: 2 });
-      /* Nothing else to reset: the pane's children have never been animated on
-         this path, so they're already at their authored values. (`clearProps`
-         here would strip the React-authored inline styles too — GSAP can't tell
-         which inline properties it put there — leaving the chip and rules
-         unstyled until the first swap.) */
+      
       return;
     }
 
@@ -269,10 +229,7 @@ export function WhyUsSection() {
       );
   }, [active, reduced, isConsole]);
 
-  /* Clicking a reason scrolls the page to the point in the pinned window where
-     that reason is centred — the list stays a real control rather than a
-     read-only legend, and it works from the keyboard. Lenis owns the scroll
-     position, so it has to be told; window.scrollTo would be overridden. */
+  
   const goTo = (i: number) => {
     const st = triggerRef.current;
     if (!st) return;
@@ -283,7 +240,7 @@ export function WhyUsSection() {
     else window.scrollTo({ top: y, behavior: "smooth" });
   };
 
-  /* ---------------------------------------------------------------- header */
+  
   const header = (
     <div className="why-head">
       <p
@@ -316,7 +273,7 @@ export function WhyUsSection() {
     </div>
   );
 
-  /* ------------------------------------------------------- stacked fallback */
+  
   if (!isConsole) {
     return (
       <section
@@ -404,7 +361,7 @@ export function WhyUsSection() {
     );
   }
 
-  /* ---------------------------------------------------------- the console */
+  
   return (
     <section
       id="whyus"
@@ -420,7 +377,7 @@ export function WhyUsSection() {
         <div ref={innerRef} style={{ maxWidth: 1200, margin: "0 auto", paddingBottom: 28 }}>
           {header}
 
-          {/* ---- Card ---- */}
+          {}
           <div
             className={`why-in why-card ${showFigure ? "why-card-figure" : "why-card-plain"}`}
             style={{
@@ -433,7 +390,7 @@ export function WhyUsSection() {
               boxShadow: "var(--shadow-card)",
             }}
           >
-            {/* ---- Index rail ---- */}
+            {}
             <div
               className="why-rail"
               style={{
@@ -470,8 +427,7 @@ export function WhyUsSection() {
                         transition: "background-color 380ms ease",
                       }}
                     >
-                      {/* Active marker — scales rather than toggling a border so
-                          the bar grows out of the row instead of popping in */}
+                      {}
                       <span
                         aria-hidden="true"
                         style={{
@@ -521,9 +477,7 @@ export function WhyUsSection() {
                 })}
               </div>
 
-              {/* Scroll affordance — sits with the progress track rather than
-                  off in the header, and retires the moment you've moved past
-                  the first reason and proved you didn't need telling. */}
+              {}
               <div
                 aria-hidden="true"
                 style={{
@@ -546,7 +500,7 @@ export function WhyUsSection() {
                 {t("scrollHint")}
               </div>
 
-              {/* Progress — one continuous read of where you are in the section */}
+              {}
               <div
                 aria-hidden="true"
                 style={{
@@ -568,12 +522,7 @@ export function WhyUsSection() {
               </div>
             </div>
 
-            {/* ---- Figure ----
-                 Own lane between the rail and the panel: floor-anchored, full
-                 body, so he never collides with either column's text — only his
-                 shoulder crosses the seam, which is what sells the depth. The
-                 cut-out already fades out at the legs, so there's no crop to
-                 mask at the card floor. */}
+            {}
             {showFigure && (
               <div className="why-in" style={{ position: "relative", zIndex: 2 }}>
                 <img
@@ -594,11 +543,7 @@ export function WhyUsSection() {
                     maxWidth: "none",
                     display: "block",
                     filter: "drop-shadow(0 18px 26px rgba(15,32,22,0.16))",
-                    /* Dissolves his legs into the card floor instead of
-                       letting the card's overflow slice them off. Masking the
-                       image itself — rather than laying a gradient over it —
-                       keeps the fade from painting across the panel edge that
-                       his shoulder overlaps. */
+                    
                     WebkitMaskImage: "linear-gradient(to bottom, #000 74%, transparent 97%)",
                     maskImage: "linear-gradient(to bottom, #000 74%, transparent 97%)",
                   }}
@@ -606,7 +551,7 @@ export function WhyUsSection() {
               </div>
             )}
 
-            {/* ---- Active panel ---- */}
+            {}
             <div
               ref={paneWrapRef}
               style={{
@@ -617,8 +562,7 @@ export function WhyUsSection() {
                 borderLeft: "1px solid var(--border)",
               }}
             >
-              {/* Grid texture, faded from the top-right — the one cue carried
-                  straight over from the old dark panel */}
+              {}
               <div
                 aria-hidden="true"
                 style={{
@@ -647,7 +591,7 @@ export function WhyUsSection() {
                     flexDirection: "column",
                   }}
                 >
-                  {/* Top: icon + counter */}
+                  {}
                   <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16 }}>
                     <span
                       className="why-fade"
@@ -683,7 +627,7 @@ export function WhyUsSection() {
                     </span>
                   </div>
 
-                  {/* Middle: the reason */}
+                  {}
                   <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center" }}>
                     <h3
                       style={{
@@ -720,11 +664,10 @@ export function WhyUsSection() {
                     </p>
                   </div>
 
-                  {/* Bottom: step dashes — also the panel's own jump control */}
+                  {}
                   <Dashes current={i} labels={items.map((it) => it.title)} onPick={goTo} />
 
-                  {/* Ghost numeral — the old design's oversized index, moved
-                      into the panel and cropped by the card corner */}
+                  {}
                   <span
                     aria-hidden="true"
                     style={{

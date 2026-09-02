@@ -20,9 +20,7 @@ const prefersReduced = () =>
   typeof window !== "undefined" &&
   window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-/* The 3D render for each service. These carry the visual weight of the whole
-   section — every card shows one, at full size on a tinted plate, so the 8
-   objects read as one commissioned set rather than decorative fill. */
+
 const SERVICE_IMAGES: Record<string, string> = {
   "ucotun-diaqnostikasi-ve-berpasi":  "/UcotunDiaqnostikasi.avif",
   "muhasibat-konsaltinqi":            "/MuhasibatKonsaltinqi.avif",
@@ -34,8 +32,7 @@ const SERVICE_IMAGES: Record<string, string> = {
   "auditor-xidmetleri":               "/AuditorXidmetleri.avif",
 };
 
-/* Intrinsic pixel dimensions of each render — passed to <img> so the browser
-   reserves the box before decode (no layout shift on a grid of 8 images). */
+
 const IMG_DIMS: Record<string, [number, number]> = {
   "/UcotunDiaqnostikasi.avif":  [1375, 1144],
   "/MuhasibatKonsaltinqi.avif": [1422, 1106],
@@ -47,9 +44,7 @@ const IMG_DIMS: Record<string, [number, number]> = {
   "/AuditorXidmetleri.avif":    [1395, 1127],
 };
 
-/* Per-render optical scale. The 8 objects were composed at different crops —
-   the tall receipt reads smaller than the wide laptop at identical widths — so
-   each gets a nudge to make the set feel evenly weighted on its plate. */
+
 const IMG_SCALE: Record<string, number> = {
   "/UcotunDiaqnostikasi.avif":  1.0,
   "/MuhasibatKonsaltinqi.avif": 1.0,
@@ -61,15 +56,7 @@ const IMG_SCALE: Record<string, number> = {
   "/AuditorXidmetleri.avif":    1.0,
 };
 
-/**
- * Sizes, spacing and the grid's hairlines live in responsive.css
- * (`ServicesSection` there).
- *
- * `useBreakpoint()` stays for two things, neither of them a size: the closing
- * CTA is a different composition on a phone (figure overhanging the corner vs.
- * standing in a left gutter), and `cols` feeds the parallax offset inside a GSAP
- * effect, which paints nothing.
- */
+
 export function ServicesSection() {
   const t      = useTranslations();
   const locale = useLocale();
@@ -90,8 +77,7 @@ export function ServicesSection() {
     href:    `${servicesBasePath}/${localizedSlug(azSlug, locale)}`,
   }));
 
-  /* Column count is set in CSS; this copy exists only to stagger the parallax
-     across a row, and is never used to paint. */
+  
   const cols = isMobile ? 1 : isTablet ? 2 : 4;
 
   useEffect(() => {
@@ -113,10 +99,7 @@ export function ServicesSection() {
         { opacity: 1, y: 0, duration: 0.85, ease: "expo.out",
           scrollTrigger: { trigger: ".svc-cta-anim", start: "top 90%", once: true } });
 
-      /* Scrubbed parallax: each object drifts up as the grid crosses the
-         viewport, columns offset so the set breathes instead of moving as a
-         slab. Lives on a wrapper — the <img> itself owns the hover transform,
-         so the two never fight over `transform`. */
+      
       if (!reduce && !isMobile) {
         gsap.utils.toArray<HTMLElement>(".svc-drift").forEach((el, i) => {
           gsap.fromTo(el,
@@ -149,7 +132,7 @@ export function ServicesSection() {
     >
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
 
-        {/* ── Header ─────────────────────────────────────────────── */}
+        {}
         <div
           className="svc-heading-anim"
           style={{
@@ -173,10 +156,7 @@ export function ServicesSection() {
           </p>
         </div>
 
-        {/* ── Exhibit grid ───────────────────────────────────────
-            Cells carry the hairline rules (a ruled sheet); the card inside
-            each cell is inset, so on hover it lifts off the rules onto a
-            white surface. All 8 are always present — no disclosure step. */}
+        {}
         <div
           className="svc-grid"
           style={{
@@ -192,12 +172,9 @@ export function ServicesSection() {
           ))}
         </div>
 
-        {/* ── Closing CTA ────────────────────────────────────────── */}
+        {}
         {isMobile ? (
-          /* The figure overhangs the top-right corner rather than sitting in a
-             left gutter: at 390px a gutter left the copy a ~190px column that
-             ran the subtext to four lines. Only the heading clears the figure;
-             subtext and button use the card's full width. */
+          
           <div className="svc-cta-anim" style={{ opacity: 0, marginTop: 34, position: "relative", zIndex: 2, paddingTop: 82 }}>
             <img
               src="/CtaSitting.avif" alt="" aria-hidden="true" loading="lazy" decoding="async"
@@ -250,16 +227,7 @@ export function ServicesSection() {
   );
 }
 
-/* ──────────────────────────────────────────────────────────────────
-   Card — desktop/tablet: object plate on top, ledger index + title below.
-          mobile: the same parts turned on their side into a compact row.
 
-   The two variants are breakpoint-exclusive, so nothing here needs a media
-   query: `svc-*-row` classes only ever render below 768px and `svc-*-stack`
-   only ever above it, and each carries its own values. `isTablet` is gone
-   entirely — the one place it still differed (plate ratio, card padding, title
-   size) is a tablet override on the stacked classes in responsive.css.
-   ────────────────────────────────────────────────────────────────── */
 function ServiceCard({
   index, name, tagline, img, href, isMobile, ctaLabel,
 }: {
@@ -273,13 +241,10 @@ function ServiceCard({
   const on  = () => setActive(true);
   const off = () => setActive(false);
 
-  /* The plate: a tinted well the object sits in, with a soft ground shadow so
-     it reads as a physical object on a shelf rather than a floating sticker. */
+  
   const plate = (variant: "row" | "stack") => (
     <div
-      /* Both class names spelled out rather than interpolated: a template
-         literal hides them from `e2e/tools/checkcls.mjs`, which is the only
-         thing that catches a rule whose className never got applied. */
+      
       className={variant === "row" ? "svc-plate svc-plate-row" : "svc-plate svc-plate-stack"}
       style={{
         position: "relative",
@@ -289,7 +254,7 @@ function ServiceCard({
         transition: "background-color 420ms ease",
       }}
     >
-      {/* top-centre light wash — gives the well a sense of overhead lighting */}
+      {}
       <div
         aria-hidden="true"
         style={{
@@ -300,7 +265,7 @@ function ServiceCard({
         }}
       />
 
-      {/* ground shadow — tightens and darkens as the object lifts */}
+      {}
       <div
         aria-hidden="true"
         className="svc-ground"
@@ -316,7 +281,7 @@ function ServiceCard({
         }}
       />
 
-      {/* parallax wrapper (GSAP owns its transform) */}
+      {}
       <div
         className="svc-drift"
         style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center" }}
@@ -331,8 +296,7 @@ function ServiceCard({
           height={h}
           className="svc-obj"
           style={{
-            /* The breakpoint half of this width lives in CSS; the per-asset
-               correction stays here as a multiplier the stylesheet reads. */
+            
             ["--svc-obj-scale" as string]: scale,
             height: "auto",
             objectFit: "contain",
@@ -396,7 +360,7 @@ function ServiceCard({
     transition: "background-color 420ms ease, box-shadow 420ms ease, transform 460ms cubic-bezier(0.34, 1.3, 0.64, 1)",
   };
 
-  /* ── Mobile: horizontal row ── */
+  
   if (isMobile) {
     return (
       <a
@@ -408,8 +372,7 @@ function ServiceCard({
         style={{ ...shell, alignItems: "center", gap: 14 }}
       >
         {plate("row")}
-        {/* No trailing chevron here — at 390px every pixel of that column is
-            needed for the title, and the whole row is already the link. */}
+        {}
         <div style={{ display: "flex", flexDirection: "column", gap: 5, minWidth: 0, flex: 1 }}>
           {indexEl}
           {titleEl}
@@ -419,7 +382,7 @@ function ServiceCard({
     );
   }
 
-  /* ── Tablet / desktop: object plate over ledger text ── */
+  
   return (
     <a
       href={href}
@@ -428,9 +391,7 @@ function ServiceCard({
       onFocus={on} onBlur={off}
       style={{ ...shell, flexDirection: "column" }}
     >
-      {/* Two columns give each plate ~370px — square there would make the
-          section scroll forever, so tablet plates go landscape instead (the
-          ratio flip is a tablet rule on `.svc-plate-stack`). */}
+      {}
       {plate("stack")}
 
       <div style={{ display: "flex", alignItems: "center", gap: 10, margin: "20px 0 10px" }}>
@@ -446,15 +407,10 @@ function ServiceCard({
       </div>
 
       {titleEl}
-      {/* `marginTop: auto` pins the tagline to the bottom of an equal-height
-          cell, so all eight share a baseline no matter whether the name above
-          ran to one, two or three lines. Reserving a fixed number of title
-          lines instead only works for one locale — AZ names mostly fit two,
-          EN and RU push some to three. The slack lands in the gap above the
-          tagline, where it reads as breathing room rather than misalignment. */}
+      {}
       <div style={{ marginTop: "auto", paddingTop: 10 }}>{taglineEl}</div>
 
-      {/* CTA sits in reserved space, so revealing it never reflows the card */}
+      {}
       <div
         style={{
           display: "inline-flex", alignItems: "center", gap: 6,

@@ -5,9 +5,9 @@ import { useEffect, useState } from "react";
 export type Breakpoint = "mobile" | "tablet" | "desktop";
 
 export function useBreakpoint(): Breakpoint {
-  // "desktop" default is SSR-safe — matches the existing design so server HTML
-  // is correct for the majority (desktop) visitors. Mobile users see correct
-  // layout after the first useEffect fires (essentially instant post-hydration).
+ 
+ 
+ 
   const [bp, setBp] = useState<Breakpoint>("desktop");
 
   useEffect(() => {

@@ -10,10 +10,7 @@ import { DARK, mix } from "@/app/lib/brand";
 import { FS_H2, FS_LABEL, FS_H4_MOBILE, FS_BODY } from "@/app/lib/typography";
 
 gsap.registerPlugin(ScrollTrigger);
-
-// T3 "Fəaliyyət sahələri" — order matches i18n `industries.items`.
-// Drop AI-generated photos into /public/industries/ with these names;
-// until a file exists, the tile gracefully falls back to a brand gradient + icon.
+
 const INDUSTRY_META = [
   { Icon: ShoppingCart,    img: "/industries/trade.avif" },
   { Icon: HardHat,         img: "/industries/construction.avif" },
@@ -25,14 +22,7 @@ const INDUSTRY_META = [
   { Icon: Scale,           img: "/industries/legal.avif" },
 ] as const;
 
-/**
- * Sizes and spacing live in responsive.css (`IndustriesSection` there).
- *
- * `useBreakpoint()` stays for `isStacked` alone: below 1024px this renders a
- * grid of photo cards and above it an interactive list beside a crossfading
- * panel — two different trees with different animation targets, not one layout
- * at two sizes.
- */
+
 export function IndustriesSection() {
   const t      = useTranslations("industries");
   const bp     = useBreakpoint();
@@ -55,8 +45,8 @@ export function IndustriesSection() {
       gsap.fromTo(".ind-card",  { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.65, ease: "expo.out", stagger: 0.06, scrollTrigger: { trigger: ".ind-cards", start: "top 84%", once: true } });
     }, sectionRef);
     return () => ctx.revert();
-    // Only the stacked/desktop flip matters: the two trees animate different
-    // elements, so the context has to be rebuilt when one replaces the other.
+   
+   
   }, [isStacked]);
 
   const markFailed = (i: number) =>
@@ -72,7 +62,7 @@ export function IndustriesSection() {
     <section id="industries" ref={sectionRef} className="ind-section" style={{ backgroundColor: "var(--surface)", fontFamily: "var(--font-inter), 'Inter', sans-serif" }}>
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
 
-        {/* Header */}
+        {}
         <div className="ind-hdr" style={{ opacity: 0, display: "flex", justifyContent: "space-between", flexWrap: "wrap" }}>
           <div>
             <p style={{ fontSize: FS_LABEL, fontWeight: 600, color: DARK, letterSpacing: "0.2em", textTransform: "uppercase", margin: "0 0 16px" }}>{t("sectionLabel")}</p>
@@ -95,7 +85,7 @@ export function IndustriesSection() {
         </div>
 
         {isStacked ? (
-          /* ── Stacked: photo cards ── */
+          
           <div className="ind-cards" style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
             {items.map(({ Icon, label, img }, i) => {
               const hasImg = !failed[i];
@@ -118,10 +108,10 @@ export function IndustriesSection() {
             })}
           </div>
         ) : (
-          /* ── Desktop: interactive list + crossfading photo panel ── */
+          
           <div style={{ display: "grid", gridTemplateColumns: "1fr 480px", gap: 64, alignItems: "stretch" }}>
 
-            {/* List */}
+            {}
             <div className="ind-list" style={{ borderTop: "1px solid var(--border)" }}>
               {items.map(({ Icon, label }, i) => {
                 const isActive = i === active;
@@ -156,9 +146,9 @@ export function IndustriesSection() {
               })}
             </div>
 
-            {/* Photo panel — crossfades with the active row */}
+            {}
             <div className="ind-panel" style={{ opacity: 0, position: "relative", borderRadius: 20, overflow: "hidden", border: "1px solid var(--border)", backgroundColor: "var(--page-bg-alt)", minHeight: 480 }}>
-              {/* Fallback layer (visible until the active image exists) */}
+              {}
               <div style={{ position: "absolute", inset: 0, background: `linear-gradient(155deg, ${mix(DARK, 14)}, ${mix(DARK, 4)})`, display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <ActiveIcon size={72} color={DARK} strokeWidth={1.2} style={{ opacity: 0.4, transition: "opacity 300ms ease" }} />
               </div>
@@ -177,7 +167,7 @@ export function IndustriesSection() {
                 )
               )}
 
-              {/* Caption chip */}
+              {}
               <div style={{ position: "absolute", left: 18, bottom: 18, display: "inline-flex", alignItems: "center", gap: 9, backgroundColor: "rgba(255,255,255,0.92)", backdropFilter: "blur(8px)", WebkitBackdropFilter: "blur(8px)", borderRadius: 12, padding: "10px 16px", boxShadow: "0 8px 28px rgba(0,0,0,0.18)" }}>
                 <ActiveIcon size={16} color={DARK} strokeWidth={2} />
                 <span style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontSize: FS_BODY, fontWeight: 700, color: "#111410" }}>{items[active].label}</span>

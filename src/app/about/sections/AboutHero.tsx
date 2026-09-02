@@ -20,7 +20,7 @@ export function AboutHero() {
   return (
     <section ref={sectionRef} style={{ position: "relative", paddingTop: 72, fontFamily: "var(--font-inter), 'Inter', sans-serif", overflow: "hidden" }}>
       <SubpageHero>
-        {/* font-size comes from `.about-tagline` in responsive.css */}
+        {}
         <h1 className="about-tagline" style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 800, color: "var(--text)", margin: 0, letterSpacing: "-0.044em", lineHeight: 1.0, overflowWrap: "anywhere" }}>
           <span className="abt-line" style={{ display: "block" }}>{t("line1")}</span>
           <span className="abt-line" style={{ display: "block", color: "var(--brand)" }}>{t("line2")}</span>

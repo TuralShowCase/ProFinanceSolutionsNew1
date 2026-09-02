@@ -1,11 +1,4 @@
-/**
- * Shared 404 body.
- *
- * Rendered by two boundaries: `app/[locale]/not-found.tsx` for a missing page
- * inside a known locale, and `app/not-found.tsx` for anything that never
- * resolved a locale at all. Both pass already-translated strings in, so this
- * stays a plain presentational component.
- */
+
 export function NotFoundView({
   message,
   backHome,

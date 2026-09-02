@@ -37,10 +37,7 @@ export const viewport: Viewport = {
     { media: '(prefers-color-scheme: dark)', color: '#0A0F0C' },
   ],
 };
-
-// `description` is filled in per-locale below (reuses meta.homeDescription so
-// there's one source of truth) — this schema block sits in the root layout,
-// outside the [locale] segment, so it can't be statically pre-filled.
+
 function buildOrganizationSchema(description: string) {
   return {
     '@context': 'https://schema.org',
@@ -71,19 +68,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeNoFlashScript }} />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
-        {/* No image preloads here on purpose.
-            This layout wraps every route, so anything preloaded is fetched at
-            high priority on pages that never render it. The header mark is a 3KB
-            file already in the initial HTML (the preload scanner finds it with no
-            help), and each page preloads its own LCP image instead — see
-            `preloadHeroImage()` in app/page.tsx. */}
+        {}
         <meta name="geo.region" content="AZ-BA" />
         <meta name="geo.placename" content="Baku, Azerbaijan" />
         <meta name="geo.position" content="40.3777;49.843" />
         <meta name="ICBM" content="40.3777, 49.843" />
-        {/* hreflang is emitted per-page via the Metadata API (alternates.languages),
-            so each route advertises its own correct language alternates. Do not add a
-            global hreflang block here — it would conflict with the per-page tags. */}
+        {}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
@@ -93,9 +83,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <ThemeProvider>
           <NextIntlClientProvider locale={locale} messages={messages}>
             {children}
-            {/* Inside the provider, not beside it: the button's label and its
-                prefilled WhatsApp message are translated, and useTranslations
-                throws outside this boundary. */}
+            {}
             <WhatsAppButton />
           </NextIntlClientProvider>
         </ThemeProvider>

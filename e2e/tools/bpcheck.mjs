@@ -1,12 +1,6 @@
 import fs from 'fs';
 
-/**
- * Which breakpoints define each class, and which properties.
- *
- * The trap this catches: a class given a desktop base and a tablet override but
- * no mobile rule silently inherits the tablet value on phones, because the
- * tablet media query is `max-width: 1023px` and therefore also matches mobile.
- */
+
 const css = fs.readFileSync('src/app/responsive.css', 'utf8');
 
 const zones = { base: '', tablet: '', mobile: '' };
@@ -46,8 +40,8 @@ const suspect = [];
 for (const cls of [...all].sort()) {
   const t = T[cls], m = M[cls];
   if (!t) continue;
-  // Properties overridden at tablet but never restated at mobile inherit the
-  // tablet value on phones. That is only correct if mobile genuinely matches tablet.
+ 
+ 
   const missing = [...t].filter((p) => !m || !m.has(p));
   if (missing.length) suspect.push(`  .${cls}  ->  mobilde tekrar edilmemis: ${missing.join(', ')}`);
 }

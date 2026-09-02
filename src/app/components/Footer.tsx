@@ -10,15 +10,7 @@ import { ACCENT, PLH_ACC } from "@/app/lib/brand";
 
 gsap.registerPlugin(ScrollTrigger);
 
-/**
- * Layout is entirely CSS (see `Footer` in app/responsive.css).
- *
- * The one branch that looked structural — the centre tagline, previously
- * `{!isMobile && ...}` — is now always rendered and hidden with `display: none`
- * at mobile. A display:none grid item is out of the layout and out of the
- * accessibility tree, so the phone result is identical, and the footer no longer
- * needs `useBreakpoint()` at all.
- */
+
 export function Footer() {
   const t      = useTranslations();
   const locale = useLocale();
@@ -57,7 +49,7 @@ export function Footer() {
     <footer id="contact" ref={footerRef} style={{ backgroundColor: "var(--ink)", fontFamily: "var(--font-inter), 'Inter', sans-serif" }}>
       <div className="ftr-wrap" style={{ maxWidth: 1200, margin: "0 auto" }}>
 
-        {/* Brand bar */}
+        {}
         <div className="ftr-brand" style={{ display: "grid", alignItems: "center", borderBottom: "1px solid rgba(255,255,255,0.07)" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
             <img src="/logo-mark-light.png" alt="ProFinance" width={38} height={38} loading="lazy" style={{ width: 38, height: 38, objectFit: "contain", flexShrink: 0 }} />
@@ -79,7 +71,7 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Partner strip */}
+        {}
         <div className="ftr-partner" style={{ display: "flex", alignItems: "center", borderBottom: "1px solid rgba(255,255,255,0.07)" }}>
           <span style={{ fontSize: 16, fontWeight: 700, color: "var(--invert-text-faint)", letterSpacing: "0.16em", textTransform: "uppercase", flexShrink: 0 }}>{t("footer.legalPartner")}</span>
           <div style={{ width: 1, height: 16, backgroundColor: "rgba(255,255,255,0.1)", flexShrink: 0 }} />
@@ -92,10 +84,10 @@ export function Footer() {
           >plh.az <ArrowUpRight size={14} /></a>
         </div>
 
-        {/* Link columns */}
+        {}
         <div className="ftr-cols" style={{ display: "grid" }}>
 
-          {/* Services */}
+          {}
           <div className="ftr-col">
             <p style={{ fontSize: 16, fontWeight: 700, color: "var(--invert-text-faint)", letterSpacing: "0.16em", textTransform: "uppercase", margin: "0 0 18px" }}>{t("footer.services")}</p>
             <nav style={{ display: "flex", flexDirection: "column", gap: 10 }}>
@@ -109,7 +101,7 @@ export function Footer() {
             </nav>
           </div>
 
-          {/* Company */}
+          {}
           <div className="ftr-col">
             <p style={{ fontSize: 16, fontWeight: 700, color: "var(--invert-text-faint)", letterSpacing: "0.16em", textTransform: "uppercase", margin: "0 0 18px" }}>{t("footer.company")}</p>
             <nav style={{ display: "flex", flexDirection: "column", gap: 10 }}>
@@ -123,7 +115,7 @@ export function Footer() {
             </nav>
           </div>
 
-          {/* Contact */}
+          {}
           <div className="ftr-col">
             <p style={{ fontSize: 16, fontWeight: 700, color: "var(--invert-text-faint)", letterSpacing: "0.16em", textTransform: "uppercase", margin: "0 0 18px" }}>{t("footer.contact")}</p>
             <address style={{ fontStyle: "normal", display: "flex", flexDirection: "column", gap: 13 }}>
@@ -140,7 +132,7 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Bottom bar */}
+        {}
         <div className="ftr-bottom" style={{ borderTop: "1px solid rgba(255,255,255,0.06)", display: "flex", justifyContent: "space-between" }}>
           <p style={{ fontSize: 16, color: "var(--invert-text-faint)", margin: 0 }}>
             © {new Date().getFullYear()} ProFinance Solutions. {t("footer.copyright")}

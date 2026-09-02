@@ -20,7 +20,7 @@ export function AboutMission() {
       gsap.fromTo(".msn-card",  { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.95, ease: "expo.out", scrollTrigger: { trigger: ".msn-card", start: "top 85%", once: true } });
     }, sectionRef);
     return () => ctx.revert();
-    // Markup is breakpoint-independent now; layout lives in responsive.css.
+   
   }, []);
 
   return (
@@ -32,14 +32,14 @@ export function AboutMission() {
 
         <div className="msn-rule" style={{ height: 1, backgroundColor: "var(--border)" }} />
 
-        {/* Full-width about-us text — no sidebar squeezing it down anymore */}
+        {}
         <div className="msn-anim msn-copy">
           <p style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 600, fontSize: 20, color: "var(--text)", lineHeight: 1.6, margin: "0 0 16px", letterSpacing: "-0.015em" }}>{t("leadParagraph")}</p>
           <p style={{ fontSize: 18, fontWeight: 500, color: "var(--text)", lineHeight: 1.82, margin: "0 0 12px" }}>{t.rich("paragraph1", { b: (chunks) => <strong style={{ fontWeight: 800, color: "var(--brand)" }}>{chunks}</strong> })}</p>
           <p style={{ fontSize: 18, fontWeight: 500, color: "var(--text)", lineHeight: 1.82, margin: 0 }}>{t.rich("paragraph2", { b: (chunks) => <strong style={{ fontWeight: 800, color: "var(--brand)" }}>{chunks}</strong> })}</p>
         </div>
 
-        {/* Mission — moved under the about-us text instead of a sidebar card */}
+        {}
         <div className="msn-card" style={{ backgroundColor: INVERT, position: "relative", overflow: "hidden" }}>
           <div style={{ position: "absolute", top: 0, left: 40, right: 40, height: 2, backgroundColor: ACCENT, borderRadius: "0 0 2px 2px", opacity: 0.6 }} />
           <span className="msn-quotemark" style={{ position: "absolute", bottom: -16, right: 24, fontFamily: "Georgia, serif", color: "color-mix(in srgb, var(--accent-green) 8%, transparent)", lineHeight: 1, userSelect: "none", pointerEvents: "none" }}>&rdquo;</span>

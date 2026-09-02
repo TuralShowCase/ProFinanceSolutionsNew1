@@ -32,16 +32,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 
 export const SERVICES_SIDEBAR_WIDTH = 320;
-
-// "Who it's for" panel figure, ≤1023px only (desktop keeps her inside the panel
-// as a layout column). She is layered BEHIND the panel so its top edge is what
-// cuts her off — she reads as standing up from behind it instead of being pasted
-// on top of it with her thighs sliced across the dark card.
-//   The row reserves exactly her exposed height as padding-top, so she never
-//   collides with the CTA button above her. 0.62 of the source lands just below
-//   the tablet she's holding, so the visible crop is head → hands → device.
-// Those numbers now live in `.targets-row` / `.targets-figure-stacked` in
-// globals.css (208/128/8 at mobile, 248/152/40 at tablet).
+
 
 function ServicesSidebar({ allServices, currentSlug, locale, isMobile, open, onOpen, onClose }: {
   allServices: ServiceData[]; currentSlug: string; locale: string; isMobile: boolean;
@@ -55,7 +46,7 @@ function ServicesSidebar({ allServices, currentSlug, locale, isMobile, open, onO
 
   useEffect(() => { setMounted(true); }, []);
 
-  // Mobile only: animates in as a full overlay (with backdrop + body scroll lock)
+ 
   useEffect(() => {
     if (!isMobile || !open || !backdropRef.current || !panelRef.current) return;
     document.body.style.overflow = "hidden";
@@ -75,13 +66,13 @@ function ServicesSidebar({ allServices, currentSlug, locale, isMobile, open, onO
     const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") handleClose(); };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+   
   }, [isMobile, open]);
 
-  // The panel never closes itself. It used to fade out on a footer
-  // IntersectionObserver, which was dead weight: the aside is sticky inside the
-  // main-content flex block, so it has already scrolled ~1000px out of view by
-  // the time the footer intersects. Only the X button closes it now.
+ 
+ 
+ 
+ 
 
   const list = (
     <nav style={{ flex: 1, minHeight: 0, overflowY: "auto", padding: "6px 0 12px" }}>
@@ -178,9 +169,9 @@ function ServicesSidebar({ allServices, currentSlug, locale, isMobile, open, onO
     );
   }
 
-  // Desktop / tablet: a column scoped to the main-content block (below the
-  // hero, above the footer) — sticks while that block scrolls past, instead
-  // of being fixed to the viewport for the whole page.
+ 
+ 
+ 
   return (
     <aside
       style={{
@@ -258,9 +249,9 @@ function ProcessStepCard({ step, title, description }: {
 function ServicePageInner({ service, allServices, locale }: { service: ServiceData; allServices: ServiceData[]; locale: string }) {
   const t      = useTranslations("servicePage");
   const bp     = useBreakpoint();
-  // Sizes and spacing are CSS now (the `Service page` block in globals.css,
-  // mobile-first to match its neighbours there). `isMobile` survives for the
-  // sidebar, which is a drawer on a phone and a static rail otherwise.
+ 
+ 
+ 
   const isMobile = bp === "mobile";
   const { openContact } = useContactModal();
 
@@ -293,16 +284,16 @@ function ServicePageInner({ service, allServices, locale }: { service: ServiceDa
   const titleWords = service.name.split(" ");
 
   return (
-    // `overflowX: clip` matches App.tsx and AboutApp.tsx. Without it the page
-    // scrolls sideways on phones: the first paint renders the desktop header
-    // (useBreakpoint can only report "mobile" after hydration), the document
-    // widens to ~812px, and mobile Chrome shrink-to-fits the whole page —
-    // leaving the hamburger sitting off the right edge of the screen.
+   
+   
+   
+   
+   
     <div style={{ backgroundColor: "var(--page-bg)", overflowX: "clip" }}>
     <div ref={pageRef} style={{ fontFamily: "var(--font-inter), 'Inter', sans-serif", backgroundColor: "var(--surface)", position: "relative", zIndex: 1 }}>
       <Header />
 
-      {/* Hero */}
+      {}
       <section style={{ position: "relative", paddingTop: 72, overflow: "hidden" }}>
         <SubpageHero>
           <div className="hero-anim svc-crumb" style={{ display: "flex", alignItems: "center", gap: 8, opacity: 0 }}>
@@ -312,7 +303,7 @@ function ServicePageInner({ service, allServices, locale }: { service: ServiceDa
             >
               <ArrowLeft size={13} /> {t("breadcrumbServices")}
             </a>
-            {/* Both hidden below 768px — see .svc-crumb-* in globals.css */}
+            {}
             <span className="svc-crumb-sep" style={{ color: "var(--text-faint)", fontSize: FS_BODY }}>/</span>
             <span className="svc-crumb-current" style={{ fontSize: FS_BODY, color: "var(--text-muted)" }}>{service.name}</span>
           </div>
@@ -326,10 +317,10 @@ function ServicePageInner({ service, allServices, locale }: { service: ServiceDa
         </SubpageHero>
       </section>
 
-      {/* Intro — short tagline lead-in */}
+      {}
       <section className="intro-section" style={{ backgroundColor: "var(--surface)" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-          {/* T3 service description as the intro heading (tagline retired from this slot) */}
+          {}
           <div className="intro-anim" style={{ opacity: 0 }}>
             <p className="service-tagline" style={{ fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: FS_H3, color: DARK, margin: "0 0 20px", letterSpacing: "-0.025em", lineHeight: 1.35, maxWidth: 800 }}>{service.overview}</p>
             <div style={{ height: 1, backgroundColor: "var(--border)" }} />
@@ -337,12 +328,11 @@ function ServicePageInner({ service, allServices, locale }: { service: ServiceDa
         </div>
       </section>
 
-      {/* Main content column + services sidebar — spans from "Nə daxildir?"
-          through the process steps, stopping before the closing CTA. */}
+      {}
       <div style={{ display: "flex", alignItems: "flex-start" }}>
       <div style={{ flex: 1, minWidth: 0 }}>
 
-      {/* Features / package — what's included, then what you get, then who it's for */}
+      {}
       <section className="features-section" style={{ backgroundColor: CREAM }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
           <div className="pkg-head">
@@ -355,9 +345,7 @@ function ServicePageInner({ service, allServices, locale }: { service: ServiceDa
             </div>
           </div>
           <div className="pkg-rule" style={{ height: 1, backgroundColor: "var(--border)" }} />
-          {/* Desktop column count is a data question, not a breakpoint one: four
-              features read better as 2×2 than as 3+1. Hence the modifier class,
-              which only takes effect at ≥1024px. */}
+          {}
           <div
             className={service.features.length === 4 ? "features-bento features-bento-2col" : "features-bento features-bento-3col"}
             style={{ display: "grid", gap: 12 }}
@@ -365,7 +353,7 @@ function ServicePageInner({ service, allServices, locale }: { service: ServiceDa
             {service.features.map((f, i) => <FeatureCard key={i} title={f.title} description={f.description} />)}
           </div>
 
-          {/* What you get + CTA */}
+          {}
           <div className="whatget-row" style={{ display: "grid", alignItems: "start" }}>
             <div className="whatget-anim" style={{ opacity: 0 }}>
               <p style={{ fontSize: FS_LABEL, fontWeight: 700, color: DARK, letterSpacing: "0.18em", textTransform: "uppercase", margin: "0 0 18px" }}>{t("whatYouGet")}</p>
@@ -392,11 +380,8 @@ function ServicePageInner({ service, allServices, locale }: { service: ServiceDa
             </div>
           </div>
 
-          {/* Who it's for — see TARGETS_FIGURE for the ≤1023px layering */}
-          {/* Both figures are always rendered and one is hidden per breakpoint,
-              rather than branching in JS. They share a single src, so the
-              hidden one costs no extra request — and the server HTML no longer
-              has to guess the viewport. See `.targets-figure-*`. */}
+          {}
+          {}
           <div className="targets-row" style={{ position: "relative" }}>
             <img
               className="targets-figure-stacked"
@@ -424,7 +409,7 @@ function ServicePageInner({ service, allServices, locale }: { service: ServiceDa
         </div>
       </section>
 
-      {/* Process */}
+      {}
       <section ref={processRef} style={{ backgroundColor: "var(--surface)", overflow: "hidden" }}>
         <div className="proc-header" style={{ margin: "0 auto" }}>
           <p style={{ fontSize: FS_LABEL, fontWeight: 600, color: DARK, letterSpacing: "0.2em", textTransform: "uppercase", margin: "0 0 14px" }}>{t("stepByStep")}</p>
@@ -454,7 +439,7 @@ function ServicePageInner({ service, allServices, locale }: { service: ServiceDa
       />
       </div>
 
-      {/* Bottom CTA */}
+      {}
       <section className="spcta-section" style={{ backgroundColor: "var(--surface)" }}>
         <div className="spcta-wrap" style={{ margin: "0 auto" }}>
           <div className="spcta-card" style={{ backgroundColor: INVERT, borderRadius: 24, position: "relative", overflow: "visible", display: "flex" }}>

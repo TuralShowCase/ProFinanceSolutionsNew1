@@ -30,9 +30,7 @@ export function HeroPagination({
             key={i}
             onClick={() => goToSlide(i)}
             aria-label={`${tHeader("slideAria")} ${i + 1}`}
-            /* `aria-current={active}` rendered aria-current="false" on the
-               inactive control, which is legal but noisy; omitting it is the
-               conventional way to say "not current". */
+            
             aria-current={active ? "true" : undefined}
             style={{
               display: "flex", alignItems: "center", gap: 10,
@@ -45,7 +43,7 @@ export function HeroPagination({
               {String(i + 1).padStart(2, "0")}
             </span>
             <span style={{ position: "relative", display: "block", height: 2, flex: 1, background: HAIR, borderRadius: 2, overflow: "hidden" }}>
-              {/* Fill is driven by the GSAP timer tween in HeroSection */}
+              {}
               <span
                 ref={(el) => setBarRef(i, el)}
                 style={{ position: "absolute", inset: 0, display: "block", background: ACCENT, borderRadius: 2, transform: "scaleX(0)", transformOrigin: "left center" }}
@@ -55,9 +53,7 @@ export function HeroPagination({
         );
       })}
 
-      {/* WCAG 2.2.2 — auto-advancing content needs a way to stop it.
-          Sized and coloured from the same tokens as the numerals so it reads as
-          part of the pagination rather than something bolted on. */}
+      {}
       <button
         onClick={onTogglePause}
         aria-label={paused ? t("playSlides") : t("pauseSlides")}

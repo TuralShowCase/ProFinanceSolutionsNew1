@@ -10,20 +10,14 @@ import { FS_H2, FS_LABEL, FS_BODY, FS_BODY_LG } from "@/app/lib/typography";
 
 gsap.registerPlugin(ScrollTrigger);
 
-/**
- * "Biz kimik" — the homepage introduction (replaces the old Brend fəlsəfəsi
- * pillars block). Text-first and deliberately NOT another numbered row list:
- * Industries and WhyUs further down already use that shape. One statement
- * heading, one column of copy, and the mission as a dark panel beside it —
- * the panel carries the section visually now that there's no photograph.
- */
+
 export function WhoWeAreSection() {
   const t      = useTranslations("whoWeAre");
   const locale = useLocale();
 
   const sectionRef = useRef<HTMLElement>(null);
 
-  // Same locale→path mapping the Header/Footer use (RU about page is /o-nas).
+ 
   const base = locale === "az" ? "" : `/${locale}`;
   const aboutHref = locale === "ru" ? `${base}/o-nas` : `${base}/about`;
 
@@ -46,13 +40,13 @@ export function WhoWeAreSection() {
     }, sectionRef);
 
     return () => ctx.revert();
-    // Markup no longer changes with the breakpoint, so these triggers are built
-    // once. ScrollTrigger recalculates its own positions on resize.
+   
+   
   }, []);
 
   const headingId = "who-we-are-heading";
 
-  /* ── Body copy: lead paragraph sets up the two About paragraphs ── */
+  
   const bodyCopy = (
     <>
       <p className="wwa-anim" style={{ opacity: 0, fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif", fontWeight: 600, fontSize: FS_BODY_LG, color: "var(--text)", lineHeight: 1.6, letterSpacing: "-0.015em", margin: "0 0 22px" }}>
@@ -80,8 +74,7 @@ export function WhoWeAreSection() {
     </a>
   );
 
-  /* ── Mission panel — same dark-card language as the About page's mission,
-       so the two pages read as one system rather than two treatments. ── */
+  
   const missionCard = (
     <div
       className="wwa-mission"
@@ -124,7 +117,7 @@ export function WhoWeAreSection() {
     >
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
 
-        {/* ── Header: eyebrow + one statement line ── */}
+        {}
         <div className="wwa-anim wwa-head" style={{ opacity: 0 }}>
           <p style={{ fontSize: FS_LABEL, fontWeight: 600, color: DARK, letterSpacing: "0.2em", textTransform: "uppercase", margin: "0 0 16px" }}>
             {t("sectionLabel")}
@@ -139,9 +132,7 @@ export function WhoWeAreSection() {
 
         <div className="wwa-rule" style={{ height: 1, backgroundColor: "var(--border)" }} />
 
-        {/* One DOM order, two layouts — grid areas do the reordering.
-            Desktop/tablet: copy + link stacked on the left, mission panel on the
-            right. Mobile: copy, mission panel, then the link closes the section. */}
+        {}
         <div className="wwa-grid">
           <div className="wwa-body">{bodyCopy}</div>
           {ctaLink}

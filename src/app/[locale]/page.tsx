@@ -25,7 +25,7 @@ export async function generateMetadata({
 }
 
 export default function HomePage() {
-  // App renders all home sections. Components read locale from next-intl context
-  // (provided by the root layout which detected the locale via middleware).
+ 
+ 
   return <App />;
 }
