@@ -43,7 +43,7 @@ export const servicesDataEn: ServiceData[] = [
       'Company infrastructure ready, from registration to bookkeeping',
       'A working accounting system built from the ground up',
       'Full accounting support without an in-house accountant',
-      'Automated processes free of manual effort',
+      'Automated processes with minimal manual work',
       'Financial statements ready for banks and investors',
     ],
     iconName: 'Calculator',
@@ -81,7 +81,7 @@ export const servicesDataEn: ServiceData[] = [
     features: [
       { title: 'Development of tax strategy', description: 'The most advantageous tax regime for your activities is selected and a long-term tax strategy is built.' },
       { title: 'Optimisation of the tax burden', description: 'VAT optimisation, expense recognition and relief mechanisms are applied within the legal framework to minimise the tax burden.' },
-      { title: 'Tax planning', description: 'Tax liabilities are forecast in advance — unexpected amounts and penalty risks are ruled out.' },
+      { title: 'Tax planning', description: 'Tax liabilities are forecast in advance — unexpected amounts and penalty risks are minimised.' },
       { title: 'Preparation of tax reports', description: 'Returns are prepared and submitted via the government\'s electronic system at least 5–7 business days before the deadline.' },
       { title: 'Advice on changes in tax legislation', description: 'Every change in the Tax Code is tracked, with proactive advice on its impact on your business.' },
     ],
@@ -136,7 +136,7 @@ export const servicesDataEn: ServiceData[] = [
       'Transparent, fully mapped business processes',
       'Documented standard operating procedures',
       'A working ERP/CRM system and a trained team',
-      'Automated processes free of manual effort',
+      'Automated processes with minimal manual work',
       'Reduced operating costs with measurable savings',
     ],
     iconName: 'Monitor',
@@ -168,7 +168,7 @@ export const servicesDataEn: ServiceData[] = [
       'Payroll calculated accurately and on time',
       'Working HR policies tailored to your company',
       'The right people, properly recruited and onboarded',
-      'A business protected from labour disputes',
+      'Business with reduced exposure to labour disputes',
     ],
     iconName: 'Users',
     features: [
@@ -204,8 +204,8 @@ export const servicesDataEn: ServiceData[] = [
     features: [
       { title: 'Employee assessment', description: 'The team\'s knowledge level and development needs are identified through objective methods.' },
       { title: 'Development of training programmes', description: 'Bespoke learning programmes in individual and group formats, based on a needs analysis.' },
-      { title: 'Delivery of professional trainings', description: 'Practical, interactive sessions grounded in real business scenarios — including online modules with a personal learning dashboard.' },
-      { title: 'Training of accounting and HR specialists', description: 'Specialised programmes for accounting, tax and HR professionals — an official certificate is awarded on successful completion.' },
+      { title: 'Delivery of professional training sessions', description: 'Practical, interactive sessions grounded in real business scenarios — including online modules with a personal learning dashboard.' },
+      { title: 'Training of accounting and HR specialists', description: 'Specialised programmes for accounting, tax and HR professionals — a certificate of completion is awarded on successful completion.' },
     ],
     targets: ['Finance professionals', 'Accountants', 'Company managers', 'Those seeking to advance their careers'],
     process: [

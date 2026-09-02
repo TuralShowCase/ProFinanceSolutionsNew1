@@ -21,7 +21,7 @@
     "whatsappPrefill": "Salam! ProFinance Solutions haqqında məlumat almaq istəyirəm."
   },
   "footer": {
-    "tagline": "Sizin maliyyə və biznesdə etibarlı tərəfdaşınız",
+    "tagline": "Maliyyə və biznesdə etibarlı tərəfdaşınız",
     "services": "Xidmətlər",
     "company": "Şirkət",
     "contact": "Əlaqə",
@@ -34,7 +34,7 @@
     "address": "Bakı, Əhməd Rəcəbli-2 küçəsi",
     "copyright": "Bütün hüquqlar qorunur.",
     "city": "Bakı, Azərbaycan",
-    "designedBy": "Hazırlayan"
+    "designedBy": "Designed by"
   },
   "hero": {
     "slide1": {
@@ -51,8 +51,8 @@
   },
   "whoWeAre": {
     "sectionLabel": "Biz kimik",
-    "heading": "Maliyyə proseslərinizi",
-    "headingAccent": "sistemə çeviririk",
+    "heading": "Maliyyənizi",
+    "headingAccent": "idarə olunan sistemə çeviririk",
     "leadParagraph": "Müasir dünyada biznesin uğuru yalnız ambisiyalardan deyil, həm də maliyyələrin dəqiq və şəffaf idarə olunmasından asılıdır.",
     "paragraph1": "<b>ProFinance Solutions</b> şirkətinizin böyüməsinə, risklərin minimuma endirilməsinə və əsaslı maliyyə qərarlarının qəbuluna dəstək verən strateji tərəfdaş kimi çıxış edir. Təcrübəmiz maliyyə konsaltinqinin əsas sahələrini əhatə edir: mühasibatlıq, vergi, audit və maliyyə idarəçiliyi.",
     "paragraph2": "Məqsədimiz biznesi risklərdən qorumaqla yanaşı, onun inkişafı üçün yeni imkanlar yaratmaqdır. Müştərilərimizlə etibar, peşəkarlıq və strateji yanaşma üzərində qurulan uzunmüddətli tərəfdaşlıqlar qururuq.",
@@ -231,16 +231,16 @@
       "headingAccent": "bir hədəf",
       "subtext": "Sahənin ən yaxşı mütəxəssisləri bir çatı altında — sizin uğurunuz üçün.",
       "description": "ProFinance Solutions komandası maliyyə, vergi, audit və mühasibatlıq sahələrinin mütəxəssislərindən ibarətdir. Birlikdə müştərilərə tam spektrli, etibarlı maliyyə dəstəyi təqdim edirik.",
-      "leadParagraph": "Maliyyə, vergi, audit və mühasibatlıq sahələrinin dərin biliciləri bir komanda olaraq fəaliyyət göstərir.",
-      "bodyParagraph": "ProFinance Solutions-da hər üzv öz ixtisas sahəsinin mütəxəssisidir. Lakin biz ayrı-ayrı deyil, birgə işləyirik — müştərinin problemini 360° baxış bucağından analiz edib ən optimal həlli birlikdə hazırlayırıq.",
+      "leadParagraph": "Maliyyə, vergi, audit və mühasibatlıq sahələrinin yüksək səviyyəli mütəxəssisləri bir komanda olaraq fəaliyyət göstərir.",
+      "bodyParagraph": "ProFinance Solutions-da hər üzv öz ixtisas sahəsinin mütəxəssisidir. Lakin biz ayrı-ayrı deyil, birgə işləyirik — müştərinin problemini 360° baxış bucağından analiz edib optimal həlli birlikdə hazırlayırıq.",
       "traits": [
         {
           "title": "Sertifikatlı mütəxəssislər",
           "desc": "Komandamız mühasibatlıq, audit, vergi uçotu və HR idarəetməsi sahələrindəki sertifikatlı peşəkarlardan ibarətdir — hər üzv öz sahəsinin dərin bilicisidir."
         },
         {
-          "title": "Birgə 15+ il təcrübə",
-          "desc": "Mühasibat, vergi, audit, HR və maliyyə idarəçiliyi sahələrindəki 15+ il birgə peşəkar təcrübə — hər üzvün ixtisas biliyini birləşdirən bütöv bir komanda."
+          "title": "15+ il ümumi peşəkar təcrübə",
+          "desc": "Mühasibat, vergi, audit, HR və maliyyə idarəçiliyi sahələrindəki 15+ il ümumi peşəkar təcrübə — hər üzvün ixtisas biliyini birləşdirən bütöv bir komanda."
         },
         {
           "title": "Hər müştəriyə ayrıca yanaşma",
