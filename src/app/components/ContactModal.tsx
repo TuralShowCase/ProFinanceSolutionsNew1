@@ -13,7 +13,7 @@ const CONTACT_HREFS_BASE = [
   { Icon: Phone,         value: "+994 10 505 71 71",  href: "tel:+994105057171",                                     labelKey: "labelPhone"    },
   { Icon: MessageCircle, value: "+994 10 505 71 71",  href: "https://wa.me/994105057171",                            labelKey: "labelWhatsapp" },
   { Icon: Mail,          value: "info@profinance.az", href: "mailto:info@profinance.az",                            labelKey: "labelEmail"    },
-  { Icon: MapPin,        value: null as string | null, href: "https://maps.google.com/?q=Ahmad+Rajabli+2+Baku",     labelKey: "labelAddress"  },
+  { Icon: MapPin,        value: null as string | null, href: "https://maps.app.goo.gl/YZfweq9QZHbCNLzM6",     labelKey: "labelAddress"  },
 ];
 
 const socials = [

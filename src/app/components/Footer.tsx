@@ -34,7 +34,7 @@ export function Footer() {
     { Icon: Phone,         text: "+994 10 505 71 71",      href: "tel:+994105057171" },
     { Icon: MessageCircle, text: "+994 10 505 71 71",      href: "https://wa.me/994105057171" },
     { Icon: Mail,          text: "info@profinance.az",     href: "mailto:info@profinance.az" },
-    { Icon: MapPin,        text: t("footer.address"),      href: "https://maps.google.com/?q=Ahmad+Rajabli+2+Baku+Azerbaijan" },
+    { Icon: MapPin,        text: t("footer.address"),      href: "https://maps.app.goo.gl/YZfweq9QZHbCNLzM6" },
   ];
 
   const companyLinks = [
